@@ -1,0 +1,54 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="footer-inner container">
+    <span class="copyright">&copy; {year} SG57 Productions</span>
+    <span class="separator">|</span>
+    <a href="https://github.com/SG57" target="_blank" rel="noopener noreferrer">GitHub</a>
+    <span class="separator">|</span>
+    <a href="https://sg57.dev">sg57.dev</a>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    margin-top: auto;
+    border-top: 1px solid var(--sg57-border);
+    padding: 1.5rem 0;
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .copyright {
+    font-family: var(--sg57-font-display);
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: var(--sg57-text-muted);
+  }
+
+  .separator {
+    color: var(--sg57-text-muted);
+    font-size: 0.75rem;
+  }
+
+  .footer a {
+    font-family: var(--sg57-font-display);
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: var(--sg57-text-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer a:hover {
+    color: var(--sg57-accent);
+  }
+</style>

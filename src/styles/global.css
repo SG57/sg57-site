@@ -1,0 +1,124 @@
+/* ============================================
+   SG57 Design Tokens & Global Styles
+   ============================================ */
+
+/* --- Rajdhani Font Faces --- */
+@font-face {
+  font-family: 'Rajdhani';
+  src: url('/fonts/rajdhani-v17-latin-300.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Rajdhani';
+  src: url('/fonts/rajdhani-v17-latin-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Rajdhani';
+  src: url('/fonts/rajdhani-v17-latin-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Rajdhani';
+  src: url('/fonts/rajdhani-v17-latin-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Rajdhani';
+  src: url('/fonts/rajdhani-v17-latin-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --- Design Tokens --- */
+:root {
+  /* Backgrounds (Dark) */
+  --sg57-void: #0a0c10;
+  --sg57-surface: #12151a;
+  --sg57-elevated: #1c2028;
+  --sg57-raised: #262c36;
+
+  /* Borders */
+  --sg57-border: #2a3040;
+  --sg57-border-focus: #988ED5;
+
+  /* Text */
+  --sg57-text: #c8ccd2;
+  --sg57-text-dim: #848c96;
+  --sg57-text-muted: #4c5464;
+
+  /* Accent (Steel Violet) */
+  --sg57-accent: #988ED5;
+  --sg57-accent-hover: #A89DE0;
+  --sg57-accent-muted: #7B72B5;
+  --sg57-accent-glow: rgba(152, 142, 213, 0.15);
+
+  /* Semantic */
+  --sg57-success: #4caf6e;
+  --sg57-warning: #c4a03c;
+  --sg57-error: #c75050;
+  --sg57-info: #6b9eb8;
+
+  /* Typography */
+  --sg57-font-mono: 'Hack', 'Cascadia Code', 'JetBrains Mono', monospace;
+  --sg57-font-display: 'Rajdhani', system-ui, sans-serif;
+}
+
+/* --- Reset & Base --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--sg57-font-display);
+  font-weight: 400;
+  color: var(--sg57-text);
+  background-color: var(--sg57-void);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: var(--sg57-accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--sg57-accent-hover);
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* --- Utility --- */
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
