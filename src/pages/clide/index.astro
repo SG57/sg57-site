@@ -1,0 +1,482 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base
+  title="Clide — AI Terminal Command Center | SG57"
+  description="Mission Control for your AI terminal sessions. Manage dozens of CLI AI agents from one cockpit."
+  ogImage="/brand/clide-icon.svg"
+>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content container">
+      <div class="hero-icon">
+        <img src="/brand/clide-icon.svg" alt="" width="64" height="64" />
+      </div>
+      <h1 class="hero-title">
+        <span class="accent">CLIDE //</span> AI TERMINAL COMMAND CENTER
+      </h1>
+      <p class="hero-tagline">Mission Control for your AI terminal sessions.</p>
+      <p class="hero-subtitle">Manage dozens of CLI AI agents from one cockpit.</p>
+      <a
+        href="https://github.com/SG57/Clide/releases"
+        class="cta-button"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Download from GitHub &rarr;
+      </a>
+    </div>
+  </section>
+
+  <!-- Problem Statement -->
+  <section class="problem container">
+    <p class="problem-text">
+      You're running Claude Code, Cursor, Aider, and Copilot CLI &mdash; all at once.
+      Tab switching between 12 terminal windows. Missing prompts. Losing context.
+      <strong>Clide gives you one cockpit for all of them.</strong>
+    </p>
+  </section>
+
+  <!-- Feature Cards -->
+  <section class="features container">
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">&#9638;</div>
+        <h3 class="feature-heading">Mission Control</h3>
+        <p class="feature-desc">
+          Grid dashboard showing all your AI sessions at a glance.
+          Status, duration, last output &mdash; everything visible without switching tabs.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">&#9881;</div>
+        <h3 class="feature-heading">Concierge AI</h3>
+        <p class="feature-desc">
+          Auto-respond to terminal prompts with intelligent context.
+          Set grace timers, configure response patterns, let Concierge handle the routine
+          while you focus on the complex.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">&#9883;</div>
+        <h3 class="feature-heading">Steward Mode</h3>
+        <p class="feature-desc">
+          Autonomous agent orchestration. Define missions, set objectives, and let Steward
+          coordinate multiple AI agents to achieve your goals.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">&#9776;</div>
+        <h3 class="feature-heading">Fleet Panel</h3>
+        <p class="feature-desc">
+          Tab tree with grouping, emoji tags, and session management.
+          Organize dozens of sessions into logical groups. Drag, reorder, archive.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Table -->
+  <section class="pricing container">
+    <h2 class="section-heading">Plans</h2>
+    <div class="pricing-grid">
+      <!-- Free -->
+      <div class="pricing-card">
+        <div class="pricing-header">
+          <h3 class="pricing-tier">Free</h3>
+          <p class="pricing-price">$0</p>
+        </div>
+        <ul class="pricing-features">
+          <li>3 sessions</li>
+          <li>Basic grid view</li>
+          <li class="disabled">Multi-window</li>
+          <li class="disabled">Intel Panel</li>
+          <li class="disabled">Custom themes</li>
+          <li class="disabled">Terminal search</li>
+          <li class="disabled">Emoji tags</li>
+          <li class="disabled">Concierge AI</li>
+          <li class="disabled">Steward Mode</li>
+        </ul>
+      </div>
+
+      <!-- Pro -->
+      <div class="pricing-card highlighted">
+        <div class="pricing-badge">Most Popular</div>
+        <div class="pricing-header">
+          <h3 class="pricing-tier">Pro</h3>
+          <p class="pricing-price">$39 <span class="price-note">one-time</span></p>
+        </div>
+        <ul class="pricing-features">
+          <li>Unlimited sessions</li>
+          <li>Full dashboard</li>
+          <li class="included">Multi-window</li>
+          <li class="included">Intel Panel</li>
+          <li class="included">Custom themes</li>
+          <li class="included">Terminal search</li>
+          <li class="included">Emoji tags</li>
+          <li class="disabled">Concierge AI</li>
+          <li class="disabled">Steward Mode</li>
+        </ul>
+      </div>
+
+      <!-- AI Tier -->
+      <div class="pricing-card">
+        <div class="pricing-header">
+          <h3 class="pricing-tier">AI Tier</h3>
+          <p class="pricing-price">$5 <span class="price-note">/month</span></p>
+        </div>
+        <ul class="pricing-features">
+          <li>Unlimited sessions</li>
+          <li>Full dashboard</li>
+          <li class="included">Multi-window</li>
+          <li class="included">Intel Panel</li>
+          <li class="included">Custom themes</li>
+          <li class="included">Terminal search</li>
+          <li class="included">Emoji tags</li>
+          <li class="included">Concierge AI</li>
+          <li class="included">Steward Mode</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download CTA -->
+  <section class="download container">
+    <h2 class="download-heading">Ready to take control?</h2>
+    <a
+      href="https://github.com/SG57/Clide/releases"
+      class="cta-button"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Download from GitHub &rarr;
+    </a>
+  </section>
+</Base>
+
+<style>
+  /* --- Hero --- */
+  .hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 55vh;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(152, 142, 213, 0.02) 2px,
+        rgba(152, 142, 213, 0.02) 4px
+      ),
+      radial-gradient(ellipse at 50% 40%, rgba(152, 142, 213, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    text-align: center;
+    padding: 5rem 1.5rem 4rem;
+  }
+
+  .hero-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1.5rem;
+  }
+
+  .hero-title {
+    font-family: var(--sg57-font-display);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: #ffffff;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .hero-title .accent {
+    color: var(--sg57-accent);
+  }
+
+  .hero-tagline {
+    font-family: var(--sg57-font-display);
+    font-weight: 500;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--sg57-text);
+    margin-bottom: 0.35rem;
+  }
+
+  .hero-subtitle {
+    font-family: var(--sg57-font-display);
+    font-weight: 300;
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    color: var(--sg57-text-dim);
+    margin-bottom: 2rem;
+  }
+
+  .cta-button {
+    display: inline-block;
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+    background: var(--sg57-accent);
+    padding: 0.75rem 2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .cta-button:hover {
+    background: var(--sg57-accent-hover);
+    box-shadow: 0 0 24px var(--sg57-accent-glow);
+    color: #ffffff;
+  }
+
+  /* --- Problem Statement --- */
+  .problem {
+    padding: 3rem 1.5rem 4rem;
+    max-width: 780px;
+  }
+
+  .problem-text {
+    font-family: var(--sg57-font-display);
+    font-weight: 400;
+    font-size: clamp(1rem, 1.8vw, 1.15rem);
+    color: var(--sg57-text-dim);
+    line-height: 1.8;
+    text-align: center;
+  }
+
+  .problem-text strong {
+    color: var(--sg57-text);
+    font-weight: 600;
+  }
+
+  /* --- Features --- */
+  .features {
+    padding: 2rem 1.5rem 5rem;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .feature-card {
+    background: var(--sg57-surface);
+    border: 1px solid var(--sg57-border);
+    border-radius: 8px;
+    padding: 2rem;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .feature-card:hover {
+    border-color: var(--sg57-accent-muted);
+    box-shadow: 0 0 20px var(--sg57-accent-glow);
+  }
+
+  .feature-icon {
+    font-size: 1.75rem;
+    color: var(--sg57-accent);
+    margin-bottom: 1rem;
+    line-height: 1;
+  }
+
+  .feature-heading {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: 0.08em;
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+  }
+
+  .feature-desc {
+    font-family: var(--sg57-font-display);
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: var(--sg57-text-dim);
+    line-height: 1.6;
+  }
+
+  /* --- Pricing --- */
+  .pricing {
+    padding: 2rem 1.5rem 5rem;
+  }
+
+  .section-heading {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--sg57-accent);
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .pricing-card {
+    position: relative;
+    background: var(--sg57-surface);
+    border: 1px solid var(--sg57-border);
+    border-radius: 8px;
+    padding: 2rem 1.5rem;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .pricing-card:hover {
+    border-color: var(--sg57-accent-muted);
+    box-shadow: 0 0 20px var(--sg57-accent-glow);
+  }
+
+  .pricing-card.highlighted {
+    border-color: var(--sg57-accent);
+    box-shadow: 0 0 20px var(--sg57-accent-glow);
+  }
+
+  .pricing-badge {
+    position: absolute;
+    top: -0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: var(--sg57-accent);
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .pricing-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--sg57-border);
+  }
+
+  .pricing-tier {
+    font-family: var(--sg57-font-display);
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.1em;
+    color: #ffffff;
+    margin-bottom: 0.35rem;
+  }
+
+  .pricing-price {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1.75rem;
+    color: var(--sg57-accent);
+  }
+
+  .price-note {
+    font-weight: 400;
+    font-size: 0.85rem;
+    color: var(--sg57-text-dim);
+  }
+
+  .pricing-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .pricing-features li {
+    font-family: var(--sg57-font-display);
+    font-weight: 400;
+    font-size: 0.85rem;
+    color: var(--sg57-text);
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .pricing-features li::before {
+    content: '\2713';
+    position: absolute;
+    left: 0;
+    color: var(--sg57-success);
+    font-weight: 700;
+    font-size: 0.8rem;
+  }
+
+  .pricing-features li.included::before {
+    content: '\2713';
+    color: var(--sg57-success);
+  }
+
+  .pricing-features li.disabled {
+    color: var(--sg57-text-muted);
+  }
+
+  .pricing-features li.disabled::before {
+    content: '\2014';
+    color: var(--sg57-text-muted);
+  }
+
+  /* --- Download CTA --- */
+  .download {
+    text-align: center;
+    padding: 3rem 1.5rem 5rem;
+  }
+
+  .download-heading {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* --- Responsive --- */
+  @media (max-width: 900px) {
+    .pricing-grid {
+      grid-template-columns: 1fr;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero {
+      min-height: 45vh;
+    }
+
+    .hero-content {
+      padding: 3.5rem 1.5rem 3rem;
+    }
+  }
+</style>
