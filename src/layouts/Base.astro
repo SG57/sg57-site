@@ -1,0 +1,60 @@
+---
+import '../styles/global.css';
+import Nav from '../components/shared/Nav.astro';
+import Footer from '../components/shared/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title = 'SG57 Productions',
+  description = 'Developer tools for the modern workspace. AI terminal management and high-performance log analysis.',
+  ogImage = '/brand/sg57-studio-mark.svg',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/brand/sg57-glyph.svg" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
+
+    <!-- Preload fonts -->
+    <link rel="preload" href="/fonts/rajdhani-v17-latin-700.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/rajdhani-v17-latin-300.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/rajdhani-v17-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
+  </head>
+  <body>
+    <Nav />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

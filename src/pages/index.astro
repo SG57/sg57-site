@@ -1,0 +1,254 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content container">
+      <div class="hero-logo">
+        <span class="bracket">[</span>
+        <span class="logo-text">SG57</span>
+        <span class="bracket">]</span>
+      </div>
+      <p class="hero-productions">PRODUCTIONS</p>
+      <p class="hero-subtitle">Developer tools for the modern workspace</p>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="products container">
+    <div class="product-grid">
+      <a href="/clide" class="product-card">
+        <div class="product-icon">
+          <img src="/brand/clide-icon.svg" alt="" width="48" height="48" />
+        </div>
+        <h2 class="product-name">CLIDE <span class="product-sep">//</span> AI TERMINAL COMMAND CENTER</h2>
+        <p class="product-tagline">Mission Control for your AI terminal sessions.</p>
+        <p class="product-desc">
+          Manage dozens of CLI AI agents from one cockpit.
+        </p>
+        <span class="product-cta">Learn More &rarr;</span>
+      </a>
+
+      <a href="/siftr" class="product-card">
+        <div class="product-icon">
+          <img src="/brand/siftr-icon.svg" alt="" width="48" height="48" />
+        </div>
+        <h2 class="product-name">SIFTR <span class="product-sep">//</span> LOG ANALYSIS SYSTEM</h2>
+        <p class="product-tagline">200MB log files. 3 seconds. Zero crashes.</p>
+        <p class="product-desc">
+          High-performance log viewer for .NET/IIS environments.
+        </p>
+        <span class="product-cta">Learn More &rarr;</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about container">
+    <h2 class="about-heading">About</h2>
+    <p class="about-text">
+      SG57 Productions is an indie developer studio building focused,
+      high-performance tools for software engineers. We believe in
+      purpose-built software that does one thing exceptionally well &mdash;
+      no bloat, no compromises, just sharp tools for real workflows.
+    </p>
+  </section>
+</Base>
+
+<style>
+  /* --- Hero --- */
+  .hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(152, 142, 213, 0.02) 2px,
+        rgba(152, 142, 213, 0.02) 4px
+      ),
+      radial-gradient(ellipse at 50% 40%, rgba(152, 142, 213, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    text-align: center;
+    padding: 5rem 1.5rem;
+  }
+
+  .hero-logo {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .hero-logo .bracket {
+    font-family: var(--sg57-font-display);
+    font-weight: 200;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    color: #ffffff;
+    opacity: 0.5;
+  }
+
+  .hero-logo .logo-text {
+    font-family: var(--sg57-font-display);
+    font-weight: 700;
+    font-size: clamp(3rem, 8vw, 6rem);
+    color: #ffffff;
+    letter-spacing: 0.2em;
+    text-shadow: 0 0 40px rgba(255, 255, 255, 0.15);
+  }
+
+  .hero-productions {
+    font-family: var(--sg57-font-display);
+    font-weight: 300;
+    font-size: clamp(0.8rem, 1.5vw, 1.1rem);
+    letter-spacing: 0.45em;
+    color: var(--sg57-text-dim);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-subtitle {
+    font-family: var(--sg57-font-display);
+    font-weight: 300;
+    font-size: clamp(1rem, 2vw, 1.35rem);
+    color: var(--sg57-text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  /* --- Products --- */
+  .products {
+    padding: 4rem 1.5rem 5rem;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .product-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--sg57-surface);
+    border: 1px solid var(--sg57-border);
+    border-radius: 8px;
+    padding: 2rem;
+    text-decoration: none;
+    color: inherit;
+    transition:
+      border-color 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .product-card:hover {
+    border-color: var(--sg57-accent-muted);
+    box-shadow: 0 0 24px var(--sg57-accent-glow), inset 0 0 24px var(--sg57-accent-glow);
+  }
+
+  .product-icon {
+    margin-bottom: 1.25rem;
+    width: 48px;
+    height: 48px;
+  }
+
+  .product-name {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+  }
+
+  .product-sep {
+    color: var(--sg57-accent);
+    margin: 0 0.15em;
+  }
+
+  .product-tagline {
+    font-family: var(--sg57-font-display);
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--sg57-text);
+    margin-bottom: 0.35rem;
+  }
+
+  .product-desc {
+    font-family: var(--sg57-font-display);
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: var(--sg57-text-dim);
+    line-height: 1.5;
+    flex: 1;
+    margin-bottom: 1.25rem;
+  }
+
+  .product-cta {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--sg57-accent);
+    letter-spacing: 0.05em;
+    transition: color 0.2s ease;
+  }
+
+  .product-card:hover .product-cta {
+    color: var(--sg57-accent-hover);
+  }
+
+  /* --- About --- */
+  .about {
+    padding: 0 1.5rem 5rem;
+    max-width: 720px;
+  }
+
+  .about-heading {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--sg57-accent);
+    margin-bottom: 1rem;
+  }
+
+  .about-text {
+    font-family: var(--sg57-font-display);
+    font-weight: 400;
+    font-size: 1rem;
+    color: var(--sg57-text-dim);
+    line-height: 1.7;
+  }
+
+  /* --- Responsive --- */
+  @media (max-width: 720px) {
+    .product-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero {
+      min-height: 40vh;
+    }
+
+    .hero-content {
+      padding: 3.5rem 1.5rem;
+    }
+  }
+</style>
