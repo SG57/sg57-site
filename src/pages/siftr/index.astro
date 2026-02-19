@@ -1,0 +1,616 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base
+  title="Siftr — Log Analysis System | SG57 Productions"
+  description="High-performance log viewer for .NET/IIS environments. 200MB log files in 3 seconds with forensic analysis, heatmap minimap, and zero configuration."
+>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content container">
+      <div class="hero-badge">
+        <img src="/brand/siftr-icon.svg" alt="" width="40" height="40" />
+      </div>
+      <h1 class="hero-title">
+        <span class="hero-accent">SIFTR</span>
+        <span class="hero-sep">//</span>
+        LOG ANALYSIS SYSTEM
+      </h1>
+      <p class="hero-tagline">200MB log files. 3 seconds. Zero crashes.</p>
+      <p class="hero-subtitle">High-performance log viewer for .NET/IIS environments.</p>
+      <a
+        href="https://github.com/SG57/Siftr/releases"
+        class="cta-button"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Download from GitHub &rarr;
+      </a>
+    </div>
+  </section>
+
+  <!-- Problem Statement -->
+  <section class="problem container">
+    <p class="problem-text">
+      Your IIS just crashed. You have a 180MB log file. Notepad hangs. VS Code chokes.
+      Your log aggregator costs $200/month and you just need to find one stack trace.
+      <strong>Siftr opens it in 3 seconds.</strong>
+    </p>
+  </section>
+
+  <!-- Feature Cards -->
+  <section class="features container">
+    <h2 class="section-heading">Capabilities</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="6" width="4" height="20" rx="1" fill="var(--sg57-accent-muted)" opacity="0.5"/>
+            <rect x="10" y="10" width="4" height="16" rx="1" fill="var(--sg57-accent-muted)" opacity="0.65"/>
+            <rect x="16" y="4" width="4" height="22" rx="1" fill="var(--sg57-accent)" opacity="0.8"/>
+            <rect x="22" y="8" width="4" height="18" rx="1" fill="var(--sg57-accent)"/>
+          </svg>
+        </div>
+        <h3 class="feature-name">Heatmap Minimap</h3>
+        <p class="feature-desc">
+          Scrollbar-integrated density visualization. See errors, warnings, and patterns
+          across the entire file at a glance. Click to jump anywhere instantly.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="10" stroke="var(--sg57-accent)" stroke-width="2" fill="none"/>
+            <path d="M12 16l3 3 5-6" stroke="var(--sg57-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16 4v4M16 24v4M4 16h4M24 16h4" stroke="var(--sg57-accent-muted)" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+          </svg>
+        </div>
+        <h3 class="feature-name">Forensic Reports</h3>
+        <p class="feature-desc">
+          Automated anomaly detection with temporal segmentation, spike analysis, and
+          component health scoring. 6-pass analysis turns 200MB of noise into actionable findings.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 22l5-8 4 4 6-10 5 6" stroke="var(--sg57-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="26" cy="14" r="3" fill="var(--sg57-accent)" opacity="0.8"/>
+            <path d="M26 14v8" stroke="var(--sg57-accent-muted)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 2"/>
+          </svg>
+        </div>
+        <h3 class="feature-name">Follow Mode</h3>
+        <p class="feature-desc">
+          Real-time file watching with rollover detection. Monitor active log files as
+          your application runs. Never miss a critical error again.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="5" y="6" width="22" height="4" rx="1" fill="var(--sg57-accent-muted)" opacity="0.4"/>
+            <rect x="5" y="12" width="22" height="4" rx="1" fill="var(--sg57-accent-muted)" opacity="0.6"/>
+            <rect x="5" y="18" width="22" height="4" rx="1" fill="var(--sg57-accent)" opacity="0.8"/>
+            <rect x="5" y="24" width="14" height="4" rx="1" fill="var(--sg57-accent)"/>
+          </svg>
+        </div>
+        <h3 class="feature-name">Multi-Format Parsing</h3>
+        <p class="feature-desc">
+          Native support for log4net, NLog, Serilog, and IIS W3C formats. Auto-detection
+          means zero configuration &mdash; just open the file.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Table -->
+  <section class="comparison container">
+    <h2 class="section-heading">How Siftr Compares</h2>
+    <div class="table-wrapper">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Siftr</th>
+            <th>klogg</th>
+            <th>Seq</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>200MB+ files</td>
+            <td><span class="check">&check;</span> <span class="dim">(3s)</span></td>
+            <td><span class="dim">Slow</span></td>
+            <td><span class="dim">N/A (server)</span></td>
+          </tr>
+          <tr>
+            <td>Local / offline</td>
+            <td><span class="check">&check;</span></td>
+            <td><span class="check">&check;</span></td>
+            <td><span class="cross">&cross;</span></td>
+          </tr>
+          <tr>
+            <td>Free tier</td>
+            <td><span class="check">&check;</span> <span class="dim">(50MB)</span></td>
+            <td><span class="check">&check;</span></td>
+            <td><span class="check">&check;</span> <span class="dim">(5GB/day)</span></td>
+          </tr>
+          <tr>
+            <td>Forensic analysis</td>
+            <td><span class="check">&check;</span></td>
+            <td><span class="cross">&cross;</span></td>
+            <td><span class="dim">Partial</span></td>
+          </tr>
+          <tr>
+            <td>IIS-native</td>
+            <td><span class="check">&check;</span></td>
+            <td><span class="cross">&cross;</span></td>
+            <td><span class="cross">&cross;</span></td>
+          </tr>
+          <tr>
+            <td>Heatmap minimap</td>
+            <td><span class="check">&check;</span></td>
+            <td><span class="cross">&cross;</span></td>
+            <td><span class="cross">&cross;</span></td>
+          </tr>
+          <tr>
+            <td>One-time price</td>
+            <td><strong>$29</strong></td>
+            <td><span class="dim">Free</span></td>
+            <td><span class="dim">$186/yr</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="pricing container">
+    <h2 class="section-heading">Pricing</h2>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-tier">Free</h3>
+        <p class="pricing-price">$0</p>
+        <ul class="pricing-list">
+          <li>Files up to 50MB</li>
+          <li>Search &amp; filters</li>
+          <li>Heatmap minimap</li>
+          <li>Follow mode</li>
+          <li class="pricing-absent">Forensic Reports</li>
+          <li class="pricing-absent">Watch Sessions</li>
+          <li class="pricing-absent">Focus Mode</li>
+          <li class="pricing-absent">IIS Grouping</li>
+          <li class="pricing-absent">Export &amp; Bookmarks</li>
+        </ul>
+      </div>
+
+      <div class="pricing-card pricing-card--pro">
+        <h3 class="pricing-tier">Pro</h3>
+        <p class="pricing-price">$29 <span class="pricing-once">one-time</span></p>
+        <ul class="pricing-list">
+          <li>Unlimited file size</li>
+          <li>Search &amp; filters</li>
+          <li>Heatmap minimap</li>
+          <li>Follow mode</li>
+          <li>Forensic Reports</li>
+          <li>Watch Sessions</li>
+          <li>Focus Mode</li>
+          <li>IIS Grouping</li>
+          <li>Export &amp; Bookmarks</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="final-cta">
+    <div class="container">
+      <p class="final-cta-text">Stop waiting for your logs to load.</p>
+      <a
+        href="https://github.com/SG57/Siftr/releases"
+        class="cta-button"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Download from GitHub &rarr;
+      </a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ============================================
+     Siftr Product Page — Scoped Styles
+     ============================================ */
+
+  /* --- Hero --- */
+  .hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 55vh;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(152, 142, 213, 0.02) 2px,
+        rgba(152, 142, 213, 0.02) 4px
+      ),
+      radial-gradient(ellipse at 50% 40%, rgba(152, 142, 213, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    text-align: center;
+    padding: 5rem 1.5rem 4rem;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    background: var(--sg57-surface);
+    border: 1px solid var(--sg57-border);
+    border-radius: 16px;
+    margin-bottom: 2rem;
+  }
+
+  .hero-title {
+    font-family: var(--sg57-font-display);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: #ffffff;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .hero-accent {
+    color: var(--sg57-accent);
+  }
+
+  .hero-sep {
+    color: var(--sg57-accent-muted);
+    margin: 0 0.15em;
+    font-weight: 400;
+  }
+
+  .hero-tagline {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+    color: var(--sg57-text);
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-subtitle {
+    font-family: var(--sg57-font-display);
+    font-weight: 300;
+    font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+    color: var(--sg57-text-dim);
+    margin-bottom: 2rem;
+  }
+
+  /* --- CTA Button --- */
+  .cta-button {
+    display: inline-block;
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+    background: var(--sg57-accent);
+    border: 1px solid var(--sg57-accent);
+    border-radius: 6px;
+    padding: 0.75rem 2rem;
+    text-decoration: none;
+    transition:
+      background 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .cta-button:hover {
+    background: var(--sg57-accent-hover);
+    border-color: var(--sg57-accent-hover);
+    color: #ffffff;
+    box-shadow: 0 0 20px var(--sg57-accent-glow);
+  }
+
+  /* --- Problem Statement --- */
+  .problem {
+    padding: 3rem 1.5rem 4rem;
+    max-width: 780px;
+  }
+
+  .problem-text {
+    font-family: var(--sg57-font-display);
+    font-weight: 400;
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
+    color: var(--sg57-text-dim);
+    line-height: 1.8;
+    text-align: center;
+  }
+
+  .problem-text strong {
+    color: var(--sg57-text);
+    font-weight: 600;
+  }
+
+  /* --- Section Heading --- */
+  .section-heading {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--sg57-accent);
+    margin-bottom: 2rem;
+  }
+
+  /* --- Feature Cards --- */
+  .features {
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .feature-card {
+    background: var(--sg57-surface);
+    border: 1px solid var(--sg57-border);
+    border-radius: 8px;
+    padding: 2rem;
+    transition:
+      border-color 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .feature-card:hover {
+    border-color: var(--sg57-accent-muted);
+    box-shadow: 0 0 24px var(--sg57-accent-glow), inset 0 0 24px var(--sg57-accent-glow);
+  }
+
+  .feature-icon {
+    margin-bottom: 1.25rem;
+    width: 32px;
+    height: 32px;
+  }
+
+  .feature-name {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+  }
+
+  .feature-desc {
+    font-family: var(--sg57-font-display);
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: var(--sg57-text-dim);
+    line-height: 1.6;
+  }
+
+  /* --- Comparison Table --- */
+  .comparison {
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--sg57-font-display);
+    font-size: 0.9rem;
+  }
+
+  .comparison-table thead th {
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sg57-text-dim);
+    text-align: left;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--sg57-border);
+  }
+
+  .comparison-table thead th:nth-child(2) {
+    color: var(--sg57-accent);
+  }
+
+  .comparison-table tbody td {
+    padding: 0.75rem 1rem;
+    color: var(--sg57-text);
+    border-bottom: 1px solid var(--sg57-border);
+  }
+
+  .comparison-table tbody tr:nth-child(even) {
+    background: var(--sg57-surface);
+  }
+
+  .comparison-table tbody tr:nth-child(odd) {
+    background: var(--sg57-elevated);
+  }
+
+  .check {
+    color: var(--sg57-success);
+    font-weight: 700;
+  }
+
+  .cross {
+    color: var(--sg57-error);
+    opacity: 0.6;
+  }
+
+  .dim {
+    color: var(--sg57-text-dim);
+    font-size: 0.85rem;
+  }
+
+  /* --- Pricing --- */
+  .pricing {
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    max-width: 680px;
+  }
+
+  .pricing-card {
+    background: var(--sg57-surface);
+    border: 1px solid var(--sg57-border);
+    border-radius: 8px;
+    padding: 2rem;
+  }
+
+  .pricing-card--pro {
+    border-color: var(--sg57-accent);
+    box-shadow: 0 0 16px var(--sg57-accent-glow);
+  }
+
+  .pricing-tier {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+  }
+
+  .pricing-card--pro .pricing-tier {
+    color: var(--sg57-accent);
+  }
+
+  .pricing-price {
+    font-family: var(--sg57-font-display);
+    font-weight: 700;
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+  }
+
+  .pricing-once {
+    font-weight: 400;
+    font-size: 0.85rem;
+    color: var(--sg57-text-dim);
+  }
+
+  .pricing-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .pricing-list li {
+    font-family: var(--sg57-font-display);
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: var(--sg57-text);
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .pricing-list li::before {
+    content: '\2713';
+    position: absolute;
+    left: 0;
+    color: var(--sg57-success);
+    font-weight: 700;
+  }
+
+  .pricing-list li.pricing-absent {
+    color: var(--sg57-text-muted);
+  }
+
+  .pricing-list li.pricing-absent::before {
+    content: '\2014';
+    color: var(--sg57-text-muted);
+    font-weight: 400;
+  }
+
+  /* --- Final CTA --- */
+  .final-cta {
+    padding: 4rem 1.5rem 5rem;
+    text-align: center;
+  }
+
+  .final-cta-text {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    color: var(--sg57-text);
+    margin-bottom: 1.5rem;
+  }
+
+  /* --- Responsive --- */
+  @media (max-width: 720px) {
+    .hero {
+      min-height: 45vh;
+    }
+
+    .hero-content {
+      padding: 3.5rem 1.5rem 3rem;
+    }
+
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pricing-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .comparison-table {
+      font-size: 0.8rem;
+    }
+
+    .comparison-table thead th,
+    .comparison-table tbody td {
+      padding: 0.6rem 0.75rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-title {
+      font-size: 1.3rem;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-badge {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+    }
+  }
+</style>
