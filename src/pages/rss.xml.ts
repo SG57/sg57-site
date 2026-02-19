@@ -8,8 +8,8 @@ export const GET: APIRoute = async (context) => {
     .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
   return rss({
-    title: 'SG57 Productions Blog',
-    description: 'Engineering notes, product announcements, and deep dives from SG57 Productions.',
+    title: 'SG57 Labs Blog',
+    description: 'Engineering notes, product announcements, and deep dives from SG57 Labs.',
     site: context.site!.toString(),
     items: posts.map((post) => ({
       title: post.data.title,
