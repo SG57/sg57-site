@@ -5,24 +5,24 @@
       <stop offset="0%" stop-color="#12151a"/>
       <stop offset="100%" stop-color="#0a0c10"/>
     </linearGradient>
-    <filter id="violet-glow" x="-50%" y="-50%" width="200%" height="200%">
+    <filter id="cyan-glow" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur"/>
       <feColorMatrix in="blur" type="matrix"
-        values="0 0 0 0 0.596
-                0 0 0 0 0.557
-                0 0 0 0 0.835
+        values="0 0 0 0 0.357
+                0 0 0 0 0.753
+                0 0 0 0 0.745
                 0 0 0 0.3 0" result="glow"/>
       <feMerge>
         <feMergeNode in="glow"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
-    <filter id="violet-aura" x="-50%" y="-50%" width="200%" height="200%">
+    <filter id="cyan-aura" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur in="SourceGraphic" stdDeviation="18" result="blur"/>
       <feColorMatrix in="blur" type="matrix"
-        values="0 0 0 0 0.596
-                0 0 0 0 0.557
-                0 0 0 0 0.835
+        values="0 0 0 0 0.357
+                0 0 0 0 0.753
+                0 0 0 0 0.745
                 0 0 0 0.25 0"/>
     </filter>
   </defs>
@@ -32,18 +32,18 @@
     fill="url(#bg-gradient)" stroke="#2a3040" stroke-width="2"/>
 
   <!-- Glow aura behind the prompt symbol (wide, soft bloom) -->
-  <g filter="url(#violet-aura)">
+  <g filter="url(#cyan-aura)">
     <path d="M 136 176 L 240 256 L 136 336"
-      fill="none" stroke="#988ED5" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
-    <rect x="272" y="314" width="108" height="22" rx="4" fill="#988ED5"/>
+      fill="none" stroke="#5BC0BE" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="272" y="314" width="108" height="22" rx="4" fill="#5BC0BE"/>
   </g>
 
   <!-- Terminal prompt >_ with crisp glow -->
-  <g filter="url(#violet-glow)">
+  <g filter="url(#cyan-glow)">
     <!-- Chevron > — bold geometric path -->
     <path d="M 136 176 L 240 256 L 136 336"
-      fill="none" stroke="#988ED5" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+      fill="none" stroke="#5BC0BE" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
     <!-- Cursor _ — simple rectangle -->
-    <rect x="272" y="314" width="108" height="22" rx="4" fill="#988ED5"/>
+    <rect x="272" y="314" width="108" height="22" rx="4" fill="#5BC0BE"/>
   </g>
 </svg>

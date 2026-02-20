@@ -20,12 +20,12 @@ import Base from '../../layouts/Base.astro';
       <p class="hero-tagline">Mission Control for your AI terminal sessions.</p>
       <p class="hero-subtitle">Manage dozens of CLI AI agents from one cockpit.</p>
       <a
-        href="https://github.com/SG57/Clide/releases"
+        href="https://sg57.lemonsqueezy.com"
         class="cta-button"
         target="_blank"
         rel="noopener noreferrer"
       >
-        Download from GitHub &rarr;
+        Download &rarr;
       </a>
     </div>
   </section>
@@ -149,12 +149,12 @@ import Base from '../../layouts/Base.astro';
   <section class="download container">
     <h2 class="download-heading">Ready to take control?</h2>
     <a
-      href="https://github.com/SG57/Clide/releases"
+      href="https://sg57.lemonsqueezy.com"
       class="cta-button"
       target="_blank"
       rel="noopener noreferrer"
     >
-      Download from GitHub &rarr;
+      Download &rarr;
     </a>
   </section>
 </Base>
@@ -179,10 +179,10 @@ import Base from '../../layouts/Base.astro';
         0deg,
         transparent,
         transparent 2px,
-        rgba(152, 142, 213, 0.02) 2px,
-        rgba(152, 142, 213, 0.02) 4px
+        rgba(91, 192, 190, 0.02) 2px,
+        rgba(91, 192, 190, 0.02) 4px
       ),
-      radial-gradient(ellipse at 50% 40%, rgba(152, 142, 213, 0.08) 0%, transparent 70%);
+      radial-gradient(ellipse at 50% 40%, rgba(91, 192, 190, 0.08) 0%, transparent 70%);
     pointer-events: none;
   }
 
@@ -206,6 +206,18 @@ import Base from '../../layouts/Base.astro';
     letter-spacing: 0.08em;
     margin-bottom: 1rem;
     line-height: 1.2;
+  }
+
+  /* Product-specific accent: Signal Cyan */
+  .hero,
+  .problem,
+  .features,
+  .pricing,
+  .download {
+    --sg57-accent: #5BC0BE;
+    --sg57-accent-hover: #6DD4D2;
+    --sg57-accent-muted: #4A9E9C;
+    --sg57-accent-glow: rgba(91, 192, 190, 0.15);
   }
 
   .hero-title .accent {

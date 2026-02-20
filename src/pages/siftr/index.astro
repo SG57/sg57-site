@@ -21,12 +21,12 @@ import Base from '../../layouts/Base.astro';
       <p class="hero-tagline">200MB log files. 3 seconds. Zero crashes.</p>
       <p class="hero-subtitle">High-performance log viewer for .NET/IIS environments.</p>
       <a
-        href="https://github.com/SG57/Siftr/releases"
+        href="https://sg57.lemonsqueezy.com"
         class="cta-button"
         target="_blank"
         rel="noopener noreferrer"
       >
-        Download from GitHub &rarr;
+        Download &rarr;
       </a>
     </div>
   </section>
@@ -212,12 +212,12 @@ import Base from '../../layouts/Base.astro';
     <div class="container">
       <p class="final-cta-text">Stop waiting for your logs to load.</p>
       <a
-        href="https://github.com/SG57/Siftr/releases"
+        href="https://sg57.lemonsqueezy.com"
         class="cta-button"
         target="_blank"
         rel="noopener noreferrer"
       >
-        Download from GitHub &rarr;
+        Download &rarr;
       </a>
     </div>
   </section>
@@ -239,6 +239,19 @@ import Base from '../../layouts/Base.astro';
     background: url('/images/hero-bg.webp') center / cover no-repeat;
   }
 
+  /* Product-specific accent: Diagnostic Amber */
+  .hero,
+  .problem,
+  .features,
+  .comparison,
+  .pricing,
+  .final-cta {
+    --sg57-accent: #D4A15A;
+    --sg57-accent-hover: #DEB374;
+    --sg57-accent-muted: #B8894A;
+    --sg57-accent-glow: rgba(212, 161, 90, 0.15);
+  }
+
   .hero-bg {
     position: absolute;
     inset: 0;
@@ -247,10 +260,10 @@ import Base from '../../layouts/Base.astro';
         0deg,
         transparent,
         transparent 2px,
-        rgba(152, 142, 213, 0.02) 2px,
-        rgba(152, 142, 213, 0.02) 4px
+        rgba(212, 161, 90, 0.02) 2px,
+        rgba(212, 161, 90, 0.02) 4px
       ),
-      radial-gradient(ellipse at 50% 40%, rgba(152, 142, 213, 0.06) 0%, transparent 70%);
+      radial-gradient(ellipse at 50% 40%, rgba(212, 161, 90, 0.06) 0%, transparent 70%);
     pointer-events: none;
   }
 
