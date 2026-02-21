@@ -29,11 +29,11 @@
           font-family="'Rajdhani', 'Segoe UI', system-ui, sans-serif"
           font-size="96" font-weight="200" fill="#ffffff"
           letter-spacing="0.06em">SG57</text>
-    <!-- LABS glow -->
+    <!-- PRODUCTIONS glow -->
     <text x="300" y="160" text-anchor="middle"
           font-family="'Rajdhani', 'Segoe UI', system-ui, sans-serif"
           font-size="17" font-weight="300" fill="#ffffff"
-          letter-spacing="0.55em">LABS</text>
+          letter-spacing="0.38em">PRODUCTIONS</text>
   </g>
 
   <!-- Crisp layer: the actual sharp elements -->
@@ -58,10 +58,10 @@
           font-size="96" font-weight="200" fill="#ffffff"
           letter-spacing="0.06em">SG57</text>
 
-    <!-- Subtitle: LABS -->
+    <!-- Subtitle: PRODUCTIONS -->
     <text x="300" y="160" text-anchor="middle"
           font-family="'Rajdhani', 'Segoe UI', system-ui, sans-serif"
           font-size="17" font-weight="300" fill="#ffffff"
-          letter-spacing="0.55em">LABS</text>
+          letter-spacing="0.38em">PRODUCTIONS</text>
   </g>
 </svg>
