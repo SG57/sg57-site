@@ -5,24 +5,24 @@
       <stop offset="0%" stop-color="#12151a"/>
       <stop offset="100%" stop-color="#0a0c10"/>
     </linearGradient>
-    <filter id="amber-glow" x="-50%" y="-50%" width="200%" height="200%">
+    <filter id="violet-glow" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur"/>
       <feColorMatrix in="blur" type="matrix"
-        values="0 0 0 0 0.831
-                0 0 0 0 0.631
-                0 0 0 0 0.353
+        values="0 0 0 0 0.596
+                0 0 0 0 0.557
+                0 0 0 0 0.835
                 0 0 0 0.3 0" result="glow"/>
       <feMerge>
         <feMergeNode in="glow"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
-    <filter id="amber-aura" x="-50%" y="-50%" width="200%" height="200%">
+    <filter id="violet-aura" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur in="SourceGraphic" stdDeviation="18" result="blur"/>
       <feColorMatrix in="blur" type="matrix"
-        values="0 0 0 0 0.831
-                0 0 0 0 0.631
-                0 0 0 0 0.353
+        values="0 0 0 0 0.596
+                0 0 0 0 0.557
+                0 0 0 0 0.835
                 0 0 0 0.25 0"/>
     </filter>
     <clipPath id="frame-clip">
@@ -35,25 +35,40 @@
     fill="url(#bg-gradient)" stroke="#2a3040" stroke-width="2"/>
 
   <g clip-path="url(#frame-clip)">
-    <!-- Log entry lines -->
+    <!--
+      Log entry lines: left-aligned, stacked, varying widths.
+      Content zone ~120-392 horizontal, lines centered vertically
+      in the upper portion so the magnifier overlaps bottom-right.
+      Available width for lines: 272px (120 to 392).
+      Line widths: 70%=190, 55%=149, 65%=176, 45%=122
+    -->
+
+    <!-- Line 1: 70% width, full opacity -->
     <rect x="116" y="164" width="190" height="10" rx="5" fill="#c8ccd2" opacity="1.0"/>
+
+    <!-- Line 2: 55% width, 0.7 opacity -->
     <rect x="116" y="196" width="149" height="10" rx="5" fill="#c8ccd2" opacity="0.7"/>
+
+    <!-- Line 3: 65% width, 0.85 opacity -->
     <rect x="116" y="228" width="176" height="10" rx="5" fill="#c8ccd2" opacity="0.85"/>
+
+    <!-- Line 4: 45% width, 0.5 opacity -->
     <rect x="116" y="260" width="122" height="10" rx="5" fill="#c8ccd2" opacity="0.5"/>
 
-    <!-- Magnifying glass: soft amber aura -->
-    <g filter="url(#amber-aura)">
-      <circle cx="316" cy="300" r="68" fill="none" stroke="#D4A15A" stroke-width="6"/>
+    <!-- Magnifying glass: overlaps bottom-right of log lines -->
+    <!-- Soft violet aura -->
+    <g filter="url(#violet-aura)">
+      <circle cx="316" cy="300" r="68" fill="none" stroke="#988ED5" stroke-width="6"/>
       <line x1="364" y1="348" x2="404" y2="388"
-        stroke="#D4A15A" stroke-width="6" stroke-linecap="round"/>
+        stroke="#988ED5" stroke-width="6" stroke-linecap="round"/>
     </g>
 
     <!-- Magnifier with crisp glow -->
-    <g filter="url(#amber-glow)">
+    <g filter="url(#violet-glow)">
       <circle cx="316" cy="300" r="68"
-        fill="rgba(212, 161, 90, 0.05)" stroke="#D4A15A" stroke-width="6"/>
+        fill="rgba(152, 142, 213, 0.05)" stroke="#988ED5" stroke-width="6"/>
       <line x1="364" y1="348" x2="404" y2="388"
-        stroke="#D4A15A" stroke-width="6" stroke-linecap="round"/>
+        stroke="#988ED5" stroke-width="6" stroke-linecap="round"/>
     </g>
   </g>
 </svg>
