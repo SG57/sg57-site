@@ -260,6 +260,40 @@ svg {
 }
 
 /* ============================================
+   PAGE TRANSITIONS (Astro ClientRouter)
+   View Transitions API with CSS fallback.
+   ============================================ */
+
+/* Persistent chrome elements — stay fixed, zero animation */
+::view-transition-image-pair(site-sliver),
+::view-transition-image-pair(site-wallpaper),
+::view-transition-image-pair(site-ambient),
+::view-transition-image-pair(site-particles) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Page content exit: fast fade-out, imperceptibly drift upward */
+::view-transition-old(page-main) {
+  animation: 160ms ease-in both sg57-page-out;
+}
+
+/* Page content entry: smooth fade-in with subtle rise from below */
+::view-transition-new(page-main) {
+  animation: 360ms var(--sg57-ease-snap, cubic-bezier(0.16, 1, 0.3, 1)) both sg57-page-in;
+}
+
+@keyframes sg57-page-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sg57-page-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* ============================================
    §7 ANIMATION SYSTEM — Keyframe Library
    ============================================ */
 

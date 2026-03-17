@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Nav from '../components/shared/Nav.astro';
 import Footer from '../components/shared/Footer.astro';
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
   title?: string;
@@ -70,24 +71,28 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="preload" href="/fonts/rajdhani-v17-latin-700.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/rajdhani-v17-latin-300.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/rajdhani-v17-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- Client-side routing with View Transitions -->
+    <ClientRouter />
   </head>
   <body>
 
     <!-- ══ Edge Sliver (§9.1) — 2px brand fingerprint, full-width, above everything ══ -->
-    <div class="edge-sliver" aria-hidden="true"></div>
+    <div class="edge-sliver" aria-hidden="true" style="view-transition-name: site-sliver;"></div>
 
     <!-- ══ Layer −3: Fixed wallpaper — always viewport-filling, never scrolls ══ -->
-    <div class="site-wallpaper" aria-hidden="true"></div>
+    <div class="site-wallpaper" aria-hidden="true" style="view-transition-name: site-wallpaper;"></div>
 
     <!-- ══ Layer −2: Ambient drift (DNA app "on" mode — 90 s ease-in-out) ══ -->
-    <div class="ambient-drift" aria-hidden="true"></div>
+    <div class="ambient-drift" aria-hidden="true" style="view-transition-name: site-ambient;"></div>
 
     <!-- ══ Layer −1: Drifting particles (3 depth layers → stereoscopic depth)
          --td = negative delay so each particle starts mid-animation.
          --dur = individual duration. Both are inline custom props — zero
          repeated CSS rules, one inline value controls each particle's timing. ══ -->
     <svg class="particles" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice"
-         xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+         xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"
+         style="view-transition-name: site-particles;">
       <defs>
         <filter id="glow-fg" x="-60%" y="-60%" width="220%" height="220%">
           <feGaussianBlur stdDeviation="2.5" result="b"/>
@@ -147,7 +152,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     </svg>
 
     <Nav />
-    <main>
+    <main style="view-transition-name: page-main;">
       <slot />
     </main>
     <Footer />
