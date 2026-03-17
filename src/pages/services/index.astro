@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import DigitalHealthQuiz from '../../components/services/DigitalHealthQuiz.astro';
+import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro';
 ---
 
 <Base
@@ -199,6 +200,20 @@ import DigitalHealthQuiz from '../../components/services/DigitalHealthQuiz.astro
           The result is <strong>staplesandstatements.com</strong> — a digital presence that finally matches the
           caliber of her work.
         </p>
+      </div>
+
+      <!-- Before / After slider -->
+      <div class="proof-slider-wrap">
+        <div class="proof-slider-label">
+          <span class="psl-glyph" aria-hidden="true">◆</span>
+          TRANSFORMATION
+        </div>
+        <BeforeAfterSlider
+          beforeSrc="/services/ss-before.jpg"
+          afterSrc="/services/ss-after.jpg"
+          beforeAlt="Staples & Statements website before redesign — basic WordPress template"
+          afterAlt="Staples & Statements website after redesign by SG57 Labs — cinematic dark identity"
+        />
       </div>
 
       <div class="proof-deliverables">
@@ -916,6 +931,31 @@ import DigitalHealthQuiz from '../../components/services/DigitalHealthQuiz.astro
   .proof-result-line strong {
     color: var(--sg57-accent);
     font-weight: 600;
+  }
+
+  /* ── Slider wrapper inside proof card ── */
+  .proof-slider-wrap {
+    border-top: 1px solid var(--frost-border);
+    border-bottom: 1px solid var(--frost-border);
+  }
+
+  .proof-slider-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 2.5rem;
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sg57-accent);
+    border-bottom: 1px solid var(--frost-border);
+  }
+
+  .psl-glyph {
+    font-size: 0.55rem;
+    animation: pulse-glow 4s ease-in-out infinite;
   }
 
   .proof-deliverables {

@@ -1,0 +1,345 @@
+---
+interface Props {
+  beforeSrc: string;
+  afterSrc:  string;
+  beforeAlt?: string;
+  afterAlt?:  string;
+}
+const {
+  beforeSrc,
+  afterSrc,
+  beforeAlt = 'Before',
+  afterAlt  = 'After',
+} = Astro.props;
+
+// Diagonal offset: how many % of width the cut skews rightward from top→bottom
+const ANGLE = 5;
+const START = 50;
+---
+
+<div
+  class="ba"
+  id="ba-slider"
+  data-angle={ANGLE}
+  data-start={START}
+  role="figure"
+  aria-label="Before and after comparison — drag to compare"
+  tabindex="0"
+>
+  <!-- Layer 1: AFTER (new site) — always visible beneath -->
+  <img
+    class="ba-img"
+    src={afterSrc}
+    alt={afterAlt}
+    draggable="false"
+    aria-hidden="true"
+  />
+
+  <!-- Layer 2: BEFORE (old site) — clipped to left of diagonal handle -->
+  <div class="ba-before" id="ba-before" aria-hidden="true">
+    <img
+      class="ba-img"
+      src={beforeSrc}
+      alt={beforeAlt}
+      draggable="false"
+    />
+    <!-- Desaturate overlay on BEFORE to amplify the contrast -->
+    <div class="ba-before-overlay"></div>
+  </div>
+
+  <!-- Labels -->
+  <span class="ba-lbl ba-lbl--before" aria-hidden="true">BEFORE</span>
+  <span class="ba-lbl ba-lbl--after"  aria-hidden="true">AFTER</span>
+
+  <!-- Drag hint (fades out after first interaction) -->
+  <div class="ba-hint" id="ba-hint" aria-hidden="true">
+    <span class="ba-hint-arrow">‹</span>
+    <span class="ba-hint-text">DRAG</span>
+    <span class="ba-hint-arrow">›</span>
+  </div>
+
+  <!-- Divider: line + handle -->
+  <div class="ba-divider" id="ba-divider" aria-hidden="true">
+    <div class="ba-line"></div>
+    <button
+      class="ba-handle"
+      id="ba-handle"
+      role="slider"
+      aria-label="Comparison slider"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow={START}
+      tabindex="0"
+    >
+      <span class="ba-arrow" aria-hidden="true">‹</span>
+      <span class="ba-arrow" aria-hidden="true">›</span>
+    </button>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const slider = document.getElementById('ba-slider');
+    if (!slider) return;
+
+    const ANGLE    = parseFloat(slider.dataset.angle ?? '5');
+    const before   = document.getElementById('ba-before');
+    const divider  = document.getElementById('ba-divider');
+    const handle   = document.getElementById('ba-handle');
+    const hint     = document.getElementById('ba-hint');
+    if (!before || !divider || !handle) return;
+
+    let pos      = parseFloat(slider.dataset.start ?? '50');
+    let dragging = false;
+    let hinted   = false;
+
+    // ── Core update ─────────────────────────────────────────────────────────
+    function applyPos() {
+      const clamped = Math.max(3, Math.min(97 - ANGLE, pos));
+      // Clip BEFORE to the left portion with a diagonal right edge
+      before.style.clipPath =
+        `polygon(0 0, ${clamped}% 0, ${clamped + ANGLE}% 100%, 0 100%)`;
+      // Handle sits at the midpoint of the diagonal
+      divider.style.left = `${clamped + ANGLE / 2}%`;
+      handle.setAttribute('aria-valuenow', String(Math.round(clamped)));
+    }
+
+    function fromClientX(clientX) {
+      const rect = slider.getBoundingClientRect();
+      pos = ((clientX - rect.left) / rect.width) * 100;
+      applyPos();
+    }
+
+    function dismissHint() {
+      if (hinted) return;
+      hinted = true;
+      if (hint) {
+        hint.style.transition = 'opacity 0.4s ease';
+        hint.style.opacity = '0';
+        setTimeout(() => hint.style.display = 'none', 400);
+      }
+    }
+
+    // ── Pointer events (covers mouse + touch with one API) ───────────────────
+    handle.addEventListener('pointerdown', e => {
+      dragging = true;
+      handle.setPointerCapture(e.pointerId);
+      dismissHint();
+      e.preventDefault();
+    });
+
+    handle.addEventListener('pointermove', e => {
+      if (!dragging) return;
+      fromClientX(e.clientX);
+    });
+
+    handle.addEventListener('pointerup',     () => { dragging = false; });
+    handle.addEventListener('pointercancel', () => { dragging = false; });
+
+    // Click anywhere on the slider to jump
+    slider.addEventListener('click', e => {
+      if (e.target === handle) return;
+      fromClientX(e.clientX);
+      dismissHint();
+    });
+
+    // ── Keyboard ─────────────────────────────────────────────────────────────
+    handle.addEventListener('keydown', e => {
+      const step = e.shiftKey ? 10 : 3;
+      if      (e.key === 'ArrowLeft')  pos -= step;
+      else if (e.key === 'ArrowRight') pos += step;
+      else return;
+      e.preventDefault();
+      dismissHint();
+      applyPos();
+    });
+
+    // ── Init ─────────────────────────────────────────────────────────────────
+    applyPos();
+  });
+</script>
+
+<style>
+  /* ── CONTAINER ── */
+  .ba {
+    position: relative;
+    overflow: hidden;
+    cursor: ew-resize;
+    user-select: none;
+    touch-action: pan-y;
+    aspect-ratio: 16 / 9;
+    background: #000;
+  }
+
+  /* ── IMAGES ── */
+  .ba-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    pointer-events: none;
+    display: block;
+    -webkit-user-drag: none;
+  }
+
+  /* ── BEFORE PANE (clipped left) ── */
+  .ba-before {
+    position: absolute;
+    inset: 0;
+    /* initial clip set by JS */
+    clip-path: polygon(0 0, 50% 0, 55% 100%, 0 100%);
+  }
+
+  .ba-before-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.08);
+    /* subtle desaturate to make BEFORE feel older */
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+
+  /* ── LABELS ── */
+  .ba-lbl {
+    position: absolute;
+    top: 1rem;
+    font-family: var(--sg57-font-mono, monospace);
+    font-weight: 700;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    padding: 0.3rem 0.7rem;
+    border-radius: 3px;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  .ba-lbl--before {
+    left: 1rem;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(4px);
+  }
+
+  .ba-lbl--after {
+    right: 1rem;
+    background: rgba(196, 137, 106, 0.2);
+    border: 1px solid rgba(196, 137, 106, 0.4);
+    color: #C4896A;
+    backdrop-filter: blur(4px);
+  }
+
+  /* ── DRAG HINT ── */
+  .ba-hint {
+    position: absolute;
+    bottom: 1.1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--sg57-font-mono, monospace);
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    color: rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+    z-index: 5;
+    animation: hint-pulse 2.5s ease-in-out infinite;
+  }
+
+  .ba-hint-arrow {
+    font-size: 0.85rem;
+    color: rgba(196, 137, 106, 0.6);
+  }
+
+  @keyframes hint-pulse {
+    0%, 100% { opacity: 0.5; }
+    50%       { opacity: 1; }
+  }
+
+  /* ── DIVIDER ── */
+  .ba-divider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 52.5%; /* midpoint of default 50% pos + ANGLE/2 */
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    pointer-events: none;
+    width: 0;
+  }
+
+  /* The visible diagonal line */
+  .ba-line {
+    position: absolute;
+    top: -5%;
+    height: 110%;
+    width: 2px;
+    left: 50%;
+    transform: translateX(-50%) rotate(3.2deg);
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(196, 137, 106, 0.6) 15%,
+      rgba(220, 165, 130, 0.95) 50%,
+      rgba(196, 137, 106, 0.6) 85%,
+      transparent 100%
+    );
+    box-shadow:
+      0 0 6px rgba(196, 137, 106, 0.5),
+      0 0 20px rgba(196, 137, 106, 0.2);
+    pointer-events: none;
+  }
+
+  /* ── HANDLE ── */
+  .ba-handle {
+    position: relative;
+    z-index: 1;
+    pointer-events: all;
+    cursor: ew-resize;
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    background: rgba(10, 10, 20, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(196, 137, 106, 0.5);
+    box-shadow:
+      0 0 0 3px rgba(196, 137, 106, 0.12),
+      0 4px 20px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+    flex-shrink: 0;
+  }
+
+  .ba-handle:hover,
+  .ba-handle:focus-visible {
+    border-color: rgba(196, 137, 106, 0.9);
+    box-shadow:
+      0 0 0 4px rgba(196, 137, 106, 0.2),
+      0 0 24px rgba(196, 137, 106, 0.35),
+      0 4px 20px rgba(0, 0, 0, 0.5);
+    transform: scale(1.08);
+    outline: none;
+  }
+
+  .ba-handle:active {
+    transform: scale(0.97);
+  }
+
+  .ba-arrow {
+    font-size: 0.85rem;
+    color: #C4896A;
+    line-height: 1;
+    font-weight: 700;
+  }
+</style>
