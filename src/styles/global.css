@@ -1,5 +1,6 @@
 /* ============================================
    SG57 Design Tokens & Global Styles
+   Aligned with SG57-APP-DNA §5 (tokens), §6 (glass), §7 (animation)
    ============================================ */
 
 /* --- Rajdhani Font Faces --- */
@@ -39,38 +40,128 @@
   font-display: swap;
 }
 
-/* --- Design Tokens --- */
+/* ============================================
+   §5 DESIGN TOKENS (dark default, all apps)
+   ============================================ */
 :root {
-  /* Backgrounds (Dark) */
+  /* --- Background Layers --- */
   --sg57-void: #0a0c10;
   --sg57-surface: #12151a;
   --sg57-elevated: #1c2028;
   --sg57-raised: #262c36;
 
-  /* Borders */
+  /* --- Borders --- */
   --sg57-border: #2a3040;
+  --sg57-border-subtle: rgba(255, 255, 255, 0.06);
+  --sg57-border-glass: rgba(255, 255, 255, 0.08);
   --sg57-border-focus: #988ED5;
 
-  /* Text */
+  /* --- Text --- */
   --sg57-text: #c8ccd2;
   --sg57-text-dim: #848c96;
   --sg57-text-muted: #4c5464;
+  --sg57-text-inverse: #0a0c10;
 
-  /* Accent (Steel Violet) */
+  /* --- Accent (Steel Violet — site default, overridden per product) --- */
   --sg57-accent: #988ED5;
   --sg57-accent-hover: #A89DE0;
   --sg57-accent-muted: #7B72B5;
   --sg57-accent-glow: rgba(152, 142, 213, 0.15);
+  --sg57-accent-glow-mid: rgba(152, 142, 213, 0.3);
+  --sg57-accent-glow-high: rgba(152, 142, 213, 0.5);
 
-  /* Semantic */
+  /* --- Semantic Colors --- */
   --sg57-success: #4caf6e;
   --sg57-warning: #c4a03c;
   --sg57-error: #c75050;
   --sg57-info: #6b9eb8;
 
-  /* Ambient gradient — transparent violet tint over the wallpaper.
-     "on" mode is subtle; "extra" is more vibrant.
-     To switch: set --sg57-ambient-gradient to var(--sg57-ambient-gradient-extra). */
+  /* --- Typography --- */
+  --sg57-font-display: 'Rajdhani', system-ui, sans-serif;
+  --sg57-font-mono: 'Geist Mono', 'Cascadia Code', 'JetBrains Mono', 'Fira Code', monospace;
+  --sg57-font-xs: 11px;
+  --sg57-font-sm: 13px;
+  --sg57-font-base: 15px;
+  --sg57-font-lg: 17px;
+  --sg57-font-xl: 20px;
+  --sg57-font-2xl: 24px;
+  --sg57-font-3xl: 32px;
+
+  /* --- Spacing Scale --- */
+  --sg57-space-1: 4px;
+  --sg57-space-2: 8px;
+  --sg57-space-3: 12px;
+  --sg57-space-4: 16px;
+  --sg57-space-5: 20px;
+  --sg57-space-6: 24px;
+  --sg57-space-8: 32px;
+  --sg57-space-10: 40px;
+  --sg57-space-12: 48px;
+
+  /* --- Border Radius --- */
+  --sg57-radius-sm: 4px;
+  --sg57-radius-md: 8px;
+  --sg57-radius-lg: 12px;
+  --sg57-radius-xl: 16px;
+  --sg57-radius-full: 9999px;
+
+  /* --- Transitions --- */
+  --sg57-ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --sg57-ease-snap: cubic-bezier(0.16, 1, 0.3, 1);
+  --sg57-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --sg57-duration-instant: 50ms;
+  --sg57-duration-fast: 100ms;
+  --sg57-duration-normal: 150ms;
+  --sg57-duration-moderate: 200ms;
+  --sg57-duration-slow: 250ms;
+  --sg57-duration-stagger: 30ms;
+
+  /* --- Chrome / Edge Sliver (§9.1) --- */
+  --sg57-edge-sliver: 2px;
+
+  /* ============================================
+     §6 GLASS SYSTEM (canonical DNA values)
+     ============================================ */
+  --sg57-glass-bg: rgba(18, 21, 26, 0.75);
+  --sg57-glass-bg-dense: rgba(18, 21, 26, 0.88);
+  --sg57-glass-blur: 12px;
+  --sg57-glass-border: rgba(255, 255, 255, 0.08);
+  --sg57-glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+  /* --- Overlay System --- */
+  --sg57-overlay-subtle: rgba(0, 0, 0, 0.05);
+  --sg57-overlay-light: rgba(0, 0, 0, 0.15);
+  --sg57-overlay-medium: rgba(0, 0, 0, 0.3);
+  --sg57-overlay-heavy: rgba(0, 0, 0, 0.5);
+  --sg57-overlay-backdrop: rgba(0, 0, 0, 0.6);
+
+  /* --- Shadows --- */
+  --sg57-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --sg57-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --sg57-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --sg57-shadow-glow: 0 0 20px var(--sg57-accent-glow);
+
+  /* --- Scrollbar --- */
+  --sg57-scrollbar-track: var(--sg57-void);
+  --sg57-scrollbar-thumb: #3a4050;
+  --sg57-scrollbar-thumb-hover: #505868;
+
+  /* --- Selection --- */
+  --sg57-selection-bg: rgba(152, 142, 213, 0.25);
+  --sg57-selection-text: var(--sg57-text);
+
+  /* --- Focus --- */
+  --sg57-focus-ring: 0 0 0 2px rgba(152, 142, 213, 0.3);
+
+  /* ============================================
+     WEBSITE-SPECIFIC EXTENSIONS
+     (not in apps — unique to sg57.dev)
+     ============================================ */
+
+  /* Ambient gradient — transparent violet tint over fixed wallpaper.
+     "on" mode subtle; "extra" more vibrant.
+     The DNA app ambient is opaque (it IS the background).
+     Here it overlays a photo — keep it transparent rgba. */
   --sg57-ambient-gradient: radial-gradient(
     ellipse 120% 80% at 20% 30%,
     rgba(152, 142, 213, 0.18)  0%,
@@ -85,18 +176,19 @@
     transparent               75%
   );
 
-  /* Frost / Glass — adjust --frost-blur to change all glass surfaces site-wide */
+  /* Frost aliases — glass tokens tuned for photo-wallpaper context.
+     More transparent than DNA app glass (wallpaper visible through panels).
+     Components reference --frost-* for backward compat.
+     To adjust all glass surfaces site-wide: change these 4 vars. */
   --frost-blur:   18px;
   --frost-bg:     rgba(10, 12, 16, 0.52);
   --frost-border: rgba(255, 255, 255, 0.07);
   --frost-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
-
-  /* Typography */
-  --sg57-font-mono: 'Hack', 'Cascadia Code', 'JetBrains Mono', monospace;
-  --sg57-font-display: 'Rajdhani', system-ui, sans-serif;
 }
 
-/* --- Reset & Base --- */
+/* ============================================
+   RESET & BASE
+   ============================================ */
 *,
 *::before,
 *::after {
@@ -125,7 +217,7 @@ body {
 a {
   color: var(--sg57-accent);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color var(--sg57-duration-moderate) ease;
 }
 
 a:hover {
@@ -138,10 +230,61 @@ svg {
   max-width: 100%;
 }
 
+/* --- Scrollbar --- */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--sg57-scrollbar-track); }
+::-webkit-scrollbar-thumb {
+  background: var(--sg57-scrollbar-thumb);
+  border-radius: var(--sg57-radius-full);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--sg57-scrollbar-thumb-hover); }
+
+/* --- Selection --- */
+::selection {
+  background: var(--sg57-selection-bg);
+  color: var(--sg57-selection-text);
+}
+
+/* --- Focus --- */
+:focus-visible {
+  outline: none;
+  box-shadow: var(--sg57-focus-ring);
+}
+
 /* --- Utility --- */
 .container {
   width: 100%;
   max-width: 1120px;
   margin: 0 auto;
   padding: 0 1.5rem;
+}
+
+/* ============================================
+   §7 ANIMATION SYSTEM — Keyframe Library
+   ============================================ */
+
+/* Entry */
+@keyframes fade-in    { from { opacity: 0; }                              to { opacity: 1; } }
+@keyframes slide-up   { from { opacity: 0; transform: translateY(6px); }  to { opacity: 1; transform: translateY(0); } }
+@keyframes slide-down { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes scale-in   { from { opacity: 0; transform: scale(0.96); }      to { opacity: 1; transform: scale(1); } }
+
+/* Ambient / breathing */
+@keyframes pulse-glow  { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+@keyframes edge-breathe { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.8; } }
+
+/* Stagger utility — set --stagger-index on the element */
+.stagger-item {
+  animation-delay: calc(var(--stagger-index, 0) * var(--sg57-duration-stagger));
+}
+
+/* --- Reduced motion (WCAG 2.1 AA) --- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

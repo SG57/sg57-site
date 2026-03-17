@@ -25,7 +25,7 @@ import Base from '../layouts/Base.astro';
   <!-- ══ Products ══ -->
   <section class="products container">
     <div class="product-grid">
-      <a href="/clide" class="product-card product-card--clide">
+      <a href="/clide" class="product-card product-card--clide stagger-item" style="--stagger-index: 0; animation: slide-up 0.5s var(--sg57-ease-snap) both;">
         <div class="product-icon">
           <img src="/brand/clide-icon.svg" alt="" width="48" height="48" />
         </div>
@@ -34,7 +34,7 @@ import Base from '../layouts/Base.astro';
         <p class="product-desc">Manage dozens of CLI AI agents from one cockpit.</p>
         <span class="product-cta">Learn More &rarr;</span>
       </a>
-      <a href="/siftr" class="product-card product-card--siftr">
+      <a href="/siftr" class="product-card product-card--siftr stagger-item" style="--stagger-index: 1; animation: slide-up 0.5s var(--sg57-ease-snap) both;">
         <div class="product-icon">
           <img src="/brand/siftr-icon.svg" alt="" width="48" height="48" />
         </div>
@@ -189,7 +189,7 @@ import Base from '../layouts/Base.astro';
     padding: 2rem;
     text-decoration: none;
     color: inherit;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s var(--sg57-ease-out);
   }
 
   .product-card:hover {
@@ -198,6 +198,7 @@ import Base from '../layouts/Base.astro';
       0 0 32px var(--sg57-accent-glow),
       inset 0 0 32px var(--sg57-accent-glow),
       var(--frost-shadow);
+    transform: translateY(-2px);
   }
 
   .product-card--clide {

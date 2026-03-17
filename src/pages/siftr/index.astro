@@ -5,6 +5,10 @@ import Base from '../../layouts/Base.astro';
 <Base
   title="Siftr — Log Analysis System | SG57 Labs"
   description="High-performance log viewer for .NET/IIS environments. 200MB log files in 3 seconds with forensic analysis, heatmap minimap, and zero configuration."
+  accentColor="#D4A15A"
+  accentHover="#DEB374"
+  accentMuted="#B8894A"
+  accentGlow="rgba(212, 161, 90, 0.15)"
 >
   <!-- Hero -->
   <section class="hero">
@@ -404,12 +408,14 @@ import Base from '../../layouts/Base.astro';
     padding: 2rem;
     transition:
       border-color 0.25s ease,
-      box-shadow 0.25s ease;
+      box-shadow 0.25s ease,
+      transform 0.2s var(--sg57-ease-out);
   }
 
   .feature-card:hover {
     border-color: var(--sg57-accent-muted);
     box-shadow: 0 0 24px var(--sg57-accent-glow), inset 0 0 24px var(--sg57-accent-glow);
+    transform: translateY(-2px);
   }
 
   .feature-icon {
@@ -547,6 +553,13 @@ import Base from '../../layouts/Base.astro';
     border: 1px solid var(--sg57-border);
     border-radius: 8px;
     padding: 2rem;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s var(--sg57-ease-out);
+  }
+
+  .pricing-card:hover {
+    border-color: var(--sg57-accent-muted);
+    box-shadow: 0 0 20px var(--sg57-accent-glow);
+    transform: translateY(-2px);
   }
 
   .pricing-card--pro {

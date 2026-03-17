@@ -7,19 +7,40 @@ interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  /** Per-product accent override — sets --sg57-accent at html level so
+   *  the edge sliver and any inherited accent pick up the product color.
+   *  e.g. "#5BC0BE" for Clide, "#D4A15A" for Siftr. */
+  accentColor?: string;
+  accentGlow?: string;
+  accentHover?: string;
+  accentMuted?: string;
 }
 
 const {
   title = 'SG57 Labs',
   description = 'SG57 Labs — Software Refinery. Purpose-built, high-performance software.',
   ogImage = '/sg57/sg57-icon.png',
+  accentColor,
+  accentGlow,
+  accentHover,
+  accentMuted,
 } = Astro.props;
+
+// Build per-product accent override style string (injected on <html>)
+const accentStyle = accentColor
+  ? [
+      `--sg57-accent: ${accentColor}`,
+      accentHover  ? `--sg57-accent-hover: ${accentHover}`   : '',
+      accentMuted  ? `--sg57-accent-muted: ${accentMuted}`   : '',
+      accentGlow   ? `--sg57-accent-glow: ${accentGlow}`     : '',
+    ].filter(Boolean).join('; ')
+  : undefined;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" style={accentStyle}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -51,6 +72,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="preload" href="/fonts/rajdhani-v17-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
   </head>
   <body>
+
+    <!-- ══ Edge Sliver (§9.1) — 2px brand fingerprint, full-width, above everything ══ -->
+    <div class="edge-sliver" aria-hidden="true"></div>
 
     <!-- ══ Layer −3: Fixed wallpaper — always viewport-filling, never scrolls ══ -->
     <div class="site-wallpaper" aria-hidden="true"></div>
@@ -131,6 +155,29 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 </html>
 
 <style>
+  /* ════════════════════════════════════════════════════
+     EDGE SLIVER (§9.1) — brand fingerprint
+     2px · full-width · accent gradient · 8s breathing
+     z-index 1000 — above nav (z 100) and everything else
+     ════════════════════════════════════════════════════ */
+  .edge-sliver {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--sg57-edge-sliver, 2px);
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      var(--sg57-accent) 30%,
+      var(--sg57-accent) 70%,
+      transparent 100%
+    );
+    z-index: 1000;
+    pointer-events: none;
+    animation: edge-breathe 8s ease-in-out infinite;
+  }
+
   /* ════════════════════════════════════════════════════
      BACKGROUND LAYERS  (all pages — fixed · z-index negative)
      Content in normal flow is always painted above these.
