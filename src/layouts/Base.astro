@@ -12,7 +12,7 @@ interface Props {
 const {
   title = 'SG57 Labs',
   description = 'SG57 Labs — Software Refinery. Purpose-built, high-performance software.',
-  ogImage = '/brand/sg57-studio-mark.svg',
+  ogImage = '/sg57/sg57-icon.png',
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -30,7 +30,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="canonical" href={canonicalURL} />
 
     <!-- Favicons -->
-    <link rel="icon" type="image/svg+xml" href="/brand/sg57-glyph.svg" />
+    <link rel="icon" type="image/png" href="/sg57/sg57-icon.png" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -51,6 +51,77 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="preload" href="/fonts/rajdhani-v17-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
   </head>
   <body>
+
+    <!-- ══ Layer −3: Fixed wallpaper — always viewport-filling, never scrolls ══ -->
+    <div class="site-wallpaper" aria-hidden="true"></div>
+
+    <!-- ══ Layer −2: Ambient drift (DNA app "on" mode — 90 s ease-in-out) ══ -->
+    <div class="ambient-drift" aria-hidden="true"></div>
+
+    <!-- ══ Layer −1: Drifting particles (3 depth layers → stereoscopic depth)
+         --td = negative delay so each particle starts mid-animation.
+         --dur = individual duration. Both are inline custom props — zero
+         repeated CSS rules, one inline value controls each particle's timing. ══ -->
+    <svg class="particles" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice"
+         xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <defs>
+        <filter id="glow-fg" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="2.5" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="glow-mg" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="1.2" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- Foreground: large · bright · fast (8–12 s · ±12–15 px · twinkle) -->
+      <circle cx="145"  cy="180" r="2.5" fill="#e4e0f5" filter="url(#glow-fg)" class="p p-fg pa" style="--td:-0.0s;--dur:9.0s"/>
+      <circle cx="420"  cy="320" r="2.0" fill="#c4bce8" filter="url(#glow-fg)" class="p p-fg pb" style="--td:-3.1s;--dur:11.0s"/>
+      <circle cx="680"  cy="85"  r="2.8" fill="#e4e0f5" filter="url(#glow-fg)" class="p p-fg pa" style="--td:-1.7s;--dur:8.5s"/>
+      <circle cx="950"  cy="440" r="2.2" fill="#b8b0e0" filter="url(#glow-fg)" class="p p-fg pb" style="--td:-5.2s;--dur:10.5s"/>
+      <circle cx="1230" cy="210" r="2.0" fill="#e4e0f5" filter="url(#glow-fg)" class="p p-fg pa" style="--td:-2.4s;--dur:9.5s"/>
+      <circle cx="260"  cy="620" r="2.5" fill="#c4bce8" filter="url(#glow-fg)" class="p p-fg pb" style="--td:-7.8s;--dur:12.0s"/>
+      <circle cx="830"  cy="730" r="2.0" fill="#e4e0f5" filter="url(#glow-fg)" class="p p-fg pa" style="--td:-0.9s;--dur:8.0s"/>
+      <circle cx="1100" cy="560" r="2.5" fill="#b8b0e0" filter="url(#glow-fg)" class="p p-fg pb" style="--td:-4.5s;--dur:11.5s"/>
+      <circle cx="380"  cy="760" r="1.8" fill="#e4e0f5" filter="url(#glow-fg)" class="p p-fg pa" style="--td:-6.3s;--dur:10.0s"/>
+      <circle cx="1350" cy="680" r="2.0" fill="#c4bce8" filter="url(#glow-fg)" class="p p-fg pb" style="--td:-1.2s;--dur:9.0s"/>
+
+      <!-- Midground: medium · drift only (14–18 s · ±7–10 px) -->
+      <circle cx="70"   cy="450" r="1.5" fill="#9098b8" filter="url(#glow-mg)" class="p p-mg pc" style="--td:-8.1s;--dur:15.0s"/>
+      <circle cx="195"  cy="290" r="1.7" fill="#8090b0" filter="url(#glow-mg)" class="p p-mg pd" style="--td:-2.7s;--dur:17.0s"/>
+      <circle cx="490"  cy="530" r="1.5" fill="#9098b8" filter="url(#glow-mg)" class="p p-mg pc" style="--td:-11.4s;--dur:14.5s"/>
+      <circle cx="730"  cy="200" r="1.6" fill="#8090b0" filter="url(#glow-mg)" class="p p-mg pd" style="--td:-4.2s;--dur:16.0s"/>
+      <circle cx="1020" cy="120" r="1.5" fill="#9098b8" filter="url(#glow-mg)" class="p p-mg pc" style="--td:-9.8s;--dur:18.0s"/>
+      <circle cx="1280" cy="400" r="1.8" fill="#8090b0" filter="url(#glow-mg)" class="p p-mg pd" style="--td:-1.5s;--dur:15.5s"/>
+      <circle cx="550"  cy="810" r="1.5" fill="#9098b8" filter="url(#glow-mg)" class="p p-mg pc" style="--td:-6.6s;--dur:17.5s"/>
+      <circle cx="880"  cy="650" r="1.6" fill="#8090b0" filter="url(#glow-mg)" class="p p-mg pd" style="--td:-13.2s;--dur:16.5s"/>
+      <circle cx="1150" cy="780" r="1.5" fill="#9098b8" filter="url(#glow-mg)" class="p p-mg pc" style="--td:-3.9s;--dur:14.0s"/>
+      <circle cx="310"  cy="870" r="1.4" fill="#8090b0" filter="url(#glow-mg)" class="p p-mg pd" style="--td:-10.5s;--dur:16.0s"/>
+      <circle cx="760"  cy="480" r="1.6" fill="#9098b8" filter="url(#glow-mg)" class="p p-mg pc" style="--td:-5.1s;--dur:15.0s"/>
+      <circle cx="1320" cy="850" r="1.4" fill="#8090b0" filter="url(#glow-mg)" class="p p-mg pd" style="--td:-7.3s;--dur:17.0s"/>
+      <circle cx="90"   cy="720" r="1.5" fill="#9098b8" filter="url(#glow-mg)" class="p p-mg pc" style="--td:-14.1s;--dur:18.0s"/>
+      <circle cx="640"  cy="350" r="1.6" fill="#8090b0" filter="url(#glow-mg)" class="p p-mg pd" style="--td:-0.8s;--dur:15.5s"/>
+      <circle cx="1180" cy="300" r="1.5" fill="#9098b8" filter="url(#glow-mg)" class="p p-mg pc" style="--td:-12.0s;--dur:14.5s"/>
+
+      <!-- Background: tiny · dim · slow (20–28 s · ±3–5 px) -->
+      <circle cx="180"  cy="110" r="0.8" fill="#4a5066" class="p p-bg pe" style="--td:-5.5s;--dur:23.0s"/>
+      <circle cx="350"  cy="480" r="0.9" fill="#4a5066" class="p p-bg pf" style="--td:-17.2s;--dur:26.0s"/>
+      <circle cx="520"  cy="170" r="0.7" fill="#4a5066" class="p p-bg pe" style="--td:-8.9s;--dur:21.0s"/>
+      <circle cx="740"  cy="380" r="1.0" fill="#505878" class="p p-bg pf" style="--td:-3.3s;--dur:28.0s"/>
+      <circle cx="970"  cy="580" r="0.8" fill="#4a5066" class="p p-bg pe" style="--td:-14.7s;--dur:24.0s"/>
+      <circle cx="1220" cy="160" r="0.9" fill="#4a5066" class="p p-bg pf" style="--td:-6.1s;--dur:22.0s"/>
+      <circle cx="130"  cy="850" r="0.7" fill="#4a5066" class="p p-bg pe" style="--td:-20.4s;--dur:25.0s"/>
+      <circle cx="460"  cy="700" r="0.8" fill="#505878" class="p p-bg pf" style="--td:-11.8s;--dur:27.0s"/>
+      <circle cx="820"  cy="140" r="1.0" fill="#4a5066" class="p p-bg pe" style="--td:-2.1s;--dur:20.0s"/>
+      <circle cx="1060" cy="760" r="0.7" fill="#4a5066" class="p p-bg pf" style="--td:-9.4s;--dur:26.0s"/>
+      <circle cx="280"  cy="400" r="0.8" fill="#4a5066" class="p p-bg pe" style="--td:-16.5s;--dur:23.0s"/>
+      <circle cx="600"  cy="620" r="0.9" fill="#505878" class="p p-bg pf" style="--td:-4.7s;--dur:28.0s"/>
+      <circle cx="1390" cy="520" r="0.7" fill="#4a5066" class="p p-bg pe" style="--td:-13.0s;--dur:21.0s"/>
+      <circle cx="700"  cy="890" r="0.8" fill="#4a5066" class="p p-bg pf" style="--td:-7.6s;--dur:25.0s"/>
+      <circle cx="1000" cy="300" r="0.9" fill="#4a5066" class="p p-bg pe" style="--td:-19.1s;--dur:24.0s"/>
+    </svg>
+
     <Nav />
     <main>
       <slot />
@@ -58,3 +129,137 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <Footer />
   </body>
 </html>
+
+<style>
+  /* ════════════════════════════════════════════════════
+     BACKGROUND LAYERS  (all pages — fixed · z-index negative)
+     Content in normal flow is always painted above these.
+     ════════════════════════════════════════════════════ */
+
+  /* Layer −3: Wallpaper */
+  .site-wallpaper {
+    position: fixed;
+    inset: 0;
+    background: url('/images/hero-bg-2x.webp') center / cover no-repeat;
+    z-index: -3;
+    pointer-events: none;
+  }
+
+  /* Bottom vignette: fades the image to void so long pages don't hard-edge */
+  .site-wallpaper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30vh;
+    background: linear-gradient(to bottom, transparent, var(--sg57-void));
+  }
+
+  /* Layer −2: Ambient drift — transparent violet tint over the wallpaper */
+  .ambient-drift {
+    position: fixed;
+    inset: 0;
+    background-size: 200% 200%;
+    background-image: var(--sg57-ambient-gradient);
+    animation: ambient-drift 90s ease-in-out infinite;
+    z-index: -2;
+    pointer-events: none;
+  }
+
+  @keyframes ambient-drift {
+    0%   { background-position:   0%   0%; }
+    25%  { background-position: 100%  50%; }
+    50%  { background-position:  50% 100%; }
+    75%  { background-position:   0%  50%; }
+    100% { background-position:   0%   0%; }
+  }
+
+  /* Layer −1: Particles */
+  .particles {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  /* ── Particle animation system ── */
+  .p {
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+  }
+
+  .p-fg { opacity: 0.55; }
+  .pa {
+    animation-name: drift-a, twinkle;
+    animation-duration: var(--dur, 10s), 4.5s;
+    animation-delay:   var(--td,  0s), var(--td, 0s);
+  }
+  .pb {
+    animation-name: drift-b, twinkle;
+    animation-duration: var(--dur, 10s), 5.8s;
+    animation-delay:   var(--td,  0s), var(--td, 0s);
+  }
+
+  .p-mg { opacity: 0.28; }
+  .pc { animation-name: drift-c; animation-duration: var(--dur, 16s); animation-delay: var(--td, 0s); }
+  .pd { animation-name: drift-d; animation-duration: var(--dur, 16s); animation-delay: var(--td, 0s); }
+
+  .p-bg { opacity: 0.12; }
+  .pe { animation-name: drift-e; animation-duration: var(--dur, 24s); animation-delay: var(--td, 0s); }
+  .pf { animation-name: drift-f; animation-duration: var(--dur, 24s); animation-delay: var(--td, 0s); }
+
+  /* Drift paths — foreground ±12–15 px */
+  @keyframes drift-a {
+    0%   { transform: translate(  0px,   0px); }
+    25%  { transform: translate( 13px,  -9px); }
+    55%  { transform: translate(  7px,  14px); }
+    80%  { transform: translate(-11px,   4px); }
+    100% { transform: translate(  0px,   0px); }
+  }
+  @keyframes drift-b {
+    0%   { transform: translate(  0px,   0px); }
+    30%  { transform: translate(-14px,   8px); }
+    65%  { transform: translate( 10px, -12px); }
+    100% { transform: translate(  0px,   0px); }
+  }
+
+  /* Drift paths — midground ±7–10 px */
+  @keyframes drift-c {
+    0%   { transform: translate(  0px,   0px); }
+    35%  { transform: translate(  9px,  -6px); }
+    60%  { transform: translate(  4px,  10px); }
+    85%  { transform: translate( -8px,   3px); }
+    100% { transform: translate(  0px,   0px); }
+  }
+  @keyframes drift-d {
+    0%   { transform: translate(  0px,   0px); }
+    40%  { transform: translate( -9px,   7px); }
+    70%  { transform: translate(  6px,  -8px); }
+    100% { transform: translate(  0px,   0px); }
+  }
+
+  /* Drift paths — background ±3–5 px */
+  @keyframes drift-e {
+    0%   { transform: translate(  0px,   0px); }
+    30%  { transform: translate(  4px,  -3px); }
+    60%  { transform: translate(  2px,   5px); }
+    85%  { transform: translate( -4px,   1px); }
+    100% { transform: translate(  0px,   0px); }
+  }
+  @keyframes drift-f {
+    0%   { transform: translate(  0px,   0px); }
+    45%  { transform: translate( -3px,   4px); }
+    75%  { transform: translate(  4px,  -3px); }
+    100% { transform: translate(  0px,   0px); }
+  }
+
+  /* Twinkle — foreground particles only */
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.55; }
+    50%       { opacity: 0.08; }
+  }
+</style>

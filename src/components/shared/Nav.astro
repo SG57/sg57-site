@@ -12,7 +12,6 @@
     <div class="nav-links">
       <a href="/clide">Clide</a>
       <a href="/siftr">Siftr</a>
-      <a href="https://github.com/sponsors/SG57" target="_blank" rel="noopener noreferrer">Sponsor</a>
     </div>
   </div>
 </nav>
@@ -22,8 +21,10 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background: var(--sg57-void);
-    border-bottom: 1px solid var(--sg57-border);
+    background: var(--frost-bg);
+    backdrop-filter: blur(var(--frost-blur));
+    -webkit-backdrop-filter: blur(var(--frost-blur));
+    border-bottom: 1px solid var(--frost-border);
   }
 
   .nav-inner {

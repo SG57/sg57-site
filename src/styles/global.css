@@ -68,6 +68,29 @@
   --sg57-error: #c75050;
   --sg57-info: #6b9eb8;
 
+  /* Ambient gradient — transparent violet tint over the wallpaper.
+     "on" mode is subtle; "extra" is more vibrant.
+     To switch: set --sg57-ambient-gradient to var(--sg57-ambient-gradient-extra). */
+  --sg57-ambient-gradient: radial-gradient(
+    ellipse 120% 80% at 20% 30%,
+    rgba(152, 142, 213, 0.18)  0%,
+    rgba(152, 142, 213, 0.06) 35%,
+    transparent               65%
+  );
+  --sg57-ambient-gradient-extra: radial-gradient(
+    ellipse 140% 90% at 25% 25%,
+    rgba(152, 142, 213, 0.42)  0%,
+    rgba(152, 142, 213, 0.20) 30%,
+    rgba(152, 142, 213, 0.06) 55%,
+    transparent               75%
+  );
+
+  /* Frost / Glass — adjust --frost-blur to change all glass surfaces site-wide */
+  --frost-blur:   18px;
+  --frost-bg:     rgba(10, 12, 16, 0.52);
+  --frost-border: rgba(255, 255, 255, 0.07);
+  --frost-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+
   /* Typography */
   --sg57-font-mono: 'Hack', 'Cascadia Code', 'JetBrains Mono', monospace;
   --sg57-font-display: 'Rajdhani', system-ui, sans-serif;
@@ -92,7 +115,7 @@ body {
   font-family: var(--sg57-font-display);
   font-weight: 400;
   color: var(--sg57-text);
-  background-color: var(--sg57-void);
+  background-color: transparent; /* wallpaper is a fixed layer in Base.astro */
   line-height: 1.6;
   min-height: 100vh;
   display: flex;

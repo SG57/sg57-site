@@ -84,12 +84,9 @@ import Base from '../../layouts/Base.astro';
   <!-- Store Gallery -->
   <section class="media container">
     <h2 class="section-heading">Store Preview</h2>
-    <div class="media-grid">
-      <img class="media-card media-card--wide" src="/clide/clide-storefront-1.jpg" alt="Clide storefront hero image" loading="lazy" />
-      <img class="media-card" src="/clide/clide-storefront-2.jpg" alt="Clide storefront feature screenshot" loading="lazy" />
-      <img class="media-card" src="/clide/icon-showcase-1.jpg" alt="Clide icon showcase variant one" loading="lazy" />
-      <img class="media-card" src="/clide/icon-showcase-2.jpg" alt="Clide icon showcase variant two" loading="lazy" />
-      <img class="media-card" src="/clide/icon-showcase-3.jpg" alt="Clide icon showcase variant three" loading="lazy" />
+    <div class="store-placeholder">
+      <span class="placeholder-glyph">[ ]</span>
+      <p class="placeholder-label">Store screenshots coming soon</p>
     </div>
   </section>
 
@@ -180,7 +177,7 @@ import Base from '../../layouts/Base.astro';
     justify-content: center;
     min-height: 55vh;
     overflow: hidden;
-    background: url('/clide/clide-storefront-1.jpg') center / cover no-repeat;
+    background: transparent;
   }
 
   .hero-bg {
@@ -346,23 +343,33 @@ import Base from '../../layouts/Base.astro';
     padding: 0 1.5rem 5rem;
   }
 
-  .media-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-
-  .media-card {
-    width: 100%;
-    display: block;
+  .store-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 3rem 2rem;
+    border: 1px dashed var(--sg57-border);
     border-radius: 8px;
-    border: 1px solid var(--sg57-border);
     background: var(--sg57-surface);
-    box-shadow: 0 0 18px rgba(0, 0, 0, 0.2);
   }
 
-  .media-card--wide {
-    grid-column: span 2;
+  .placeholder-glyph {
+    font-family: var(--sg57-font-display);
+    font-size: 2rem;
+    color: var(--sg57-accent-muted);
+    letter-spacing: 0.3em;
+    opacity: 0.4;
+  }
+
+  .placeholder-label {
+    font-family: var(--sg57-font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sg57-text-muted);
+    opacity: 0.5;
   }
 
   /* --- Pricing --- */
@@ -519,14 +526,6 @@ import Base from '../../layouts/Base.astro';
   @media (max-width: 720px) {
     .features-grid {
       grid-template-columns: 1fr;
-    }
-
-    .media-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .media-card--wide {
-      grid-column: span 1;
     }
 
     .hero {
