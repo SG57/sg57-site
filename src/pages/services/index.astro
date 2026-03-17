@@ -283,16 +283,13 @@ import DigitalHealthQuiz from '../../components/services/DigitalHealthQuiz.astro
         5. Replace the action URL below with your endpoint.
       -->
       <form
-        action="https://formspree.io/f/mojkpkyj"
-        method="POST"
         class="intake-form"
         id="sg57-intake-form"
         aria-label="Services inquiry form"
+        novalidate
       >
         <!-- Formspree honeypot (spam protection) -->
         <input type="text" name="_gotcha" style="display:none" tabindex="-1" aria-hidden="true" />
-        <!-- Redirect after submit -->
-        <input type="hidden" name="_next" value="https://sg57.dev/services?sent=true" />
         <!-- Subject line in email -->
         <input type="hidden" name="_subject" value="New Inquiry — SG57 Services" />
 
@@ -384,7 +381,12 @@ import DigitalHealthQuiz from '../../components/services/DigitalHealthQuiz.astro
 
       </form>
 
-      <!-- Success message (shown after redirect) -->
+      <!-- Error message -->
+      <div class="intake-error hidden" id="intake-error" role="alert" aria-live="polite">
+        <p class="intake-error-text">Something went wrong — please try again or email us directly at <a href="mailto:consult@sg57.dev">consult@sg57.dev</a>.</p>
+      </div>
+
+      <!-- Success message -->
       <div class="intake-success hidden" id="intake-success" role="alert" aria-live="polite">
         <div class="success-glyph" aria-hidden="true">◆</div>
         <h3 class="success-headline">Brief received.</h3>
@@ -397,20 +399,49 @@ import DigitalHealthQuiz from '../../components/services/DigitalHealthQuiz.astro
 </Base>
 
 <script>
-  // Show success message if redirected back after Formspree submission
-  (function () {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('sent') === 'true') {
-      const form    = document.getElementById('sg57-intake-form');
-      const success = document.getElementById('intake-success');
-      if (form && success) {
-        form.classList.add('hidden');
-        success.classList.remove('hidden');
+  document.addEventListener('astro:page-load', () => {
+    const form    = document.getElementById('sg57-intake-form');
+    const success = document.getElementById('intake-success');
+    const error   = document.getElementById('intake-error');
+    const submit  = form?.querySelector('.form-submit');
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Basic HTML5 validation
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
       }
-      // Clean URL without reload
-      window.history.replaceState({}, '', '/services');
-    }
-  })();
+
+      // Loading state
+      submit.disabled = true;
+      submit.textContent = 'Sending…';
+      error.classList.add('hidden');
+
+      try {
+        const res = await fetch('https://formspree.io/f/mojkpkyj', {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' },
+        });
+
+        if (res.ok) {
+          form.classList.add('hidden');
+          error.classList.add('hidden');
+          success.classList.remove('hidden');
+          success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          throw new Error('non-200');
+        }
+      } catch {
+        submit.disabled = false;
+        submit.innerHTML = 'Send My Brief <span aria-hidden="true">→</span>';
+        error.classList.remove('hidden');
+      }
+    });
+  });
 </script>
 
 <style>
@@ -1186,6 +1217,27 @@ import DigitalHealthQuiz from '../../components/services/DigitalHealthQuiz.astro
   .form-submit:hover {
     background: var(--sg57-accent-hover);
     box-shadow: 0 0 24px var(--sg57-accent-glow);
+  }
+
+  /* ── ERROR STATE ── */
+  .intake-error {
+    padding: 0.75rem 1rem;
+    background: rgba(220, 50, 50, 0.08);
+    border: 1px solid rgba(220, 50, 50, 0.25);
+    border-radius: 6px;
+    margin-bottom: 1rem;
+  }
+
+  .intake-error-text {
+    font-family: var(--sg57-font-display);
+    font-size: 0.88rem;
+    color: #f08080;
+    line-height: 1.6;
+  }
+
+  .intake-error-text a {
+    color: var(--sg57-accent);
+    text-decoration: underline;
   }
 
   /* ── SUCCESS STATE ── */
