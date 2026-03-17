@@ -1,0 +1,845 @@
+---
+// Digital Health Check — 8 scored questions → 3 result tiers with tailored CTAs
+// Self-contained Astro component, vanilla JS state machine.
+---
+
+<div class="dhq-wrapper" id="dhq">
+
+  <!-- ── QUIZ BODY ── -->
+  <div class="dhq-body" id="dhq-body">
+
+    <!-- Header row -->
+    <div class="dhq-header">
+      <div class="dhq-badge">
+        <span class="dhq-badge-glyph">◆</span>
+        DIGITAL HEALTH CHECK
+      </div>
+      <div class="dhq-counter" aria-live="polite">
+        <span id="dhq-current">01</span>
+        <span class="dhq-counter-sep">/</span>
+        <span>08</span>
+      </div>
+    </div>
+
+    <!-- Progress track -->
+    <div
+      class="dhq-track"
+      role="progressbar"
+      aria-valuemin="1"
+      aria-valuemax="8"
+      aria-valuenow="1"
+      aria-label="Quiz progress"
+    >
+      <div class="dhq-fill" id="dhq-fill"></div>
+    </div>
+
+    <!-- Slide: question + choices -->
+    <div class="dhq-slide" id="dhq-slide">
+      <p class="dhq-q" id="dhq-q"></p>
+      <div class="dhq-choices" id="dhq-choices" role="radiogroup" aria-label="Select one answer"></div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="dhq-nav">
+      <button class="dhq-btn dhq-btn-back" id="dhq-back" disabled>
+        <span aria-hidden="true">←</span> Back
+      </button>
+      <button class="dhq-btn dhq-btn-next" id="dhq-next" disabled>
+        Continue <span aria-hidden="true">→</span>
+      </button>
+    </div>
+
+  </div><!-- /dhq-body -->
+
+  <!-- ── CALCULATING PHASE ── -->
+  <div class="dhq-calculating hidden" id="dhq-calculating" aria-live="assertive" aria-label="Calculating your results">
+    <div class="dhq-calc-glyph" aria-hidden="true">◈</div>
+    <p class="dhq-calc-text">Analyzing your responses&hellip;</p>
+    <div class="dhq-calc-track">
+      <div class="dhq-calc-bar" id="dhq-calc-bar"></div>
+    </div>
+  </div>
+
+  <!-- ── RESULTS PHASE ── -->
+  <div class="dhq-results hidden" id="dhq-results" aria-live="polite">
+    <div class="dhq-result-inner">
+      <div class="dhq-tier-signal" id="dhq-tier-signal" data-stagger="0"></div>
+      <h3  class="dhq-result-headline" id="dhq-result-headline" data-stagger="1"></h3>
+      <p   class="dhq-result-desc"     id="dhq-result-desc"     data-stagger="2"></p>
+      <a   class="dhq-result-cta"      id="dhq-result-cta"      data-stagger="3" href="#intake-form"></a>
+      <p   class="dhq-result-sub"      id="dhq-result-sub"      data-stagger="4"></p>
+      <button class="dhq-retake" id="dhq-retake" data-stagger="5">Retake the check <span aria-hidden="true">→</span></button>
+    </div>
+  </div>
+
+</div><!-- /dhq-wrapper -->
+
+<script>
+  // ── DATA (module scope — safe to define once) ─────────────────────────────
+
+  const QUESTIONS = [
+    {
+      q: "Right now, your online presence is:",
+      choices: [
+        { v: 1, label: "A", text: "A Facebook page — and maybe an old website" },
+        { v: 2, label: "B", text: "A functional site that hasn't been touched in years" },
+        { v: 3, label: "C", text: "A polished presence that still isn't converting" },
+      ],
+    },
+    {
+      q: "When someone Googles your business, they find:",
+      choices: [
+        { v: 1, label: "A", text: "Very little — maybe an old Yelp listing" },
+        { v: 2, label: "B", text: "My website, but it doesn't represent me well" },
+        { v: 3, label: "C", text: "A solid result — but competitors are winning" },
+      ],
+    },
+    {
+      q: "Your brand visuals across platforms look:",
+      choices: [
+        { v: 1, label: "A", text: "Inconsistent — different everywhere I show up" },
+        { v: 2, label: "B", text: "Mostly aligned, held together with effort" },
+        { v: 3, label: "C", text: "On-brand and tight — I have real guidelines" },
+      ],
+    },
+    {
+      q: "Most of your new clients come from:",
+      choices: [
+        { v: 1, label: "A", text: "Word of mouth almost exclusively" },
+        { v: 2, label: "B", text: "Referrals, with the occasional organic lead" },
+        { v: 3, label: "C", text: "Multiple channels — search, social, referral" },
+      ],
+    },
+    {
+      q: "Your website's actual job right now is:",
+      choices: [
+        { v: 1, label: "A", text: "It mostly just has my contact information" },
+        { v: 2, label: "B", text: "Shows what I do — converts occasionally" },
+        { v: 3, label: "C", text: "It's meant to generate leads — just not enough" },
+      ],
+    },
+    {
+      q: "Sharing your website with a potential client feels:",
+      choices: [
+        { v: 1, label: "A", text: "Embarrassing — it doesn't represent me well" },
+        { v: 2, label: "B", text: "Fine, but I know it could be doing more" },
+        { v: 3, label: "C", text: "Solid — I just want it to work harder" },
+      ],
+    },
+    {
+      q: "Your email and communication system looks like:",
+      choices: [
+        { v: 1, label: "A", text: "Personal Gmail with my name in the From field" },
+        { v: 2, label: "B", text: "A custom domain, basic setup" },
+        { v: 3, label: "C", text: "Branded and functional — but not automated" },
+      ],
+    },
+    {
+      q: "Your biggest goal in the next 12 months is:",
+      choices: [
+        { v: 1, label: "A", text: "Build a real digital presence I'm proud to share" },
+        { v: 2, label: "B", text: "Make my online presence generate leads reliably" },
+        { v: 3, label: "C", text: "Scale revenue — I need serious infrastructure" },
+      ],
+    },
+  ];
+
+  const TIERS = [
+    {
+      min: 8,
+      max: 13,
+      signal: "// FOUNDATION NEEDED",
+      headline: "Your digital presence is leaving money on the table.",
+      desc: "The good news: everything you need exists — it just hasn't been built for you yet. A strategic audit pinpoints exactly where you're losing ground and what to fix first. Low investment, high clarity.",
+      ctaText: "Request a Paid Audit →",
+      sub: "Scoped to your situation. No obligation beyond the audit.",
+    },
+    {
+      min: 14,
+      max: 19,
+      signal: "// GROWTH READY",
+      headline: "You have a foundation. Now it needs to work.",
+      desc: "Your business is real. Your digital presence should match it. A full identity system and website built to convert — not just to exist. Let's figure out the right scope together.",
+      ctaText: "Start a Discovery Conversation →",
+      sub: "No pressure. No scope until we've talked.",
+    },
+    {
+      min: 20,
+      max: 24,
+      signal: "// SCALE SIGNAL",
+      headline: "You're not the problem. Your infrastructure is.",
+      desc: "You're running a real business with real momentum. The constraint isn't your effort — it's the systems underneath. Let's talk about building infrastructure that compounds.",
+      ctaText: "Tell Me What You're Building →",
+      sub: "Custom scope. Fixed price. Right-sized for you.",
+    },
+  ];
+
+  const TOTAL = QUESTIONS.length;
+
+  // ── INIT (runs on every page load, including View Transition navigations) ───
+
+  document.addEventListener('astro:page-load', () => {
+  const dhq = document.getElementById('dhq');
+  if (!dhq) return; // Not on this page
+
+  // ── STATE (fresh per page load) ───────────────────────────────────────────
+
+  let current   = 0;
+  let animating = false;
+  const answers = new Map(); // question index → chosen value (1|2|3)
+
+  // ── DOM REFS ───────────────────────────────────────────────────────────────
+
+  const body        = document.getElementById('dhq-body');
+  const slide       = document.getElementById('dhq-slide');
+  const qEl         = document.getElementById('dhq-q');
+  const choicesEl   = document.getElementById('dhq-choices');
+  const fill        = document.getElementById('dhq-fill');
+  const currentEl   = document.getElementById('dhq-current');
+  const backBtn     = document.getElementById('dhq-back');
+  const nextBtn     = document.getElementById('dhq-next');
+  const calcPhase   = document.getElementById('dhq-calculating');
+  const calcBar     = document.getElementById('dhq-calc-bar');
+  const resultsEl   = document.getElementById('dhq-results');
+  const retakeBtn   = document.getElementById('dhq-retake');
+  const trackEl     = dhq.querySelector('.dhq-track');
+
+  // ── HELPERS ──────────────────────────────────────────────────────────────────
+
+  function wait(ms) {
+    return new Promise(r => setTimeout(r, ms));
+  }
+
+  function pad(n) {
+    return String(n + 1).padStart(2, '0');
+  }
+
+  // ── RENDER ───────────────────────────────────────────────────────────────────
+
+  function renderQuestion(idx) {
+    const data = QUESTIONS[idx];
+    qEl.textContent = data.q;
+    choicesEl.innerHTML = '';
+
+    data.choices.forEach(c => {
+      const btn = document.createElement('button');
+      btn.className    = 'dhq-choice';
+      btn.dataset.value = c.v;
+      btn.setAttribute('role', 'radio');
+      btn.setAttribute('aria-checked', answers.get(idx) === c.v ? 'true' : 'false');
+
+      const lbl = document.createElement('span');
+      lbl.className   = 'dhq-choice-label';
+      lbl.textContent = c.label;
+      lbl.setAttribute('aria-hidden', 'true');
+
+      const txt = document.createElement('span');
+      txt.className   = 'dhq-choice-text';
+      txt.textContent = c.text;
+
+      btn.appendChild(lbl);
+      btn.appendChild(txt);
+
+      if (answers.get(idx) === c.v) {
+        btn.classList.add('selected');
+      }
+
+      btn.addEventListener('click', () => onChoiceClick(idx, c.v));
+      choicesEl.appendChild(btn);
+    });
+
+    // Update counter + progress
+    currentEl.textContent = pad(idx);
+    const pct = ((idx + 1) / TOTAL) * 100;
+    fill.style.width = `${pct}%`;
+    if (trackEl) {
+      trackEl.setAttribute('aria-valuenow', String(idx + 1));
+    }
+  }
+
+  function onChoiceClick(idx, value) {
+    answers.set(idx, value);
+
+    // Update aria + visual state on all siblings
+    choicesEl.querySelectorAll('.dhq-choice').forEach(btn => {
+      const selected = Number(btn.dataset.value) === value;
+      btn.setAttribute('aria-checked', selected ? 'true' : 'false');
+      btn.classList.toggle('selected', selected);
+    });
+
+    updateNav();
+  }
+
+  function updateNav() {
+    backBtn.disabled = current === 0 || animating;
+    nextBtn.disabled = !answers.has(current) || animating;
+  }
+
+  // ── TRANSITIONS ───────────────────────────────────────────────────────────────
+
+  async function goToQuestion(target, direction) {
+    if (animating || target === current || target < 0 || target >= TOTAL) return;
+    animating = true;
+    updateNav();
+
+    // Exit current slide
+    const exitClass = direction === 'forward' ? 'exiting-left' : 'exiting-right';
+    slide.classList.add(exitClass);
+    await wait(280);
+
+    // Update content, jump to enter position (no transition)
+    current = target;
+    renderQuestion(current);
+    slide.classList.remove(exitClass);
+    const enterClass = direction === 'forward' ? 'entering-right' : 'entering-left';
+    slide.classList.add(enterClass);
+
+    // Reflow → animate to normal
+    void slide.offsetWidth;
+    slide.classList.remove(enterClass);
+
+    await wait(320);
+    animating = false;
+    updateNav();
+  }
+
+  async function showResults() {
+    animating = true;
+    nextBtn.disabled = true;
+    backBtn.disabled = true;
+
+    // Slide body out
+    body.classList.add('phase-out');
+    await wait(350);
+    body.classList.add('hidden');
+    body.classList.remove('phase-out');
+
+    // Calculate score
+    let score = 0;
+    for (const v of answers.values()) score += v;
+
+    const tier = TIERS.find(t => score >= t.min && score <= t.max) ?? TIERS[0];
+
+    // Show calculating phase
+    calcPhase.classList.remove('hidden');
+    calcPhase.classList.add('phase-in');
+    calcBar.style.transition = 'none';
+    calcBar.style.width = '0%';
+    void calcBar.offsetWidth;
+    calcBar.style.transition = 'width 0.9s cubic-bezier(0.4, 0, 0.2, 1)';
+    calcBar.style.width = '100%';
+    await wait(1100);
+
+    // Hide calculating, show results
+    calcPhase.classList.add('phase-out');
+    await wait(300);
+    calcPhase.classList.add('hidden');
+    calcPhase.classList.remove('phase-in', 'phase-out');
+
+    // Populate results
+    document.getElementById('dhq-tier-signal').textContent  = tier.signal;
+    document.getElementById('dhq-result-headline').textContent = tier.headline;
+    document.getElementById('dhq-result-desc').textContent  = tier.desc;
+    const ctaEl = document.getElementById('dhq-result-cta');
+    ctaEl.textContent = tier.ctaText;
+    document.getElementById('dhq-result-sub').textContent   = tier.sub;
+
+    // Staggered entrance
+    resultsEl.classList.remove('hidden');
+    resultsEl.classList.add('phase-in');
+    const staggerEls = resultsEl.querySelectorAll('[data-stagger]');
+    staggerEls.forEach(el => {
+      el.style.opacity   = '0';
+      el.style.transform = 'translateY(14px)';
+    });
+    await wait(80);
+
+    for (const el of staggerEls) {
+      el.style.transition = 'opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)';
+      el.style.opacity    = '1';
+      el.style.transform  = 'translateY(0)';
+      await wait(120);
+    }
+
+    animating = false;
+  }
+
+  function resetQuiz() {
+    current = 0;
+    animating = false;
+    answers.clear();
+
+    // Reset results pane
+    resultsEl.classList.add('hidden');
+    resultsEl.classList.remove('phase-in');
+    resultsEl.querySelectorAll('[data-stagger]').forEach(el => {
+      el.style.opacity   = '';
+      el.style.transform = '';
+      el.style.transition = '';
+    });
+
+    // Re-render + show body
+    renderQuestion(0);
+    body.classList.remove('hidden');
+    updateNav();
+  }
+
+  // ── EVENT BINDINGS ────────────────────────────────────────────────────────────
+
+  backBtn.addEventListener('click', () => {
+    if (current > 0) goToQuestion(current - 1, 'back');
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (current < TOTAL - 1) {
+      goToQuestion(current + 1, 'forward');
+    } else {
+      showResults();
+    }
+  });
+
+  retakeBtn.addEventListener('click', resetQuiz);
+
+  // Keyboard navigation on choices
+  choicesEl.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      const btns = [...choicesEl.querySelectorAll('.dhq-choice')];
+      const focusedIdx = btns.indexOf(document.activeElement);
+      if (focusedIdx === -1) return;
+      const next = e.key === 'ArrowDown'
+        ? (focusedIdx + 1) % btns.length
+        : (focusedIdx - 1 + btns.length) % btns.length;
+      btns[next].focus();
+    }
+  });
+
+  // ── INIT ──────────────────────────────────────────────────────────────────────
+
+  renderQuestion(0);
+  updateNav();
+
+  }); // end astro:page-load
+</script>
+
+<style>
+  /* ── WRAPPER ── */
+  .dhq-wrapper {
+    background: var(--frost-bg);
+    backdrop-filter: blur(var(--frost-blur));
+    -webkit-backdrop-filter: blur(var(--frost-blur));
+    border: 1px solid var(--frost-border);
+    box-shadow: var(--frost-shadow);
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  /* ── HEADER ── */
+  .dhq-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 2rem 0;
+  }
+
+  .dhq-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sg57-accent);
+  }
+
+  .dhq-badge-glyph {
+    font-size: 0.65rem;
+    animation: pulse-glow 4s ease-in-out infinite;
+  }
+
+  .dhq-counter {
+    font-family: var(--sg57-font-mono);
+    font-size: 0.8rem;
+    color: var(--sg57-text-dim);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  #dhq-current {
+    color: var(--sg57-accent);
+    font-weight: 600;
+  }
+
+  .dhq-counter-sep {
+    opacity: 0.4;
+  }
+
+  /* ── PROGRESS TRACK ── */
+  .dhq-track {
+    margin: 1.25rem 2rem 0;
+    height: 2px;
+    background: var(--sg57-border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .dhq-fill {
+    height: 100%;
+    width: 12.5%; /* starts at 1/8 */
+    background: var(--sg57-accent);
+    border-radius: 2px;
+    transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 0 0 8px var(--sg57-accent-glow);
+  }
+
+  /* ── SLIDE ── */
+  .dhq-slide {
+    padding: 2rem 2rem 0.5rem;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease;
+  }
+
+  .dhq-slide.exiting-left {
+    transform: translateX(-40px);
+    opacity: 0;
+  }
+
+  .dhq-slide.exiting-right {
+    transform: translateX(40px);
+    opacity: 0;
+  }
+
+  .dhq-slide.entering-right {
+    transform: translateX(40px);
+    opacity: 0;
+    transition: none;
+  }
+
+  .dhq-slide.entering-left {
+    transform: translateX(-40px);
+    opacity: 0;
+    transition: none;
+  }
+
+  /* ── QUESTION ── */
+  .dhq-q {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    color: #ffffff;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.01em;
+  }
+
+  /* ── CHOICES ── */
+  .dhq-choices {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .dhq-choice {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    padding: 0.9rem 1.25rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--sg57-border);
+    border-radius: 7px;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  }
+
+  .dhq-choice:hover {
+    border-color: var(--sg57-accent-muted);
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateX(3px);
+  }
+
+  .dhq-choice:focus-visible {
+    outline: 2px solid var(--sg57-accent);
+    outline-offset: 2px;
+  }
+
+  .dhq-choice.selected {
+    border-color: var(--sg57-accent);
+    background: var(--sg57-accent-glow);
+    box-shadow: 0 0 16px var(--sg57-accent-glow);
+  }
+
+  .dhq-choice-label {
+    flex-shrink: 0;
+    width: 1.6rem;
+    height: 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--sg57-font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--sg57-text-dim);
+    border: 1px solid var(--sg57-border);
+    border-radius: 4px;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .dhq-choice.selected .dhq-choice-label {
+    color: var(--sg57-accent);
+    border-color: var(--sg57-accent);
+  }
+
+  .dhq-choice-text {
+    font-family: var(--sg57-font-display);
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: var(--sg57-text-dim);
+    line-height: 1.4;
+    transition: color 0.2s ease;
+  }
+
+  .dhq-choice.selected .dhq-choice-text {
+    color: var(--sg57-text);
+  }
+
+  /* ── NAV ── */
+  .dhq-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 2rem 1.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: 1.25rem;
+  }
+
+  .dhq-btn {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    padding: 0.65rem 1.4rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  }
+
+  .dhq-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .dhq-btn-back {
+    background: transparent;
+    color: var(--sg57-text-dim);
+    border: 1px solid var(--sg57-border);
+  }
+
+  .dhq-btn-back:not(:disabled):hover {
+    color: var(--sg57-text);
+    border-color: var(--sg57-text-dim);
+  }
+
+  .dhq-btn-next {
+    background: var(--sg57-accent);
+    color: #ffffff;
+    border: 1px solid transparent;
+  }
+
+  .dhq-btn-next:not(:disabled):hover {
+    background: var(--sg57-accent-hover);
+    box-shadow: 0 0 20px var(--sg57-accent-glow);
+  }
+
+  /* ── CALCULATING PHASE ── */
+  .dhq-calculating {
+    padding: 3.5rem 2rem;
+    text-align: center;
+  }
+
+  .dhq-calc-glyph {
+    font-size: 2.5rem;
+    color: var(--sg57-accent);
+    margin-bottom: 1rem;
+    animation: pulse-glow 1.5s ease-in-out infinite;
+    display: block;
+  }
+
+  .dhq-calc-text {
+    font-family: var(--sg57-font-display);
+    font-weight: 400;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    color: var(--sg57-text-dim);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .dhq-calc-track {
+    height: 2px;
+    background: var(--sg57-border);
+    border-radius: 2px;
+    overflow: hidden;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .dhq-calc-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--sg57-accent);
+    border-radius: 2px;
+    box-shadow: 0 0 10px var(--sg57-accent-glow);
+  }
+
+  /* ── RESULTS PHASE ── */
+  .dhq-results {
+    padding: 2.5rem 2rem 2.5rem;
+  }
+
+  .dhq-result-inner {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .dhq-tier-signal {
+    font-family: var(--sg57-font-mono);
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--sg57-accent);
+    text-transform: uppercase;
+    padding: 0.35rem 0.9rem;
+    border: 1px solid var(--sg57-accent-muted);
+    border-radius: 4px;
+    background: var(--sg57-accent-glow);
+    margin-bottom: 0.5rem;
+  }
+
+  .dhq-result-headline {
+    font-family: var(--sg57-font-display);
+    font-weight: 700;
+    font-size: clamp(1.15rem, 2.5vw, 1.4rem);
+    color: #ffffff;
+    letter-spacing: 0.02em;
+    line-height: 1.3;
+    max-width: 480px;
+  }
+
+  .dhq-result-desc {
+    font-family: var(--sg57-font-display);
+    font-weight: 400;
+    font-size: 0.92rem;
+    color: var(--sg57-text-dim);
+    line-height: 1.7;
+    max-width: 480px;
+  }
+
+  .dhq-result-cta {
+    display: inline-block;
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+    background: var(--sg57-accent);
+    padding: 0.8rem 2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-top: 0.5rem;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .dhq-result-cta:hover {
+    background: var(--sg57-accent-hover);
+    box-shadow: 0 0 24px var(--sg57-accent-glow);
+    color: #ffffff;
+  }
+
+  .dhq-result-sub {
+    font-family: var(--sg57-font-display);
+    font-weight: 400;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--sg57-text-dim);
+    opacity: 0.7;
+  }
+
+  .dhq-retake {
+    font-family: var(--sg57-font-display);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    color: var(--sg57-text-dim);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem 0;
+    margin-top: 0.25rem;
+    transition: color 0.2s ease;
+  }
+
+  .dhq-retake:hover {
+    color: var(--sg57-text);
+  }
+
+  /* ── TRANSITIONS (phase in/out) ── */
+  .phase-out {
+    animation: dhq-fade-out 0.3s ease forwards;
+  }
+
+  .phase-in {
+    animation: dhq-fade-in 0.4s ease forwards;
+  }
+
+  @keyframes dhq-fade-out {
+    to { opacity: 0; transform: translateY(-8px); }
+  }
+
+  @keyframes dhq-fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0);   }
+  }
+
+  /* ── UTILITY ── */
+  .hidden {
+    display: none !important;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .dhq-header {
+      padding: 1.25rem 1.25rem 0;
+    }
+
+    .dhq-track {
+      margin: 1rem 1.25rem 0;
+    }
+
+    .dhq-slide {
+      padding: 1.5rem 1.25rem 0.25rem;
+    }
+
+    .dhq-nav {
+      padding: 1.25rem 1.25rem 1.5rem;
+    }
+
+    .dhq-results {
+      padding: 2rem 1.25rem;
+    }
+
+    .dhq-choice {
+      padding: 0.8rem 1rem;
+      gap: 0.75rem;
+    }
+  }
+</style>
