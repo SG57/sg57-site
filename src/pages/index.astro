@@ -275,16 +275,19 @@ import Base from '../layouts/Base.astro';
     font-size: 0.9rem;
     letter-spacing: 0.06em;
     padding: 0.65rem 1.4rem;
+    min-height: 44px;
     border-radius: var(--sg57-radius-md);
     text-decoration: none;
     transition: all 0.2s var(--sg57-ease-out);
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
   }
 
   .btn-primary {
-    background: var(--frost-bg);
-    backdrop-filter: blur(var(--frost-blur));
-    -webkit-backdrop-filter: blur(var(--frost-blur));
+    background: var(--sg57-glass-bg);
+    backdrop-filter: blur(var(--sg57-glass-blur));
+    -webkit-backdrop-filter: blur(var(--sg57-glass-blur));
     border: 1px solid var(--sg57-accent);
     color: var(--sg57-accent);
   }
@@ -296,9 +299,13 @@ import Base from '../layouts/Base.astro';
     transform: translateY(-1px);
   }
 
+  .btn:active {
+    transform: scale(0.97);
+  }
+
   .btn-ghost {
     background: transparent;
-    border: 1px solid var(--frost-border);
+    border: 1px solid var(--sg57-glass-border);
     color: var(--sg57-text-dim);
   }
 
@@ -315,7 +322,7 @@ import Base from '../layouts/Base.astro';
   }
 
   .terminal-window {
-    background: rgba(8, 10, 14, 0.82);
+    background: var(--sg57-glass-bg-dense);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--sg57-border-glass);
@@ -329,7 +336,7 @@ import Base from '../layouts/Base.astro';
     align-items: center;
     gap: 0.75rem;
     padding: 0.6rem 1rem;
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--sg57-overlay-subtle);
     border-bottom: 1px solid var(--sg57-border-glass);
   }
 
@@ -358,10 +365,10 @@ import Base from '../layouts/Base.astro';
 
   .t-line     { color: var(--sg57-text); margin: 0.1rem 0; }
   .t-gap      { height: 0.6rem; }
-  .t-ok       { color: #4caf6e; }
+  .t-ok       { color: var(--sg57-success); }
   .t-meta     { color: var(--sg57-text-dim); padding-left: 0.5rem; }
   .t-prompt   { color: var(--sg57-accent); margin-right: 0.4rem; }
-  .t-cmd      { color: #c8ccd2; }
+  .t-cmd      { color: var(--sg57-text); }
   .t-active   { color: #5BC0BE; }
   .t-idle     { color: var(--sg57-text-muted); }
 
@@ -378,7 +385,7 @@ import Base from '../layouts/Base.astro';
   .t-todo {
     margin-top: 1rem;
     padding: 0.6rem 0.75rem;
-    border: 1px dashed rgba(152, 142, 213, 0.2);
+    border: 1px dashed var(--sg57-accent-glow);
     border-radius: 4px;
     font-family: var(--sg57-font-mono);
     font-size: 0.68rem;
@@ -538,7 +545,7 @@ import Base from '../layouts/Base.astro';
     font-weight: 600;
     font-size: 0.78rem;
     letter-spacing: 0.1em;
-    color: #ffffff;
+    color: var(--sg57-text);
   }
 
   .product-card--clide .product-sep { color: #5BC0BE; }
@@ -579,11 +586,11 @@ import Base from '../layouts/Base.astro';
     grid-template-columns: 1fr auto;
     gap: 2.5rem;
     align-items: center;
-    background: var(--frost-bg);
-    backdrop-filter: blur(var(--frost-blur));
-    -webkit-backdrop-filter: blur(var(--frost-blur));
+    background: var(--sg57-glass-bg);
+    backdrop-filter: blur(var(--sg57-glass-blur));
+    -webkit-backdrop-filter: blur(var(--sg57-glass-blur));
     border: 1px solid rgba(196, 137, 106, 0.2);
-    box-shadow: 0 0 40px rgba(196, 137, 106, 0.06), var(--frost-shadow);
+    box-shadow: 0 0 40px rgba(196, 137, 106, 0.06), var(--sg57-glass-shadow);
     border-radius: var(--sg57-radius-lg);
     padding: 2rem 2.5rem;
   }
@@ -592,7 +599,7 @@ import Base from '../layouts/Base.astro';
     font-family: var(--sg57-font-display);
     font-weight: 700;
     font-size: clamp(1.1rem, 2.5vw, 1.6rem);
-    color: #ffffff;
+    color: var(--sg57-text);
     letter-spacing: 0.05em;
     margin-bottom: 0.75rem;
     line-height: 1.2;
@@ -654,7 +661,7 @@ import Base from '../layouts/Base.astro';
     padding: 1.25rem 0;
     border-top: 1px solid var(--sg57-border-glass);
     border-bottom: 1px solid var(--sg57-border-glass);
-    background: rgba(152, 142, 213, 0.03);
+    background: var(--sg57-overlay-subtle);
   }
 
   .proof-items {
@@ -692,11 +699,11 @@ import Base from '../layouts/Base.astro';
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
     align-items: center;
-    background: var(--frost-bg);
-    backdrop-filter: blur(var(--frost-blur));
-    -webkit-backdrop-filter: blur(var(--frost-blur));
-    border: 1px solid var(--frost-border);
-    box-shadow: var(--frost-shadow);
+    background: var(--sg57-glass-bg);
+    backdrop-filter: blur(var(--sg57-glass-blur));
+    -webkit-backdrop-filter: blur(var(--sg57-glass-blur));
+    border: 1px solid var(--sg57-glass-border);
+    box-shadow: var(--sg57-glass-shadow);
     border-radius: var(--sg57-radius-lg);
     padding: 2.5rem;
   }
@@ -715,7 +722,7 @@ import Base from '../layouts/Base.astro';
     font-family: var(--sg57-font-display);
     font-weight: 700;
     font-size: clamp(1.4rem, 3vw, 2rem);
-    color: #ffffff;
+    color: var(--sg57-text);
     letter-spacing: 0.04em;
     margin-bottom: 1rem;
     line-height: 1.1;
@@ -755,7 +762,7 @@ import Base from '../layouts/Base.astro';
     align-items: center;
     gap: 0.6rem;
     padding: 0.5rem 0.75rem;
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--sg57-overlay-subtle);
     border-bottom: 1px solid var(--sg57-border-glass);
   }
 
@@ -783,7 +790,7 @@ import Base from '../layouts/Base.astro';
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(12, 15, 20, 0.5);
+    background: var(--sg57-overlay-heavy);
   }
 
   .work-frame-todo {
@@ -802,11 +809,11 @@ import Base from '../layouts/Base.astro';
   }
 
   .about-panel {
-    background: var(--frost-bg);
-    backdrop-filter: blur(var(--frost-blur));
-    -webkit-backdrop-filter: blur(var(--frost-blur));
-    border: 1px solid var(--frost-border);
-    box-shadow: var(--frost-shadow);
+    background: var(--sg57-glass-bg);
+    backdrop-filter: blur(var(--sg57-glass-blur));
+    -webkit-backdrop-filter: blur(var(--sg57-glass-blur));
+    border: 1px solid var(--sg57-glass-border);
+    box-shadow: var(--sg57-glass-shadow);
     border-radius: var(--sg57-radius-lg);
     padding: 2rem 2.5rem;
   }

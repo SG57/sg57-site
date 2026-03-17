@@ -587,7 +587,7 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
     font-family: var(--sg57-font-display);
     font-weight: 800;
     font-size: clamp(1.8rem, 5.5vw, 3.6rem);
-    color: #ffffff;
+    color: var(--sg57-text);
     letter-spacing: 0.04em;
     line-height: 1.15;
     margin-bottom: 1.5rem;
@@ -620,7 +620,7 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
     color: #ffffff;
     background: var(--sg57-accent);
     padding: 0.85rem 2.25rem;
-    border-radius: 6px;
+    border-radius: var(--sg57-radius-md);
     text-decoration: none;
     transition: background 0.2s ease, box-shadow 0.2s ease, gap 0.2s ease;
     animation: slide-up 1.0s 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -678,7 +678,7 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
     font-weight: 800;
     font-size: clamp(2rem, 6vw, 4.5rem);
     letter-spacing: 0.12em;
-    color: #ffffff;
+    color: var(--sg57-text);
     line-height: 1;
     margin-bottom: 1rem;
   }
@@ -766,7 +766,7 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
     font-weight: 700;
     font-size: 0.78rem;
     letter-spacing: 0.2em;
-    color: #ffffff;
+    color: var(--sg57-text);
   }
 
   .cap-tagline {
@@ -820,11 +820,11 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
   }
 
   .proof-card {
-    background: var(--frost-bg);
-    backdrop-filter: blur(var(--frost-blur));
-    -webkit-backdrop-filter: blur(var(--frost-blur));
+    background: var(--sg57-glass-bg);
+    backdrop-filter: blur(var(--sg57-glass-blur));
+    -webkit-backdrop-filter: blur(var(--sg57-glass-blur));
     border: 1px solid var(--sg57-accent-muted);
-    box-shadow: 0 0 60px rgba(196, 137, 106, 0.1), var(--frost-shadow);
+    box-shadow: 0 0 60px rgba(196, 137, 106, 0.1), var(--sg57-glass-shadow);
     border-radius: 10px;
     overflow: hidden;
   }
@@ -835,7 +835,7 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
     justify-content: space-between;
     gap: 2rem;
     padding: 2.5rem 2.5rem 2rem;
-    border-bottom: 1px solid var(--frost-border);
+    border-bottom: 1px solid var(--sg57-glass-border);
   }
 
   .proof-client-tag {
@@ -853,7 +853,7 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
     font-family: var(--sg57-font-display);
     font-weight: 700;
     font-size: clamp(1.3rem, 3vw, 1.8rem);
-    color: #ffffff;
+    color: var(--sg57-text);
     letter-spacing: 0.02em;
     margin-bottom: 0.3rem;
     line-height: 1.2;
@@ -907,7 +907,7 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
 
   .proof-narrative {
     padding: 2rem 2.5rem;
-    border-bottom: 1px solid var(--frost-border);
+    border-bottom: 1px solid var(--sg57-glass-border);
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -935,8 +935,8 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
 
   /* ── Slider wrapper inside proof card ── */
   .proof-slider-wrap {
-    border-top: 1px solid var(--frost-border);
-    border-bottom: 1px solid var(--frost-border);
+    border-top: 1px solid var(--sg57-glass-border);
+    border-bottom: 1px solid var(--sg57-glass-border);
   }
 
   .proof-slider-label {
@@ -950,7 +950,7 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--sg57-accent);
-    border-bottom: 1px solid var(--frost-border);
+    border-bottom: 1px solid var(--sg57-glass-border);
   }
 
   .psl-glyph {
@@ -960,7 +960,7 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
 
   .proof-deliverables {
     padding: 1.75rem 2.5rem;
-    border-bottom: 1px solid var(--frost-border);
+    border-bottom: 1px solid var(--sg57-glass-border);
   }
 
   .proof-dl-label {
@@ -1000,7 +1000,7 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
 
   .proof-testimonial {
     padding: 1.75rem 2.5rem;
-    border-bottom: 1px solid var(--frost-border);
+    border-bottom: 1px solid var(--sg57-glass-border);
   }
 
   blockquote {
@@ -1112,7 +1112,7 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
     font-family: var(--sg57-font-display);
     font-weight: 800;
     font-size: clamp(1.5rem, 4vw, 2.75rem);
-    color: #ffffff;
+    color: var(--sg57-text);
     letter-spacing: 0.03em;
     line-height: 1.2;
   }
@@ -1134,10 +1134,10 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
     font-weight: 600;
     font-size: 0.92rem;
     letter-spacing: 0.07em;
-    color: #0a0a12;
+    color: var(--sg57-text-inverse);
     background: #5BC0BE;
     padding: 0.85rem 2.25rem;
-    border-radius: 6px;
+    border-radius: var(--sg57-radius-md);
     text-decoration: none;
     margin-top: 0.5rem;
     transition: background 0.2s ease, box-shadow 0.2s ease;
@@ -1146,7 +1146,7 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
   .bigfish-cta:hover {
     background: #6dd0ce;
     box-shadow: 0 0 28px rgba(91, 192, 190, 0.3);
-    color: #0a0a12;
+    color: var(--sg57-text-inverse);
   }
 
   /* ── §6 INTAKE FORM ──────────────────────────────────────────────────────── */
@@ -1170,11 +1170,11 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
   }
 
   .intake-card {
-    background: var(--frost-bg);
-    backdrop-filter: blur(var(--frost-blur));
-    -webkit-backdrop-filter: blur(var(--frost-blur));
-    border: 1px solid var(--frost-border);
-    box-shadow: var(--frost-shadow);
+    background: var(--sg57-glass-bg);
+    backdrop-filter: blur(var(--sg57-glass-blur));
+    -webkit-backdrop-filter: blur(var(--sg57-glass-blur));
+    border: 1px solid var(--sg57-glass-border);
+    box-shadow: var(--sg57-glass-shadow);
     border-radius: 10px;
     padding: 2.5rem;
     position: relative;
@@ -1216,7 +1216,7 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
   /* Card success glow */
   .intake-card.card-success {
     border-color: var(--sg57-accent-muted);
-    box-shadow: 0 0 60px rgba(196, 137, 106, 0.18), var(--frost-shadow);
+    box-shadow: 0 0 60px rgba(196, 137, 106, 0.18), var(--sg57-glass-shadow);
   }
 
   .intake-form {
@@ -1276,7 +1276,7 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
     padding: 0.75rem 1rem;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--sg57-border);
-    border-radius: 6px;
+    border-radius: var(--sg57-radius-md);
     font-family: var(--sg57-font-display);
     font-size: 0.9rem;
     color: var(--sg57-text);
@@ -1312,7 +1312,7 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
   }
 
   .form-select option {
-    background: #1a1a2a;
+    background: var(--sg57-surface);
     color: var(--sg57-text);
   }
 
@@ -1326,7 +1326,7 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
     color: #ffffff;
     background: var(--sg57-accent);
     border: 1px solid transparent;
-    border-radius: 6px;
+    border-radius: var(--sg57-radius-md);
     cursor: pointer;
     transition: background 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
     display: flex;
@@ -1394,14 +1394,14 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
     padding: 0.75rem 1rem;
     background: rgba(220, 50, 50, 0.08);
     border: 1px solid rgba(220, 50, 50, 0.25);
-    border-radius: 6px;
+    border-radius: var(--sg57-radius-md);
     margin-bottom: 1rem;
   }
 
   .intake-error-text {
     font-family: var(--sg57-font-display);
     font-size: 0.88rem;
-    color: #f08080;
+    color: var(--sg57-error);
     line-height: 1.6;
   }
 
@@ -1455,7 +1455,7 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
     font-family: var(--sg57-font-display);
     font-weight: 700;
     font-size: clamp(1.3rem, 3vw, 1.65rem);
-    color: #ffffff;
+    color: var(--sg57-text);
     letter-spacing: 0.02em;
     line-height: 1.3;
   }

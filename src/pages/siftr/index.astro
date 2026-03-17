@@ -328,7 +328,7 @@ import Base from '../../layouts/Base.astro';
     font-family: var(--sg57-font-display);
     font-weight: 700;
     font-size: clamp(1.5rem, 4vw, 2.5rem);
-    color: #ffffff;
+    color: var(--sg57-text);
     letter-spacing: 0.1em;
     margin-bottom: 1rem;
   }
@@ -361,7 +361,9 @@ import Base from '../../layouts/Base.astro';
 
   /* --- CTA Button --- */
   .cta-button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
     font-family: var(--sg57-font-display);
     font-weight: 600;
     font-size: 0.95rem;
@@ -369,7 +371,7 @@ import Base from '../../layouts/Base.astro';
     color: #ffffff;
     background: var(--sg57-accent);
     border: 1px solid var(--sg57-accent);
-    border-radius: 6px;
+    border-radius: var(--sg57-radius-md);
     padding: 0.75rem 2rem;
     text-decoration: none;
     transition:
@@ -429,7 +431,7 @@ import Base from '../../layouts/Base.astro';
   .feature-card {
     background: var(--sg57-surface);
     border: 1px solid var(--sg57-border);
-    border-radius: 8px;
+    border-radius: var(--sg57-radius-md);
     padding: 2rem;
     transition:
       border-color 0.25s ease,
@@ -454,7 +456,7 @@ import Base from '../../layouts/Base.astro';
     font-weight: 600;
     font-size: 1rem;
     letter-spacing: 0.08em;
-    color: #ffffff;
+    color: var(--sg57-text);
     margin-bottom: 0.75rem;
   }
 
@@ -479,7 +481,7 @@ import Base from '../../layouts/Base.astro';
     gap: 0.75rem;
     padding: 3rem 2rem;
     border: 1px dashed var(--sg57-border);
-    border-radius: 8px;
+    border-radius: var(--sg57-radius-md);
     background: var(--sg57-surface);
   }
 
@@ -576,7 +578,7 @@ import Base from '../../layouts/Base.astro';
   .pricing-card {
     background: var(--sg57-surface);
     border: 1px solid var(--sg57-border);
-    border-radius: 8px;
+    border-radius: var(--sg57-radius-md);
     padding: 2rem;
     transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s var(--sg57-ease-out);
   }
@@ -598,7 +600,7 @@ import Base from '../../layouts/Base.astro';
     font-size: 1.1rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: #ffffff;
+    color: var(--sg57-text);
     margin-bottom: 0.5rem;
   }
 

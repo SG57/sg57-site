@@ -13,6 +13,15 @@
       <a href="/clide">Clide</a>
       <a href="/siftr">Siftr</a>
       <a href="/services">Services</a>
+      <button
+        class="theme-toggle"
+        id="theme-toggle"
+        aria-label="Toggle light/dark theme"
+        title="Toggle theme"
+      >
+        <span class="theme-icon theme-icon--dark" aria-hidden="true">☀</span>
+        <span class="theme-icon theme-icon--light" aria-hidden="true">☾</span>
+      </button>
     </div>
   </div>
 </nav>
@@ -22,10 +31,10 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background: var(--frost-bg);
-    backdrop-filter: blur(var(--frost-blur));
-    -webkit-backdrop-filter: blur(var(--frost-blur));
-    border-bottom: 1px solid var(--frost-border);
+    background: var(--sg57-glass-bg);
+    backdrop-filter: blur(var(--sg57-glass-blur));
+    -webkit-backdrop-filter: blur(var(--sg57-glass-blur));
+    border-bottom: 1px solid var(--sg57-glass-border);
   }
 
   .nav-inner {
@@ -39,12 +48,12 @@
     display: flex;
     align-items: baseline;
     gap: 0.15rem;
-    color: #ffffff;
+    color: var(--sg57-text);
     text-decoration: none;
   }
 
   .nav-logo:hover {
-    color: #ffffff;
+    color: var(--sg57-text);
   }
 
   .bracket {
@@ -90,6 +99,41 @@
   .nav-links a:hover {
     color: var(--sg57-accent);
   }
+
+  /* Theme toggle */
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    min-width: 44px;
+    min-height: 44px;
+    background: transparent;
+    border: 1px solid var(--sg57-border-subtle);
+    border-radius: var(--sg57-radius-sm);
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease;
+    margin-left: 0.5rem;
+    padding: 0;
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--sg57-accent-muted);
+    background: var(--sg57-accent-glow);
+  }
+
+  .theme-icon {
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  /* Dark mode: show sun icon (to switch to light) */
+  .theme-icon--light { display: none; }
+  .theme-icon--dark  { display: inline; }
+
+  :global([data-theme='light']) .theme-icon--dark  { display: none; }
+  :global([data-theme='light']) .theme-icon--light { display: inline; }
 
   @media (max-width: 640px) {
     .logo-sub {

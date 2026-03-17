@@ -72,6 +72,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="preload" href="/fonts/rajdhani-v17-latin-300.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/rajdhani-v17-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
 
+    <!-- Theme: apply saved preference before first paint to avoid flash -->
+    <script is:inline>
+      (function() {
+        var t = localStorage.getItem('sg57-theme');
+        if (t === 'light' || t === 'dark') {
+          document.documentElement.setAttribute('data-theme', t);
+        }
+      })();
+    </script>
+
     <!-- Client-side routing with View Transitions -->
     <ClientRouter />
   </head>
@@ -152,6 +162,22 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     </svg>
 
     <Nav />
+
+    <!-- Theme toggle handler (must re-bind on each ViewTransition navigation) -->
+    <script>
+      document.addEventListener('astro:page-load', () => {
+        const btn = document.getElementById('theme-toggle');
+        if (!btn) return;
+        btn.addEventListener('click', () => {
+          const html = document.documentElement;
+          const current = html.getAttribute('data-theme');
+          const next = current === 'light' ? 'dark' : 'light';
+          html.setAttribute('data-theme', next);
+          localStorage.setItem('sg57-theme', next);
+        });
+      });
+    </script>
+
     <main style="view-transition-name: page-main;">
       <slot />
     </main>
@@ -313,5 +339,25 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   @keyframes twinkle {
     0%, 100% { opacity: 0.55; }
     50%       { opacity: 0.08; }
+  }
+
+  /* ════════════════════════════════════════════════════
+     LIGHT THEME OVERRIDES
+     Wallpaper fades to light, particles dim, vignette inverts
+     ════════════════════════════════════════════════════ */
+  :global([data-theme='light']) .site-wallpaper {
+    opacity: 0.15;
+  }
+
+  :global([data-theme='light']) .site-wallpaper::after {
+    background: linear-gradient(to bottom, transparent, var(--sg57-void));
+  }
+
+  :global([data-theme='light']) .ambient-drift {
+    opacity: 0.6;
+  }
+
+  :global([data-theme='light']) .particles {
+    opacity: 0.3;
   }
 </style>
