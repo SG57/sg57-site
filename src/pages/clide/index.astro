@@ -178,7 +178,8 @@ import Base from '../../layouts/Base.astro';
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    min-height: 90vh;
+    min-height: 100vh;
+    min-height: 100svh; /* safe viewport height — correct on mobile browsers */
     overflow: hidden;
   }
 
@@ -233,8 +234,7 @@ import Base from '../../layouts/Base.astro';
     margin-bottom: 1rem;
   }
 
-  /* no .hero-title styling needed — element is sr-only */
-  .hero-title { display: none; }
+  /* .hero-title is sr-only in HTML — no additional CSS needed */
 
   /* Product-specific accent: Signal Cyan */
   .hero,
@@ -550,7 +550,8 @@ import Base from '../../layouts/Base.astro';
     }
 
     .hero {
-      min-height: 45vh;
+      min-height: 100vh;
+      min-height: 100svh;
     }
 
     .hero-content {
