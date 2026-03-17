@@ -11,26 +11,25 @@ import Base from '../../layouts/Base.astro';
   accentMuted="#4A9E9C"
   accentGlow="rgba(91, 192, 190, 0.15)"
 >
-  <!-- Hero -->
+  <!-- Hero — cinematic banner -->
   <section class="hero">
     <div class="hero-bg"></div>
     <div class="hero-content container">
-      <div class="hero-icon">
-        <img src="/brand/clide-icon.svg" alt="" width="64" height="64" />
-      </div>
-      <h1 class="hero-title">
-        <span class="accent">CLIDE //</span> AI TERMINAL COMMAND CENTER
-      </h1>
+      <!-- h1 for SEO/a11y — visually minimal since "CLIDE_" is in the banner image -->
+      <h1 class="hero-title sr-only">Clide — AI Terminal Command Center</h1>
+      <span class="hero-label">AI TERMINAL COMMAND CENTER</span>
       <p class="hero-tagline">Mission Control for your AI terminal sessions.</p>
       <p class="hero-subtitle">Manage dozens of CLI AI agents from one cockpit.</p>
-      <a
-        href="https://sg57.lemonsqueezy.com"
-        class="cta-button"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Download &rarr;
-      </a>
+      <div class="hero-actions">
+        <a
+          href="https://sg57.lemonsqueezy.com"
+          class="cta-button"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Download &rarr;
+        </a>
+      </div>
     </div>
   </section>
 
@@ -177,49 +176,65 @@ import Base from '../../layouts/Base.astro';
   .hero {
     position: relative;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
-    min-height: 55vh;
+    min-height: 90vh;
     overflow: hidden;
-    background: transparent;
   }
 
+  /* Banner image */
   .hero-bg {
     position: absolute;
     inset: 0;
-    background:
-      repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(91, 192, 190, 0.02) 2px,
-        rgba(91, 192, 190, 0.02) 4px
-      ),
-      radial-gradient(ellipse at 50% 40%, rgba(91, 192, 190, 0.08) 0%, transparent 70%);
+    background-image: url('/clide/clide-hero.jpg');
+    background-size: cover;
+    background-position: center;
     pointer-events: none;
+  }
+
+  /* Dark scrim — heavy at bottom where text lives */
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(6, 10, 14, 0.95) 0%,
+      rgba(6, 10, 14, 0.45) 40%,
+      rgba(6, 10, 14, 0.1) 100%
+    );
   }
 
   .hero-content {
     position: relative;
     text-align: center;
-    padding: 5rem 1.5rem 4rem;
+    padding: 0 1.5rem 4rem;
+    width: 100%;
   }
 
-  .hero-icon {
-    width: 64px;
-    height: 64px;
-    margin: 0 auto 1.5rem;
+  /* visually hidden h1 — "CLIDE_" is in the banner image */
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
   }
 
-  .hero-title {
-    font-family: var(--sg57-font-display);
-    font-weight: 700;
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    color: #ffffff;
-    letter-spacing: 0.08em;
+  .hero-label {
+    display: block;
+    font-family: var(--sg57-font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--sg57-accent);
+    text-transform: uppercase;
     margin-bottom: 1rem;
-    line-height: 1.2;
   }
+
+  /* no .hero-title styling needed — element is sr-only */
+  .hero-title { display: none; }
 
   /* Product-specific accent: Signal Cyan */
   .hero,

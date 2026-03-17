@@ -10,28 +10,25 @@ import Base from '../../layouts/Base.astro';
   accentMuted="#B8894A"
   accentGlow="rgba(212, 161, 90, 0.15)"
 >
-  <!-- Hero -->
+  <!-- Hero — cinematic banner -->
   <section class="hero">
     <div class="hero-bg"></div>
     <div class="hero-content container">
-      <div class="hero-badge">
-        <img src="/brand/siftr-icon.svg" alt="" width="40" height="40" />
-      </div>
-      <h1 class="hero-title">
-        <span class="hero-accent">SIFTR</span>
-        <span class="hero-sep">//</span>
-        LOG ANALYSIS SYSTEM
-      </h1>
+      <!-- h1 for SEO/a11y — "SIFTR" is in the banner image -->
+      <h1 class="sr-only">Siftr — Log Analysis System</h1>
+      <span class="hero-label">LOG ANALYSIS SYSTEM</span>
       <p class="hero-tagline">200MB log files. 3 seconds. Zero crashes.</p>
       <p class="hero-subtitle">High-performance log viewer for .NET/IIS environments.</p>
-      <a
-        href="https://sg57.lemonsqueezy.com"
-        class="cta-button"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Download &rarr;
-      </a>
+      <div class="hero-actions">
+        <a
+          href="https://sg57.lemonsqueezy.com"
+          class="cta-button"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Download &rarr;
+        </a>
+      </div>
     </div>
   </section>
 
@@ -245,11 +242,10 @@ import Base from '../../layouts/Base.astro';
   .hero {
     position: relative;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
-    min-height: 55vh;
+    min-height: 90vh;
     overflow: hidden;
-    background: transparent;
   }
 
   /* Product-specific accent: Diagnostic Amber */
@@ -266,31 +262,59 @@ import Base from '../../layouts/Base.astro';
     --sg57-accent-glow: rgba(212, 161, 90, 0.15);
   }
 
+  /* Banner image */
   .hero-bg {
     position: absolute;
     inset: 0;
-    background:
-      repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(212, 161, 90, 0.02) 2px,
-        rgba(212, 161, 90, 0.02) 4px
-      ),
-      radial-gradient(ellipse at 50% 40%, rgba(212, 161, 90, 0.06) 0%, transparent 70%);
+    background-image: url('/siftr/siftr-hero.jpg');
+    background-size: cover;
+    background-position: center;
     pointer-events: none;
+  }
+
+  /* Dark amber-tinted scrim */
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(8, 5, 2, 0.95) 0%,
+      rgba(8, 5, 2, 0.45) 40%,
+      rgba(8, 5, 2, 0.1) 100%
+    );
   }
 
   .hero-content {
     position: relative;
     text-align: center;
-    padding: 5rem 1.5rem 4rem;
+    padding: 0 1.5rem 4rem;
+    width: 100%;
   }
 
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .hero-label {
+    display: block;
+    font-family: var(--sg57-font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--sg57-accent);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  /* .hero-badge no longer used in new hero layout — keep hidden */
   .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    display: none;
     width: 72px;
     height: 72px;
     background: var(--sg57-surface);
