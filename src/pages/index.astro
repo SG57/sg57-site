@@ -46,6 +46,37 @@ import Base from '../layouts/Base.astro';
     </div>
   </section>
 
+  <!-- ══ Services ══ -->
+  <section class="services container">
+    <div class="services-banner">
+      <div class="services-left">
+        <span class="services-eyebrow">Now Offering</span>
+        <h2 class="services-heading">Brand DNA <span class="services-sep">//</span> Consulting</h2>
+        <p class="services-desc">
+          From rough web presence to complete brand identity.
+          Constitution, bible, design tokens, website &mdash; built once, right.
+        </p>
+        <a href="/services" class="services-cta">Explore the Service &rarr;</a>
+      </div>
+      <div class="services-right">
+        <div class="services-proof">
+          <div class="proof-stat">
+            <span class="proof-value">52k+</span>
+            <span class="proof-label">First client&rsquo;s Instagram following</span>
+          </div>
+          <a
+            href="https://staplesandstatements.com"
+            class="proof-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            staplesandstatements.com &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ══ About ══ -->
   <section class="about container">
     <div class="about-panel">
@@ -258,9 +289,143 @@ import Base from '../layouts/Base.astro';
     line-height: 1.7;
   }
 
+  /* ════════════════════════════════════════════════════
+     SERVICES — teaser banner
+     ════════════════════════════════════════════════════ */
+  .services {
+    padding: 0 1.5rem 4rem;
+  }
+
+  .services-banner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: center;
+    background: var(--frost-bg);
+    backdrop-filter: blur(var(--frost-blur));
+    -webkit-backdrop-filter: blur(var(--frost-blur));
+    border: 1px solid rgba(196, 137, 106, 0.25);
+    box-shadow: 0 0 32px rgba(196, 137, 106, 0.08), var(--frost-shadow);
+    border-radius: 8px;
+    padding: 2rem 2.5rem;
+    --svc-accent: #C4896A;
+    --svc-accent-muted: #A87558;
+    --svc-accent-glow: rgba(196, 137, 106, 0.12);
+  }
+
+  .services-eyebrow {
+    display: block;
+    font-family: var(--sg57-font-display);
+    font-weight: 500;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--svc-accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .services-heading {
+    font-family: var(--sg57-font-display);
+    font-weight: 700;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    color: #ffffff;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+
+  .services-sep {
+    color: var(--svc-accent);
+    margin: 0 0.15em;
+  }
+
+  .services-desc {
+    font-family: var(--sg57-font-display);
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: var(--sg57-text-dim);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    max-width: 480px;
+  }
+
+  .services-cta {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    color: var(--svc-accent);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .services-cta:hover {
+    color: #D49A7A;
+  }
+
+  .services-right {
+    flex-shrink: 0;
+  }
+
+  .services-proof {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.75rem;
+    padding-left: 2rem;
+    border-left: 1px solid rgba(196, 137, 106, 0.2);
+  }
+
+  .proof-stat {
+    text-align: right;
+  }
+
+  .proof-value {
+    display: block;
+    font-family: var(--sg57-font-display);
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--svc-accent);
+    letter-spacing: 0.03em;
+    line-height: 1;
+  }
+
+  .proof-label {
+    display: block;
+    font-family: var(--sg57-font-display);
+    font-weight: 400;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sg57-text-dim);
+    margin-top: 0.3rem;
+  }
+
+  .proof-link {
+    font-family: var(--sg57-font-display);
+    font-weight: 500;
+    font-size: 0.8rem;
+    color: var(--sg57-text-muted);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.2s ease;
+  }
+
+  .proof-link:hover {
+    color: var(--svc-accent);
+  }
+
   /* ── Responsive ── */
   @media (max-width: 720px) {
     .product-grid { grid-template-columns: 1fr; }
     .hero         { min-height: 80vh; }
+
+    .services-banner {
+      grid-template-columns: 1fr;
+    }
+
+    .services-right {
+      display: none;
+    }
   }
 </style>
