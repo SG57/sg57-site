@@ -273,89 +273,44 @@ import DigitalHealthQuiz from '../../components/services/DigitalHealthQuiz.astro
       No pitch, no pressure — just a real conversation about what you&rsquo;re building.
     </p>
 
-    <div class="intake-card">
-      <!--
-        FORMSPREE SETUP:
-        1. Go to https://formspree.io and sign in (or create an account).
-        2. Create a new form — name it "SG57 Services Intake".
-        3. Set the notification email to consult@sg57.dev.
-        4. Copy your form's endpoint (looks like: https://formspree.io/f/xxxxxxxx).
-        5. Replace the action URL below with your endpoint.
-      -->
+    <div class="intake-card" id="intake-card">
+
+      <!-- ── FORM ── -->
       <form
         class="intake-form"
         id="sg57-intake-form"
         aria-label="Services inquiry form"
         novalidate
       >
-        <!-- Formspree honeypot (spam protection) -->
         <input type="text" name="_gotcha" style="display:none" tabindex="-1" aria-hidden="true" />
-        <!-- Subject line in email -->
         <input type="hidden" name="_subject" value="New Inquiry — SG57 Services" />
 
         <div class="form-row form-row--two">
           <div class="form-field">
             <label for="if-name" class="form-label">Your Name <span class="form-required" aria-label="required">*</span></label>
-            <input
-              type="text"
-              id="if-name"
-              name="name"
-              class="form-input"
-              required
-              autocomplete="name"
-              placeholder="Danielle Diaz"
-            />
+            <input type="text" id="if-name" name="name" class="form-input" required autocomplete="name" placeholder="Danielle Diaz" />
           </div>
           <div class="form-field">
             <label for="if-email" class="form-label">Email Address <span class="form-required" aria-label="required">*</span></label>
-            <input
-              type="email"
-              id="if-email"
-              name="email"
-              class="form-input"
-              required
-              autocomplete="email"
-              placeholder="you@yourbusiness.com"
-            />
+            <input type="email" id="if-email" name="email" class="form-input" required autocomplete="email" placeholder="you@yourbusiness.com" />
           </div>
         </div>
 
         <div class="form-row form-row--two">
           <div class="form-field">
             <label for="if-business" class="form-label">Business / Project Name <span class="form-required" aria-label="required">*</span></label>
-            <input
-              type="text"
-              id="if-business"
-              name="business"
-              class="form-input"
-              required
-              placeholder="Staples &amp; Statements"
-            />
+            <input type="text" id="if-business" name="business" class="form-input" required placeholder="Staples &amp; Statements" />
           </div>
           <div class="form-field">
             <label for="if-website" class="form-label">Current Website <span class="form-optional">(if any)</span></label>
-            <input
-              type="url"
-              id="if-website"
-              name="website"
-              class="form-input"
-              autocomplete="url"
-              placeholder="https://yoursite.com"
-            />
+            <input type="url" id="if-website" name="website" class="form-input" autocomplete="url" placeholder="https://yoursite.com" />
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-field">
             <label for="if-challenge" class="form-label">What&rsquo;s your biggest digital challenge right now? <span class="form-required" aria-label="required">*</span></label>
-            <textarea
-              id="if-challenge"
-              name="challenge"
-              class="form-input form-textarea"
-              required
-              rows="4"
-              placeholder="Tell us what's not working — or what you're trying to build."
-            ></textarea>
+            <textarea id="if-challenge" name="challenge" class="form-input form-textarea" required rows="4" placeholder="Tell us what's not working — or what you're trying to build."></textarea>
           </div>
         </div>
 
@@ -373,24 +328,35 @@ import DigitalHealthQuiz from '../../components/services/DigitalHealthQuiz.astro
             </select>
           </div>
           <div class="form-field form-field--submit">
-            <button type="submit" class="form-submit">
-              Send My Brief <span aria-hidden="true">→</span>
+            <button type="submit" class="form-submit" id="intake-submit">
+              Send My Brief <span class="submit-arrow" aria-hidden="true">→</span>
             </button>
           </div>
         </div>
 
       </form>
 
-      <!-- Error message -->
+      <!-- ── ERROR ── -->
       <div class="intake-error hidden" id="intake-error" role="alert" aria-live="polite">
-        <p class="intake-error-text">Something went wrong — please try again or email us directly at <a href="mailto:consult@sg57.dev">consult@sg57.dev</a>.</p>
+        <p class="intake-error-text">Something went wrong — try again or reach us at <a href="mailto:consult@sg57.dev">consult@sg57.dev</a>.</p>
       </div>
 
-      <!-- Success message -->
-      <div class="intake-success hidden" id="intake-success" role="alert" aria-live="polite">
-        <div class="success-glyph" aria-hidden="true">◆</div>
-        <h3 class="success-headline">Brief received.</h3>
-        <p class="success-body">We&rsquo;ll review your situation and follow up within 24 hours.</p>
+      <!-- ── SUCCESS ── -->
+      <div class="intake-success hidden" id="intake-success" role="status" aria-live="polite">
+        <div class="success-ring" aria-hidden="true">
+          <span class="success-ring-glyph">◆</span>
+        </div>
+        <div class="success-label" aria-hidden="true">// TRANSMISSION RECEIVED</div>
+        <h3 class="success-headline">Brief received, <span id="success-name">there</span>.</h3>
+        <p class="success-body">
+          We&rsquo;ll follow up at <strong id="success-email"></strong> within 24 hours.<br/>
+          No pitch. No pressure. Just a real conversation.
+        </p>
+      </div>
+
+      <!-- ── PROGRESS BAR (absolute, bottom of card) ── -->
+      <div class="intake-progress" id="intake-progress" aria-hidden="true">
+        <div class="intake-progress-fill" id="intake-progress-fill"></div>
       </div>
 
     </div><!-- /intake-card -->
@@ -400,46 +366,117 @@ import DigitalHealthQuiz from '../../components/services/DigitalHealthQuiz.astro
 
 <script>
   document.addEventListener('astro:page-load', () => {
-    const form    = document.getElementById('sg57-intake-form');
-    const success = document.getElementById('intake-success');
-    const error   = document.getElementById('intake-error');
-    const submit  = form?.querySelector('.form-submit');
-    if (!form) return;
+    const form         = document.getElementById('sg57-intake-form');
+    const card         = document.getElementById('intake-card');
+    const submitBtn    = document.getElementById('intake-submit');
+    const successEl    = document.getElementById('intake-success');
+    const errorEl      = document.getElementById('intake-error');
+    const progressEl   = document.getElementById('intake-progress');
+    const progressFill = document.getElementById('intake-progress-fill');
+    if (!form || !card) return;
+
+    let submitted = false; // hard lock — prevents any double submission
+
+    function wait(ms) {
+      return new Promise(r => setTimeout(r, ms));
+    }
+
+    // ── Animate progress fill ─────────────────────────────────────────────────
+    function setProgress(pct, durationMs) {
+      progressFill.style.transition = `width ${durationMs}ms cubic-bezier(0.4, 0, 0.6, 1)`;
+      progressFill.style.width = `${pct}%`;
+    }
+
+    // ── Reset to idle (only on error) ─────────────────────────────────────────
+    function resetToIdle() {
+      submitted = false;
+      card.classList.remove('card-sending');
+      [...form.elements].forEach(el => (el.disabled = false));
+      form.style.opacity = '';
+      form.style.pointerEvents = '';
+      submitBtn.classList.remove('is-sending');
+      submitBtn.innerHTML = 'Send My Brief <span class="submit-arrow" aria-hidden="true">→</span>';
+      setProgress(0, 300);
+      setTimeout(() => { progressEl.style.opacity = '0'; }, 350);
+    }
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (submitted) return; // hard stop — catches rapid double-clicks
 
-      // Basic HTML5 validation
+      // HTML5 validation
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
       }
 
-      // Loading state
-      submit.disabled = true;
-      submit.textContent = 'Sending…';
-      error.classList.add('hidden');
+      submitted = true;
+      errorEl.classList.add('hidden');
 
-      try {
-        const res = await fetch('https://formspree.io/f/mojkpkyj', {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { 'Accept': 'application/json' },
-        });
+      // Capture personal details before we touch the form
+      const firstName = (form.querySelector('#if-name')?.value?.trim() ?? '').split(' ')[0] || 'there';
+      const email     = form.querySelector('#if-email')?.value?.trim() ?? '';
 
-        if (res.ok) {
-          form.classList.add('hidden');
-          error.classList.add('hidden');
-          success.classList.remove('hidden');
-          success.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        } else {
-          throw new Error('non-200');
-        }
-      } catch {
-        submit.disabled = false;
-        submit.innerHTML = 'Send My Brief <span aria-hidden="true">→</span>';
-        error.classList.remove('hidden');
+      // ── Phase 1: Lock everything, start scanner + progress ────────────────
+      [...form.elements].forEach(el => (el.disabled = true));
+      form.style.opacity = '0.45';
+      form.style.pointerEvents = 'none';
+
+      submitBtn.classList.add('is-sending');
+      submitBtn.innerHTML = '<span class="btn-spinner" aria-hidden="true">◈</span> Transmitting…';
+
+      card.classList.add('card-sending');
+      progressEl.style.opacity = '1';
+      setProgress(0, 0);
+      await wait(40); // let browser paint 0% before animating
+      setProgress(72, 1800);
+
+      // ── Phase 2: Fire request alongside minimum animation time ────────────
+      const fetchPromise = fetch('https://formspree.io/f/mojkpkyj', {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' },
+      }).catch(() => ({ ok: false }));
+
+      const [res] = await Promise.all([fetchPromise, wait(1900)]);
+
+      if (!res.ok) {
+        resetToIdle();
+        errorEl.classList.remove('hidden');
+        return;
       }
+
+      // ── Phase 3: Complete the progress bar ────────────────────────────────
+      setProgress(100, 220);
+      await wait(340);
+
+      // ── Phase 4: Collapse the form ────────────────────────────────────────
+      card.classList.remove('card-sending');
+      form.style.transition = 'opacity 0.38s ease, transform 0.38s cubic-bezier(0.4, 0, 1, 1)';
+      form.style.opacity    = '0';
+      form.style.transform  = 'translateY(-10px)';
+      progressFill.style.transition = 'opacity 0.25s ease';
+      progressFill.style.opacity    = '0';
+      await wait(400);
+
+      form.style.display = 'none';
+      progressEl.style.display = 'none';
+
+      // ── Phase 5: Reveal success ───────────────────────────────────────────
+      document.getElementById('success-name').textContent  = firstName;
+      document.getElementById('success-email').textContent = email;
+
+      card.classList.add('card-success');
+      successEl.classList.remove('hidden');
+      successEl.style.opacity   = '0';
+      successEl.style.transform = 'translateY(12px) scale(0.97)';
+
+      void successEl.offsetWidth; // reflow
+      successEl.style.transition = 'opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)';
+      successEl.style.opacity    = '1';
+      successEl.style.transform  = 'translateY(0) scale(1)';
+
+      successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
   });
 </script>
@@ -1100,6 +1137,46 @@ import DigitalHealthQuiz from '../../components/services/DigitalHealthQuiz.astro
     box-shadow: var(--frost-shadow);
     border-radius: 10px;
     padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.5s ease, box-shadow 0.5s ease;
+  }
+
+  /* Scanner sweep line during sending */
+  .intake-card.card-sending::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 15%,
+      rgba(196, 137, 106, 0.9) 45%,
+      rgba(220, 160, 120, 1) 50%,
+      rgba(196, 137, 106, 0.9) 55%,
+      transparent 85%,
+      transparent 100%
+    );
+    box-shadow: 0 0 14px 3px rgba(196, 137, 106, 0.45);
+    animation: scanner-sweep 1.05s ease-in-out infinite;
+    z-index: 10;
+    pointer-events: none;
+    top: 0;
+  }
+
+  @keyframes scanner-sweep {
+    0%   { top: 0%;   opacity: 0; }
+    6%   { opacity: 1; }
+    94%  { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+  }
+
+  /* Card success glow */
+  .intake-card.card-success {
+    border-color: var(--sg57-accent-muted);
+    box-shadow: 0 0 60px rgba(196, 137, 106, 0.18), var(--frost-shadow);
   }
 
   .intake-form {
@@ -1211,12 +1288,65 @@ import DigitalHealthQuiz from '../../components/services/DigitalHealthQuiz.astro
     border: 1px solid transparent;
     border-radius: 6px;
     cursor: pointer;
-    transition: background 0.2s ease, box-shadow 0.2s ease;
+    transition: background 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
   }
 
-  .form-submit:hover {
+  .form-submit:not(.is-sending):hover {
     background: var(--sg57-accent-hover);
     box-shadow: 0 0 24px var(--sg57-accent-glow);
+  }
+
+  .form-submit.is-sending {
+    background: var(--sg57-accent-muted);
+    cursor: wait;
+    opacity: 0.85;
+  }
+
+  .submit-arrow {
+    display: inline-block;
+    transition: transform 0.2s ease;
+  }
+
+  .form-submit:not(.is-sending):hover .submit-arrow {
+    transform: translateX(3px);
+  }
+
+  /* Spinning glyph during transmit */
+  .btn-spinner {
+    display: inline-block;
+    animation: btn-spin 0.9s linear infinite;
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  @keyframes btn-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  /* ── PROGRESS BAR ── */
+  .intake-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: transparent;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .intake-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--sg57-accent-muted), var(--sg57-accent), var(--sg57-accent-hover));
+    box-shadow: 0 0 10px var(--sg57-accent-glow);
+    border-radius: 0 2px 0 0;
   }
 
   /* ── ERROR STATE ── */
@@ -1243,25 +1373,51 @@ import DigitalHealthQuiz from '../../components/services/DigitalHealthQuiz.astro
   /* ── SUCCESS STATE ── */
   .intake-success {
     text-align: center;
-    padding: 3rem 2rem;
+    padding: 3.5rem 2rem 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.85rem;
   }
 
-  .success-glyph {
-    font-size: 2rem;
+  .success-ring {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    border: 1px solid var(--sg57-accent-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.25rem;
+    animation: success-ring-pulse 3s ease-in-out infinite;
+    box-shadow: 0 0 0 0 var(--sg57-accent-glow);
+  }
+
+  @keyframes success-ring-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(196, 137, 106, 0.4); border-color: var(--sg57-accent-muted); }
+    50%       { box-shadow: 0 0 0 10px rgba(196, 137, 106, 0); border-color: var(--sg57-accent); }
+  }
+
+  .success-ring-glyph {
+    font-size: 1.25rem;
     color: var(--sg57-accent);
-    animation: pulse-glow 4s ease-in-out infinite;
+  }
+
+  .success-label {
+    font-family: var(--sg57-font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    color: var(--sg57-accent);
+    text-transform: uppercase;
   }
 
   .success-headline {
     font-family: var(--sg57-font-display);
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: clamp(1.3rem, 3vw, 1.65rem);
     color: #ffffff;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.02em;
+    line-height: 1.3;
   }
 
   .success-body {
@@ -1269,7 +1425,13 @@ import DigitalHealthQuiz from '../../components/services/DigitalHealthQuiz.astro
     font-weight: 400;
     font-size: 0.95rem;
     color: var(--sg57-text-dim);
-    line-height: 1.7;
+    line-height: 1.8;
+    max-width: 380px;
+  }
+
+  .success-body strong {
+    color: var(--sg57-accent);
+    font-weight: 600;
   }
 
   /* ── SHARED ── */
