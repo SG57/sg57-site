@@ -275,14 +275,15 @@ const START = 50;
     width: 0;
   }
 
-  /* The visible diagonal line */
+  /* The visible diagonal line — angle matches the clip-path diagonal
+     (ANGLE=5% over 100% height in a 16:9 box ≈ 5.1° from vertical) */
   .ba-line {
     position: absolute;
     top: -5%;
     height: 110%;
     width: 2px;
     left: 50%;
-    transform: translateX(-50%) rotate(3.2deg);
+    transform: translateX(-50%) rotate(5.1deg);
     background: linear-gradient(
       to bottom,
       transparent 0%,
