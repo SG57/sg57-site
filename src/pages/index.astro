@@ -173,6 +173,25 @@ import Base from '../layouts/Base.astro';
           </div>
         </div>
       </div>
+
+      <!-- Client testimonial -->
+      <blockquote class="work-testimonial">
+        <p class="testimonial-text">
+          &ldquo;SG57 Labs did an outstanding job taking the thoughts and ideas I had floating
+          around in my head and bringing them to life on screen. I was dumbfounded when they
+          first walked me through my site &mdash; the attention to detail and the overall vision
+          they created perfectly matched what I wanted my business to look and feel like.
+          There were organized rounds of revisions where I could make tweaks and changes along
+          the way so that when we launched, it was a seamless effort. I can&rsquo;t recommend
+          SG57 Labs enough &mdash; hands-down a phenomenal experience.&rdquo;
+        </p>
+        <footer class="testimonial-attribution">
+          <span class="testimonial-name">Danielle</span>
+          <span class="testimonial-sep">//</span>
+          <span class="testimonial-role">Founder, Staples &amp; Statements</span>
+        </footer>
+      </blockquote>
+
     </div>
   </section>
 
@@ -798,6 +817,56 @@ import Base from '../layouts/Base.astro';
     font-size: 0.7rem;
     color: var(--sg57-text-muted);
     letter-spacing: 0.04em;
+  }
+
+  /* ════════════════════════════════════════════════════
+     TESTIMONIAL
+     ════════════════════════════════════════════════════ */
+  .work-testimonial {
+    margin-top: 1.5rem;
+    padding: 1.75rem 2rem;
+    background: var(--sg57-glass-bg);
+    backdrop-filter: blur(var(--sg57-glass-blur));
+    -webkit-backdrop-filter: blur(var(--sg57-glass-blur));
+    border: 1px solid var(--sg57-glass-border);
+    border-left: 3px solid #C4896A;
+    border-radius: var(--sg57-radius-md);
+    box-shadow: var(--sg57-glass-shadow);
+  }
+
+  .testimonial-text {
+    font-family: var(--sg57-font-display);
+    font-weight: 400;
+    font-size: 0.92rem;
+    color: var(--sg57-text-dim);
+    line-height: 1.75;
+    font-style: italic;
+  }
+
+  .testimonial-attribution {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+    font-family: var(--sg57-font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .testimonial-name {
+    color: var(--sg57-text);
+    font-weight: 600;
+  }
+
+  .testimonial-sep {
+    color: #C4896A;
+    opacity: 0.6;
+  }
+
+  .testimonial-role {
+    color: var(--sg57-text-muted);
+    font-weight: 400;
   }
 
   /* ════════════════════════════════════════════════════
