@@ -21,7 +21,7 @@ import Base from '../layouts/Base.astro';
         </p>
         <div class="hero-ctas">
           <a href="#products" class="btn btn-primary">See Products →</a>
-          <a href="mailto:consult@sg57.dev" class="btn btn-ghost">Hire Us →</a>
+          <a href="/services" class="btn btn-ghost">Start a Project →</a>
         </div>
       </div>
 
@@ -181,34 +181,35 @@ import Base from '../layouts/Base.astro';
 
       <!-- Page gallery -->
       <div class="work-gallery">
-        <div class="gallery-item">
+        <a class="gallery-item" href="https://staplesandstatements.com" target="_blank" rel="noopener noreferrer">
           <img src="/work/ss-landing.webp" alt="Landing page" width="1440" height="900" loading="lazy" />
           <span class="gallery-label">Landing</span>
-        </div>
-        <div class="gallery-item">
+        </a>
+        <a class="gallery-item" href="https://staplesandstatements.com/archetypes" target="_blank" rel="noopener noreferrer">
           <img src="/work/ss-archetypes.webp" alt="Style archetype quiz" width="1440" height="900" loading="lazy" />
           <span class="gallery-label">Archetypes</span>
-        </div>
-        <div class="gallery-item">
+        </a>
+        <a class="gallery-item" href="https://staplesandstatements.com/shop" target="_blank" rel="noopener noreferrer">
           <img src="/work/ss-shop.webp" alt="LTK shop integration" width="1440" height="900" loading="lazy" />
           <span class="gallery-label">Shop</span>
-        </div>
-        <div class="gallery-item">
+        </a>
+        <a class="gallery-item" href="https://staplesandstatements.com/services" target="_blank" rel="noopener noreferrer">
           <img src="/work/ss-services.webp" alt="Services page" width="1440" height="900" loading="lazy" />
           <span class="gallery-label">Services</span>
-        </div>
+        </a>
       </div>
 
       <!-- Client testimonial -->
       <blockquote class="work-testimonial">
+        <span class="testimonial-quote" aria-hidden="true">&ldquo;</span>
         <p class="testimonial-text">
-          &ldquo;SG57 Labs did an outstanding job taking the thoughts and ideas I had floating
+          SG57 Labs did an outstanding job taking the thoughts and ideas I had floating
           around in my head and bringing them to life on screen. I was dumbfounded when they
           first walked me through my site &mdash; the attention to detail and the overall vision
           they created perfectly matched what I wanted my business to look and feel like.
           There were organized rounds of revisions where I could make tweaks and changes along
           the way so that when we launched, it was a seamless effort. I can&rsquo;t recommend
-          SG57 Labs enough &mdash; hands-down a phenomenal experience.&rdquo;
+          SG57 Labs enough &mdash; hands-down a phenomenal experience.
         </p>
         <footer class="testimonial-attribution">
           <span class="testimonial-name">Danielle</span>
@@ -850,16 +851,19 @@ import Base from '../layouts/Base.astro';
 
   .gallery-item {
     position: relative;
+    display: block;
     border-radius: var(--sg57-radius-md);
     overflow: hidden;
     border: 1px solid var(--sg57-border-glass);
-    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s var(--sg57-ease-out);
+    text-decoration: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s var(--sg57-ease-snap);
   }
 
   .gallery-item:hover {
-    border-color: rgba(196, 137, 106, 0.35);
-    box-shadow: 0 4px 20px rgba(196, 137, 106, 0.12);
-    transform: translateY(-2px);
+    border-color: rgba(196, 137, 106, 0.4);
+    box-shadow: 0 8px 32px rgba(196, 137, 106, 0.18);
+    transform: scale(1.06);
+    z-index: 2;
   }
 
   .gallery-item img {
@@ -892,23 +896,35 @@ import Base from '../layouts/Base.astro';
      TESTIMONIAL
      ════════════════════════════════════════════════════ */
   .work-testimonial {
+    position: relative;
     margin-top: 1.5rem;
-    padding: 1.75rem 2rem;
+    padding: 2rem 2.5rem 2rem 2.5rem;
     background: var(--sg57-glass-bg);
     backdrop-filter: blur(var(--sg57-glass-blur));
     -webkit-backdrop-filter: blur(var(--sg57-glass-blur));
-    border: 1px solid var(--sg57-glass-border);
-    border-left: 3px solid #C4896A;
-    border-radius: var(--sg57-radius-md);
-    box-shadow: var(--sg57-glass-shadow);
+    border: 1px solid rgba(196, 137, 106, 0.2);
+    border-radius: var(--sg57-radius-lg);
+    box-shadow: 0 4px 24px rgba(196, 137, 106, 0.06), var(--sg57-glass-shadow);
+  }
+
+  .testimonial-quote {
+    position: absolute;
+    top: -0.15rem;
+    left: 1.25rem;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 5rem;
+    line-height: 1;
+    color: #C4896A;
+    opacity: 0.3;
+    pointer-events: none;
   }
 
   .testimonial-text {
     font-family: var(--sg57-font-display);
     font-weight: 400;
-    font-size: 0.92rem;
+    font-size: 0.95rem;
     color: var(--sg57-text-dim);
-    line-height: 1.75;
+    line-height: 1.8;
     font-style: italic;
   }
 

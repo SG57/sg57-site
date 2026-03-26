@@ -330,6 +330,11 @@ svg {
   box-shadow: var(--sg57-focus-ring);
 }
 
+/* Offset anchor scroll targets below the sticky nav (3.5rem height + breathing room) */
+[id] {
+  scroll-margin-top: 4.5rem;
+}
+
 /* --- Theme transition (smooth color swap on toggle) --- */
 [data-theme] {
   transition: background-color 200ms var(--sg57-ease-out),

@@ -346,7 +346,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
      Wallpaper fades to light, particles dim, vignette inverts
      ════════════════════════════════════════════════════ */
   :global([data-theme='light']) .site-wallpaper {
-    opacity: 0.15;
+    opacity: 0.25;
+    filter: invert(1) hue-rotate(180deg);
   }
 
   :global([data-theme='light']) .site-wallpaper::after {
