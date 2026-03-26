@@ -277,18 +277,24 @@ import Base from '../../layouts/Base.astro';
     font-weight: 600;
     font-size: 0.95rem;
     letter-spacing: 0.05em;
-    color: #ffffff;
-    background: var(--sg57-accent);
+    color: var(--sg57-accent);
+    background: var(--sg57-glass-bg);
+    backdrop-filter: blur(var(--sg57-glass-blur));
+    -webkit-backdrop-filter: blur(var(--sg57-glass-blur));
+    border: 1px solid var(--sg57-accent-muted);
     padding: 0.75rem 2rem;
     border-radius: var(--sg57-radius-md);
     text-decoration: none;
-    transition: background 0.2s ease, box-shadow 0.2s ease;
+    transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease,
+                box-shadow 0.3s ease, transform 0.2s var(--sg57-ease-out);
   }
 
   .cta-button:hover {
-    background: var(--sg57-accent-hover);
-    box-shadow: 0 0 24px var(--sg57-accent-glow);
     color: #ffffff;
+    background: var(--sg57-accent);
+    border-color: var(--sg57-accent);
+    box-shadow: 0 0 28px var(--sg57-accent-glow);
+    transform: translateY(-1px);
   }
 
   /* --- Problem Statement --- */
