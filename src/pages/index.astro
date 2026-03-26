@@ -167,10 +167,35 @@ import Base from '../layouts/Base.astro';
               </span>
               <span class="work-frame-url">staplesandstatements.com</span>
             </div>
-            <div class="work-frame-body">
-              <span class="work-frame-todo">// preview image coming soon</span>
-            </div>
+            <img
+              class="work-frame-img"
+              src="/work/ss-landing.webp"
+              alt="Staples & Statements homepage — full brand system built by SG57 Labs"
+              width="1440"
+              height="900"
+              loading="lazy"
+            />
           </div>
+        </div>
+      </div>
+
+      <!-- Page gallery -->
+      <div class="work-gallery">
+        <div class="gallery-item">
+          <img src="/work/ss-landing.webp" alt="Landing page" width="1440" height="900" loading="lazy" />
+          <span class="gallery-label">Landing</span>
+        </div>
+        <div class="gallery-item">
+          <img src="/work/ss-archetypes.webp" alt="Style archetype quiz" width="1440" height="900" loading="lazy" />
+          <span class="gallery-label">Archetypes</span>
+        </div>
+        <div class="gallery-item">
+          <img src="/work/ss-shop.webp" alt="LTK shop integration" width="1440" height="900" loading="lazy" />
+          <span class="gallery-label">Shop</span>
+        </div>
+        <div class="gallery-item">
+          <img src="/work/ss-services.webp" alt="Services page" width="1440" height="900" loading="lazy" />
+          <span class="gallery-label">Services</span>
         </div>
       </div>
 
@@ -804,19 +829,63 @@ import Base from '../layouts/Base.astro';
     letter-spacing: 0.03em;
   }
 
-  .work-frame-body {
-    height: 180px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--sg57-overlay-heavy);
+  .work-frame-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: top center;
   }
 
-  .work-frame-todo {
+  /* ════════════════════════════════════════════════════
+     WORK GALLERY — 4-up grid of page screenshots
+     ════════════════════════════════════════════════════ */
+  .work-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+
+  .gallery-item {
+    position: relative;
+    border-radius: var(--sg57-radius-md);
+    overflow: hidden;
+    border: 1px solid var(--sg57-border-glass);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s var(--sg57-ease-out);
+  }
+
+  .gallery-item:hover {
+    border-color: rgba(196, 137, 106, 0.35);
+    box-shadow: 0 4px 20px rgba(196, 137, 106, 0.12);
+    transform: translateY(-2px);
+  }
+
+  .gallery-item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  .gallery-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.35rem 0.6rem;
     font-family: var(--sg57-font-mono);
-    font-size: 0.7rem;
-    color: var(--sg57-text-muted);
-    letter-spacing: 0.04em;
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sg57-text-dim);
+    background: var(--sg57-glass-bg-dense);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 
   /* ════════════════════════════════════════════════════
@@ -930,6 +999,10 @@ import Base from '../layouts/Base.astro';
 
     .work-card {
       grid-template-columns: 1fr;
+    }
+
+    .work-gallery {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 
