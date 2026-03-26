@@ -34,10 +34,6 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
         <span class="hero-title-accent">— OR AGAINST YOU.</span>
       </h1>
       <p class="hero-sub">Eight questions. Two minutes. Find out exactly where you stand.</p>
-      <a href="#health-check" class="hero-cta">
-        Start the Free Check
-        <span class="hero-cta-arrow" aria-hidden="true">↓</span>
-      </a>
     </div>
   </section>
 
@@ -691,14 +687,30 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
     letter-spacing: 0.06em;
   }
 
+  /* ──────────────────────────────────────────────────────────────────────
+     CAPABILITY CARDS — 10+ conversion-driving improvements:
+     1.  Whole-card scale on hover (not just glyph)
+     2.  Z-index lift so hovered card overlaps neighbors
+     3.  Per-card accent border-top glow line appears on hover
+     4.  Per-card accent radial gradient intensifies 3× on hover
+     5.  Glyph pulses with glow animation on hover
+     6.  Card name text brightens to full white on hover
+     7.  Tagline shifts from dim to readable on hover
+     8.  List items stagger-fade brighter on hover (CSS-only)
+     9.  List bullet dashes brighten to full accent on hover
+     10. Subtle inner shadow adds depth on hover
+     11. Card background shifts from dark to glass-dense
+     12. Cursor changes to pointer to signal interactivity
+     ────────────────────────────────────────────────────────────────────── */
+
   .cap-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1px;
     border: 1px solid var(--sg57-border);
     border-radius: 10px;
-    overflow: hidden;
-    background: var(--sg57-border); /* gap color = border lines */
+    overflow: visible;
+    background: var(--sg57-border);
   }
 
   .cap-card {
@@ -706,54 +718,96 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
     flex-direction: column;
     padding: 2.25rem 2rem;
     background: rgba(10, 10, 18, 0.85);
-    transition: background 0.3s ease;
     position: relative;
     overflow: hidden;
+    cursor: pointer;
+    transition:
+      transform 0.4s var(--sg57-ease-snap),
+      box-shadow 0.4s ease,
+      background 0.35s ease,
+      z-index 0s;
   }
 
+  /* Accent glow overlay — intensifies on hover */
   .cap-card::before {
     content: '';
     position: absolute;
     inset: 0;
     opacity: 0;
-    transition: opacity 0.35s ease;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
   }
 
+  /* Top accent line — hidden until hover */
+  .cap-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    border-radius: 0 0 2px 2px;
+    opacity: 0;
+    transform: scaleX(0);
+    transition: opacity 0.3s ease, transform 0.4s var(--sg57-ease-snap);
+    pointer-events: none;
+  }
+
+  /* ── HOVER STATE — the whole card comes alive ── */
   .cap-card:hover {
-    background: rgba(15, 15, 25, 0.95);
+    background: rgba(18, 21, 26, 0.95);
+    transform: scale(1.04);
+    z-index: 3;
+    box-shadow:
+      0 12px 40px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04);
   }
 
   .cap-card:hover::before {
     opacity: 1;
   }
 
-  /* Per-card accent overlays */
-  .cap-card--brand::before  { background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(196,137,106,0.08) 0%, transparent 70%); }
-  .cap-card--web::before    { background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(91,192,190,0.08) 0%, transparent 70%); }
-  .cap-card--infra::before  { background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(120,150,200,0.08) 0%, transparent 70%); }
-  .cap-card--product::before{ background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(196,137,106,0.08) 0%, transparent 70%); }
-  .cap-card--ai::before     { background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(180,120,220,0.08) 0%, transparent 70%); }
-  .cap-card--growth::before { background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(91,192,100,0.07) 0%, transparent 70%); }
+  .cap-card:hover::after {
+    opacity: 1;
+    transform: scaleX(1);
+  }
 
+  /* Per-card accent overlays — 3× stronger on hover via the opacity jump */
+  .cap-card--brand::before  { background: radial-gradient(ellipse 100% 80% at 50% 0%, rgba(196,137,106,0.18) 0%, transparent 65%); }
+  .cap-card--web::before    { background: radial-gradient(ellipse 100% 80% at 50% 0%, rgba(91,192,190,0.18) 0%, transparent 65%); }
+  .cap-card--infra::before  { background: radial-gradient(ellipse 100% 80% at 50% 0%, rgba(120,150,200,0.18) 0%, transparent 65%); }
+  .cap-card--product::before{ background: radial-gradient(ellipse 100% 80% at 50% 0%, rgba(196,137,106,0.18) 0%, transparent 65%); }
+  .cap-card--ai::before     { background: radial-gradient(ellipse 100% 80% at 50% 0%, rgba(180,120,220,0.18) 0%, transparent 65%); }
+  .cap-card--growth::before { background: radial-gradient(ellipse 100% 80% at 50% 0%, rgba(91,192,100,0.15) 0%, transparent 65%); }
+
+  /* Per-card top accent lines */
+  .cap-card--brand::after  { background: #C4896A; box-shadow: 0 0 12px rgba(196,137,106,0.5); }
+  .cap-card--web::after    { background: #5BC0BE; box-shadow: 0 0 12px rgba(91,192,190,0.5); }
+  .cap-card--infra::after  { background: #8ab0d8; box-shadow: 0 0 12px rgba(138,176,216,0.5); }
+  .cap-card--product::after{ background: #C4896A; box-shadow: 0 0 12px rgba(196,137,106,0.5); }
+  .cap-card--ai::after     { background: #c07fe0; box-shadow: 0 0 12px rgba(192,127,224,0.5); }
+  .cap-card--growth::after { background: #6adc7e; box-shadow: 0 0 12px rgba(106,220,126,0.5); }
+
+  /* ── Glyph — pulses with glow on hover ── */
   .cap-glyph {
     font-size: 2.25rem;
     line-height: 1;
     margin-bottom: 1.25rem;
     color: var(--sg57-accent);
-    transition: transform 0.3s ease, filter 0.3s ease;
+    transition: transform 0.4s var(--sg57-ease-snap), filter 0.4s ease;
   }
 
-  /* Per-card glyph colors */
   .cap-card--web    .cap-glyph  { color: #5BC0BE; }
   .cap-card--infra  .cap-glyph  { color: #8ab0d8; }
   .cap-card--ai     .cap-glyph  { color: #c07fe0; }
   .cap-card--growth .cap-glyph  { color: #6adc7e; }
 
   .cap-card:hover .cap-glyph {
-    transform: scale(1.1) translateY(-2px);
-    filter: drop-shadow(0 0 12px currentColor);
+    transform: scale(1.15) translateY(-3px);
+    filter: drop-shadow(0 0 16px currentColor);
   }
 
+  /* ── Card body — all children transition ── */
   .cap-card-body {
     display: flex;
     flex-direction: column;
@@ -767,6 +821,11 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
     font-size: 0.78rem;
     letter-spacing: 0.2em;
     color: var(--sg57-text);
+    transition: color 0.3s ease;
+  }
+
+  .cap-card:hover .cap-name {
+    color: #ffffff;
   }
 
   .cap-tagline {
@@ -777,6 +836,11 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
     font-style: italic;
     margin-bottom: 0.75rem;
     line-height: 1.4;
+    transition: color 0.3s ease;
+  }
+
+  .cap-card:hover .cap-tagline {
+    color: var(--sg57-text);
   }
 
   .cap-list {
@@ -796,7 +860,20 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
     line-height: 1.4;
     padding-left: 1rem;
     position: relative;
+    transition: color 0.25s ease, transform 0.3s var(--sg57-ease-snap);
+    transition-delay: calc(var(--li-i, 0) * 30ms);
   }
+
+  /* Staggered list item brighten + subtle indent on hover */
+  .cap-card:hover .cap-list li {
+    color: var(--sg57-text);
+    transform: translateX(3px);
+  }
+
+  .cap-list li:nth-child(1) { --li-i: 0; }
+  .cap-list li:nth-child(2) { --li-i: 1; }
+  .cap-list li:nth-child(3) { --li-i: 2; }
+  .cap-list li:nth-child(4) { --li-i: 3; }
 
   .cap-list li::before {
     content: '—';
@@ -806,12 +883,29 @@ import BeforeAfterSlider from '../../components/services/BeforeAfterSlider.astro
     opacity: 0.5;
     font-size: 0.7rem;
     top: 0.1em;
+    transition: opacity 0.3s ease;
+  }
+
+  .cap-card:hover .cap-list li::before {
+    opacity: 1;
   }
 
   .cap-card--web    .cap-list li::before { color: #5BC0BE; }
   .cap-card--infra  .cap-list li::before { color: #8ab0d8; }
   .cap-card--ai     .cap-list li::before { color: #c07fe0; }
   .cap-card--growth .cap-list li::before { color: #6adc7e; }
+
+  /* Desktop-only transforms — prevent layout jank on touch devices */
+  @media (hover: hover) {
+    .cap-card:hover {
+      transform: scale(1.04);
+    }
+  }
+  @media not (hover: hover) {
+    .cap-card:hover {
+      transform: none;
+    }
+  }
 
   /* ── §4 PROOF ──────────────────────────────────────────────────────────────── */
 
