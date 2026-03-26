@@ -20,7 +20,7 @@ interface Props {
 const {
   title = 'SG57 Labs',
   description = 'SG57 Labs — Software Refinery. Purpose-built, high-performance software.',
-  ogImage = '/sg57/sg57-icon.png',
+  ogImage = '/sg57/glyph-512.png',
   accentColor,
   accentGlow,
   accentHover,
@@ -51,8 +51,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
 
-    <!-- Favicons -->
-    <link rel="icon" type="image/png" href="/sg57/sg57-icon.png" />
+    <!-- Favicons (multi-size from transparent SG57 glyph) -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/sg57/glyph-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/sg57/glyph-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/sg57/glyph-180.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/sg57/glyph-192.png" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />

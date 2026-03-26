@@ -4,6 +4,7 @@
 <nav class="nav">
   <div class="nav-inner container">
     <a href="/" class="nav-logo" aria-label="SG57 Labs home">
+      <img src="/sg57/glyph-28.png" alt="" class="nav-glyph" width="28" height="28" />
       <span class="bracket">[</span>
       <span class="logo-text">SG57</span>
       <span class="bracket">]</span>
@@ -134,6 +135,20 @@
 
   .nav-logo:hover {
     color: var(--sg57-accent);
+  }
+
+  .nav-glyph {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    flex-shrink: 0;
+    opacity: 0.85;
+    transition: opacity 0.2s ease, filter 0.2s ease;
+  }
+
+  .nav-logo:hover .nav-glyph {
+    opacity: 1;
+    filter: drop-shadow(0 0 6px var(--sg57-accent-glow));
   }
 
   .bracket {

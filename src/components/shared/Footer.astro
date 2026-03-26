@@ -4,6 +4,9 @@ const year = new Date().getFullYear();
 
 <footer class="footer">
   <div class="footer-inner container">
+    <a href="/" class="footer-glyph-link" aria-label="SG57 Labs home">
+      <img src="/sg57/glyph-32.png" alt="SG57" class="footer-glyph" width="32" height="32" />
+    </a>
     <span class="copyright">&copy; {year} SG57 Labs</span>
     <a href="mailto:support@sg57.dev">Support</a>
     <span class="separator">|</span>
@@ -27,6 +30,27 @@ const year = new Date().getFullYear();
     justify-content: center;
     gap: 0.75rem;
     flex-wrap: wrap;
+  }
+
+  .footer-glyph-link {
+    display: inline-flex;
+    transition: opacity 0.2s ease;
+  }
+
+  .footer-glyph-link:hover {
+    opacity: 0.8;
+  }
+
+  .footer-glyph {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+  }
+
+  .footer-glyph-link:hover .footer-glyph {
+    opacity: 0.8;
   }
 
   .copyright {
