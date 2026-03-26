@@ -4,10 +4,8 @@
 <nav class="nav">
   <div class="nav-inner container">
     <a href="/" class="nav-logo" aria-label="SG57 Labs home">
-      <img src="/sg57/glyph-28.png" alt="" class="nav-glyph" width="28" height="28" />
-      <span class="bracket">[</span>
+      <img src="/sg57/glyph-32.png" alt="" class="nav-glyph" width="32" height="32" />
       <span class="logo-text">SG57</span>
-      <span class="bracket">]</span>
       <span class="logo-sub">LABS</span>
     </a>
 
@@ -126,8 +124,8 @@
 
   .nav-logo {
     display: flex;
-    align-items: baseline;
-    gap: 0.15rem;
+    align-items: center;
+    gap: 0.6rem;
     color: var(--sg57-text);
     text-decoration: none;
     transition: color 0.2s ease;
@@ -138,24 +136,17 @@
   }
 
   .nav-glyph {
-    width: 22px;
-    height: 22px;
+    width: 32px;
+    height: 32px;
     object-fit: contain;
     flex-shrink: 0;
-    opacity: 0.85;
+    opacity: 0.9;
     transition: opacity 0.2s ease, filter 0.2s ease;
   }
 
   .nav-logo:hover .nav-glyph {
     opacity: 1;
-    filter: drop-shadow(0 0 6px var(--sg57-accent-glow));
-  }
-
-  .bracket {
-    font-family: var(--sg57-font-display);
-    font-weight: 300;
-    font-size: 1.25rem;
-    opacity: 0.6;
+    filter: drop-shadow(0 0 8px var(--sg57-accent-glow));
   }
 
   .logo-text {
