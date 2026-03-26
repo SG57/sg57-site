@@ -57,7 +57,9 @@ const readingTime = Math.max(1, Math.ceil(wordCount / 200));
   }
 
   .blog-post__back {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
     font-family: var(--sg57-font-mono, monospace);
     font-size: 0.875rem;
     color: var(--sg57-text-dim);
@@ -67,6 +69,15 @@ const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 
   .blog-post__back:hover {
     color: var(--sg57-accent);
+  }
+
+  .blog-post__back:active {
+    opacity: 0.75;
+  }
+
+  .blog-post__back:focus-visible {
+    box-shadow: var(--sg57-focus-ring);
+    border-radius: var(--sg57-radius-sm);
   }
 
   .blog-post__header {
@@ -111,7 +122,7 @@ const readingTime = Math.max(1, Math.ceil(wordCount / 200));
     padding: 0.125rem 0.5rem;
     background: var(--sg57-elevated);
     border: 1px solid var(--sg57-border);
-    border-radius: 3px;
+    border-radius: var(--sg57-radius-sm);
     color: var(--sg57-accent);
   }
 
@@ -157,7 +168,7 @@ const readingTime = Math.max(1, Math.ceil(wordCount / 200));
     padding: 0.125em 0.375em;
     background: var(--sg57-elevated);
     border: 1px solid var(--sg57-border);
-    border-radius: 3px;
+    border-radius: var(--sg57-radius-sm);
     color: var(--sg57-accent);
   }
 

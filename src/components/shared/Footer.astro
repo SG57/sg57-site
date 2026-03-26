@@ -5,7 +5,7 @@ const year = new Date().getFullYear();
 <footer class="footer">
   <div class="footer-inner container">
     <a href="/" class="footer-glyph-link" aria-label="SG57 Labs home">
-      <img src="/sg57/glyph-192.png" alt="SG57" class="footer-glyph" width="48" height="48" />
+      <img src="/sg57/glyph-192.png" alt="SG57" class="footer-glyph" width="48" height="48" loading="lazy" />
     </a>
     <span class="copyright">&copy; {year} SG57 Labs</span>
     <a href="mailto:support@sg57.dev">Support</a>
@@ -34,11 +34,20 @@ const year = new Date().getFullYear();
 
   .footer-glyph-link {
     display: inline-flex;
-    transition: opacity 0.2s ease;
+    transition: transform 0.2s ease;
+    border-radius: var(--sg57-radius-sm);
   }
 
   .footer-glyph-link:hover {
-    opacity: 0.8;
+    transform: translateY(-1px);
+  }
+
+  .footer-glyph-link:active {
+    transform: scale(0.95);
+  }
+
+  .footer-glyph-link:focus-visible {
+    box-shadow: var(--sg57-focus-ring);
   }
 
   .footer-glyph {
@@ -72,9 +81,22 @@ const year = new Date().getFullYear();
     color: var(--sg57-text-muted);
     text-decoration: none;
     transition: color 0.2s ease;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 0.25rem;
   }
 
   .footer a:hover {
     color: var(--sg57-accent);
+  }
+
+  .footer a:active {
+    opacity: 0.75;
+  }
+
+  .footer a:focus-visible {
+    box-shadow: var(--sg57-focus-ring);
+    border-radius: var(--sg57-radius-sm);
   }
 </style>

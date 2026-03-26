@@ -70,20 +70,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
 
-    <!-- Preload fonts -->
-    <link rel="preload" href="/fonts/rajdhani-v17-latin-700.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/rajdhani-v17-latin-300.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- Preload fonts (critical weights: 400 body, 600 headings/buttons, 700 display) -->
     <link rel="preload" href="/fonts/rajdhani-v17-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
-
-    <!-- Theme: apply saved preference before first paint to avoid flash -->
-    <script is:inline>
-      (function() {
-        var t = localStorage.getItem('sg57-theme');
-        if (t === 'light' || t === 'dark') {
-          document.documentElement.setAttribute('data-theme', t);
-        }
-      })();
-    </script>
+    <link rel="preload" href="/fonts/rajdhani-v17-latin-600.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/rajdhani-v17-latin-700.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Client-side routing with View Transitions -->
     <ClientRouter />
@@ -164,24 +154,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       <circle cx="1000" cy="300" r="0.9" fill="#4a5066" class="p p-bg pe" style="--td:-19.1s;--dur:24.0s"/>
     </svg>
 
+    <!-- Skip to main content link — first focusable element for keyboard users -->
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
     <Nav />
 
-    <!-- Theme toggle handler (must re-bind on each ViewTransition navigation) -->
-    <script>
-      document.addEventListener('astro:page-load', () => {
-        const btn = document.getElementById('theme-toggle');
-        if (!btn) return;
-        btn.addEventListener('click', () => {
-          const html = document.documentElement;
-          const current = html.getAttribute('data-theme');
-          const next = current === 'light' ? 'dark' : 'light';
-          html.setAttribute('data-theme', next);
-          localStorage.setItem('sg57-theme', next);
-        });
-      });
-    </script>
-
-    <main style="view-transition-name: page-main;">
+    <main id="main-content" style="view-transition-name: page-main;">
       <slot />
     </main>
     <Footer />
@@ -201,39 +179,67 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
     <script>
       document.addEventListener('astro:page-load', () => {
-        const fab = document.getElementById('fab-top');
-        if (!fab) return;
+        try {
+          const fab = document.getElementById('fab-top');
+          if (!fab) return;
 
-        let visible = false;
-        let ticking = false;
+          let visible = false;
+          let ticking = false;
 
-        function update() {
-          const show = window.scrollY > window.innerHeight * 0.6;
-          if (show !== visible) {
-            visible = show;
-            fab.classList.toggle('is-visible', visible);
+          function update() {
+            const show = window.scrollY > window.innerHeight * 0.6;
+            if (show !== visible) {
+              visible = show;
+              fab.classList.toggle('is-visible', visible);
+            }
+            ticking = false;
           }
-          ticking = false;
-        }
 
-        window.addEventListener('scroll', () => {
-          if (!ticking) {
-            requestAnimationFrame(update);
-            ticking = true;
-          }
-        }, { passive: true });
+          window.addEventListener('scroll', () => {
+            if (!ticking) {
+              requestAnimationFrame(update);
+              ticking = true;
+            }
+          }, { passive: true });
 
-        fab.addEventListener('click', () => {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+          fab.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
 
-        update();
+          update();
+        } catch (_) { /* Scroll-to-top FAB init failed — non-critical */ }
       });
     </script>
   </body>
 </html>
 
 <style>
+  /* ════════════════════════════════════════════════════
+     SKIP LINK — keyboard-only shortcut to main content
+     ════════════════════════════════════════════════════ */
+  .skip-link {
+    position: fixed;
+    top: -100%;
+    left: 1rem;
+    z-index: 2000;
+    padding: 0.65rem 1.25rem;
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    color: var(--sg57-text-on-accent);
+    background: var(--sg57-accent);
+    border-radius: var(--sg57-radius-md);
+    text-decoration: none;
+    transition: top 0.2s var(--sg57-ease-out);
+  }
+
+  .skip-link:focus {
+    top: 0.75rem;
+    outline: 2px solid var(--sg57-accent);
+    outline-offset: 2px;
+  }
+
   /* ════════════════════════════════════════════════════
      EDGE SLIVER (§9.1) — brand fingerprint
      2px · full-width · accent gradient · 8s breathing
@@ -390,27 +396,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   }
 
   /* ════════════════════════════════════════════════════
-     LIGHT THEME OVERRIDES
-     Wallpaper fades to light, particles dim, vignette inverts
-     ════════════════════════════════════════════════════ */
-  :global([data-theme='light']) .site-wallpaper {
-    opacity: 0.25;
-    filter: invert(1) hue-rotate(180deg);
-  }
-
-  :global([data-theme='light']) .site-wallpaper::after {
-    background: linear-gradient(to bottom, transparent, var(--sg57-void));
-  }
-
-  :global([data-theme='light']) .ambient-drift {
-    opacity: 0.6;
-  }
-
-  :global([data-theme='light']) .particles {
-    opacity: 0.3;
-  }
-
-  /* ════════════════════════════════════════════════════
      SCROLL-TO-TOP FAB
      ════════════════════════════════════════════════════ */
   :global(.fab-top) {
@@ -457,6 +442,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   }
 
   :global(.fab-top:active) {
-    transform: scale(0.95);
+    transform: translateY(0) scale(0.93);
+  }
+
+  :global(.fab-top:focus-visible) {
+    box-shadow: var(--sg57-focus-ring), var(--sg57-shadow-md);
+    color: var(--sg57-accent);
+    border-color: var(--sg57-accent-muted);
   }
 </style>

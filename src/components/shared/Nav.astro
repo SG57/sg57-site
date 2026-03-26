@@ -14,15 +14,6 @@
       <a href="/clide">Clide</a>
       <a href="/siftr">Siftr</a>
       <a href="/services">Services</a>
-      <button
-        class="theme-toggle"
-        id="theme-toggle"
-        aria-label="Toggle light/dark theme"
-        title="Toggle theme"
-      >
-        <span class="theme-icon theme-icon--dark" aria-hidden="true">☀</span>
-        <span class="theme-icon theme-icon--light" aria-hidden="true">☾</span>
-      </button>
     </div>
 
     <!-- Mobile hamburger -->
@@ -41,66 +32,84 @@
   </div>
 
   <!-- Mobile menu panel -->
-  <div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu" id="mobile-menu" role="region" aria-label="Mobile navigation">
     <a href="/clide">Clide</a>
     <a href="/siftr">Siftr</a>
     <a href="/services">Services</a>
-    <button
-      class="theme-toggle theme-toggle--mobile"
-      id="theme-toggle-mobile"
-      aria-label="Toggle light/dark theme"
-    >
-      <span class="theme-icon theme-icon--dark" aria-hidden="true">☀</span>
-      <span class="theme-icon theme-icon--light" aria-hidden="true">☾</span>
-      <span>Toggle Theme</span>
-    </button>
   </div>
 </nav>
 
 <script>
   document.addEventListener('astro:page-load', () => {
+    try {
     const hamburger = document.getElementById('hamburger');
     const menu = document.getElementById('mobile-menu');
     if (!hamburger || !menu) return;
 
     let open = false;
 
-    function toggle() {
-      open = !open;
-      hamburger.classList.toggle('is-open', open);
-      hamburger.setAttribute('aria-expanded', String(open));
-      menu.classList.toggle('is-open', open);
+    // Collect all focusable elements inside the mobile menu
+    function getMenuFocusables() {
+      return [...menu.querySelectorAll('a, button')];
     }
 
-    function close() {
+    function openMenu() {
+      open = true;
+      hamburger.classList.add('is-open');
+      hamburger.setAttribute('aria-expanded', 'true');
+      menu.classList.add('is-open');
+      // Move focus to first menu link
+      const focusables = getMenuFocusables();
+      if (focusables.length) {
+        // Delay to let the CSS transition start so the element is visible
+        requestAnimationFrame(() => focusables[0].focus());
+      }
+    }
+
+    function closeMenu(returnFocus) {
       if (!open) return;
       open = false;
       hamburger.classList.remove('is-open');
       hamburger.setAttribute('aria-expanded', 'false');
       menu.classList.remove('is-open');
+      if (returnFocus) hamburger.focus();
+    }
+
+    function toggle() {
+      if (open) closeMenu(true);
+      else openMenu();
     }
 
     hamburger.addEventListener('click', toggle);
 
     // Close on link click
-    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => closeMenu(false)));
 
-    // Close on Escape
+    // Close on Escape + focus trap within mobile menu
     document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') close();
+      if (e.key === 'Escape' && open) {
+        e.preventDefault();
+        closeMenu(true);
+        return;
+      }
+
+      // Focus trap: keep Tab cycling within hamburger + menu items when open
+      if (e.key === 'Tab' && open) {
+        const focusables = [hamburger, ...getMenuFocusables()];
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     });
 
-    // Mobile theme toggle
-    const mobileTheme = document.getElementById('theme-toggle-mobile');
-    if (mobileTheme) {
-      mobileTheme.addEventListener('click', () => {
-        const html = document.documentElement;
-        const current = html.getAttribute('data-theme');
-        const next = current === 'light' ? 'dark' : 'light';
-        html.setAttribute('data-theme', next);
-        localStorage.setItem('sg57-theme', next);
-      });
-    }
+    } catch (_) { /* Nav init failed — links remain functional without JS */ }
   });
 </script>
 
@@ -154,16 +163,18 @@
     font-weight: 700;
     font-size: 1.25rem;
     letter-spacing: 0.15em;
+    transform: translateY(1px);
   }
 
   .logo-sub {
     font-family: var(--sg57-font-display);
     font-weight: 300;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     letter-spacing: 0.35em;
     text-transform: uppercase;
     color: var(--sg57-text-dim);
     margin-left: 0.75rem;
+    transform: translateY(1px);
   }
 
   /* ── Desktop links ── */
@@ -182,45 +193,21 @@
     color: var(--sg57-text-dim);
     text-decoration: none;
     transition: color 0.2s ease;
+    transform: translateY(1px);
   }
 
   .nav-links a:hover {
     color: var(--sg57-accent);
   }
 
-  /* ── Theme toggle ── */
-  .theme-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2rem;
-    height: 2rem;
-    min-width: 44px;
-    min-height: 44px;
-    background: transparent;
-    border: 1px solid var(--sg57-border-subtle);
+  .nav-links a:active {
+    opacity: 0.75;
+  }
+
+  .nav-links a:focus-visible {
+    box-shadow: var(--sg57-focus-ring);
     border-radius: var(--sg57-radius-sm);
-    cursor: pointer;
-    transition: border-color 0.2s ease, background 0.2s ease;
-    margin-left: 0.5rem;
-    padding: 0;
   }
-
-  .theme-toggle:hover {
-    border-color: var(--sg57-accent-muted);
-    background: var(--sg57-accent-glow);
-  }
-
-  .theme-icon {
-    font-size: 1rem;
-    line-height: 1;
-    color: var(--sg57-text-dim);
-  }
-
-  .theme-icon--light { display: none; }
-  .theme-icon--dark  { display: inline; }
-  :global([data-theme='light']) .theme-icon--dark  { display: none; }
-  :global([data-theme='light']) .theme-icon--light { display: inline; }
 
   /* ── Hamburger (hidden on desktop) ── */
   .hamburger {
@@ -247,6 +234,11 @@
     border-radius: 1px;
     transition: transform 0.3s var(--sg57-ease-snap), opacity 0.2s ease;
     transform-origin: center;
+  }
+
+  .hamburger:focus-visible {
+    box-shadow: var(--sg57-focus-ring);
+    border-radius: var(--sg57-radius-sm);
   }
 
   .hamburger.is-open .ham-bar:nth-child(1) {
@@ -276,8 +268,7 @@
     opacity: 1;
   }
 
-  .mobile-menu a,
-  .theme-toggle--mobile {
+  .mobile-menu a {
     font-family: var(--sg57-font-display);
     font-weight: 500;
     font-size: 0.9rem;
@@ -294,19 +285,18 @@
     gap: 0.75rem;
   }
 
-  .mobile-menu a:hover,
-  .theme-toggle--mobile:hover {
+  .mobile-menu a:hover {
     color: var(--sg57-accent);
     background: var(--sg57-accent-glow);
   }
 
-  .theme-toggle--mobile {
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid var(--sg57-border-subtle);
-    cursor: pointer;
-    text-align: left;
+  .mobile-menu a:active {
+    opacity: 0.75;
+  }
+
+  .mobile-menu a:focus-visible {
+    box-shadow: inset var(--sg57-focus-ring);
+    outline: none;
   }
 
   /* ── Responsive ── */

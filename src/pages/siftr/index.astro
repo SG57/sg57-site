@@ -125,10 +125,10 @@ import Base from '../../layouts/Base.astro';
       <table class="comparison-table">
         <thead>
           <tr>
-            <th>Feature</th>
-            <th>Siftr</th>
-            <th>klogg</th>
-            <th>Seq</th>
+            <th scope="col">Feature</th>
+            <th scope="col">Siftr</th>
+            <th scope="col">klogg</th>
+            <th scope="col">Seq</th>
           </tr>
         </thead>
         <tbody>
@@ -250,6 +250,7 @@ import Base from '../../layouts/Base.astro';
   }
 
   /* Product-specific accent: Diagnostic Amber */
+  /* Product accent override — scoped to all page sections */
   .hero,
   .problem,
   .features,
@@ -257,8 +258,8 @@ import Base from '../../layouts/Base.astro';
   .comparison,
   .pricing,
   .final-cta {
-    --sg57-accent: #D4A15A;
-    --sg57-accent-hover: #DEB374;
+    --sg57-accent: var(--sg57-siftr-accent);
+    --sg57-accent-hover: var(--sg57-siftr-accent-hover);
     --sg57-accent-muted: #B8894A;
     --sg57-accent-glow: rgba(212, 161, 90, 0.15);
   }
@@ -267,7 +268,7 @@ import Base from '../../layouts/Base.astro';
   .hero-bg {
     position: absolute;
     inset: 0;
-    background-image: url('/siftr/siftr-hero.jpg');
+    background-image: url('/siftr/siftr-hero.webp');
     background-size: cover;
     background-position: center;
     pointer-events: none;
@@ -306,42 +307,13 @@ import Base from '../../layouts/Base.astro';
   .hero-label {
     display: block;
     font-family: var(--sg57-font-mono);
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     letter-spacing: 0.22em;
     color: var(--sg57-accent);
     text-transform: uppercase;
     margin-bottom: 1rem;
   }
 
-  /* .hero-badge no longer used in new hero layout — keep hidden */
-  .hero-badge {
-    display: none;
-    width: 72px;
-    height: 72px;
-    background: var(--sg57-surface);
-    border: 1px solid var(--sg57-border);
-    border-radius: 16px;
-    margin-bottom: 2rem;
-  }
-
-  .hero-title {
-    font-family: var(--sg57-font-display);
-    font-weight: 700;
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    color: var(--sg57-text);
-    letter-spacing: 0.1em;
-    margin-bottom: 1rem;
-  }
-
-  .hero-accent {
-    color: var(--sg57-accent);
-  }
-
-  .hero-sep {
-    color: var(--sg57-accent-muted);
-    margin: 0 0.15em;
-    font-weight: 400;
-  }
 
   .hero-tagline {
     font-family: var(--sg57-font-display);
@@ -381,11 +353,20 @@ import Base from '../../layouts/Base.astro';
   }
 
   .cta-button:hover {
-    color: #ffffff;
+    color: var(--sg57-text-on-accent);
     background: var(--sg57-accent);
     border-color: var(--sg57-accent);
-    color: #ffffff;
     box-shadow: 0 0 20px var(--sg57-accent-glow);
+    transform: translateY(-1px);
+  }
+
+  .cta-button:active {
+    transform: scale(0.97) translateY(0);
+  }
+
+  .cta-button:focus-visible {
+    box-shadow: var(--sg57-focus-ring), 0 0 20px var(--sg57-accent-glow);
+    outline: none;
   }
 
   /* --- Problem Statement --- */
@@ -445,6 +426,11 @@ import Base from '../../layouts/Base.astro';
     border-color: var(--sg57-accent-muted);
     box-shadow: 0 0 24px var(--sg57-accent-glow), inset 0 0 24px var(--sg57-accent-glow);
     transform: translateY(-2px);
+  }
+
+  .feature-card:focus-visible {
+    box-shadow: var(--sg57-focus-ring);
+    outline: none;
   }
 
   .feature-icon {
@@ -591,6 +577,11 @@ import Base from '../../layouts/Base.astro';
     transform: translateY(-2px);
   }
 
+  .pricing-card:focus-visible {
+    box-shadow: var(--sg57-focus-ring);
+    outline: none;
+  }
+
   .pricing-card--pro {
     border-color: var(--sg57-accent);
     box-shadow: 0 0 16px var(--sg57-accent-glow);
@@ -614,7 +605,7 @@ import Base from '../../layouts/Base.astro';
     font-family: var(--sg57-font-display);
     font-weight: 700;
     font-size: 2rem;
-    color: #ffffff;
+    color: var(--sg57-text-bright);
     margin-bottom: 1.5rem;
   }
 
@@ -707,11 +698,5 @@ import Base from '../../layouts/Base.astro';
       letter-spacing: 0.05em;
     }
 
-    .hero-badge {
-      width: 56px;
-      height: 56px;
-      border-radius: 12px;
-      margin-bottom: 1.5rem;
-    }
   }
 </style>

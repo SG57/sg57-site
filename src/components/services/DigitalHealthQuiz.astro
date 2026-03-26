@@ -34,17 +34,17 @@
     </div>
 
     <!-- Slide: question + choices -->
-    <div class="dhq-slide" id="dhq-slide">
+    <div class="dhq-slide" id="dhq-slide" aria-live="polite" aria-atomic="true">
       <p class="dhq-q" id="dhq-q"></p>
       <div class="dhq-choices" id="dhq-choices" role="radiogroup" aria-label="Select one answer"></div>
     </div>
 
     <!-- Navigation -->
     <div class="dhq-nav">
-      <button class="dhq-btn dhq-btn-back" id="dhq-back" disabled>
+      <button class="dhq-btn dhq-btn-back" id="dhq-back" disabled title="No previous question">
         <span aria-hidden="true">←</span> Back
       </button>
-      <button class="dhq-btn dhq-btn-next" id="dhq-next" disabled>
+      <button class="dhq-btn dhq-btn-next" id="dhq-next" disabled title="Select an answer to continue">
         Continue <span aria-hidden="true">→</span>
       </button>
     </div>
@@ -179,6 +179,7 @@
   // ── INIT (runs on every page load, including View Transition navigations) ───
 
   document.addEventListener('astro:page-load', () => {
+  try {
   const dhq = document.getElementById('dhq');
   if (!dhq) return; // Not on this page
 
@@ -203,6 +204,10 @@
   const resultsEl   = document.getElementById('dhq-results');
   const retakeBtn   = document.getElementById('dhq-retake');
   const trackEl     = dhq.querySelector('.dhq-track');
+
+  // Bail out if any critical DOM element is missing
+  if (!body || !slide || !qEl || !choicesEl || !fill || !currentEl ||
+      !backBtn || !nextBtn || !calcPhase || !calcBar || !resultsEl || !retakeBtn) return;
 
   // ── HELPERS ──────────────────────────────────────────────────────────────────
 
@@ -273,6 +278,8 @@
   function updateNav() {
     backBtn.disabled = current === 0 || animating;
     nextBtn.disabled = !answers.has(current) || animating;
+    backBtn.title = current === 0 ? 'No previous question' : 'Go back';
+    nextBtn.title = !answers.has(current) ? 'Select an answer to continue' : (current === TOTAL - 1 ? 'See your results' : 'Next question');
   }
 
   // ── TRANSITIONS ───────────────────────────────────────────────────────────────
@@ -301,6 +308,9 @@
     await wait(320);
     animating = false;
     updateNav();
+    // Move focus to first choice button so keyboard users land in the new question
+    const firstChoice = choicesEl.querySelector('.dhq-choice');
+    if (firstChoice) firstChoice.focus();
   }
 
   async function showResults() {
@@ -362,6 +372,9 @@
     }
 
     animating = false;
+    // Focus the result CTA so keyboard users can act immediately
+    const ctaResult = document.getElementById('dhq-result-cta');
+    if (ctaResult) ctaResult.focus();
   }
 
   function resetQuiz() {
@@ -382,6 +395,11 @@
     renderQuestion(0);
     body.classList.remove('hidden');
     updateNav();
+    // Focus first choice button after reset
+    requestAnimationFrame(() => {
+      const firstChoice = choicesEl.querySelector('.dhq-choice');
+      if (firstChoice) firstChoice.focus();
+    });
   }
 
   // ── EVENT BINDINGS ────────────────────────────────────────────────────────────
@@ -419,6 +437,7 @@
   renderQuestion(0);
   updateNav();
 
+  } catch (_) { /* Quiz init failed — page remains functional without it */ }
   }); // end astro:page-load
 </script>
 
@@ -451,14 +470,14 @@
     gap: 0.5rem;
     font-family: var(--sg57-font-display);
     font-weight: 600;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--sg57-accent);
   }
 
   .dhq-badge-glyph {
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     animation: pulse-glow 4s ease-in-out infinite;
   }
 
@@ -556,7 +575,7 @@
     min-height: 44px;
     background: var(--sg57-overlay-subtle);
     border: 1px solid var(--sg57-border);
-    border-radius: 7px;
+    border-radius: var(--sg57-radius-md);
     cursor: pointer;
     text-align: left;
     font: inherit;
@@ -584,6 +603,10 @@
     outline-offset: 2px;
   }
 
+  .dhq-choices :global(.dhq-choice:active) {
+    transform: scale(0.98);
+  }
+
   .dhq-choices :global(.dhq-choice.selected) {
     border-color: var(--sg57-accent);
     background: var(--sg57-accent-glow);
@@ -598,11 +621,11 @@
     align-items: center;
     justify-content: center;
     font-family: var(--sg57-font-mono);
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     font-weight: 700;
     color: var(--sg57-text-dim);
     border: 1px solid var(--sg57-border);
-    border-radius: 4px;
+    border-radius: var(--sg57-radius-sm);
     transition: color 0.2s ease, border-color 0.2s ease;
   }
 
@@ -651,8 +674,9 @@
   }
 
   .dhq-btn:disabled {
-    opacity: 0.35;
+    opacity: 0.3;
     cursor: not-allowed;
+    filter: grayscale(0.3);
   }
 
   .dhq-btn-back {
@@ -666,6 +690,15 @@
     border-color: var(--sg57-text-dim);
   }
 
+  .dhq-btn-back:not(:disabled):active {
+    transform: scale(0.96);
+  }
+
+  .dhq-btn-back:focus-visible {
+    box-shadow: var(--sg57-focus-ring);
+    outline: none;
+  }
+
   .dhq-btn-next {
     background: var(--sg57-glass-bg);
     color: var(--sg57-accent);
@@ -673,10 +706,19 @@
   }
 
   .dhq-btn-next:not(:disabled):hover {
-    color: #ffffff;
+    color: var(--sg57-text-on-accent);
     background: var(--sg57-accent);
     border-color: var(--sg57-accent);
     box-shadow: 0 0 20px var(--sg57-accent-glow);
+  }
+
+  .dhq-btn-next:not(:disabled):active {
+    transform: scale(0.96);
+  }
+
+  .dhq-btn-next:focus-visible {
+    box-shadow: var(--sg57-focus-ring);
+    outline: none;
   }
 
   /* ── CALCULATING PHASE ── */
@@ -742,7 +784,7 @@
     text-transform: uppercase;
     padding: 0.35rem 0.9rem;
     border: 1px solid var(--sg57-accent-muted);
-    border-radius: 4px;
+    border-radius: var(--sg57-radius-sm);
     background: var(--sg57-accent-glow);
     margin-bottom: 0.5rem;
   }
@@ -769,6 +811,7 @@
   .dhq-result-cta {
     display: inline-flex;
     align-items: center;
+    min-height: 44px;
     font-family: var(--sg57-font-display);
     font-weight: 600;
     font-size: 0.95rem;
@@ -784,11 +827,20 @@
   }
 
   .dhq-result-cta:hover {
-    color: #ffffff;
+    color: var(--sg57-text-on-accent);
     background: var(--sg57-accent);
     border-color: var(--sg57-accent);
     box-shadow: 0 0 24px var(--sg57-accent-glow);
     transform: translateY(-1px);
+  }
+
+  .dhq-result-cta:active {
+    transform: scale(0.97) translateY(0);
+  }
+
+  .dhq-result-cta:focus-visible {
+    box-shadow: var(--sg57-focus-ring), 0 0 24px var(--sg57-accent-glow);
+    outline: none;
   }
 
   .dhq-result-sub {
@@ -816,6 +868,15 @@
 
   .dhq-retake:hover {
     color: var(--sg57-text);
+  }
+
+  .dhq-retake:active {
+    opacity: 0.7;
+  }
+
+  .dhq-retake:focus-visible {
+    box-shadow: var(--sg57-focus-ring);
+    border-radius: var(--sg57-radius-sm);
   }
 
   /* ── TRANSITIONS (phase in/out) ── */

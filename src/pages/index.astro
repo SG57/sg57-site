@@ -70,11 +70,11 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
       <div class="product-grid">
 
         <a href="/clide" class="product-card product-card--clide">
-          <div class="product-card-bg" style="background-image: url('/clide/clide-hero.jpg');"></div>
+          <div class="product-card-bg" style="background-image: url('/clide/clide-hero.webp');"></div>
           <div class="product-card-scrim product-card-scrim--clide"></div>
           <div class="product-card-content">
             <div class="product-meta">
-              <img src="/brand/clide-icon.svg" alt="" class="product-icon" width="28" height="28" />
+              <img src="/brand/clide-icon.svg" alt="" class="product-icon" width="28" height="28" loading="lazy" />
               <span class="product-label">CLIDE <span class="product-sep">//</span> AI TERMINAL COMMAND CENTER</span>
             </div>
             <p class="product-tagline">Mission Control for your AI terminal sessions.</p>
@@ -83,11 +83,11 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
         </a>
 
         <a href="/siftr" class="product-card product-card--siftr">
-          <div class="product-card-bg" style="background-image: url('/siftr/siftr-hero.jpg');"></div>
+          <div class="product-card-bg" style="background-image: url('/siftr/siftr-hero.webp');"></div>
           <div class="product-card-scrim product-card-scrim--siftr"></div>
           <div class="product-card-content">
             <div class="product-meta">
-              <img src="/brand/siftr-icon.svg" alt="" class="product-icon" width="28" height="28" />
+              <img src="/brand/siftr-icon.svg" alt="" class="product-icon" width="28" height="28" loading="lazy" />
               <span class="product-label">SIFTR <span class="product-sep">//</span> LOG ANALYSIS SYSTEM</span>
             </div>
             <p class="product-tagline">200MB log files. 3 seconds. Zero crashes.</p>
@@ -104,7 +104,7 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
     <div class="container">
       <div class="services-card">
         <div class="services-left">
-          <span class="section-eyebrow" style="color: #C4896A;">Services</span>
+          <span class="section-eyebrow" style="color: var(--sg57-services-accent);">Services</span>
           <h2 class="services-heading">
             Brand DNA <span class="services-sep">//</span> Full-Stack Contracting
           </h2>
@@ -126,7 +126,7 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
   </section>
 
   <!-- ══ PROOF STRIP ══ -->
-  <div class="proof-strip" aria-label="Credentials">
+  <section class="proof-strip" aria-label="Credentials">
     <div class="container">
       <div class="proof-items">
         <span>20+ years shipping software</span>
@@ -136,7 +136,7 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
         <span>Full-stack architect for hire</span>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- ══ WORK ══ -->
   <ProofOfWork />
@@ -179,7 +179,7 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
   .hero-eyebrow {
     display: block;
     font-family: var(--sg57-font-mono);
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     letter-spacing: 0.2em;
     color: var(--sg57-accent);
     text-transform: uppercase;
@@ -209,9 +209,9 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
     font-family: var(--sg57-font-display);
     font-weight: 700;
     font-size: clamp(3rem, 7.5vw, 6.5rem);
-    color: #ffffff;
+    color: var(--sg57-text-bright);
     letter-spacing: 0.02em;
-    text-shadow: 0 0 60px rgba(152, 142, 213, 0.15);
+    text-shadow: 0 0 60px var(--sg57-accent-glow);
   }
 
   .hero-sub {
@@ -243,7 +243,11 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
     min-height: 44px;
     border-radius: var(--sg57-radius-md);
     text-decoration: none;
-    transition: all 0.2s var(--sg57-ease-out);
+    transition: color 0.2s var(--sg57-ease-out),
+                background 0.2s var(--sg57-ease-out),
+                border-color 0.2s var(--sg57-ease-out),
+                box-shadow 0.2s var(--sg57-ease-out),
+                transform 0.2s var(--sg57-ease-out);
     cursor: pointer;
     display: inline-flex;
     align-items: center;
@@ -265,7 +269,12 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
   }
 
   .btn:active {
-    transform: scale(0.97);
+    transform: scale(0.97) translateY(0);
+  }
+
+  .btn:focus-visible {
+    box-shadow: var(--sg57-focus-ring);
+    outline: none;
   }
 
   .btn-ghost {
@@ -315,7 +324,7 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
 
   .t-title {
     font-family: var(--sg57-font-mono);
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     color: var(--sg57-text-muted);
     letter-spacing: 0.05em;
     margin-left: 0.25rem;
@@ -334,7 +343,7 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
   .t-meta     { color: var(--sg57-text-dim); padding-left: 0.5rem; }
   .t-prompt   { color: var(--sg57-accent); margin-right: 0.4rem; }
   .t-cmd      { color: var(--sg57-text); }
-  .t-active   { color: #5BC0BE; }
+  .t-active   { color: var(--sg57-clide-accent); }
   .t-idle     { color: var(--sg57-text-muted); }
 
   .t-cursor {
@@ -351,9 +360,9 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
     margin-top: 1rem;
     padding: 0.6rem 0.75rem;
     border: 1px dashed var(--sg57-accent-glow);
-    border-radius: 4px;
+    border-radius: var(--sg57-radius-sm);
     font-family: var(--sg57-font-mono);
-    font-size: 0.68rem;
+    font-size: 0.75rem;
     color: var(--sg57-text-muted);
     letter-spacing: 0.03em;
   }
@@ -374,7 +383,7 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
 
   .scroll-label {
     font-family: var(--sg57-font-mono);
-    font-size: 0.6rem;
+    font-size: 0.75rem;
     letter-spacing: 0.2em;
     color: var(--sg57-text-muted);
     text-transform: uppercase;
@@ -397,7 +406,7 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
   .section-eyebrow {
     display: block;
     font-family: var(--sg57-font-mono);
-    font-size: 0.68rem;
+    font-size: 0.75rem;
     font-weight: 400;
     letter-spacing: 0.22em;
     text-transform: uppercase;
@@ -442,6 +451,15 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
   .product-card--siftr:hover {
     box-shadow: 0 8px 40px rgba(212, 161, 90, 0.2);
     border-color: rgba(212, 161, 90, 0.35);
+  }
+
+  .product-card:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  .product-card:focus-visible {
+    box-shadow: var(--sg57-focus-ring);
+    outline: none;
   }
 
   /* Banner image layer */
@@ -513,8 +531,8 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
     color: var(--sg57-text);
   }
 
-  .product-card--clide .product-sep { color: #5BC0BE; }
-  .product-card--siftr .product-sep { color: #D4A15A; }
+  .product-card--clide .product-sep { color: var(--sg57-clide-accent); }
+  .product-card--siftr .product-sep { color: var(--sg57-siftr-accent); }
 
   .product-tagline {
     font-family: var(--sg57-font-display);
@@ -533,11 +551,11 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
     transition: color 0.2s ease;
   }
 
-  .product-card--clide .product-cta { color: #5BC0BE; }
-  .product-card--siftr .product-cta { color: #D4A15A; }
+  .product-card--clide .product-cta { color: var(--sg57-clide-accent); }
+  .product-card--siftr .product-cta { color: var(--sg57-siftr-accent); }
 
-  .product-card--clide:hover .product-cta { color: #6DD4D2; }
-  .product-card--siftr:hover .product-cta { color: #DEB374; }
+  .product-card--clide:hover .product-cta { color: var(--sg57-clide-accent-hover); }
+  .product-card--siftr:hover .product-cta { color: var(--sg57-siftr-accent-hover); }
 
   /* ════════════════════════════════════════════════════
      SERVICES
@@ -570,7 +588,7 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
     line-height: 1.2;
   }
 
-  .services-sep { color: #C4896A; margin: 0 0.15em; }
+  .services-sep { color: var(--sg57-services-accent); margin: 0 0.15em; }
 
   .services-desc {
     font-family: var(--sg57-font-display);
@@ -583,16 +601,27 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
   }
 
   .services-cta {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
     font-family: var(--sg57-font-display);
     font-weight: 600;
     font-size: 0.85rem;
     letter-spacing: 0.05em;
-    color: #C4896A;
+    color: var(--sg57-services-accent);
     text-decoration: none;
     transition: color 0.2s ease;
   }
 
-  .services-cta:hover { color: #D49A7A; }
+  .services-cta:hover { color: var(--sg57-services-accent-hover); }
+
+  .services-cta:active { opacity: 0.75; }
+
+  .services-cta:focus-visible {
+    box-shadow: var(--sg57-focus-ring);
+    border-radius: var(--sg57-radius-sm);
+    outline: none;
+  }
 
   .services-capabilities {
     list-style: none;
@@ -608,7 +637,7 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
 
   .services-capabilities li {
     font-family: var(--sg57-font-mono);
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     color: var(--sg57-text-dim);
     letter-spacing: 0.04em;
     white-space: nowrap;
@@ -636,7 +665,7 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
     gap: 1.25rem;
     flex-wrap: wrap;
     font-family: var(--sg57-font-mono);
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     letter-spacing: 0.08em;
     color: var(--sg57-text-dim);
     text-transform: uppercase;

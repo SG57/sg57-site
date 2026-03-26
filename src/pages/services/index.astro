@@ -205,6 +205,8 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
       <form
         class="intake-form"
         id="sg57-intake-form"
+        action="https://formspree.io/f/mojkpkyj"
+        method="POST"
         aria-label="Services inquiry form"
         novalidate
       >
@@ -214,29 +216,29 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
         <div class="form-row form-row--two">
           <div class="form-field">
             <label for="if-name" class="form-label">Your Name <span class="form-required" aria-label="required">*</span></label>
-            <input type="text" id="if-name" name="name" class="form-input" required autocomplete="name" placeholder="Danielle Diaz" />
+            <input type="text" id="if-name" name="name" class="form-input" required autocomplete="name" placeholder="Danielle Diaz" maxlength="200" />
           </div>
           <div class="form-field">
             <label for="if-email" class="form-label">Email Address <span class="form-required" aria-label="required">*</span></label>
-            <input type="email" id="if-email" name="email" class="form-input" required autocomplete="email" placeholder="you@yourbusiness.com" />
+            <input type="email" id="if-email" name="email" class="form-input" required autocomplete="email" placeholder="you@yourbusiness.com" maxlength="320" />
           </div>
         </div>
 
         <div class="form-row form-row--two">
           <div class="form-field">
             <label for="if-business" class="form-label">Business / Project Name <span class="form-required" aria-label="required">*</span></label>
-            <input type="text" id="if-business" name="business" class="form-input" required placeholder="Staples &amp; Statements" />
+            <input type="text" id="if-business" name="business" class="form-input" required placeholder="Staples &amp; Statements" maxlength="200" />
           </div>
           <div class="form-field">
             <label for="if-website" class="form-label">Current Website <span class="form-optional">(if any)</span></label>
-            <input type="url" id="if-website" name="website" class="form-input" autocomplete="url" placeholder="https://yoursite.com" />
+            <input type="url" id="if-website" name="website" class="form-input" autocomplete="url" placeholder="https://yoursite.com" maxlength="2048" />
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-field">
             <label for="if-challenge" class="form-label">What&rsquo;s your biggest digital challenge right now? <span class="form-required" aria-label="required">*</span></label>
-            <textarea id="if-challenge" name="challenge" class="form-input form-textarea" required rows="4" placeholder="Tell us what's not working — or what you're trying to build."></textarea>
+            <textarea id="if-challenge" name="challenge" class="form-input form-textarea" required rows="4" placeholder="Tell us what's not working — or what you're trying to build." maxlength="5000"></textarea>
           </div>
         </div>
 
@@ -263,12 +265,12 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
       </form>
 
       <!-- ── ERROR ── -->
-      <div class="intake-error hidden" id="intake-error" role="alert" aria-live="polite">
+      <div class="intake-error hidden" id="intake-error" role="alert" aria-live="polite" tabindex="-1">
         <p class="intake-error-text">Something went wrong — try again or reach us at <a href="mailto:consult@sg57.dev">consult@sg57.dev</a>.</p>
       </div>
 
       <!-- ── SUCCESS ── -->
-      <div class="intake-success hidden" id="intake-success" role="status" aria-live="polite">
+      <div class="intake-success hidden" id="intake-success" role="status" aria-live="polite" tabindex="-1">
         <div class="success-ring" aria-hidden="true">
           <span class="success-ring-glyph">◆</span>
         </div>
@@ -292,6 +294,7 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
 
 <script>
   document.addEventListener('astro:page-load', () => {
+    try {
     const form         = document.getElementById('sg57-intake-form');
     const card         = document.getElementById('intake-card');
     const submitBtn    = document.getElementById('intake-submit');
@@ -309,6 +312,7 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
 
     // ── Animate progress fill ─────────────────────────────────────────────────
     function setProgress(pct, durationMs) {
+      if (!progressFill) return;
       progressFill.style.transition = `width ${durationMs}ms cubic-bezier(0.4, 0, 0.6, 1)`;
       progressFill.style.width = `${pct}%`;
     }
@@ -320,10 +324,12 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
       [...form.elements].forEach(el => (el.disabled = false));
       form.style.opacity = '';
       form.style.pointerEvents = '';
-      submitBtn.classList.remove('is-sending');
-      submitBtn.innerHTML = 'Send My Brief <span class="submit-arrow" aria-hidden="true">→</span>';
+      if (submitBtn) {
+        submitBtn.classList.remove('is-sending');
+        submitBtn.innerHTML = 'Send My Brief <span class="submit-arrow" aria-hidden="true">\u2192</span>';
+      }
       setProgress(0, 300);
-      setTimeout(() => { progressEl.style.opacity = '0'; }, 350);
+      if (progressEl) setTimeout(() => { progressEl.style.opacity = '0'; }, 350);
     }
 
     form.addEventListener('submit', async (e) => {
@@ -337,22 +343,25 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
       }
 
       submitted = true;
-      errorEl.classList.add('hidden');
+      if (errorEl) errorEl.classList.add('hidden');
 
       // Capture personal details before we touch the form
       const firstName = (form.querySelector('#if-name')?.value?.trim() ?? '').split(' ')[0] || 'there';
       const email     = form.querySelector('#if-email')?.value?.trim() ?? '';
 
+      try {
       // ── Phase 1: Lock everything, start scanner + progress ────────────────
       [...form.elements].forEach(el => (el.disabled = true));
       form.style.opacity = '0.45';
       form.style.pointerEvents = 'none';
 
-      submitBtn.classList.add('is-sending');
-      submitBtn.innerHTML = '<span class="btn-spinner" aria-hidden="true">◈</span> Transmitting…';
+      if (submitBtn) {
+        submitBtn.classList.add('is-sending');
+        submitBtn.innerHTML = '<span class="btn-spinner" aria-hidden="true">&#x25C8;</span> Transmitting\u2026';
+      }
 
       card.classList.add('card-sending');
-      progressEl.style.opacity = '1';
+      if (progressEl) progressEl.style.opacity = '1';
       setProgress(0, 0);
       await wait(40); // let browser paint 0% before animating
       setProgress(72, 1800);
@@ -368,7 +377,10 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
 
       if (!res.ok) {
         resetToIdle();
-        errorEl.classList.remove('hidden');
+        if (errorEl) {
+          errorEl.classList.remove('hidden');
+          errorEl.focus();
+        }
         return;
       }
 
@@ -381,37 +393,55 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
       form.style.transition = 'opacity 0.38s ease, transform 0.38s cubic-bezier(0.4, 0, 1, 1)';
       form.style.opacity    = '0';
       form.style.transform  = 'translateY(-10px)';
-      progressFill.style.transition = 'opacity 0.25s ease';
-      progressFill.style.opacity    = '0';
+      if (progressFill) {
+        progressFill.style.transition = 'opacity 0.25s ease';
+        progressFill.style.opacity    = '0';
+      }
       await wait(400);
 
       form.style.display = 'none';
-      progressEl.style.display = 'none';
+      if (progressEl) progressEl.style.display = 'none';
 
       // ── Phase 5: Reveal success ───────────────────────────────────────────
-      document.getElementById('success-name').textContent  = firstName;
-      document.getElementById('success-email').textContent = email;
+      const successNameEl = document.getElementById('success-name');
+      const successEmailEl = document.getElementById('success-email');
+      if (successNameEl) successNameEl.textContent = firstName;
+      if (successEmailEl) successEmailEl.textContent = email;
 
-      card.classList.add('card-success');
-      successEl.classList.remove('hidden');
-      successEl.style.opacity   = '0';
-      successEl.style.transform = 'translateY(12px) scale(0.97)';
+      if (successEl) {
+        card.classList.add('card-success');
+        successEl.classList.remove('hidden');
+        successEl.style.opacity   = '0';
+        successEl.style.transform = 'translateY(12px) scale(0.97)';
 
-      void successEl.offsetWidth; // reflow
-      successEl.style.transition = 'opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)';
-      successEl.style.opacity    = '1';
-      successEl.style.transform  = 'translateY(0) scale(1)';
+        void successEl.offsetWidth; // reflow
+        successEl.style.transition = 'opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)';
+        successEl.style.opacity    = '1';
+        successEl.style.transform  = 'translateY(0) scale(1)';
 
-      successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        successEl.focus({ preventScroll: true });
+      }
+
+      } catch (err) {
+        // If anything in the submission pipeline throws, reset the form
+        // so the user can try again instead of being stuck in "sending" state.
+        resetToIdle();
+        if (errorEl) {
+          errorEl.classList.remove('hidden');
+          errorEl.focus();
+        }
+      }
     });
+    } catch (_) { /* Form init failed — the fallback mailto link in the error state remains accessible */ }
   });
 </script>
 
 <style>
   /* Accent scope — matches Base.astro prop values */
   :root {
-    --svc-accent:       #C4896A;
-    --svc-accent-hover: #D49A7A;
+    --svc-accent:       var(--sg57-services-accent);
+    --svc-accent-hover: var(--sg57-services-accent-hover);
     --svc-accent-muted: #A87558;
     --svc-accent-glow:  rgba(196, 137, 106, 0.15);
   }
@@ -480,7 +510,7 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
   }
 
   .eyebrow-glyph {
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     color: var(--sg57-accent);
     animation: pulse-glow 4s ease-in-out infinite;
   }
@@ -488,7 +518,7 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
   .eyebrow-label {
     font-family: var(--sg57-font-display);
     font-weight: 600;
-    font-size: 0.68rem;
+    font-size: 0.75rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--sg57-accent);
@@ -496,7 +526,7 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
 
   .hero-title {
     font-family: var(--sg57-font-display);
-    font-weight: 800;
+    font-weight: 700;
     font-size: clamp(1.8rem, 5.5vw, 3.6rem);
     color: var(--sg57-text);
     letter-spacing: 0.04em;
@@ -528,7 +558,7 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
     font-size: 0.95rem;
     letter-spacing: 0.07em;
     text-transform: uppercase;
-    color: #ffffff;
+    color: var(--sg57-text-on-accent);
     background: var(--sg57-accent);
     padding: 0.85rem 2.25rem;
     border-radius: var(--sg57-radius-md);
@@ -541,7 +571,16 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
     background: var(--sg57-accent-hover);
     box-shadow: 0 0 28px var(--sg57-accent-glow);
     gap: 0.85rem;
-    color: #ffffff;
+    color: var(--sg57-text-on-accent);
+  }
+
+  .hero-cta:active {
+    transform: scale(0.97);
+  }
+
+  .hero-cta:focus-visible {
+    box-shadow: var(--sg57-focus-ring), 0 0 28px var(--sg57-accent-glow);
+    outline: none;
   }
 
   .hero-cta-arrow {
@@ -586,7 +625,7 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
 
   .capabilities-eyebrow {
     font-family: var(--sg57-font-display);
-    font-weight: 800;
+    font-weight: 700;
     font-size: clamp(2rem, 6vw, 4.5rem);
     letter-spacing: 0.12em;
     color: var(--sg57-text);
@@ -623,7 +662,7 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
     grid-template-columns: repeat(3, 1fr);
     gap: 1px;
     border: 1px solid var(--sg57-border);
-    border-radius: 10px;
+    border-radius: var(--sg57-radius-lg);
     overflow: visible;
     background: var(--sg57-border);
   }
@@ -696,12 +735,12 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
   .cap-card--growth::before { background: radial-gradient(ellipse 100% 80% at 50% 0%, rgba(91,192,100,0.15) 0%, transparent 65%); }
 
   /* Per-card top accent lines */
-  .cap-card--brand::after  { background: #C4896A; box-shadow: 0 0 12px rgba(196,137,106,0.5); }
-  .cap-card--web::after    { background: #5BC0BE; box-shadow: 0 0 12px rgba(91,192,190,0.5); }
-  .cap-card--infra::after  { background: #8ab0d8; box-shadow: 0 0 12px rgba(138,176,216,0.5); }
-  .cap-card--product::after{ background: #C4896A; box-shadow: 0 0 12px rgba(196,137,106,0.5); }
-  .cap-card--ai::after     { background: #c07fe0; box-shadow: 0 0 12px rgba(192,127,224,0.5); }
-  .cap-card--growth::after { background: #6adc7e; box-shadow: 0 0 12px rgba(106,220,126,0.5); }
+  .cap-card--brand::after  { background: var(--sg57-services-accent); box-shadow: 0 0 12px rgba(196,137,106,0.5); }
+  .cap-card--web::after    { background: var(--sg57-clide-accent); box-shadow: 0 0 12px rgba(91,192,190,0.5); }
+  .cap-card--infra::after  { background: var(--sg57-info); box-shadow: 0 0 12px rgba(138,176,216,0.5); }
+  .cap-card--product::after{ background: var(--sg57-services-accent); box-shadow: 0 0 12px rgba(196,137,106,0.5); }
+  .cap-card--ai::after     { background: var(--sg57-accent); box-shadow: 0 0 12px rgba(192,127,224,0.5); }
+  .cap-card--growth::after { background: var(--sg57-success); box-shadow: 0 0 12px rgba(106,220,126,0.5); }
 
   /* ── Glyph — pulses with glow on hover ── */
   .cap-glyph {
@@ -712,10 +751,10 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
     transition: transform 0.4s var(--sg57-ease-snap), filter 0.4s ease;
   }
 
-  .cap-card--web    .cap-glyph  { color: #5BC0BE; }
-  .cap-card--infra  .cap-glyph  { color: #8ab0d8; }
-  .cap-card--ai     .cap-glyph  { color: #c07fe0; }
-  .cap-card--growth .cap-glyph  { color: #6adc7e; }
+  .cap-card--web    .cap-glyph  { color: var(--sg57-clide-accent); }
+  .cap-card--infra  .cap-glyph  { color: var(--sg57-info); }
+  .cap-card--ai     .cap-glyph  { color: var(--sg57-accent); }
+  .cap-card--growth .cap-glyph  { color: var(--sg57-success); }
 
   .cap-card:hover .cap-glyph {
     filter: drop-shadow(0 0 16px currentColor);
@@ -739,7 +778,7 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
   }
 
   .cap-card:hover .cap-name {
-    color: #ffffff;
+    color: var(--sg57-text-bright);
   }
 
   .cap-tagline {
@@ -795,7 +834,7 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
     left: 0;
     color: var(--sg57-accent);
     opacity: 0.5;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     top: 0.1em;
     transition: opacity 0.3s ease;
   }
@@ -804,10 +843,17 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
     opacity: 1;
   }
 
-  .cap-card--web    .cap-list li::before { color: #5BC0BE; }
-  .cap-card--infra  .cap-list li::before { color: #8ab0d8; }
-  .cap-card--ai     .cap-list li::before { color: #c07fe0; }
-  .cap-card--growth .cap-list li::before { color: #6adc7e; }
+  .cap-card--web    .cap-list li::before { color: var(--sg57-clide-accent); }
+  .cap-card--infra  .cap-list li::before { color: var(--sg57-info); }
+  .cap-card--ai     .cap-list li::before { color: var(--sg57-accent); }
+  .cap-card--growth .cap-list li::before { color: var(--sg57-success); }
+
+  .cap-card:focus-visible {
+    box-shadow:
+      var(--sg57-focus-ring),
+      0 12px 40px rgba(0, 0, 0, 0.4);
+    outline: none;
+  }
 
   /* Desktop-only transforms — prevent layout jank on touch devices */
   @media (hover: hover) {
@@ -871,28 +917,28 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
     font-family: var(--sg57-font-display);
     font-weight: 200;
     font-size: 1.1rem;
-    color: #5BC0BE;
+    color: var(--sg57-clide-accent);
     opacity: 0.6;
   }
 
   .bf-glyph {
     font-size: 0.75rem;
-    color: #5BC0BE;
+    color: var(--sg57-clide-accent);
     animation: pulse-glow 3s ease-in-out infinite;
   }
 
   .bf-label {
     font-family: var(--sg57-font-display);
     font-weight: 600;
-    font-size: 0.68rem;
+    font-size: 0.75rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: #5BC0BE;
+    color: var(--sg57-clide-accent);
   }
 
   .bigfish-headline {
     font-family: var(--sg57-font-display);
-    font-weight: 800;
+    font-weight: 700;
     font-size: clamp(1.5rem, 4vw, 2.75rem);
     color: var(--sg57-text);
     letter-spacing: 0.03em;
@@ -911,12 +957,13 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
   .bigfish-cta {
     display: inline-flex;
     align-items: center;
+    min-height: 44px;
     gap: 0.5rem;
     font-family: var(--sg57-font-display);
     font-weight: 600;
     font-size: 0.92rem;
     letter-spacing: 0.07em;
-    color: #5BC0BE;
+    color: var(--sg57-clide-accent);
     background: var(--sg57-glass-bg);
     backdrop-filter: blur(var(--sg57-glass-blur));
     -webkit-backdrop-filter: blur(var(--sg57-glass-blur));
@@ -930,11 +977,20 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
   }
 
   .bigfish-cta:hover {
-    color: #ffffff;
-    background: #5BC0BE;
-    border-color: #5BC0BE;
+    color: var(--sg57-text-on-accent);
+    background: var(--sg57-clide-accent);
+    border-color: var(--sg57-clide-accent);
     box-shadow: 0 0 28px rgba(91, 192, 190, 0.3);
     transform: translateY(-1px);
+  }
+
+  .bigfish-cta:active {
+    transform: scale(0.97) translateY(0);
+  }
+
+  .bigfish-cta:focus-visible {
+    box-shadow: var(--sg57-focus-ring), 0 0 28px rgba(91, 192, 190, 0.3);
+    outline: none;
   }
 
   /* ── §6 INTAKE FORM ──────────────────────────────────────────────────────── */
@@ -963,7 +1019,7 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
     -webkit-backdrop-filter: blur(var(--sg57-glass-blur));
     border: 1px solid var(--sg57-glass-border);
     box-shadow: var(--sg57-glass-shadow);
-    border-radius: 10px;
+    border-radius: var(--sg57-radius-lg);
     padding: 2.5rem;
     position: relative;
     overflow: hidden;
@@ -995,10 +1051,10 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
   }
 
   @keyframes scanner-sweep {
-    0%   { top: 0%;   opacity: 0; }
+    0%   { transform: translateY(0);   opacity: 0; }
     6%   { opacity: 1; }
     94%  { opacity: 1; }
-    100% { top: 100%; opacity: 0; }
+    100% { transform: translateY(600px); opacity: 0; }
   }
 
   /* Card success glow */
@@ -1074,6 +1130,10 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
     appearance: none;
   }
 
+  .form-input:hover:not(:focus):not(:disabled) {
+    border-color: var(--sg57-border-glass);
+  }
+
   .form-input::placeholder {
     color: var(--sg57-text-dim);
     opacity: 0.4;
@@ -1082,7 +1142,19 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
   .form-input:focus {
     outline: none;
     border-color: var(--sg57-accent-muted);
-    box-shadow: 0 0 0 3px var(--sg57-accent-glow);
+    box-shadow: var(--sg57-focus-ring);
+  }
+
+  /* Inline validation — show error state only after user has interacted */
+  .form-input:invalid:not(:placeholder-shown):not(:focus) {
+    border-color: var(--sg57-error);
+    box-shadow: 0 0 0 2px rgba(212, 90, 90, 0.15);
+  }
+
+  /* Disabled state for inputs (during form submission) */
+  .form-input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 
   .form-textarea {
@@ -1097,6 +1169,10 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
     background-repeat: no-repeat;
     background-position: right 0.9rem center;
     padding-right: 2.25rem;
+  }
+
+  .form-select:hover:not(:disabled) {
+    border-color: var(--sg57-accent-muted);
   }
 
   .form-select option {
@@ -1128,11 +1204,20 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
   }
 
   .form-submit:not(.is-sending):hover {
-    color: #ffffff;
+    color: var(--sg57-text-on-accent);
     background: var(--sg57-accent);
     border-color: var(--sg57-accent);
     box-shadow: 0 0 28px var(--sg57-accent-glow), var(--sg57-glass-shadow);
     transform: translateY(-1px);
+  }
+
+  .form-submit:not(.is-sending):active {
+    transform: scale(0.97) translateY(0);
+  }
+
+  .form-submit:focus-visible {
+    box-shadow: var(--sg57-focus-ring);
+    outline: none;
   }
 
   .form-submit.is-sending {
@@ -1240,7 +1325,7 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
 
   .success-label {
     font-family: var(--sg57-font-mono);
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     letter-spacing: 0.22em;
     color: var(--sg57-accent);
     text-transform: uppercase;
@@ -1274,7 +1359,7 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
   .section-label {
     font-family: var(--sg57-font-display);
     font-weight: 600;
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--sg57-accent);
