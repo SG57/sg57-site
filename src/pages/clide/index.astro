@@ -217,16 +217,13 @@ import Base from '../../layouts/Base.astro';
   .hero-label {
     display: block;
     font-family: var(--sg57-font-mono);
-    font-size: 0.75rem;
+    font-size: 1.125rem;
     letter-spacing: 0.22em;
     color: var(--sg57-accent);
     text-transform: uppercase;
     margin-bottom: 1rem;
   }
 
-  /* .hero-title is sr-only in HTML — no additional CSS needed */
-
-  /* Product-specific accent: Signal Cyan */
   /* Product accent override — scoped to all page sections */
   .hero,
   .problem,
@@ -240,14 +237,10 @@ import Base from '../../layouts/Base.astro';
     --sg57-accent-glow: rgba(91, 192, 190, 0.15);
   }
 
-  .hero-title .accent {
-    color: var(--sg57-accent);
-  }
-
   .hero-tagline {
     font-family: var(--sg57-font-display);
     font-weight: 500;
-    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-size: clamp(1.125rem, 2vw, 1.25rem);
     color: var(--sg57-text);
     margin-bottom: 0.35rem;
   }
@@ -255,7 +248,7 @@ import Base from '../../layouts/Base.astro';
   .hero-subtitle {
     font-family: var(--sg57-font-display);
     font-weight: 300;
-    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    font-size: clamp(1.125rem, 1.5vw, 1.25rem);
     color: var(--sg57-text-dim);
     margin-bottom: 2rem;
   }
@@ -266,7 +259,7 @@ import Base from '../../layouts/Base.astro';
     min-height: 44px;
     font-family: var(--sg57-font-display);
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 1.125rem;
     letter-spacing: 0.05em;
     color: var(--sg57-accent);
     background: var(--sg57-glass-bg);
@@ -306,7 +299,7 @@ import Base from '../../layouts/Base.astro';
   .problem-text {
     font-family: var(--sg57-font-display);
     font-weight: 400;
-    font-size: clamp(1rem, 1.8vw, 1.15rem);
+    font-size: clamp(1.125rem, 1.8vw, 1.25rem);
     color: var(--sg57-text-dim);
     line-height: 1.8;
     text-align: center;
@@ -357,7 +350,7 @@ import Base from '../../layouts/Base.astro';
   .feature-heading {
     font-family: var(--sg57-font-display);
     font-weight: 600;
-    font-size: 1.05rem;
+    font-size: 1.125rem;
     letter-spacing: 0.08em;
     color: var(--sg57-text);
     margin-bottom: 0.75rem;
@@ -366,7 +359,7 @@ import Base from '../../layouts/Base.astro';
   .feature-desc {
     font-family: var(--sg57-font-display);
     font-weight: 400;
-    font-size: 0.9rem;
+    font-size: 1.125rem;
     color: var(--sg57-text-dim);
     line-height: 1.6;
   }
@@ -398,7 +391,7 @@ import Base from '../../layouts/Base.astro';
 
   .placeholder-label {
     font-family: var(--sg57-font-display);
-    font-size: 0.85rem;
+    font-size: 1.125rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--sg57-text-muted);
@@ -413,7 +406,7 @@ import Base from '../../layouts/Base.astro';
   .section-heading {
     font-family: var(--sg57-font-display);
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1.125rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--sg57-accent);
@@ -460,10 +453,10 @@ import Base from '../../layouts/Base.astro';
     transform: translateX(-50%);
     font-family: var(--sg57-font-display);
     font-weight: 600;
-    font-size: 0.75rem;
+    font-size: 1.125rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--sg57-text);
+    color: var(--sg57-text-on-accent);
     background: var(--sg57-accent);
     padding: 0.25rem 0.75rem;
     border-radius: var(--sg57-radius-sm);
@@ -495,7 +488,7 @@ import Base from '../../layouts/Base.astro';
 
   .price-note {
     font-weight: 400;
-    font-size: 0.85rem;
+    font-size: 1.125rem;
     color: var(--sg57-text-dim);
   }
 
@@ -509,7 +502,7 @@ import Base from '../../layouts/Base.astro';
   .pricing-features li {
     font-family: var(--sg57-font-display);
     font-weight: 400;
-    font-size: 0.85rem;
+    font-size: 1.125rem;
     color: var(--sg57-text);
     padding-left: 1.5rem;
     position: relative;
@@ -521,7 +514,7 @@ import Base from '../../layouts/Base.astro';
     left: 0;
     color: var(--sg57-success);
     font-weight: 700;
-    font-size: 0.8rem;
+    font-size: 1.125rem;
   }
 
   .pricing-features li.included::before {

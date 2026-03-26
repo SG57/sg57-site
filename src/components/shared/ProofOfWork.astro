@@ -127,7 +127,7 @@ import BeforeAfterSlider from '../services/BeforeAfterSlider.astro';
   .proof-eyebrow {
     display: block;
     font-family: var(--sg57-font-mono);
-    font-size: 0.75rem;
+    font-size: 1.125rem;
     font-weight: 600;
     letter-spacing: 0.22em;
     text-transform: uppercase;
@@ -160,7 +160,7 @@ import BeforeAfterSlider from '../services/BeforeAfterSlider.astro';
     display: block;
     font-family: var(--sg57-font-display);
     font-weight: 600;
-    font-size: 0.75rem;
+    font-size: 1.125rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--sg57-services-accent);
@@ -180,7 +180,7 @@ import BeforeAfterSlider from '../services/BeforeAfterSlider.astro';
   .proof-type {
     font-family: var(--sg57-font-display);
     font-weight: 400;
-    font-size: 0.88rem;
+    font-size: 1.125rem;
     color: var(--sg57-text-dim);
   }
 
@@ -192,7 +192,7 @@ import BeforeAfterSlider from '../services/BeforeAfterSlider.astro';
   .proof-scope-label {
     display: block;
     font-family: var(--sg57-font-mono);
-    font-size: 0.75rem;
+    font-size: 1.125rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--sg57-text-dim);
@@ -205,7 +205,7 @@ import BeforeAfterSlider from '../services/BeforeAfterSlider.astro';
     min-height: 44px;
     font-family: var(--sg57-font-display);
     font-weight: 600;
-    font-size: 0.8rem;
+    font-size: 1.125rem;
     color: var(--sg57-services-accent);
     text-decoration: none;
     letter-spacing: 0.04em;
@@ -233,7 +233,7 @@ import BeforeAfterSlider from '../services/BeforeAfterSlider.astro';
   .proof-narrative p {
     font-family: var(--sg57-font-display);
     font-weight: 400;
-    font-size: 0.92rem;
+    font-size: 1.125rem;
     color: var(--sg57-text-dim);
     line-height: 1.75;
   }
@@ -250,7 +250,7 @@ import BeforeAfterSlider from '../services/BeforeAfterSlider.astro';
     padding: 0.85rem 2.5rem;
     font-family: var(--sg57-font-display);
     font-weight: 600;
-    font-size: 0.75rem;
+    font-size: 1.125rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--sg57-services-accent);
@@ -258,7 +258,7 @@ import BeforeAfterSlider from '../services/BeforeAfterSlider.astro';
   }
 
   .psl-glyph {
-    font-size: 0.55rem;
+    font-size: 1.125rem;
     animation: pulse-glow 4s ease-in-out infinite;
   }
 
@@ -271,7 +271,7 @@ import BeforeAfterSlider from '../services/BeforeAfterSlider.astro';
   .proof-dl-label {
     font-family: var(--sg57-font-display);
     font-weight: 500;
-    font-size: 0.75rem;
+    font-size: 1.125rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--sg57-text-dim);
@@ -288,19 +288,21 @@ import BeforeAfterSlider from '../services/BeforeAfterSlider.astro';
   .proof-dl-list li {
     font-family: var(--sg57-font-display);
     font-weight: 400;
-    font-size: 0.85rem;
+    font-size: 1.125rem;
     color: var(--sg57-text);
     padding-left: 1.1rem;
     position: relative;
   }
 
   .proof-dl-list li::before {
-    content: '◆';
+    content: '';
     position: absolute;
     left: 0;
-    font-size: 0.38rem;
-    color: var(--sg57-services-accent);
-    top: 0.42em;
+    top: 0.55em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--sg57-services-accent);
   }
 
   /* ── Testimonial ── */
@@ -330,7 +332,7 @@ import BeforeAfterSlider from '../services/BeforeAfterSlider.astro';
   .proof-quote-text {
     font-family: var(--sg57-font-display);
     font-weight: 400;
-    font-size: 0.95rem;
+    font-size: 1.125rem;
     color: var(--sg57-text-dim);
     line-height: 1.8;
     font-style: italic;
@@ -342,7 +344,7 @@ import BeforeAfterSlider from '../services/BeforeAfterSlider.astro';
     gap: 0.5rem;
     margin-top: 1.25rem;
     font-family: var(--sg57-font-mono);
-    font-size: 0.75rem;
+    font-size: 1.125rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
   }
@@ -377,6 +379,7 @@ import BeforeAfterSlider from '../services/BeforeAfterSlider.astro';
     overflow: hidden;
     border: 1px solid var(--sg57-border-glass);
     text-decoration: none;
+    cursor: pointer;
     transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s var(--sg57-ease-snap);
   }
 
@@ -413,7 +416,7 @@ import BeforeAfterSlider from '../services/BeforeAfterSlider.astro';
     right: 0;
     padding: 0.35rem 0.6rem;
     font-family: var(--sg57-font-mono);
-    font-size: 0.75rem;
+    font-size: 1.125rem;
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;

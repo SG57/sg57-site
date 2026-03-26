@@ -58,7 +58,7 @@
   /* --- Text --- */
   --sg57-text: #c8ccd2;
   --sg57-text-bright: #ffffff;
-  --sg57-text-on-accent: #ffffff;
+  --sg57-text-on-accent: #0a0c10;
   --sg57-text-dim: #848c96;
   --sg57-text-muted: #8894a4;
   --sg57-text-inverse: #0a0c10;
@@ -99,9 +99,9 @@
   /* --- Typography --- */
   --sg57-font-display: 'Rajdhani', system-ui, sans-serif;
   --sg57-font-mono: 'Geist Mono', 'Cascadia Code', 'JetBrains Mono', 'Fira Code', monospace;
-  --sg57-font-xs: calc(12px * var(--sg57-font-scale, 1));
-  --sg57-font-sm: calc(14px * var(--sg57-font-scale, 1));
-  --sg57-font-base: calc(15px * var(--sg57-font-scale, 1));
+  --sg57-font-xs: calc(18px * var(--sg57-font-scale, 1));
+  --sg57-font-sm: calc(18px * var(--sg57-font-scale, 1));
+  --sg57-font-base: calc(18px * var(--sg57-font-scale, 1));
   --sg57-font-lg: calc(18px * var(--sg57-font-scale, 1));
   --sg57-font-xl: calc(22px * var(--sg57-font-scale, 1));
   --sg57-font-2xl: calc(26px * var(--sg57-font-scale, 1));
@@ -279,6 +279,12 @@ img {
 /* Offset anchor scroll targets below the sticky nav (3.5rem height + breathing room) */
 [id] {
   scroll-margin-top: 4.5rem;
+}
+
+/* --- Theme transition (smooth color swap on toggle) --- */
+[data-theme] {
+  transition: background-color 200ms var(--sg57-ease-out),
+              color 200ms var(--sg57-ease-out);
 }
 
 /* --- Utility --- */

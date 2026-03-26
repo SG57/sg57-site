@@ -430,6 +430,15 @@
         : (focusedIdx - 1 + btns.length) % btns.length;
       btns[next].focus();
     }
+    // Enter key auto-advances after a choice is selected
+    if (e.key === 'Enter' && answers.has(current) && !animating) {
+      e.preventDefault();
+      if (current < TOTAL - 1) {
+        goToQuestion(current + 1, 'forward');
+      } else {
+        showResults();
+      }
+    }
   });
 
   // ── INIT ──────────────────────────────────────────────────────────────────────
@@ -470,20 +479,20 @@
     gap: 0.5rem;
     font-family: var(--sg57-font-display);
     font-weight: 600;
-    font-size: 0.75rem;
+    font-size: 1.125rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--sg57-accent);
   }
 
   .dhq-badge-glyph {
-    font-size: 0.75rem;
+    font-size: 1.125rem;
     animation: pulse-glow 4s ease-in-out infinite;
   }
 
   .dhq-counter {
     font-family: var(--sg57-font-mono);
-    font-size: 0.8rem;
+    font-size: 1.125rem;
     color: var(--sg57-text-dim);
     display: flex;
     align-items: center;
@@ -549,7 +558,7 @@
   .dhq-q {
     font-family: var(--sg57-font-display);
     font-weight: 600;
-    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    font-size: clamp(1.125rem, 2.2vw, 1.2rem);
     color: var(--sg57-text);
     line-height: 1.5;
     margin-bottom: 1.5rem;
@@ -621,7 +630,7 @@
     align-items: center;
     justify-content: center;
     font-family: var(--sg57-font-mono);
-    font-size: 0.75rem;
+    font-size: 1.125rem;
     font-weight: 700;
     color: var(--sg57-text-dim);
     border: 1px solid var(--sg57-border);
@@ -637,7 +646,7 @@
   .dhq-choices :global(.dhq-choice-text) {
     font-family: var(--sg57-font-display);
     font-weight: 400;
-    font-size: 0.9rem;
+    font-size: 1.125rem;
     color: var(--sg57-text-dim);
     line-height: 1.4;
     transition: color 0.2s ease;
@@ -662,7 +671,7 @@
   .dhq-btn {
     font-family: var(--sg57-font-display);
     font-weight: 600;
-    font-size: 0.85rem;
+    font-size: 1.125rem;
     letter-spacing: 0.06em;
     padding: 0.65rem 1.4rem;
     min-height: 44px;
@@ -677,6 +686,7 @@
     opacity: 0.3;
     cursor: not-allowed;
     filter: grayscale(0.3);
+    transition: opacity 0.3s ease, filter 0.3s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
   }
 
   .dhq-btn-back {
@@ -738,7 +748,7 @@
   .dhq-calc-text {
     font-family: var(--sg57-font-display);
     font-weight: 400;
-    font-size: 0.9rem;
+    font-size: 1.125rem;
     letter-spacing: 0.1em;
     color: var(--sg57-text-dim);
     text-transform: uppercase;
@@ -778,7 +788,7 @@
   .dhq-tier-signal {
     font-family: var(--sg57-font-mono);
     font-weight: 700;
-    font-size: 0.75rem;
+    font-size: 1.125rem;
     letter-spacing: 0.2em;
     color: var(--sg57-accent);
     text-transform: uppercase;
@@ -792,7 +802,7 @@
   .dhq-result-headline {
     font-family: var(--sg57-font-display);
     font-weight: 700;
-    font-size: clamp(1.15rem, 2.5vw, 1.4rem);
+    font-size: clamp(1.125rem, 2.5vw, 1.4rem);
     color: var(--sg57-text);
     letter-spacing: 0.02em;
     line-height: 1.3;
@@ -802,7 +812,7 @@
   .dhq-result-desc {
     font-family: var(--sg57-font-display);
     font-weight: 400;
-    font-size: 0.92rem;
+    font-size: 1.125rem;
     color: var(--sg57-text-dim);
     line-height: 1.7;
     max-width: 480px;
@@ -814,7 +824,7 @@
     min-height: 44px;
     font-family: var(--sg57-font-display);
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 1.125rem;
     letter-spacing: 0.05em;
     color: var(--sg57-accent);
     background: var(--sg57-glass-bg);
@@ -846,7 +856,7 @@
   .dhq-result-sub {
     font-family: var(--sg57-font-display);
     font-weight: 400;
-    font-size: 0.78rem;
+    font-size: 1.125rem;
     letter-spacing: 0.04em;
     color: var(--sg57-text-dim);
     opacity: 0.7;
@@ -855,7 +865,7 @@
   .dhq-retake {
     font-family: var(--sg57-font-display);
     font-weight: 500;
-    font-size: 0.8rem;
+    font-size: 1.125rem;
     letter-spacing: 0.06em;
     color: var(--sg57-text-dim);
     background: transparent;
