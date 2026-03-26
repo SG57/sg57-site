@@ -182,6 +182,51 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       <slot />
     </main>
     <Footer />
+
+    <!-- Scroll-to-top FAB -->
+    <button
+      class="fab-top"
+      id="fab-top"
+      type="button"
+      aria-label="Scroll to top"
+    >
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 15l-6-6-6 6"/>
+      </svg>
+    </button>
+
+    <script>
+      document.addEventListener('astro:page-load', () => {
+        const fab = document.getElementById('fab-top');
+        if (!fab) return;
+
+        let visible = false;
+        let ticking = false;
+
+        function update() {
+          const show = window.scrollY > window.innerHeight * 0.6;
+          if (show !== visible) {
+            visible = show;
+            fab.classList.toggle('is-visible', visible);
+          }
+          ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+          if (!ticking) {
+            requestAnimationFrame(update);
+            ticking = true;
+          }
+        }, { passive: true });
+
+        fab.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        update();
+      });
+    </script>
   </body>
 </html>
 
@@ -360,5 +405,55 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
   :global([data-theme='light']) .particles {
     opacity: 0.3;
+  }
+
+  /* ════════════════════════════════════════════════════
+     SCROLL-TO-TOP FAB
+     ════════════════════════════════════════════════════ */
+  :global(.fab-top) {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 50;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--sg57-glass-bg-dense);
+    backdrop-filter: blur(var(--sg57-glass-blur));
+    -webkit-backdrop-filter: blur(var(--sg57-glass-blur));
+    border: 1px solid var(--sg57-glass-border);
+    box-shadow: var(--sg57-shadow-md);
+    color: var(--sg57-text-dim);
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(12px);
+    pointer-events: none;
+    transition: opacity 0.3s var(--sg57-ease-out),
+                transform 0.3s var(--sg57-ease-out),
+                color 0.2s ease,
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :global(.fab-top.is-visible) {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  :global(.fab-top:hover) {
+    color: var(--sg57-accent);
+    border-color: var(--sg57-accent-muted);
+    box-shadow: var(--sg57-shadow-glow);
+    transform: translateY(-2px);
+  }
+
+  :global(.fab-top:active) {
+    transform: scale(0.95);
   }
 </style>

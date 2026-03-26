@@ -9,6 +9,8 @@
       <span class="bracket">]</span>
       <span class="logo-sub">LABS</span>
     </a>
+
+    <!-- Desktop links -->
     <div class="nav-links">
       <a href="/clide">Clide</a>
       <a href="/siftr">Siftr</a>
@@ -23,8 +25,85 @@
         <span class="theme-icon theme-icon--light" aria-hidden="true">☾</span>
       </button>
     </div>
+
+    <!-- Mobile hamburger -->
+    <button
+      class="hamburger"
+      id="hamburger"
+      type="button"
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span class="ham-bar"></span>
+      <span class="ham-bar"></span>
+      <span class="ham-bar"></span>
+    </button>
+  </div>
+
+  <!-- Mobile menu panel -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="/clide">Clide</a>
+    <a href="/siftr">Siftr</a>
+    <a href="/services">Services</a>
+    <button
+      class="theme-toggle theme-toggle--mobile"
+      id="theme-toggle-mobile"
+      aria-label="Toggle light/dark theme"
+    >
+      <span class="theme-icon theme-icon--dark" aria-hidden="true">☀</span>
+      <span class="theme-icon theme-icon--light" aria-hidden="true">☾</span>
+      <span>Toggle Theme</span>
+    </button>
   </div>
 </nav>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const hamburger = document.getElementById('hamburger');
+    const menu = document.getElementById('mobile-menu');
+    if (!hamburger || !menu) return;
+
+    let open = false;
+
+    function toggle() {
+      open = !open;
+      hamburger.classList.toggle('is-open', open);
+      hamburger.setAttribute('aria-expanded', String(open));
+      menu.classList.toggle('is-open', open);
+    }
+
+    function close() {
+      if (!open) return;
+      open = false;
+      hamburger.classList.remove('is-open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      menu.classList.remove('is-open');
+    }
+
+    hamburger.addEventListener('click', toggle);
+
+    // Close on link click
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+
+    // Close on Escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') close();
+    });
+
+    // Mobile theme toggle
+    const mobileTheme = document.getElementById('theme-toggle-mobile');
+    if (mobileTheme) {
+      mobileTheme.addEventListener('click', () => {
+        const html = document.documentElement;
+        const current = html.getAttribute('data-theme');
+        const next = current === 'light' ? 'dark' : 'light';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('sg57-theme', next);
+      });
+    }
+  });
+</script>
 
 <style>
   .nav {
@@ -81,6 +160,7 @@
     margin-left: 0.75rem;
   }
 
+  /* ── Desktop links ── */
   .nav-links {
     display: flex;
     align-items: center;
@@ -102,7 +182,7 @@
     color: var(--sg57-accent);
   }
 
-  /* Theme toggle */
+  /* ── Theme toggle ── */
   .theme-toggle {
     display: flex;
     align-items: center;
@@ -131,24 +211,114 @@
     color: var(--sg57-text-dim);
   }
 
-  /* Dark mode: show sun icon (to switch to light) */
   .theme-icon--light { display: none; }
   .theme-icon--dark  { display: inline; }
-
   :global([data-theme='light']) .theme-icon--dark  { display: none; }
   :global([data-theme='light']) .theme-icon--light { display: inline; }
 
+  /* ── Hamburger (hidden on desktop) ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .ham-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--sg57-text-dim);
+    border-radius: 1px;
+    transition: transform 0.3s var(--sg57-ease-snap), opacity 0.2s ease;
+    transform-origin: center;
+  }
+
+  .hamburger.is-open .ham-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .hamburger.is-open .ham-bar:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.is-open .ham-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* ── Mobile menu panel (hidden on desktop) ── */
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.35s var(--sg57-ease-snap), opacity 0.25s ease;
+    border-top: 1px solid var(--sg57-glass-border);
+  }
+
+  .mobile-menu.is-open {
+    max-height: 280px;
+    opacity: 1;
+  }
+
+  .mobile-menu a,
+  .theme-toggle--mobile {
+    font-family: var(--sg57-font-display);
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sg57-text-dim);
+    text-decoration: none;
+    padding: 0.85rem 1.5rem;
+    border-bottom: 1px solid var(--sg57-border-subtle);
+    transition: color 0.2s ease, background 0.2s ease;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .mobile-menu a:hover,
+  .theme-toggle--mobile:hover {
+    color: var(--sg57-accent);
+    background: var(--sg57-accent-glow);
+  }
+
+  .theme-toggle--mobile {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--sg57-border-subtle);
+    cursor: pointer;
+    text-align: left;
+  }
+
+  /* ── Responsive ── */
   @media (max-width: 640px) {
     .logo-sub {
       display: none;
     }
 
     .nav-links {
-      gap: 1rem;
+      display: none;
     }
 
-    .nav-links a {
-      font-size: 0.8rem;
+    .hamburger {
+      display: flex;
+    }
+
+    .mobile-menu {
+      display: flex;
     }
   }
 </style>
