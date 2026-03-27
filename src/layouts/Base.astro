@@ -80,7 +80,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   </head>
   <body>
     <!-- Skip to main content link — first focusable element for keyboard users -->
-    <a href="#main-content" class="skip-link">Skip to content</a>
+    <a href="#main-content" class="skip-link" style="position:fixed;top:-100%">Skip to content</a>
 
     <!-- ══ Edge Sliver (§9.1) — 2px brand fingerprint, full-width, above everything ══ -->
     <div class="edge-sliver" aria-hidden="true" style="view-transition-name: site-sliver;"></div>

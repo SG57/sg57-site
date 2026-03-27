@@ -304,13 +304,14 @@ img {
    Apply to any section whose text floats over the bare wallpaper. */
 .bloom {
   position: relative;
+  overflow: hidden;
 }
 .bloom::before {
   content: '';
   position: absolute;
-  inset: -20% -10%;
+  inset: -20% 0;
   background: radial-gradient(
-    ellipse 65% 55% at 50% 50%,
+    ellipse 80% 55% at 50% 50%,
     rgba(10, 12, 16, 0.85) 0%,
     rgba(10, 12, 16, 0.55) 40%,
     transparent 72%
