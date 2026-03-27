@@ -40,11 +40,7 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
   <!-- ══════════════════════════════════════════════════════════════════════════
        §2 DIGITAL HEALTH CHECK (QUIZ)
        ══════════════════════════════════════════════════════════════════════════ -->
-  <section class="quiz-section container" id="health-check" aria-labelledby="quiz-section-heading">
-    <div class="quiz-section-header">
-      <h2 class="section-label" id="quiz-section-heading">THE 2-MINUTE AUDIT</h2>
-      <p class="quiz-section-sub">Honest questions. No fluff. A real signal.</p>
-    </div>
+  <section class="quiz-section container" id="health-check">
     <DigitalHealthQuiz />
   </section>
 
@@ -554,20 +550,6 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
 
   .quiz-section {
     padding: 4rem 1.5rem 5rem;
-  }
-
-  .quiz-section-header {
-    text-align: center;
-    margin-bottom: 2.5rem;
-  }
-
-  .quiz-section-sub {
-    font-family: var(--sg57-font-display);
-    font-weight: 400;
-    font-size: 1.125rem;
-    color: var(--sg57-text-dim);
-    letter-spacing: 0.04em;
-    margin-top: 0.5rem;
   }
 
   /* ── §3 CAPABILITIES ─────────────────────────────────────────────────────── */
