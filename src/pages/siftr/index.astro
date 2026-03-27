@@ -388,6 +388,7 @@ import Base from '../../layouts/Base.astro';
     background-size: 200% 200%;
     background-image: var(--sg57-ambient-gradient);
     animation: hero-ambient 90s ease-in-out infinite;
+    mix-blend-mode: soft-light;
   }
 
   @keyframes hero-ambient {
@@ -463,18 +464,22 @@ import Base from '../../layouts/Base.astro';
     50%      { opacity: 0.3; }
   }
 
-  /* --- Blur edge: smooth transition from hero wallpaper to site background --- */
+  /* --- Blur edge: feather hero wallpaper into site background --- */
   .hero-blur-edge {
     position: absolute;
-    bottom: -100px;
+    bottom: -250px;
     left: 0;
     right: 0;
-    height: 100px;
+    height: 250px;
     z-index: 1;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+    background: linear-gradient(
+      to bottom,
+      rgba(8, 5, 2, 0.95) 0%,
+      rgba(8, 5, 2, 0.7) 20%,
+      rgba(8, 5, 2, 0.35) 50%,
+      rgba(8, 5, 2, 0.1) 75%,
+      transparent 100%
+    );
     pointer-events: none;
   }
 
