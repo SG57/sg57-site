@@ -13,6 +13,24 @@ import Base from '../../layouts/Base.astro';
   <!-- Hero — cinematic banner -->
   <section class="hero">
     <div class="hero-bg"></div>
+    <div class="hero-atmosphere" aria-hidden="true">
+      <svg class="hero-stars" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="145" cy="180" r="2.2" fill="#e4e0f5" opacity="0.45" class="star star-a" style="--td:-0.0s;--dur:9s"/>
+        <circle cx="420" cy="320" r="1.8" fill="#c4bce8" opacity="0.35" class="star star-b" style="--td:-3.1s;--dur:11s"/>
+        <circle cx="680" cy="85"  r="2.5" fill="#e4e0f5" opacity="0.45" class="star star-a" style="--td:-1.7s;--dur:8.5s"/>
+        <circle cx="950" cy="440" r="2.0" fill="#b8b0e0" opacity="0.35" class="star star-b" style="--td:-5.2s;--dur:10.5s"/>
+        <circle cx="1230" cy="210" r="1.8" fill="#e4e0f5" opacity="0.4" class="star star-a" style="--td:-2.4s;--dur:9.5s"/>
+        <circle cx="260" cy="620" r="2.2" fill="#c4bce8" opacity="0.35" class="star star-b" style="--td:-7.8s;--dur:12s"/>
+        <circle cx="830" cy="730" r="1.8" fill="#e4e0f5" opacity="0.4" class="star star-a" style="--td:-0.9s;--dur:8s"/>
+        <circle cx="1100" cy="560" r="2.2" fill="#b8b0e0" opacity="0.35" class="star star-b" style="--td:-4.5s;--dur:11.5s"/>
+        <circle cx="70" cy="450" r="1.3" fill="#9098b8" opacity="0.22" class="star star-c" style="--td:-8.1s;--dur:15s"/>
+        <circle cx="490" cy="530" r="1.3" fill="#9098b8" opacity="0.22" class="star star-c" style="--td:-11.4s;--dur:14.5s"/>
+        <circle cx="730" cy="200" r="1.4" fill="#8090b0" opacity="0.2" class="star star-d" style="--td:-4.2s;--dur:16s"/>
+        <circle cx="1020" cy="120" r="1.3" fill="#9098b8" opacity="0.22" class="star star-c" style="--td:-9.8s;--dur:18s"/>
+        <circle cx="1280" cy="400" r="1.5" fill="#8090b0" opacity="0.2" class="star star-d" style="--td:-1.5s;--dur:15.5s"/>
+      </svg>
+    </div>
+    <div class="hero-blur-edge" aria-hidden="true"></div>
     <div class="hero-content container">
       <!-- h1 for SEO/a11y — "SIFTR" is in the banner image -->
       <h1 class="sr-only">Siftr — Log Analysis System</h1>
@@ -246,7 +264,7 @@ import Base from '../../layouts/Base.astro';
     justify-content: center;
     min-height: 100vh;
     min-height: 100svh;
-    overflow: hidden;
+    overflow: visible;
   }
 
   /* Product-specific accent: Diagnostic Amber */
@@ -272,6 +290,7 @@ import Base from '../../layouts/Base.astro';
     background-size: cover;
     background-position: center;
     pointer-events: none;
+    overflow: hidden;
   }
 
   /* Dark amber-tinted scrim */
@@ -289,6 +308,7 @@ import Base from '../../layouts/Base.astro';
 
   .hero-content {
     position: relative;
+    z-index: 2;
     text-align: center;
     padding: 0 1.5rem 4rem;
     width: 100%;
@@ -357,6 +377,105 @@ import Base from '../../layouts/Base.astro';
   .cta-button:focus-visible {
     box-shadow: var(--sg57-focus-ring), 0 0 20px var(--sg57-accent-glow);
     outline: none;
+  }
+
+  /* --- Hero atmosphere: ambient glow + starfield above wallpaper --- */
+  .hero-atmosphere {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background-size: 200% 200%;
+    background-image: var(--sg57-ambient-gradient);
+    animation: hero-ambient 90s ease-in-out infinite;
+  }
+
+  @keyframes hero-ambient {
+    0%   { background-position:   0%   0%; }
+    25%  { background-position: 100%  50%; }
+    50%  { background-position:  50% 100%; }
+    75%  { background-position:   0%  50%; }
+    100% { background-position:   0%   0%; }
+  }
+
+  .hero-stars {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .star {
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+  }
+
+  .star-a {
+    animation-name: star-drift-a, star-twinkle;
+    animation-duration: var(--dur, 10s), 4.5s;
+    animation-delay: var(--td, 0s), var(--td, 0s);
+  }
+  .star-b {
+    animation-name: star-drift-b, star-twinkle;
+    animation-duration: var(--dur, 10s), 5.8s;
+    animation-delay: var(--td, 0s), var(--td, 0s);
+  }
+  .star-c {
+    animation-name: star-drift-c;
+    animation-duration: var(--dur, 16s);
+    animation-delay: var(--td, 0s);
+  }
+  .star-d {
+    animation-name: star-drift-d;
+    animation-duration: var(--dur, 16s);
+    animation-delay: var(--td, 0s);
+  }
+
+  @keyframes star-drift-a {
+    0%   { transform: translate(0, 0); }
+    25%  { transform: translate(13px, -9px); }
+    55%  { transform: translate(7px, 14px); }
+    80%  { transform: translate(-11px, 4px); }
+    100% { transform: translate(0, 0); }
+  }
+  @keyframes star-drift-b {
+    0%   { transform: translate(0, 0); }
+    30%  { transform: translate(-14px, 8px); }
+    65%  { transform: translate(10px, -12px); }
+    100% { transform: translate(0, 0); }
+  }
+  @keyframes star-drift-c {
+    0%   { transform: translate(0, 0); }
+    35%  { transform: translate(9px, -6px); }
+    60%  { transform: translate(4px, 10px); }
+    85%  { transform: translate(-8px, 3px); }
+    100% { transform: translate(0, 0); }
+  }
+  @keyframes star-drift-d {
+    0%   { transform: translate(0, 0); }
+    40%  { transform: translate(-7px, 10px); }
+    70%  { transform: translate(8px, -5px); }
+    100% { transform: translate(0, 0); }
+  }
+  @keyframes star-twinkle {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.3; }
+  }
+
+  /* --- Blur edge: smooth transition from hero wallpaper to site background --- */
+  .hero-blur-edge {
+    position: absolute;
+    bottom: -100px;
+    left: 0;
+    right: 0;
+    height: 100px;
+    z-index: 1;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+    pointer-events: none;
   }
 
   /* --- Problem Statement --- */
