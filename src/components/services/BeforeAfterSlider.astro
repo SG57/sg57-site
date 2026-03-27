@@ -126,21 +126,24 @@ const START = 50;
       }
     }
 
-    // ── Pointer events (covers mouse + touch with one API) ───────────────────
-    handle.addEventListener('pointerdown', e => {
+    // ── Pointer events on ENTIRE slider area (not just handle) ────────────────
+    // Clicking anywhere on the image starts dragging and snaps the divider there.
+    slider.addEventListener('pointerdown', e => {
       dragging = true;
-      handle.setPointerCapture(e.pointerId);
+      slider.setPointerCapture(e.pointerId);
+      handle.classList.add('is-active');
+      fromClientX(e.clientX);
       dismissHint();
       e.preventDefault();
     });
 
-    handle.addEventListener('pointermove', e => {
+    slider.addEventListener('pointermove', e => {
       if (!dragging) return;
       fromClientX(e.clientX);
     });
 
-    handle.addEventListener('pointerup',     () => { dragging = false; });
-    handle.addEventListener('pointercancel', () => { dragging = false; });
+    slider.addEventListener('pointerup',     () => { dragging = false; handle.classList.remove('is-active'); });
+    slider.addEventListener('pointercancel', () => { dragging = false; handle.classList.remove('is-active'); });
 
     // Click anywhere on the slider to jump
     slider.addEventListener('click', e => {
@@ -340,8 +343,14 @@ const START = 50;
     outline: none;
   }
 
-  .ba-handle:active {
-    transform: scale(0.97);
+  .ba-handle:active,
+  .ba-handle.is-active {
+    border-color: rgba(196, 137, 106, 1);
+    box-shadow:
+      0 0 0 4px rgba(196, 137, 106, 0.25),
+      0 0 28px rgba(196, 137, 106, 0.4),
+      0 4px 20px rgba(0, 0, 0, 0.5);
+    transform: scale(1.08);
   }
 
   .ba-arrow {
