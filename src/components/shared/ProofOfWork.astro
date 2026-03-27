@@ -342,6 +342,7 @@ import BeforeAfterSlider from '../services/BeforeAfterSlider.astro';
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    flex-wrap: wrap;
     margin-top: 1.25rem;
     font-family: var(--sg57-font-mono);
     font-size: 1.125rem;
@@ -461,6 +462,10 @@ import BeforeAfterSlider from '../services/BeforeAfterSlider.astro';
     }
 
     .proof-dl-list {
+      grid-template-columns: 1fr;
+    }
+
+    .proof-gallery {
       grid-template-columns: 1fr;
     }
   }

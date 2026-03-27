@@ -224,8 +224,10 @@ body {
   background-color: transparent; /* wallpaper is a fixed layer in Base.astro */
   line-height: 1.6;
   min-height: 100vh;
+  min-height: 100svh; /* correct: visible viewport with toolbar showing */
   display: flex;
   flex-direction: column;
+  overflow-wrap: break-word; /* prevent long words/URLs from breaking mobile layout */
 }
 
 a {
@@ -246,6 +248,7 @@ img,
 svg {
   display: block;
   max-width: 100%;
+  height: auto; /* prevent images from overflowing containers */
 }
 
 /* Broken image fallback — prevent layout collapse and show a subtle placeholder */
@@ -279,12 +282,6 @@ img {
 /* Offset anchor scroll targets below the sticky nav (3.5rem height + breathing room) */
 [id] {
   scroll-margin-top: 4.5rem;
-}
-
-/* --- Theme transition (smooth color swap on toggle) --- */
-[data-theme] {
-  transition: background-color 200ms var(--sg57-ease-out),
-              color 200ms var(--sg57-ease-out);
 }
 
 /* --- Utility --- */

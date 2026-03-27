@@ -161,6 +161,7 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
   .hero {
     position: relative;
     min-height: 100vh;
+    min-height: 100svh; /* correct: visible viewport with toolbar showing */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -628,7 +629,6 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
     font-size: 1.125rem;
     color: var(--sg57-text-dim);
     letter-spacing: 0.04em;
-    white-space: nowrap;
   }
 
   .services-capabilities li::before {
@@ -733,6 +733,15 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
   }
 
   @media (max-width: 640px) {
+    .hero-eyebrow {
+      letter-spacing: 0.1em; /* tighten for narrow screens */
+      font-size: 1rem;
+    }
+
+    .section-eyebrow {
+      letter-spacing: 0.12em;
+    }
+
     .product-grid { grid-template-columns: 1fr; }
 
     .product-card { height: 240px; }
@@ -746,5 +755,13 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
     }
 
     .proof-dot { display: none; }
+
+    .about-panel {
+      padding: 1.5rem;
+    }
+
+    .services-card {
+      padding: 1.5rem;
+    }
   }
 </style>

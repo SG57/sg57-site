@@ -1042,6 +1042,7 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
     flex-direction: column;
     gap: 0.5rem;
     flex: 1;
+    min-width: 0; /* prevent flex blowout on narrow screens */
   }
 
   .form-field--submit {
@@ -1349,6 +1350,15 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
 
     .hero-content {
       padding: 4.5rem 1.25rem 4rem;
+    }
+
+    .hero-eyebrow {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .eyebrow-label {
+      letter-spacing: 0.12em; /* tighten for narrow screens */
     }
 
     .hero-title {
