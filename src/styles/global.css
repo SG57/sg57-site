@@ -297,8 +297,10 @@ img {
   border: 0;
 }
 
-/* Terminal Bloom — soft accent radial glow behind floating text sections.
-   Uses --sg57-accent-glow (per-product color at 0.15 opacity) as the light source.
+/* Terminal Bloom — dark scrim ellipse behind floating text sections.
+   Dims the animated wallpaper/particles so text has a stable dark backdrop.
+   The scrim is void-colored (not accent) because darkening the background
+   INCREASES contrast with light text. A colored glow would reduce it.
    Apply to any section whose text floats over the bare wallpaper. */
 .bloom {
   position: relative;
@@ -306,11 +308,12 @@ img {
 .bloom::before {
   content: '';
   position: absolute;
-  inset: -30% -15%;
+  inset: -20% -10%;
   background: radial-gradient(
-    ellipse 55% 45% at 50% 50%,
-    var(--sg57-accent-glow) 0%,
-    transparent 70%
+    ellipse 65% 55% at 50% 50%,
+    rgba(10, 12, 16, 0.85) 0%,
+    rgba(10, 12, 16, 0.55) 40%,
+    transparent 72%
   );
   pointer-events: none;
   z-index: -1;

@@ -335,10 +335,11 @@ import Base from '../../layouts/Base.astro';
 
   .hero-subtitle {
     font-family: var(--sg57-font-display);
-    font-weight: 300;
+    font-weight: 400;
     font-size: clamp(1.125rem, 1.8vw, 1.25rem);
-    color: var(--sg57-text-dim);
+    color: var(--sg57-text);
     margin-bottom: 2rem;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
   }
 
   /* --- CTA Button --- */
@@ -491,16 +492,17 @@ import Base from '../../layouts/Base.astro';
 
   .problem-text {
     font-family: var(--sg57-font-display);
-    font-weight: 400;
+    font-weight: 500;
     font-size: clamp(1.125rem, 1.8vw, 1.2rem);
-    color: var(--sg57-text-dim);
+    color: var(--sg57-text);
     line-height: 1.8;
     text-align: center;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.9);
   }
 
   .problem-text strong {
-    color: var(--sg57-text);
-    font-weight: 600;
+    color: var(--sg57-text-bright);
+    font-weight: 700;
   }
 
   /* --- Section Heading --- */

@@ -70,7 +70,9 @@ const posts = (await getCollection('blog'))
 
   .blog-index__subtitle {
     font-size: 1.125rem;
-    color: var(--sg57-text-dim);
+    font-weight: 500;
+    color: var(--sg57-text);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
   }
 
   .blog-index__list {
@@ -133,9 +135,11 @@ const posts = (await getCollection('blog'))
 
   .blog-index__desc {
     font-size: 1.125rem;
-    color: var(--sg57-text-dim);
+    font-weight: 500;
+    color: var(--sg57-text);
     line-height: 1.5;
     margin-bottom: 0.5rem;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
   }
 
   .blog-index__tags {
