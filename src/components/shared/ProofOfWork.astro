@@ -17,7 +17,7 @@ import BeforeAfterSlider from '../services/BeforeAfterSlider.astro';
           <p class="proof-type">Wardrobe Stylist &mdash; Personal Brand</p>
         </div>
         <div class="proof-scope">
-          <span class="proof-scope-label">Brand System + Web Build</span>
+          <span class="proof-scope-label">Full Brand + Website + SEO + Marketing</span>
           <a
             href="https://staplesandstatements.com"
             class="proof-site-link"
@@ -36,9 +36,9 @@ import BeforeAfterSlider from '../services/BeforeAfterSlider.astro';
           But when someone asked for her website, she cringed. A decade of expertise, represented by nothing.
         </p>
         <p>
-          We started with discovery. From that came a brand constitution, a full visual identity,
-          a design token system, a website built to convert, professional email infrastructure,
-          and the social architecture to support what she&rsquo;d already built.
+          We delivered the full white-glove treatment: brand strategy, visual identity, a custom website
+          optimized for SEO and mobile, professional email, and branded social media templates — everything
+          she needed to look as established online as she already was in person.
         </p>
       </div>
 
@@ -56,17 +56,35 @@ import BeforeAfterSlider from '../services/BeforeAfterSlider.astro';
         />
       </div>
 
-      <!-- Deliverables -->
+      <!-- Deliverables — hover cards with WHY explanations -->
       <div class="proof-deliverables">
-        <h4 class="proof-dl-label">What Was Built</h4>
-        <ul class="proof-dl-list">
-          <li>Brand Constitution &amp; Positioning</li>
-          <li>Complete Brand Bible</li>
-          <li>Design Token System</li>
-          <li>Production Website</li>
-          <li>Email Infrastructure</li>
-          <li>Social Template System</li>
-        </ul>
+        <h4 class="proof-dl-label">What We Delivered — End to End</h4>
+        <div class="proof-dl-grid">
+          <div class="proof-dl-card">
+            <span class="dl-card-title">Brand Strategy &amp; Positioning</span>
+            <span class="dl-card-why">Defines who you are, who you serve, and why clients choose you over the competition.</span>
+          </div>
+          <div class="proof-dl-card">
+            <span class="dl-card-title">Visual Identity System</span>
+            <span class="dl-card-why">Logo, colors, fonts, and photography direction that make your brand look as premium as your service.</span>
+          </div>
+          <div class="proof-dl-card">
+            <span class="dl-card-title">Custom-Built Website</span>
+            <span class="dl-card-why">A fast, mobile-friendly site built to turn visitors into paying clients — not just look pretty.</span>
+          </div>
+          <div class="proof-dl-card">
+            <span class="dl-card-title">Search Engine Optimization</span>
+            <span class="dl-card-why">Show up when people Google services like yours. First page rankings mean first choice.</span>
+          </div>
+          <div class="proof-dl-card">
+            <span class="dl-card-title">Professional Email Setup</span>
+            <span class="dl-card-why">you@yourbusiness.com instead of Gmail — instantly more credible with every client interaction.</span>
+          </div>
+          <div class="proof-dl-card">
+            <span class="dl-card-title">Social Media Templates</span>
+            <span class="dl-card-why">Branded, ready-to-post designs so your Instagram and LinkedIn always look polished and on-brand.</span>
+          </div>
+        </div>
       </div>
 
       <!-- Testimonial -->
@@ -278,31 +296,63 @@ import BeforeAfterSlider from '../services/BeforeAfterSlider.astro';
     margin-bottom: 1rem;
   }
 
-  .proof-dl-list {
-    list-style: none;
+  .proof-dl-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem 1.5rem;
+    gap: 0.75rem;
   }
 
-  .proof-dl-list li {
+  .proof-dl-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1.25rem;
+    background: var(--sg57-elevated);
+    border: 1px solid var(--sg57-border-subtle);
+    border-radius: var(--sg57-radius-md);
+    transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    overflow: hidden;
+  }
+
+  .proof-dl-card:hover {
+    background: var(--sg57-raised);
+    border-color: var(--sg57-services-accent);
+    box-shadow: 0 0 16px rgba(196, 137, 106, 0.12);
+  }
+
+  .dl-card-title {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: var(--sg57-text);
+    letter-spacing: 0.02em;
+  }
+
+  .dl-card-why {
     font-family: var(--sg57-font-display);
     font-weight: 400;
     font-size: 1.125rem;
-    color: var(--sg57-text);
-    padding-left: 1.1rem;
-    position: relative;
+    color: var(--sg57-text-dim);
+    line-height: 1.5;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, opacity 0.3s ease, margin-top 0.3s ease;
+    margin-top: 0;
   }
 
-  .proof-dl-list li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.55em;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--sg57-services-accent);
+  .proof-dl-card:hover .dl-card-why {
+    max-height: 6rem;
+    opacity: 1;
+    margin-top: 0.6rem;
+  }
+
+  /* On touch devices, show all WHY descriptions permanently (no hover) */
+  @media not (hover: hover) {
+    .dl-card-why {
+      max-height: none;
+      opacity: 1;
+      margin-top: 0.5rem;
+    }
   }
 
   /* ── Testimonial ── */
@@ -438,7 +488,7 @@ import BeforeAfterSlider from '../services/BeforeAfterSlider.astro';
       text-align: left;
     }
 
-    .proof-dl-list {
+    .proof-dl-grid {
       grid-template-columns: repeat(2, 1fr);
     }
 
@@ -461,7 +511,7 @@ import BeforeAfterSlider from '../services/BeforeAfterSlider.astro';
       padding-right: 1.5rem;
     }
 
-    .proof-dl-list {
+    .proof-dl-grid {
       grid-template-columns: 1fr;
     }
 
