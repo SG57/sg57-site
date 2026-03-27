@@ -61,7 +61,7 @@ Glass surfaces on this site use the DNA `--sg57-glass-*` tokens:
 
 - Sticky top navigation (`position: sticky; top: 0; z-index: 100`)
 - Glass background with blur
-- Logo: `[SG57] LABS` with bracket styling
+- Logo: `SG57 LABS` with glyph icon (32px) and subtitle
 - Links: Clide, Siftr, Services
 - Mobile: Reduce font sizes and hide "LABS" subtitle below 640px
 
@@ -96,13 +96,11 @@ Glass surfaces on this site use the DNA `--sg57-glass-*` tokens:
 - Entry animations: Use DNA `slide-up` (0.8-1s) with staggered delays
 - Easing: `var(--sg57-ease-snap)` for entries, `var(--sg57-ease-out)` for interactions
 
-### SL-11: Light Theme Support
+### SL-11: Dark Theme Only
 
-- Theme toggle persists choice in `localStorage` key `sg57-theme`
-- Default: dark (follows DNA default)
-- `[data-theme='light']` overrides all token values
-- Hero sections with background images maintain dark scrims in both themes for text contrast
-- Glass surfaces automatically adapt via token overrides
+- The site uses dark theme exclusively — no light mode, no theme toggle
+- All design tokens in `:root` target dark backgrounds
+- No `[data-theme]` switching mechanism exists
 
 ### SL-12: Form Handling
 

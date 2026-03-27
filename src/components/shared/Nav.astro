@@ -20,15 +20,6 @@ function isActive(href: string): boolean {
       <a href="/clide" class:list={[{ 'is-active': isActive('/clide') }]} aria-current={isActive('/clide') ? 'page' : undefined}>Clide</a>
       <a href="/siftr" class:list={[{ 'is-active': isActive('/siftr') }]} aria-current={isActive('/siftr') ? 'page' : undefined}>Siftr</a>
       <a href="/services" class:list={[{ 'is-active': isActive('/services') }]} aria-current={isActive('/services') ? 'page' : undefined}>Services</a>
-      <button
-        class="theme-toggle"
-        id="theme-toggle"
-        aria-label="Toggle light/dark theme"
-        title="Toggle theme"
-      >
-        <span class="theme-icon theme-icon--dark" aria-hidden="true">☀</span>
-        <span class="theme-icon theme-icon--light" aria-hidden="true">☾</span>
-      </button>
     </div>
 
     <!-- Mobile hamburger -->
@@ -51,15 +42,6 @@ function isActive(href: string): boolean {
     <a href="/clide" class:list={[{ 'is-active': isActive('/clide') }]} aria-current={isActive('/clide') ? 'page' : undefined}>Clide</a>
     <a href="/siftr" class:list={[{ 'is-active': isActive('/siftr') }]} aria-current={isActive('/siftr') ? 'page' : undefined}>Siftr</a>
     <a href="/services" class:list={[{ 'is-active': isActive('/services') }]} aria-current={isActive('/services') ? 'page' : undefined}>Services</a>
-    <button
-      class="theme-toggle theme-toggle--mobile"
-      id="theme-toggle-mobile"
-      aria-label="Toggle light/dark theme"
-    >
-      <span class="theme-icon theme-icon--dark" aria-hidden="true">☀</span>
-      <span class="theme-icon theme-icon--light" aria-hidden="true">☾</span>
-      <span>Toggle Theme</span>
-    </button>
   </div>
 </nav>
 
@@ -133,17 +115,6 @@ function isActive(href: string): boolean {
       }
     });
 
-    // Mobile theme toggle
-    const mobileTheme = document.getElementById('theme-toggle-mobile');
-    if (mobileTheme) {
-      mobileTheme.addEventListener('click', () => {
-        const html = document.documentElement;
-        const current = html.getAttribute('data-theme');
-        const next = current === 'light' ? 'dark' : 'light';
-        html.setAttribute('data-theme', next);
-        try { localStorage.setItem('sg57-theme', next); } catch (_) { /* storage unavailable */ }
-      });
-    }
     } catch (_) { /* Nav init failed — links remain functional without JS */ }
   });
 </script>
@@ -261,48 +232,6 @@ function isActive(href: string): boolean {
     border-radius: var(--sg57-radius-sm);
   }
 
-  /* -- Theme toggle -- */
-  .theme-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2rem;
-    height: 2rem;
-    min-width: 44px;
-    min-height: 44px;
-    background: transparent;
-    border: 1px solid var(--sg57-border-subtle);
-    border-radius: var(--sg57-radius-sm);
-    cursor: pointer;
-    transition: border-color 0.2s ease, background 0.2s ease;
-    margin-left: 0.5rem;
-    padding: 0;
-  }
-
-  .theme-toggle:hover {
-    border-color: var(--sg57-accent-muted);
-    background: var(--sg57-accent-glow);
-  }
-
-  .theme-toggle:active {
-    transform: scale(0.93);
-  }
-
-  .theme-toggle:focus-visible {
-    box-shadow: var(--sg57-focus-ring);
-  }
-
-  .theme-icon {
-    font-size: 1.125rem;
-    line-height: 1;
-    color: var(--sg57-text-dim);
-  }
-
-  .theme-icon--light { display: none; }
-  .theme-icon--dark  { display: inline; }
-  :global([data-theme='light']) .theme-icon--dark  { display: none; }
-  :global([data-theme='light']) .theme-icon--light { display: inline; }
-
   /* -- Hamburger (hidden on desktop) -- */
   .hamburger {
     display: none;
@@ -362,8 +291,7 @@ function isActive(href: string): boolean {
     opacity: 1;
   }
 
-  .mobile-menu a,
-  .theme-toggle--mobile {
+  .mobile-menu a {
     font-family: var(--sg57-font-display);
     font-weight: 500;
     font-size: 1.125rem;
@@ -385,30 +313,18 @@ function isActive(href: string): boolean {
     border-left: 2px solid var(--sg57-accent);
   }
 
-  .mobile-menu a:hover,
-  .theme-toggle--mobile:hover {
+  .mobile-menu a:hover {
     color: var(--sg57-accent);
     background: var(--sg57-accent-glow);
   }
 
-  .mobile-menu a:active,
-  .theme-toggle--mobile:active {
+  .mobile-menu a:active {
     opacity: 0.75;
   }
 
-  .mobile-menu a:focus-visible,
-  .theme-toggle--mobile:focus-visible {
+  .mobile-menu a:focus-visible {
     box-shadow: inset var(--sg57-focus-ring);
     outline: none;
-  }
-
-  .theme-toggle--mobile {
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid var(--sg57-border-subtle);
-    cursor: pointer;
-    text-align: left;
   }
 
   /* -- Responsive -- */
