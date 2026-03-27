@@ -382,24 +382,13 @@ import Base from '../../layouts/Base.astro';
     outline: none;
   }
 
-  /* --- Hero atmosphere: ambient glow + starfield above wallpaper --- */
+  /* Hero atmosphere — starfield container only.
+     Ambient glow handled globally by .ambient-drift in Base.astro (screen blend). */
   .hero-atmosphere {
     position: absolute;
     inset: 0;
     z-index: 1;
     pointer-events: none;
-    background-size: 200% 200%;
-    background-image: var(--sg57-ambient-gradient);
-    animation: hero-ambient 90s ease-in-out infinite;
-    mix-blend-mode: soft-light;
-  }
-
-  @keyframes hero-ambient {
-    0%   { background-position:   0%   0%; }
-    25%  { background-position: 100%  50%; }
-    50%  { background-position:  50% 100%; }
-    75%  { background-position:   0%  50%; }
-    100% { background-position:   0%   0%; }
   }
 
   .hero-stars {
