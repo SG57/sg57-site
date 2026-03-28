@@ -272,6 +272,54 @@ img {
   color: var(--sg57-selection-text);
 }
 
+/* --- Structural text: non-selectable UI chrome ---
+   Professional convention: navigation, buttons, labels, headings used as
+   chrome, and decorative elements should not highlight when users click-drag.
+   Only content text (paragraphs, descriptions, quotes) should be selectable. */
+button,
+nav,
+footer,
+[role="button"],
+[role="slider"],
+[aria-hidden="true"] {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* CTA links styled as buttons */
+a[class*="cta"],
+a[class*="btn"] {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Section chrome: labels, eyebrows, card titles, badges, tags.
+   Content paragraphs and descriptions remain selectable. */
+.no-select,
+[class*="eyebrow"],
+[class*="section-label"],
+[class*="section-heading"],
+[class*="cap-name"],
+[class*="cap-glyph"],
+[class*="-badge"],
+[class*="-tag"],
+[class*="proof-eyebrow"],
+[class*="proof-tag"],
+[class*="proof-dl-label"],
+[class*="dl-card-glyph"],
+[class*="dl-card-title"],
+[class*="gallery-label"],
+[class*="hero-headline"],
+[class*="hero-title"],
+[class*="hero-label"],
+[class*="scroll-label"],
+[class*="scroll-arrow"],
+[class*="proof-dot"],
+[class*="psl-glyph"] {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 /* --- Focus --- */
 :focus-visible {
   outline: none;
