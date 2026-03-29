@@ -358,12 +358,12 @@ a[class*="btn"] {
 .bloom::before {
   content: '';
   position: absolute;
-  inset: -20% -15%;
+  inset: -40% -50%;
   background: radial-gradient(
-    ellipse 80% 55% at 50% 50%,
+    ellipse 70% 50% at 50% 50%,
     rgba(10, 12, 16, 0.85) 0%,
-    rgba(10, 12, 16, 0.55) 40%,
-    transparent 72%
+    rgba(10, 12, 16, 0.55) 35%,
+    transparent 68%
   );
   pointer-events: none;
   z-index: -1;
