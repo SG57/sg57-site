@@ -354,6 +354,9 @@
     ctaEl.textContent = tier.ctaText;
     document.getElementById('dhq-result-sub').textContent   = tier.sub;
 
+    // Seed the contact form with a summary of quiz answers
+    seedFormFromQuiz(score, tier);
+
     // Staggered entrance
     resultsEl.classList.remove('hidden');
     resultsEl.classList.add('phase-in');
@@ -400,6 +403,30 @@
       const firstChoice = choicesEl.querySelector('.dhq-choice');
       if (firstChoice) firstChoice.focus();
     });
+  }
+
+  // ── SEED FORM FROM QUIZ ──────────────────────────────────────────────────────
+  // Build a human-readable summary and pre-fill the contact form's challenge field.
+  function seedFormFromQuiz(score, tier) {
+    const challengeField = document.getElementById('if-challenge');
+    if (!challengeField) return;
+
+    // Build a summary from the user's actual answer choices
+    const lines = [];
+    for (let i = 0; i < TOTAL; i++) {
+      const val = answers.get(i);
+      if (val == null) continue;
+      const q = QUESTIONS[i];
+      const chosen = q.choices.find(c => c.v === val);
+      if (chosen) lines.push(`• ${q.q} ${chosen.text}`);
+    }
+
+    const tierLabel = score <= 13 ? 'Getting started' : score <= 19 ? 'Growing' : 'Scaling';
+    const summary = `[Quick Check-In Results — ${tierLabel}]\n\n${lines.join('\n')}\n\nI'd love to hear what you think the best next step is for my business.`;
+
+    challengeField.value = summary;
+    // Clear placeholder so the seeded text is visible
+    challengeField.removeAttribute('placeholder');
   }
 
   // ── EVENT BINDINGS ────────────────────────────────────────────────────────────
