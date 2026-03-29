@@ -267,13 +267,34 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
      Content in normal flow is always painted above these.
      ════════════════════════════════════════════════════ */
 
-  /* Layer −3: Wallpaper */
+  /* Layer −3: Wallpaper — cinematic handheld sway
+     Sway intensity: --sway: 6px  = small (subtle)
+                     --sway: 12px = medium (default)
+                     --sway: 20px = large (dramatic)  */
   .site-wallpaper {
     position: fixed;
-    inset: 0;
+    inset: -3%;
     background: url('/images/hero-bg-2x.webp') center / cover no-repeat;
     z-index: -3;
     pointer-events: none;
+    --sway: 12px;
+    animation: site-sway 28s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    will-change: transform;
+  }
+
+  @keyframes site-sway {
+    0%   { transform: translate(0, 0)                         scale(1.002); }
+    12%  { transform: translate(var(--sway), calc(var(--sway) * 0.6))   scale(1.005); }
+    27%  { transform: translate(calc(var(--sway) * -0.7), var(--sway))  scale(1.001); }
+    41%  { transform: translate(calc(var(--sway) * -1), calc(var(--sway) * -0.4)) scale(1.004); }
+    58%  { transform: translate(calc(var(--sway) * 0.5), calc(var(--sway) * -0.9)) scale(1.002); }
+    73%  { transform: translate(calc(var(--sway) * 0.8), calc(var(--sway) * 0.3))  scale(1.005); }
+    87%  { transform: translate(calc(var(--sway) * -0.4), calc(var(--sway) * 0.7)) scale(1.001); }
+    100% { transform: translate(0, 0)                         scale(1.002); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-wallpaper { animation: none; inset: 0; }
   }
 
   /* Bottom vignette: fades the image to void so long pages don't hard-edge */

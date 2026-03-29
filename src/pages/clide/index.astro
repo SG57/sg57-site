@@ -232,6 +232,10 @@ import Base from '../../layouts/Base.astro';
     100% { transform: translate(0, 0)                         scale(1.002); }
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .hero-bg { animation: none; }
+  }
+
   /* Dark scrim — heavy at bottom where text lives */
   .hero-bg::after {
     content: '';
