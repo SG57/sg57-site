@@ -18,8 +18,7 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
        ══════════════════════════════════════════════════════════════════════════ -->
   <section class="hero">
     <div class="hero-bg" aria-hidden="true">
-      <div class="hero-scanlines"></div>
-      <div class="hero-glow"></div>
+      <div class="hero-bg-image"></div>
     </div>
     <div class="hero-content container bloom">
       <div class="hero-eyebrow">
@@ -29,11 +28,11 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
         <span class="eyebrow-bracket" aria-hidden="true">]</span>
       </div>
       <h1 class="hero-title">
-        YOUR DIGITAL PRESENCE<br/>
-        IS EITHER WORKING FOR YOU<br/>
-        <span class="hero-title-accent">— OR AGAINST YOU.</span>
+        You're Great at What You Do.<br/>
+        <span class="hero-title-accent">Your Website Should Show It.</span>
       </h1>
-      <p class="hero-sub">Eight questions. Two minutes. Find out exactly where you stand.</p>
+      <p class="hero-sub">We build premium websites for business owners who are tired of looking DIY.</p>
+      <a href="#intake-form" class="hero-cta">Let's Fix That <span aria-hidden="true">→</span></a>
     </div>
   </section>
 
@@ -459,24 +458,23 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
     pointer-events: none;
   }
 
-  .hero-scanlines {
+  .hero-bg-image {
     position: absolute;
     inset: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(196, 137, 106, 0.025) 2px,
-      rgba(196, 137, 106, 0.025) 4px
-    );
+    background: url('/services/services-hero-bg.webp') center/cover no-repeat;
+    opacity: 0.35;
   }
 
-  .hero-glow {
+  .hero-bg::after {
+    content: '';
     position: absolute;
     inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(196, 137, 106, 0.12) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 30% at 50% 0%, rgba(196, 137, 106, 0.06) 0%, transparent 60%);
+    background: linear-gradient(
+      to top,
+      rgba(10, 12, 16, 0.7) 0%,
+      rgba(10, 12, 16, 0.15) 35%,
+      transparent 60%
+    );
   }
 
   .hero-content {
@@ -523,16 +521,57 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
   .hero-title {
     font-family: var(--sg57-font-display);
     font-weight: 700;
-    font-size: clamp(1.8rem, 5.5vw, 3.6rem);
-    color: var(--sg57-text);
-    letter-spacing: 0.04em;
-    line-height: 1.15;
+    font-size: clamp(1.8rem, 5.5vw, 3.2rem);
+    color: var(--sg57-text-bright);
+    letter-spacing: 0.01em;
+    line-height: 1.25;
     margin-bottom: 1.5rem;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.8);
     animation: slide-up 1.0s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .hero-title-accent {
     color: var(--sg57-accent);
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1.125rem;
+    letter-spacing: 0.05em;
+    color: var(--sg57-accent);
+    background: var(--sg57-glass-bg);
+    backdrop-filter: blur(var(--sg57-glass-blur));
+    -webkit-backdrop-filter: blur(var(--sg57-glass-blur));
+    border: 1px solid var(--sg57-accent-muted);
+    padding: 0.85rem 2.25rem;
+    border-radius: var(--sg57-radius-md);
+    text-decoration: none;
+    transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+    animation: slide-up 1.0s 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .hero-cta:hover {
+    color: var(--sg57-text-on-accent);
+    background: var(--sg57-accent);
+    border-color: var(--sg57-accent);
+    box-shadow: 0 0 24px rgba(196, 137, 106, 0.3);
+    transform: translateY(-1px);
+  }
+
+  .hero-cta:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  .hero-cta:focus-visible {
+    outline: none;
+    box-shadow: var(--sg57-focus-ring);
   }
 
   .hero-sub {

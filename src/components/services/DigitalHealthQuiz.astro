@@ -12,7 +12,7 @@
     <div class="dhq-header">
       <div class="dhq-badge">
         <span class="dhq-badge-glyph">◆</span>
-        DIGITAL HEALTH CHECK
+        QUICK CHECK-IN
       </div>
       <div class="dhq-counter" aria-live="polite">
         <span id="dhq-current">01</span>
@@ -54,7 +54,7 @@
   <!-- ── CALCULATING PHASE ── -->
   <div class="dhq-calculating hidden" id="dhq-calculating" aria-live="assertive" aria-label="Calculating your results">
     <div class="dhq-calc-glyph" aria-hidden="true">◈</div>
-    <p class="dhq-calc-text">Analyzing your responses&hellip;</p>
+    <p class="dhq-calc-text">Putting it all together&hellip;</p>
     <div class="dhq-calc-track">
       <div class="dhq-calc-bar" id="dhq-calc-bar"></div>
     </div>
@@ -68,7 +68,7 @@
       <p   class="dhq-result-desc"     id="dhq-result-desc"     data-stagger="2"></p>
       <a   class="dhq-result-cta"      id="dhq-result-cta"      data-stagger="3" href="#intake-form"></a>
       <p   class="dhq-result-sub"      id="dhq-result-sub"      data-stagger="4"></p>
-      <button class="dhq-retake" id="dhq-retake" data-stagger="5">Retake the check <span aria-hidden="true">→</span></button>
+      <button class="dhq-retake" id="dhq-retake" data-stagger="5">Take it again <span aria-hidden="true">→</span></button>
     </div>
   </div>
 
@@ -79,67 +79,67 @@
 
   const QUESTIONS = [
     {
-      q: "Right now, your online presence is:",
+      q: "How would you describe your online presence right now?",
       choices: [
-        { v: 1, label: "A", text: "A Facebook page — and maybe an old website" },
-        { v: 2, label: "B", text: "A functional site that hasn't been touched in years" },
-        { v: 3, label: "C", text: "A polished presence that still isn't converting" },
+        { v: 1, label: "A", text: "Basically just a Facebook page or an old site I don't love" },
+        { v: 2, label: "B", text: "I have a site — it works, but it hasn't been updated in a while" },
+        { v: 3, label: "C", text: "It looks decent but isn't really bringing in new clients" },
       ],
     },
     {
-      q: "When someone Googles your business, they find:",
+      q: "When someone Googles your business, what do they find?",
       choices: [
-        { v: 1, label: "A", text: "Very little — maybe an old Yelp listing" },
-        { v: 2, label: "B", text: "My website, but it doesn't represent me well" },
-        { v: 3, label: "C", text: "A solid result — but competitors are winning" },
+        { v: 1, label: "A", text: "Not much — maybe an old listing somewhere" },
+        { v: 2, label: "B", text: "My website shows up, but it doesn't really represent me" },
+        { v: 3, label: "C", text: "Good results — but my competitors seem to show up first" },
       ],
     },
     {
-      q: "Your brand visuals across platforms look:",
+      q: "How consistent does your brand look across different platforms?",
       choices: [
-        { v: 1, label: "A", text: "Inconsistent — different everywhere I show up" },
-        { v: 2, label: "B", text: "Mostly aligned, held together with effort" },
-        { v: 3, label: "C", text: "On-brand and tight — I have real guidelines" },
+        { v: 1, label: "A", text: "Honestly, it's kind of all over the place" },
+        { v: 2, label: "B", text: "Mostly consistent — I try to keep it together" },
+        { v: 3, label: "C", text: "Tight and on-brand everywhere — I have guidelines" },
       ],
     },
     {
-      q: "Most of your new clients come from:",
+      q: "How do most of your new clients find you?",
       choices: [
-        { v: 1, label: "A", text: "Word of mouth almost exclusively" },
-        { v: 2, label: "B", text: "Referrals, with the occasional organic lead" },
-        { v: 3, label: "C", text: "Multiple channels — search, social, referral" },
+        { v: 1, label: "A", text: "Almost all word of mouth — nothing else is working" },
+        { v: 2, label: "B", text: "Mostly referrals, with an occasional lead from online" },
+        { v: 3, label: "C", text: "A healthy mix — search, social, and referrals" },
       ],
     },
     {
-      q: "Your website's actual job right now is:",
+      q: "What does your website actually do for your business today?",
       choices: [
-        { v: 1, label: "A", text: "It mostly just has my contact information" },
-        { v: 2, label: "B", text: "Shows what I do — converts occasionally" },
-        { v: 3, label: "C", text: "It's meant to generate leads — just not enough" },
+        { v: 1, label: "A", text: "It's mostly just there — has my contact info" },
+        { v: 2, label: "B", text: "Shows what I do, but doesn't really bring in business" },
+        { v: 3, label: "C", text: "It generates some leads — I just want more" },
       ],
     },
     {
-      q: "Sharing your website with a potential client feels:",
+      q: "When you send someone your website link, how does that feel?",
       choices: [
-        { v: 1, label: "A", text: "Embarrassing — it doesn't represent me well" },
-        { v: 2, label: "B", text: "Fine, but I know it could be doing more" },
-        { v: 3, label: "C", text: "Solid — I just want it to work harder" },
+        { v: 1, label: "A", text: "I cringe a little — it doesn't show what I'm really about" },
+        { v: 2, label: "B", text: "It's fine, but I know it could be so much better" },
+        { v: 3, label: "C", text: "I'm proud of it — I just want it to convert better" },
       ],
     },
     {
-      q: "Your email and communication system looks like:",
+      q: "What does your email setup look like?",
       choices: [
-        { v: 1, label: "A", text: "Personal Gmail with my name in the From field" },
-        { v: 2, label: "B", text: "A custom domain, basic setup" },
-        { v: 3, label: "C", text: "Branded and functional — but not automated" },
+        { v: 1, label: "A", text: "I use my personal Gmail or Yahoo" },
+        { v: 2, label: "B", text: "I have a business email, pretty basic setup" },
+        { v: 3, label: "C", text: "Professional and branded — but not automated" },
       ],
     },
     {
-      q: "Your biggest goal in the next 12 months is:",
+      q: "What would make the biggest difference for your business this year?",
       choices: [
-        { v: 1, label: "A", text: "Build a real digital presence I'm proud to share" },
-        { v: 2, label: "B", text: "Make my online presence generate leads reliably" },
-        { v: 3, label: "C", text: "Scale revenue — I need serious infrastructure" },
+        { v: 1, label: "A", text: "Finally having a website and brand I'm proud to share" },
+        { v: 2, label: "B", text: "An online presence that actually brings in new clients" },
+        { v: 3, label: "C", text: "Real systems that let me grow without burning out" },
       ],
     },
   ];
@@ -148,29 +148,29 @@
     {
       min: 8,
       max: 13,
-      signal: "// FOUNDATION NEEDED",
-      headline: "Your digital presence is leaving money on the table.",
-      desc: "The good news: everything you need exists — it just hasn't been built for you yet. A strategic audit pinpoints exactly where you're losing ground and what to fix first. Low investment, high clarity.",
-      ctaText: "Request a Paid Audit →",
-      sub: "Scoped to your situation. No obligation beyond the audit.",
+      signal: "Here's what we see",
+      headline: "You've built something real. Let's make sure the world sees it.",
+      desc: "Your talent is there — your online presence just hasn't caught up yet. The great news? Everything you need can be built. We'd love to show you where the biggest opportunities are.",
+      ctaText: "Let's Talk — No Obligation →",
+      sub: "A real conversation about your business. No pitch, no pressure.",
     },
     {
       min: 14,
       max: 19,
-      signal: "// GROWTH READY",
-      headline: "You have a foundation. Now it needs to work.",
-      desc: "Your business is real. Your digital presence should match it. A full identity system and website built to convert — not just to exist. Let's figure out the right scope together.",
-      ctaText: "Start a Discovery Conversation →",
-      sub: "No pressure. No scope until we've talked.",
+      signal: "Here's what we see",
+      headline: "You have a strong foundation. Let's make it work harder.",
+      desc: "Your business is the real deal — your website and brand just need to match. A custom site built to bring in clients, not just look nice. Let's figure out the right next step together.",
+      ctaText: "Start a Conversation →",
+      sub: "No scope until we've talked. No pressure.",
     },
     {
       min: 20,
       max: 24,
-      signal: "// SCALE SIGNAL",
-      headline: "You're not the problem. Your infrastructure is.",
-      desc: "You're running a real business with real momentum. The constraint isn't your effort — it's the systems underneath. Let's talk about building infrastructure that compounds.",
-      ctaText: "Tell Me What You're Building →",
-      sub: "Custom scope. Fixed price. Right-sized for you.",
+      signal: "Here's what we see",
+      headline: "You're doing great. Let's remove the ceiling.",
+      desc: "Your business has real momentum. The thing holding you back isn't effort — it's the systems underneath. Let's talk about building the infrastructure that lets you grow without burning out.",
+      ctaText: "Tell Us Where You Want to Go →",
+      sub: "Custom scope. Right-sized for where you are.",
     },
   ];
 

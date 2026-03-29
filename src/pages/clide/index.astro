@@ -204,15 +204,32 @@ import Base from '../../layouts/Base.astro';
     overflow: visible;
   }
 
-  /* Banner image */
+  /* Banner image — cinematic handheld sway
+     Sway intensity: --sway: 6px  = small (subtle)
+                     --sway: 12px = medium (default)
+                     --sway: 20px = large (dramatic)  */
   .hero-bg {
     position: absolute;
-    inset: 0;
+    inset: -3%; /* overscan to hide edges during sway */
     background-image: url('/clide/clide-hero.webp');
     background-size: cover;
     background-position: center;
     pointer-events: none;
     overflow: hidden;
+    --sway: 12px;
+    animation: hero-sway 28s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    will-change: transform;
+  }
+
+  @keyframes hero-sway {
+    0%   { transform: translate(0, 0)                         scale(1.002); }
+    12%  { transform: translate(var(--sway), calc(var(--sway) * 0.6))   scale(1.005); }
+    27%  { transform: translate(calc(var(--sway) * -0.7), var(--sway))  scale(1.001); }
+    41%  { transform: translate(calc(var(--sway) * -1), calc(var(--sway) * -0.4)) scale(1.004); }
+    58%  { transform: translate(calc(var(--sway) * 0.5), calc(var(--sway) * -0.9)) scale(1.002); }
+    73%  { transform: translate(calc(var(--sway) * 0.8), calc(var(--sway) * 0.3))  scale(1.005); }
+    87%  { transform: translate(calc(var(--sway) * -0.4), calc(var(--sway) * 0.7)) scale(1.001); }
+    100% { transform: translate(0, 0)                         scale(1.002); }
   }
 
   /* Dark scrim — heavy at bottom where text lives */
