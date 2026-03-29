@@ -95,6 +95,7 @@ Glass surfaces on this site use the DNA `--sg57-glass-*` tokens:
 - Edge sliver breathing: 8s cycle, ease-in-out
 - Entry animations: Use DNA `slide-up` (0.8-1s) with staggered delays
 - Easing: `var(--sg57-ease-snap)` for entries, `var(--sg57-ease-out)` for interactions
+- **All programmatic scrolling MUST be smooth** — `scroll-behavior: smooth` on `html`, and any JS `scrollTo`/`scrollIntoView` must use `behavior: 'smooth'`. No snapping to positions. No instant jumps.
 
 ### SL-11: Dark Theme Only
 
