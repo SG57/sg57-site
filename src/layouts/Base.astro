@@ -109,51 +109,60 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         </filter>
       </defs>
 
-      <!-- Foreground: large · bright · fast (8–12 s · ±12–15 px · twinkle) -->
-      <circle cx="145"  cy="180" r="2.5" fill="#e4e0f5" filter="url(#glow-fg)" class="p p-fg pa" style="--td:-0.0s;--dur:9.0s"/>
-      <circle cx="420"  cy="320" r="2.0" fill="#c4bce8" filter="url(#glow-fg)" class="p p-fg pb" style="--td:-3.1s;--dur:11.0s"/>
-      <circle cx="680"  cy="85"  r="2.8" fill="#e4e0f5" filter="url(#glow-fg)" class="p p-fg pa" style="--td:-1.7s;--dur:8.5s"/>
-      <circle cx="950"  cy="440" r="2.2" fill="#b8b0e0" filter="url(#glow-fg)" class="p p-fg pb" style="--td:-5.2s;--dur:10.5s"/>
-      <circle cx="1230" cy="210" r="2.0" fill="#e4e0f5" filter="url(#glow-fg)" class="p p-fg pa" style="--td:-2.4s;--dur:9.5s"/>
-      <circle cx="260"  cy="620" r="2.5" fill="#c4bce8" filter="url(#glow-fg)" class="p p-fg pb" style="--td:-7.8s;--dur:12.0s"/>
-      <circle cx="830"  cy="730" r="2.0" fill="#e4e0f5" filter="url(#glow-fg)" class="p p-fg pa" style="--td:-0.9s;--dur:8.0s"/>
-      <circle cx="1100" cy="560" r="2.5" fill="#b8b0e0" filter="url(#glow-fg)" class="p p-fg pb" style="--td:-4.5s;--dur:11.5s"/>
-      <circle cx="380"  cy="760" r="1.8" fill="#e4e0f5" filter="url(#glow-fg)" class="p p-fg pa" style="--td:-6.3s;--dur:10.0s"/>
-      <circle cx="1350" cy="680" r="2.0" fill="#c4bce8" filter="url(#glow-fg)" class="p p-fg pb" style="--td:-1.2s;--dur:9.0s"/>
+      <!-- Foreground: large · bright · fast (8–12 s · ±12–15 px · twinkle)
+           Parallax sway: 2× wallpaper (closest to camera) -->
+      <g class="sway sway-fg">
+        <circle cx="145"  cy="180" r="2.5" fill="#e4e0f5" filter="url(#glow-fg)" class="p p-fg pa" style="--td:-0.0s;--dur:9.0s"/>
+        <circle cx="420"  cy="320" r="2.0" fill="#c4bce8" filter="url(#glow-fg)" class="p p-fg pb" style="--td:-3.1s;--dur:11.0s"/>
+        <circle cx="680"  cy="85"  r="2.8" fill="#e4e0f5" filter="url(#glow-fg)" class="p p-fg pa" style="--td:-1.7s;--dur:8.5s"/>
+        <circle cx="950"  cy="440" r="2.2" fill="#b8b0e0" filter="url(#glow-fg)" class="p p-fg pb" style="--td:-5.2s;--dur:10.5s"/>
+        <circle cx="1230" cy="210" r="2.0" fill="#e4e0f5" filter="url(#glow-fg)" class="p p-fg pa" style="--td:-2.4s;--dur:9.5s"/>
+        <circle cx="260"  cy="620" r="2.5" fill="#c4bce8" filter="url(#glow-fg)" class="p p-fg pb" style="--td:-7.8s;--dur:12.0s"/>
+        <circle cx="830"  cy="730" r="2.0" fill="#e4e0f5" filter="url(#glow-fg)" class="p p-fg pa" style="--td:-0.9s;--dur:8.0s"/>
+        <circle cx="1100" cy="560" r="2.5" fill="#b8b0e0" filter="url(#glow-fg)" class="p p-fg pb" style="--td:-4.5s;--dur:11.5s"/>
+        <circle cx="380"  cy="760" r="1.8" fill="#e4e0f5" filter="url(#glow-fg)" class="p p-fg pa" style="--td:-6.3s;--dur:10.0s"/>
+        <circle cx="1350" cy="680" r="2.0" fill="#c4bce8" filter="url(#glow-fg)" class="p p-fg pb" style="--td:-1.2s;--dur:9.0s"/>
+      </g>
 
-      <!-- Midground: medium · drift only (14–18 s · ±7–10 px) -->
-      <circle cx="70"   cy="450" r="1.5" fill="#9098b8" filter="url(#glow-mg)" class="p p-mg pc" style="--td:-8.1s;--dur:15.0s"/>
-      <circle cx="195"  cy="290" r="1.7" fill="#8090b0" filter="url(#glow-mg)" class="p p-mg pd" style="--td:-2.7s;--dur:17.0s"/>
-      <circle cx="490"  cy="530" r="1.5" fill="#9098b8" filter="url(#glow-mg)" class="p p-mg pc" style="--td:-11.4s;--dur:14.5s"/>
-      <circle cx="730"  cy="200" r="1.6" fill="#8090b0" filter="url(#glow-mg)" class="p p-mg pd" style="--td:-4.2s;--dur:16.0s"/>
-      <circle cx="1020" cy="120" r="1.5" fill="#9098b8" filter="url(#glow-mg)" class="p p-mg pc" style="--td:-9.8s;--dur:18.0s"/>
-      <circle cx="1280" cy="400" r="1.8" fill="#8090b0" filter="url(#glow-mg)" class="p p-mg pd" style="--td:-1.5s;--dur:15.5s"/>
-      <circle cx="550"  cy="810" r="1.5" fill="#9098b8" filter="url(#glow-mg)" class="p p-mg pc" style="--td:-6.6s;--dur:17.5s"/>
-      <circle cx="880"  cy="650" r="1.6" fill="#8090b0" filter="url(#glow-mg)" class="p p-mg pd" style="--td:-13.2s;--dur:16.5s"/>
-      <circle cx="1150" cy="780" r="1.5" fill="#9098b8" filter="url(#glow-mg)" class="p p-mg pc" style="--td:-3.9s;--dur:14.0s"/>
-      <circle cx="310"  cy="870" r="1.4" fill="#8090b0" filter="url(#glow-mg)" class="p p-mg pd" style="--td:-10.5s;--dur:16.0s"/>
-      <circle cx="760"  cy="480" r="1.6" fill="#9098b8" filter="url(#glow-mg)" class="p p-mg pc" style="--td:-5.1s;--dur:15.0s"/>
-      <circle cx="1320" cy="850" r="1.4" fill="#8090b0" filter="url(#glow-mg)" class="p p-mg pd" style="--td:-7.3s;--dur:17.0s"/>
-      <circle cx="90"   cy="720" r="1.5" fill="#9098b8" filter="url(#glow-mg)" class="p p-mg pc" style="--td:-14.1s;--dur:18.0s"/>
-      <circle cx="640"  cy="350" r="1.6" fill="#8090b0" filter="url(#glow-mg)" class="p p-mg pd" style="--td:-0.8s;--dur:15.5s"/>
-      <circle cx="1180" cy="300" r="1.5" fill="#9098b8" filter="url(#glow-mg)" class="p p-mg pc" style="--td:-12.0s;--dur:14.5s"/>
+      <!-- Midground: medium · drift only (14–18 s · ±7–10 px)
+           Parallax sway: 1.5× wallpaper -->
+      <g class="sway sway-mg">
+        <circle cx="70"   cy="450" r="1.5" fill="#9098b8" filter="url(#glow-mg)" class="p p-mg pc" style="--td:-8.1s;--dur:15.0s"/>
+        <circle cx="195"  cy="290" r="1.7" fill="#8090b0" filter="url(#glow-mg)" class="p p-mg pd" style="--td:-2.7s;--dur:17.0s"/>
+        <circle cx="490"  cy="530" r="1.5" fill="#9098b8" filter="url(#glow-mg)" class="p p-mg pc" style="--td:-11.4s;--dur:14.5s"/>
+        <circle cx="730"  cy="200" r="1.6" fill="#8090b0" filter="url(#glow-mg)" class="p p-mg pd" style="--td:-4.2s;--dur:16.0s"/>
+        <circle cx="1020" cy="120" r="1.5" fill="#9098b8" filter="url(#glow-mg)" class="p p-mg pc" style="--td:-9.8s;--dur:18.0s"/>
+        <circle cx="1280" cy="400" r="1.8" fill="#8090b0" filter="url(#glow-mg)" class="p p-mg pd" style="--td:-1.5s;--dur:15.5s"/>
+        <circle cx="550"  cy="810" r="1.5" fill="#9098b8" filter="url(#glow-mg)" class="p p-mg pc" style="--td:-6.6s;--dur:17.5s"/>
+        <circle cx="880"  cy="650" r="1.6" fill="#8090b0" filter="url(#glow-mg)" class="p p-mg pd" style="--td:-13.2s;--dur:16.5s"/>
+        <circle cx="1150" cy="780" r="1.5" fill="#9098b8" filter="url(#glow-mg)" class="p p-mg pc" style="--td:-3.9s;--dur:14.0s"/>
+        <circle cx="310"  cy="870" r="1.4" fill="#8090b0" filter="url(#glow-mg)" class="p p-mg pd" style="--td:-10.5s;--dur:16.0s"/>
+        <circle cx="760"  cy="480" r="1.6" fill="#9098b8" filter="url(#glow-mg)" class="p p-mg pc" style="--td:-5.1s;--dur:15.0s"/>
+        <circle cx="1320" cy="850" r="1.4" fill="#8090b0" filter="url(#glow-mg)" class="p p-mg pd" style="--td:-7.3s;--dur:17.0s"/>
+        <circle cx="90"   cy="720" r="1.5" fill="#9098b8" filter="url(#glow-mg)" class="p p-mg pc" style="--td:-14.1s;--dur:18.0s"/>
+        <circle cx="640"  cy="350" r="1.6" fill="#8090b0" filter="url(#glow-mg)" class="p p-mg pd" style="--td:-0.8s;--dur:15.5s"/>
+        <circle cx="1180" cy="300" r="1.5" fill="#9098b8" filter="url(#glow-mg)" class="p p-mg pc" style="--td:-12.0s;--dur:14.5s"/>
+      </g>
 
-      <!-- Background: tiny · dim · slow (20–28 s · ±3–5 px) -->
-      <circle cx="180"  cy="110" r="0.8" fill="#4a5066" class="p p-bg pe" style="--td:-5.5s;--dur:23.0s"/>
-      <circle cx="350"  cy="480" r="0.9" fill="#4a5066" class="p p-bg pf" style="--td:-17.2s;--dur:26.0s"/>
-      <circle cx="520"  cy="170" r="0.7" fill="#4a5066" class="p p-bg pe" style="--td:-8.9s;--dur:21.0s"/>
-      <circle cx="740"  cy="380" r="1.0" fill="#505878" class="p p-bg pf" style="--td:-3.3s;--dur:28.0s"/>
-      <circle cx="970"  cy="580" r="0.8" fill="#4a5066" class="p p-bg pe" style="--td:-14.7s;--dur:24.0s"/>
-      <circle cx="1220" cy="160" r="0.9" fill="#4a5066" class="p p-bg pf" style="--td:-6.1s;--dur:22.0s"/>
-      <circle cx="130"  cy="850" r="0.7" fill="#4a5066" class="p p-bg pe" style="--td:-20.4s;--dur:25.0s"/>
-      <circle cx="460"  cy="700" r="0.8" fill="#505878" class="p p-bg pf" style="--td:-11.8s;--dur:27.0s"/>
-      <circle cx="820"  cy="140" r="1.0" fill="#4a5066" class="p p-bg pe" style="--td:-2.1s;--dur:20.0s"/>
-      <circle cx="1060" cy="760" r="0.7" fill="#4a5066" class="p p-bg pf" style="--td:-9.4s;--dur:26.0s"/>
-      <circle cx="280"  cy="400" r="0.8" fill="#4a5066" class="p p-bg pe" style="--td:-16.5s;--dur:23.0s"/>
-      <circle cx="600"  cy="620" r="0.9" fill="#505878" class="p p-bg pf" style="--td:-4.7s;--dur:28.0s"/>
-      <circle cx="1390" cy="520" r="0.7" fill="#4a5066" class="p p-bg pe" style="--td:-13.0s;--dur:21.0s"/>
-      <circle cx="700"  cy="890" r="0.8" fill="#4a5066" class="p p-bg pf" style="--td:-7.6s;--dur:25.0s"/>
-      <circle cx="1000" cy="300" r="0.9" fill="#4a5066" class="p p-bg pe" style="--td:-19.1s;--dur:24.0s"/>
+      <!-- Background: tiny · dim · slow (20–28 s · ±3–5 px)
+           Parallax sway: 1.15× wallpaper (nearly same depth) -->
+      <g class="sway sway-bg">
+        <circle cx="180"  cy="110" r="0.8" fill="#4a5066" class="p p-bg pe" style="--td:-5.5s;--dur:23.0s"/>
+        <circle cx="350"  cy="480" r="0.9" fill="#4a5066" class="p p-bg pf" style="--td:-17.2s;--dur:26.0s"/>
+        <circle cx="520"  cy="170" r="0.7" fill="#4a5066" class="p p-bg pe" style="--td:-8.9s;--dur:21.0s"/>
+        <circle cx="740"  cy="380" r="1.0" fill="#505878" class="p p-bg pf" style="--td:-3.3s;--dur:28.0s"/>
+        <circle cx="970"  cy="580" r="0.8" fill="#4a5066" class="p p-bg pe" style="--td:-14.7s;--dur:24.0s"/>
+        <circle cx="1220" cy="160" r="0.9" fill="#4a5066" class="p p-bg pf" style="--td:-6.1s;--dur:22.0s"/>
+        <circle cx="130"  cy="850" r="0.7" fill="#4a5066" class="p p-bg pe" style="--td:-20.4s;--dur:25.0s"/>
+        <circle cx="460"  cy="700" r="0.8" fill="#505878" class="p p-bg pf" style="--td:-11.8s;--dur:27.0s"/>
+        <circle cx="820"  cy="140" r="1.0" fill="#4a5066" class="p p-bg pe" style="--td:-2.1s;--dur:20.0s"/>
+        <circle cx="1060" cy="760" r="0.7" fill="#4a5066" class="p p-bg pf" style="--td:-9.4s;--dur:26.0s"/>
+        <circle cx="280"  cy="400" r="0.8" fill="#4a5066" class="p p-bg pe" style="--td:-16.5s;--dur:23.0s"/>
+        <circle cx="600"  cy="620" r="0.9" fill="#505878" class="p p-bg pf" style="--td:-4.7s;--dur:28.0s"/>
+        <circle cx="1390" cy="520" r="0.7" fill="#4a5066" class="p p-bg pe" style="--td:-13.0s;--dur:21.0s"/>
+        <circle cx="700"  cy="890" r="0.8" fill="#4a5066" class="p p-bg pf" style="--td:-7.6s;--dur:25.0s"/>
+        <circle cx="1000" cy="300" r="0.9" fill="#4a5066" class="p p-bg pe" style="--td:-19.1s;--dur:24.0s"/>
+      </g>
     </svg>
 
     <Nav />
@@ -328,12 +337,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     100% { background-position:   0%   0%; }
   }
 
-  /* Layer −1: Particles */
+  /* Layer −1: Particles — overscan matches wallpaper for sway headroom */
   .particles {
     position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
+    inset: -3%;
+    width: 106%;
+    height: 106%;
     z-index: -1;
     pointer-events: none;
   }
@@ -414,6 +423,34 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   @keyframes twinkle {
     0%, 100% { opacity: 0.55; }
     50%       { opacity: 0.08; }
+  }
+
+  /* ── Parallax sway — depth-based cinematic drift on <g> groups ──
+     Uses same keyframe shape as wallpaper sway but with depth multipliers.
+     Wallpaper = 1× (12px). Closer layers sway more → parallax.
+     FG 2× · MG 1.5× · BG 1.15×  */
+  .sway {
+    animation: parallax-sway 28s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    will-change: transform;
+  }
+
+  .sway-fg { --ps: 24px; }
+  .sway-mg { --ps: 18px; }
+  .sway-bg { --ps: 14px; }
+
+  @keyframes parallax-sway {
+    0%   { transform: translate(0, 0); }
+    12%  { transform: translate(var(--ps), calc(var(--ps) * 0.6)); }
+    27%  { transform: translate(calc(var(--ps) * -0.7), var(--ps)); }
+    41%  { transform: translate(calc(var(--ps) * -1), calc(var(--ps) * -0.4)); }
+    58%  { transform: translate(calc(var(--ps) * 0.5), calc(var(--ps) * -0.9)); }
+    73%  { transform: translate(calc(var(--ps) * 0.8), calc(var(--ps) * 0.3)); }
+    87%  { transform: translate(calc(var(--ps) * -0.4), calc(var(--ps) * 0.7)); }
+    100% { transform: translate(0, 0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sway { animation: none; }
   }
 
   /* ════════════════════════════════════════════════════
