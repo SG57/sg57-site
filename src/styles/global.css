@@ -353,12 +353,12 @@ a[class*="btn"] {
    Apply to any section whose text floats over the bare wallpaper. */
 .bloom {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 .bloom::before {
   content: '';
   position: absolute;
-  inset: -20% 0;
+  inset: -20% -15%;
   background: radial-gradient(
     ellipse 80% 55% at 50% 50%,
     rgba(10, 12, 16, 0.85) 0%,
