@@ -255,7 +255,6 @@ svg {
 /* Broken image fallback — prevent layout collapse and show a subtle placeholder */
 img {
   min-height: 1px; /* prevent zero-height collapse */
-  background: var(--sg57-surface);
 }
 
 /* --- Scrollbar --- */
