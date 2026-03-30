@@ -468,6 +468,8 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
     justify-content: center;
     min-height: 70vh;
     overflow: hidden;
+    mask-image: linear-gradient(to bottom, black 70%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent);
   }
 
   .hero-bg {
@@ -487,8 +489,6 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
     --sway: 12px;
     animation: hero-sway 28s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
     will-change: transform;
-    mask-image: linear-gradient(to bottom, black 82%, transparent);
-    -webkit-mask-image: linear-gradient(to bottom, black 82%, transparent);
   }
 
   @keyframes hero-sway {

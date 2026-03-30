@@ -229,6 +229,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow-wrap: break-word; /* prevent long words/URLs from breaking mobile layout */
+  overflow-x: clip; /* prevent horizontal scrollbar from any oversized elements (bloom, sway, etc.) */
 }
 
 a {
