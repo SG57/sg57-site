@@ -53,8 +53,6 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
     </div>
   </section>
 
-  <!-- Blurred reflection of hero bottom — hides hard edge -->
-  <div class="hero-fade" aria-hidden="true"></div>
 
   <!-- ══════════════════════════════════════════════════════════════════════════
        §2 DIGITAL HEALTH CHECK (QUIZ)
@@ -469,7 +467,7 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
     align-items: center;
     justify-content: center;
     min-height: 70vh;
-    overflow: visible;
+    overflow: hidden;
   }
 
   .hero-bg {
@@ -489,6 +487,8 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
     --sway: 12px;
     animation: hero-sway 28s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
     will-change: transform;
+    mask-image: linear-gradient(to bottom, black 82%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, black 82%, transparent);
   }
 
   @keyframes hero-sway {
@@ -500,19 +500,6 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
     73%  { transform: translate(calc(var(--sway) * 0.8), calc(var(--sway) * 0.3))  scale(1.005); }
     87%  { transform: translate(calc(var(--sway) * -0.4), calc(var(--sway) * 0.7)) scale(1.001); }
     100% { transform: translate(0, 0)                         scale(1.002); }
-  }
-
-  .hero-fade {
-    position: relative;
-    z-index: 0;
-    width: 100%;
-    height: 250px;
-    margin-top: -150px;
-    background: url('/services/services-hero-bg.webp') center bottom / cover no-repeat;
-    filter: blur(40px) brightness(0.4);
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 90%);
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 90%);
-    pointer-events: none;
   }
 
   @media (prefers-reduced-motion: reduce) {

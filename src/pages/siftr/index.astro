@@ -49,8 +49,6 @@ import Base from '../../layouts/Base.astro';
     </div>
   </section>
 
-  <!-- Blurred reflection of hero bottom — hides hard edge -->
-  <div class="hero-fade" aria-hidden="true"></div>
 
   <!-- Problem Statement -->
   <section class="problem container bloom">
@@ -268,7 +266,7 @@ import Base from '../../layouts/Base.astro';
     justify-content: center;
     min-height: 100vh;
     min-height: 100svh;
-    overflow: visible;
+    overflow: hidden;
   }
 
   /* Product-specific accent: Diagnostic Amber */
@@ -300,6 +298,8 @@ import Base from '../../layouts/Base.astro';
     --sway: 12px;
     animation: hero-sway 28s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
     will-change: transform;
+    mask-image: linear-gradient(to bottom, black 82%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, black 82%, transparent);
   }
 
   @keyframes hero-sway {
@@ -311,22 +311,6 @@ import Base from '../../layouts/Base.astro';
     73%  { transform: translate(calc(var(--sway) * 0.8), calc(var(--sway) * 0.3))  scale(1.005); }
     87%  { transform: translate(calc(var(--sway) * -0.4), calc(var(--sway) * 0.7)) scale(1.001); }
     100% { transform: translate(0, 0)                         scale(1.002); }
-  }
-
-  /* Blurred reflection — separate div below hero, uses same bg image
-     positioned to show the bottom edge, heavily blurred and fading out.
-     Negative margin pulls it up to overlap the hero's hard bottom edge. */
-  .hero-fade {
-    position: relative;
-    z-index: 0;
-    width: 100%;
-    height: 250px;
-    margin-top: -150px;
-    background: url('/siftr/siftr-hero.webp') center bottom / cover no-repeat;
-    filter: blur(40px) brightness(0.4);
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 90%);
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 90%);
-    pointer-events: none;
   }
 
   @media (prefers-reduced-motion: reduce) {
