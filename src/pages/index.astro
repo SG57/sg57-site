@@ -124,19 +124,6 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
     </div>
   </section>
 
-  <!-- ══ PROOF STRIP ══ -->
-  <section class="proof-strip bloom" aria-label="Credentials">
-    <div class="container">
-      <div class="proof-items">
-        <span>20+ years shipping software</span>
-        <span class="proof-dot" aria-hidden="true">·</span>
-        <span>2 desktop apps in market</span>
-        <span class="proof-dot" aria-hidden="true">·</span>
-        <span>Full-stack architect for hire</span>
-      </div>
-    </div>
-  </section>
-
   <!-- ══ WORK ══ -->
   <ProofOfWork />
 
@@ -145,9 +132,10 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
     <div class="about-panel">
       <h2 class="about-heading">About</h2>
       <p class="about-text">
-        SG57 Labs is a software refinery &mdash; we build focused, high-performance tools
-        that do one thing exceptionally well. No bloat, no compromises.
-        Every detail refined until only what matters remains.
+        SG57 Labs is a one-person software studio with 20+ years of full-stack engineering behind it.
+        Two desktop apps in market. Production websites for real businesses.
+        No bloat, no subcontractors, no telephone game &mdash; one architect handles everything
+        from brand strategy to deployed code.
       </p>
     </div>
   </section>
@@ -639,36 +627,6 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
   }
 
   /* ════════════════════════════════════════════════════
-     PROOF STRIP
-     ════════════════════════════════════════════════════ */
-  .proof-strip {
-    padding: 1.25rem 0;
-    border-top: 1px solid var(--sg57-border-glass);
-    border-bottom: 1px solid var(--sg57-border-glass);
-    background: var(--sg57-overlay-subtle);
-  }
-
-  .proof-items {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.25rem;
-    flex-wrap: wrap;
-    font-family: var(--sg57-font-mono);
-    font-size: 1.125rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    color: var(--sg57-text);
-    text-transform: uppercase;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
-  }
-
-  .proof-dot {
-    color: var(--sg57-accent);
-    opacity: 0.7;
-  }
-
-  /* ════════════════════════════════════════════════════
      ABOUT
      ════════════════════════════════════════════════════ */
   .about {
@@ -751,14 +709,6 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
     .product-card { height: 240px; }
 
     .hero-ctas { flex-direction: column; align-items: flex-start; }
-
-    .proof-items {
-      flex-direction: column;
-      gap: 0.5rem;
-      text-align: center;
-    }
-
-    .proof-dot { display: none; }
 
     .about-panel {
       padding: 1.5rem;
