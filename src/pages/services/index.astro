@@ -53,6 +53,9 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
     </div>
   </section>
 
+  <!-- Blurred reflection of hero bottom — hides hard edge -->
+  <div class="hero-fade" aria-hidden="true"></div>
+
   <!-- ══════════════════════════════════════════════════════════════════════════
        §2 DIGITAL HEALTH CHECK (QUIZ)
        ══════════════════════════════════════════════════════════════════════════ -->
@@ -499,18 +502,16 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
     100% { transform: translate(0, 0)                         scale(1.002); }
   }
 
-  .hero-bg-image::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -200px;
-    height: 300px;
-    background: inherit;
-    background-position: center bottom;
-    filter: blur(30px) brightness(0.5);
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+  .hero-fade {
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    height: 250px;
+    margin-top: -150px;
+    background: url('/services/services-hero-bg.webp') center bottom / cover no-repeat;
+    filter: blur(40px) brightness(0.4);
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 90%);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 90%);
     pointer-events: none;
   }
 
@@ -716,6 +717,8 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
   /* ── §2 QUIZ SECTION ─────────────────────────────────────────────────────── */
 
   .quiz-section {
+    position: relative;
+    z-index: 1;
     padding: 4rem 1.5rem 5rem;
   }
 

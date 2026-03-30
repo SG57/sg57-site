@@ -50,6 +50,9 @@ import Base from '../../layouts/Base.astro';
     </div>
   </section>
 
+  <!-- Blurred reflection of hero bottom — hides hard edge -->
+  <div class="hero-fade" aria-hidden="true"></div>
+
   <!-- Problem Statement -->
   <section class="problem container bloom">
     <p class="problem-text">
@@ -230,18 +233,16 @@ import Base from '../../layouts/Base.astro';
     100% { transform: translate(0, 0)                         scale(1.002); }
   }
 
-  .hero-bg::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -200px;
-    height: 300px;
-    background: inherit;
-    background-position: center bottom;
-    filter: blur(30px) brightness(0.5);
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+  .hero-fade {
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    height: 250px;
+    margin-top: -150px;
+    background: url('/clide/clide-hero.webp') center bottom / cover no-repeat;
+    filter: blur(40px) brightness(0.4);
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 90%);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 90%);
     pointer-events: none;
   }
 
