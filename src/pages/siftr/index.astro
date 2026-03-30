@@ -12,7 +12,7 @@ import Base from '../../layouts/Base.astro';
 >
   <!-- Hero — cinematic banner -->
   <section class="hero">
-    <div class="hero-bg"><div class="hero-bg-image"></div></div>
+    <div class="hero-bg"></div>
     <div class="hero-atmosphere" aria-hidden="true">
       <svg class="hero-stars" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
         <circle cx="145" cy="180" r="2.2" fill="#e4e0f5" opacity="0.45" class="star star-a" style="--td:-0.0s;--dur:9s"/>
@@ -290,18 +290,11 @@ import Base from '../../layouts/Base.astro';
                      --sway: 20px = large (dramatic)  */
   .hero-bg {
     position: absolute;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-  }
-
-  .hero-bg-image {
-    position: absolute;
     inset: -3%;
     background-image: url('/siftr/siftr-hero.webp');
     background-size: cover;
     background-position: center;
-    opacity: 0.35;
+    pointer-events: none;
     --sway: 12px;
     animation: hero-sway 28s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
     will-change: transform;
@@ -319,20 +312,7 @@ import Base from '../../layouts/Base.astro';
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-bg-image { animation: none; inset: 0; }
-  }
-
-  /* Dark amber-tinted scrim */
-  .hero-bg::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to top,
-      rgba(8, 5, 2, 0.7) 0%,
-      rgba(8, 5, 2, 0.15) 35%,
-      transparent 60%
-    );
+    .hero-bg { animation: none; inset: 0; }
   }
 
   .hero-content {
@@ -484,18 +464,19 @@ import Base from '../../layouts/Base.astro';
   }
 
   /* --- Blur edge: feather hero wallpaper into site background --- */
+  /* --- Blur bar: dark band centered on hero bottom edge to hide hard line --- */
   .hero-blur-edge {
     position: absolute;
-    bottom: -200px;
+    bottom: -100px;
     left: 0;
     right: 0;
     height: 200px;
-    z-index: 0;
+    z-index: 1;
     background: linear-gradient(
       to bottom,
-      rgba(8, 5, 2, 0.3) 0%,
-      rgba(8, 5, 2, 0.15) 30%,
-      rgba(8, 5, 2, 0.05) 60%,
+      transparent 0%,
+      rgba(10, 12, 16, 0.85) 42%,
+      rgba(10, 12, 16, 0.85) 58%,
       transparent 100%
     );
     pointer-events: none;
