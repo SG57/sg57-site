@@ -30,7 +30,6 @@ import Base from '../../layouts/Base.astro';
         <circle cx="1280" cy="400" r="1.5" fill="#8090b0" opacity="0.2" class="star star-d" style="--td:-1.5s;--dur:15.5s"/>
       </svg>
     </div>
-    <div class="hero-blur-edge" aria-hidden="true"></div>
     <div class="hero-content container bloom">
       <!-- h1 for SEO/a11y — "SIFTR" is in the banner image -->
       <h1 class="sr-only">Siftr — Log Analysis System</h1>
@@ -311,6 +310,23 @@ import Base from '../../layouts/Base.astro';
     100% { transform: translate(0, 0)                         scale(1.002); }
   }
 
+  /* Blurred bottom reflection — extends the hero image downward with heavy
+     blur so the transition into the site background is color-matched and smooth */
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -200px;
+    height: 300px;
+    background: inherit;
+    background-position: center bottom;
+    filter: blur(30px) brightness(0.5);
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+    pointer-events: none;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .hero-bg { animation: none; inset: 0; }
   }
@@ -464,25 +480,6 @@ import Base from '../../layouts/Base.astro';
   }
 
   /* --- Blur edge: feather hero wallpaper into site background --- */
-  /* --- Blur bar: dark band centered on hero bottom edge to hide hard line --- */
-  .hero-blur-edge {
-    position: absolute;
-    bottom: -125px;
-    left: 0;
-    right: 0;
-    height: 250px;
-    z-index: 1;
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      rgba(10, 12, 16, 0.6) 20%,
-      rgba(10, 12, 16, 1) 38%,
-      rgba(10, 12, 16, 1) 62%,
-      rgba(10, 12, 16, 0.6) 80%,
-      transparent 100%
-    );
-    pointer-events: none;
-  }
 
   /* --- Problem Statement --- */
   .problem {
