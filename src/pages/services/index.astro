@@ -592,16 +592,18 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
   /* --- Blur bar: dark band centered on hero bottom edge to hide hard line --- */
   .hero-blur-edge {
     position: absolute;
-    bottom: -100px;
+    bottom: -125px;
     left: 0;
     right: 0;
-    height: 200px;
+    height: 250px;
     z-index: 1;
     background: linear-gradient(
       to bottom,
       transparent 0%,
-      rgba(10, 12, 16, 0.85) 42%,
-      rgba(10, 12, 16, 0.85) 58%,
+      rgba(10, 12, 16, 0.6) 20%,
+      rgba(10, 12, 16, 1) 38%,
+      rgba(10, 12, 16, 1) 62%,
+      rgba(10, 12, 16, 0.6) 80%,
       transparent 100%
     );
     pointer-events: none;
