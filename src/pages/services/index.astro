@@ -362,6 +362,8 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
       const firstName = (form.querySelector('#if-name')?.value?.trim() ?? '').split(' ')[0] || 'there';
       const email     = form.querySelector('#if-email')?.value?.trim() ?? '';
 
+      const formData = new FormData(form); // capture before disabling
+
       try {
       // ── Phase 1: Lock everything, start scanner + progress ────────────────
       [...form.elements].forEach(el => (el.disabled = true));
@@ -382,7 +384,7 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
       // ── Phase 2: Fire request alongside minimum animation time ────────────
       const fetchPromise = fetch('https://formspree.io/f/mojkpkyj', {
         method: 'POST',
-        body: new FormData(form),
+        body: formData,
         headers: { 'Accept': 'application/json' },
       }).catch(() => ({ ok: false }));
 
