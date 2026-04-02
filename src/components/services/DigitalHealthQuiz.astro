@@ -695,6 +695,38 @@
     margin-top: 1.25rem;
   }
 
+  /* ── Mobile: fixed header/footer, scrollable slide area ── */
+  @media (max-width: 767px) {
+    .dhq-body {
+      display: flex;
+      flex-direction: column;
+      max-height: 70dvh;
+    }
+
+    .dhq-header { flex-shrink: 0; }
+    .dhq-track  { flex-shrink: 0; }
+
+    .dhq-slide {
+      flex: 1 1 0%;
+      overflow-y: auto;
+      min-height: 0;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .dhq-slide::-webkit-scrollbar {
+      display: none;
+    }
+
+    .dhq-nav {
+      flex-shrink: 0;
+      margin-top: 0;
+      background: var(--sg57-glass-bg, rgba(10, 10, 10, 0.7));
+      backdrop-filter: blur(var(--sg57-glass-blur, 16px));
+      -webkit-backdrop-filter: blur(var(--sg57-glass-blur, 16px));
+    }
+  }
+
   .dhq-btn {
     font-family: var(--sg57-font-display);
     font-weight: 600;
