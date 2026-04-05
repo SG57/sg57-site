@@ -1,0 +1,345 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base
+  title="Privacy Policy | SG57 Labs"
+  description="Privacy policy for SG57 Labs products including Text Easy, Clide, and Siftr."
+>
+  <div class="privacy-page">
+    <div class="container">
+      <header class="page-header">
+        <p class="page-label">Legal</p>
+        <h1 class="page-title">Privacy Policy</h1>
+        <p class="page-meta">SG57 Labs &mdash; Last updated: April 5, 2025</p>
+      </header>
+
+      <div class="policy-body">
+
+        <!-- Studio overview -->
+        <section class="policy-section">
+          <p class="intro-text">
+            SG57 Labs is a one-person independent software studio. This policy covers all
+            SG57 Labs products. Questions? Email
+            <a href="mailto:support@sg57.dev" class="policy-link">support@sg57.dev</a>.
+          </p>
+        </section>
+
+        <!-- Text Easy -->
+        <section class="policy-section">
+          <h2 class="section-heading">Text Easy</h2>
+
+          <div class="sub-section">
+            <h3 class="sub-heading">What we do NOT do</h3>
+            <ul class="policy-list">
+              <li>Collect personal data</li>
+              <li>Require accounts or sign-up of any kind</li>
+              <li>Track, log, or transmit usage analytics</li>
+              <li>Show ads</li>
+            </ul>
+          </div>
+
+          <div class="sub-section">
+            <h3 class="sub-heading">Data stored on your device</h3>
+            <ul class="policy-list">
+              <li>
+                <strong>Gemini API key</strong> &mdash; stored locally using Android
+                <code>EncryptedSharedPreferences</code> (AES-256-GCM). Never transmitted
+                to SG57 Labs servers.
+              </li>
+              <li>
+                <strong>User preferences</strong> (style settings, custom refinements) &mdash;
+                stored locally using Android <code>SharedPreferences</code>. Never transmitted
+                to SG57 Labs servers.
+              </li>
+            </ul>
+          </div>
+
+          <div class="sub-section">
+            <h3 class="sub-heading">The only network request: Gemini API</h3>
+            <p class="policy-text">
+              Text Easy sends your text to Google's Gemini API for AI processing. This is
+              the <em>only</em> network request the app makes. The data sent consists of:
+            </p>
+            <ul class="policy-list">
+              <li>The message you want to reply to, or your compose intent</li>
+              <li>Your selected style preferences</li>
+            </ul>
+            <p class="policy-text">
+              This request goes directly from your device to Google's servers using
+              <em>your own API key</em>. SG57 Labs does not have access to, store, or log
+              any text you send to the Gemini API.
+            </p>
+            <p class="policy-text">
+              Google's privacy policy and terms apply to data processed by Gemini:
+              <a
+                href="https://ai.google.dev/gemini-api/terms"
+                class="policy-link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >ai.google.dev/gemini-api/terms</a>.
+            </p>
+          </div>
+
+          <div class="sub-section">
+            <h3 class="sub-heading">In-app purchases</h3>
+            <p class="policy-text">
+              Purchases are processed by Google Play Billing. SG57 Labs does not handle
+              payment information directly and does not receive your payment details.
+            </p>
+          </div>
+
+          <div class="sub-section">
+            <h3 class="sub-heading">Third-party data sharing</h3>
+            <p class="policy-text">
+              No data is shared with third parties beyond the Gemini API call described above.
+            </p>
+          </div>
+
+          <div class="sub-section">
+            <h3 class="sub-heading">Your rights</h3>
+            <ul class="policy-list">
+              <li>
+                All data is stored locally on your device. Uninstalling the app deletes
+                all stored data.
+              </li>
+              <li>There is no account to delete &mdash; Text Easy has no accounts.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Clide & Siftr -->
+        <section class="policy-section">
+          <h2 class="section-heading">Clide &amp; Siftr</h2>
+          <p class="policy-text">
+            Clide and Siftr are desktop applications. Neither app requires an account,
+            collects personal data, or transmits usage analytics or telemetry.
+          </p>
+
+          <div class="sub-section">
+            <h3 class="sub-heading">Crash reporting</h3>
+            <p class="policy-text">
+              If crash reporting is available, it is opt-in and uses Crashpad. No crash
+              data is sent without your explicit consent.
+            </p>
+          </div>
+
+          <div class="sub-section">
+            <h3 class="sub-heading">License validation</h3>
+            <p class="policy-text">
+              License validation is handled by LemonSqueezy. When validating a license,
+              the app sends your machine ID and license key to LemonSqueezy's servers.
+              No other data is transmitted.
+            </p>
+          </div>
+
+          <div class="sub-section">
+            <h3 class="sub-heading">Your rights</h3>
+            <ul class="policy-list">
+              <li>
+                All application data is stored locally. Uninstalling the app removes all
+                local data.
+              </li>
+              <li>There are no accounts &mdash; nothing to delete.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="policy-section policy-section--last">
+          <h2 class="section-heading">Contact</h2>
+          <p class="policy-text">
+            For any privacy-related questions or concerns, contact
+            <a href="mailto:support@sg57.dev" class="policy-link">support@sg57.dev</a>.
+          </p>
+        </section>
+
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .privacy-page {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 0 6rem;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* ── Page header ── */
+  .page-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+
+  .page-label {
+    font-family: var(--sg57-font-mono);
+    font-size: 0.8125rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sg57-accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .page-title {
+    font-family: var(--sg57-font-display);
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--sg57-text-bright);
+    letter-spacing: 0.04em;
+    margin-bottom: 0.75rem;
+  }
+
+  .page-meta {
+    font-family: var(--sg57-font-display);
+    font-size: 0.9375rem;
+    color: var(--sg57-text-muted);
+  }
+
+  /* ── Policy body ── */
+  .policy-body {
+    background: var(--sg57-surface);
+    border: 1px solid var(--sg57-border);
+    border-radius: var(--sg57-radius-md);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .policy-section {
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--sg57-border-subtle);
+  }
+
+  .policy-section--last {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .intro-text {
+    font-family: var(--sg57-font-display);
+    font-size: 1.0625rem;
+    color: var(--sg57-text);
+    line-height: 1.7;
+  }
+
+  .section-heading {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1.25rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sg57-accent);
+    margin-bottom: 1.25rem;
+  }
+
+  .sub-section {
+    margin-top: 1.5rem;
+  }
+
+  .sub-heading {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    color: var(--sg57-text-bright);
+    margin-bottom: 0.6rem;
+  }
+
+  .policy-text {
+    font-family: var(--sg57-font-display);
+    font-size: 1rem;
+    color: var(--sg57-text-dim);
+    line-height: 1.75;
+    margin-bottom: 0.75rem;
+  }
+
+  .policy-text:last-child {
+    margin-bottom: 0;
+  }
+
+  .policy-text em {
+    color: var(--sg57-text);
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  .policy-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .policy-list li {
+    font-family: var(--sg57-font-display);
+    font-size: 1rem;
+    color: var(--sg57-text-dim);
+    line-height: 1.65;
+    padding-left: 1.25rem;
+    position: relative;
+  }
+
+  .policy-list li::before {
+    content: '\2014';
+    position: absolute;
+    left: 0;
+    color: var(--sg57-accent);
+    font-weight: 700;
+  }
+
+  .policy-list strong {
+    color: var(--sg57-text);
+    font-weight: 600;
+  }
+
+  code {
+    font-family: var(--sg57-font-mono);
+    font-size: 0.875em;
+    color: var(--sg57-text);
+    background: var(--sg57-elevated);
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
+  }
+
+  .policy-link {
+    color: var(--sg57-accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--sg57-accent-muted);
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .policy-link:hover {
+    color: var(--sg57-accent-hover);
+    border-color: var(--sg57-accent);
+  }
+
+  .policy-link:focus-visible {
+    outline: 2px solid var(--sg57-accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 600px) {
+    .privacy-page {
+      padding: 5rem 0 4rem;
+    }
+
+    .policy-body {
+      padding: 1.75rem 1.25rem;
+    }
+
+    .page-title {
+      font-size: 2rem;
+    }
+  }
+</style>
