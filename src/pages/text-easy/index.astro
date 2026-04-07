@@ -214,7 +214,7 @@ import Base from '../../layouts/Base.astro';
     justify-content: center;
     min-height: 100vh;
     min-height: 100svh;
-    overflow: hidden;
+    overflow-x: clip; /* see clide/index.astro — same fix for bloom crease */
   }
 
   /* TODO: replace feature-graphic-placeholder.png with 8K landscape hero image.

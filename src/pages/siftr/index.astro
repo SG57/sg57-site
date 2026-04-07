@@ -266,7 +266,7 @@ import Base from '../../layouts/Base.astro';
     justify-content: center;
     min-height: 100vh;
     min-height: 100svh;
-    overflow: hidden;
+    overflow-x: clip; /* see clide/index.astro — same fix for bloom crease */
   }
 
   /* Product-specific accent: Diagnostic Amber */

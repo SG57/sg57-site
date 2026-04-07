@@ -201,7 +201,11 @@ import Base from '../../layouts/Base.astro';
     justify-content: center;
     min-height: 100vh;
     min-height: 100svh; /* safe viewport height — correct on mobile browsers */
-    overflow: hidden;
+    /* overflow-x: clip (not hidden) — clips sway animation horizontal overflow
+       without clipping vertical bloom extension below section boundary.
+       overflow: hidden was causing a hard-clipped edge at hero bottom that
+       created a visible crease against the adjacent .bloom section. */
+    overflow-x: clip;
   }
 
   /* Banner image — cinematic handheld sway
