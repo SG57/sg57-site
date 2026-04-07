@@ -37,7 +37,7 @@ import Base from '../../layouts/Base.astro';
       <!-- h1 for SEO/a11y — visually minimal -->
       <h1 class="sr-only">Text Easy — Intent-to-Text AI</h1>
       <span class="hero-label">INTENT-TO-TEXT ENGINE</span>
-      <p class="hero-tagline">Say what you mean. <em>Easy.</em></p>
+      <p class="hero-tagline">Say what you mean. Easy.</p>
       <p class="hero-subtitle">AI-generated replies in your own voice.</p>
       <div class="hero-actions">
         <!-- TODO: replace href with live Google Play Store listing URL -->
@@ -254,16 +254,21 @@ import Base from '../../layouts/Base.astro';
     position: relative;
     z-index: 2;
     text-align: center;
-    /* Bottom padding: 4rem base + 30px browser-chrome buffer so the CTA
-       button has clear breathing room from the viewport bottom edge. */
     padding: 0 1.5rem calc(4rem + 30px);
     width: 100%;
-    /* Dark bloom scrim — box-shadow spreads outward from the text container at
-       z-index 2, above the hero-bg wallpaper (z-index auto). This avoids the
-       stacking-context issue that makes z-index:-1 children invisible when their
-       parent has a transparent background. The 80px spread + 100px blur creates
-       a ~180px soft dark halo that rises above the text cluster into the image. */
-    box-shadow: 0 0 100px 80px rgba(0, 0, 0, 0.82);
+  }
+
+  /* Strengthen the .bloom::before scrim for this vivid green hero image.
+     The global .bloom is calibrated for the subtle violet site wallpaper;
+     this override raises the opacity values without changing anything else. */
+  .hero-content::before {
+    background: radial-gradient(
+      ellipse 70% 55% at 50% 50%,
+      rgba(0, 0, 0, 0.90) 0%,
+      rgba(0, 0, 0, 0.68) 28%,
+      rgba(0, 0, 0, 0.35) 52%,
+      transparent         70%
+    );
   }
 
   .hero-label {
