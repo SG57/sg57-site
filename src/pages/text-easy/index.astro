@@ -34,10 +34,14 @@ import Base from '../../layouts/Base.astro';
       </svg>
     </div>
     <div class="hero-content container bloom">
+      <!-- Dark scrim concentrated behind the text cluster — supplements the global
+           .bloom utility which is tuned for the subtle violet site wallpaper, not
+           a vivid green hero image like this one. -->
+      <div class="hero-text-bloom" aria-hidden="true"></div>
       <!-- h1 for SEO/a11y — visually minimal -->
       <h1 class="sr-only">Text Easy — Intent-to-Text AI</h1>
       <span class="hero-label">INTENT-TO-TEXT ENGINE</span>
-      <p class="hero-tagline">Say what you mean. Easy.</p>
+      <p class="hero-tagline">Say what you mean. <em>Easy.</em></p>
       <p class="hero-subtitle">AI-generated replies in your own voice.</p>
       <div class="hero-actions">
         <!-- TODO: replace href with live Google Play Store listing URL -->
@@ -254,8 +258,30 @@ import Base from '../../layouts/Base.astro';
     position: relative;
     z-index: 2;
     text-align: center;
-    padding: 0 1.5rem 4rem;
+    /* Bottom padding: 4rem base + 10px browser-chrome buffer so the CTA
+       button never kisses the viewport bottom edge on tall phones. */
+    padding: 0 1.5rem calc(4rem + 10px);
     width: 100%;
+  }
+
+  /* Tight dark oval directly behind the text cluster.
+     The global .bloom scrim is calibrated for the site wallpaper (subtle violet);
+     this vivid green hero image needs a stronger, more focused dark bloom.
+     Radial origin is pushed low (85%) so opacity peak sits behind the label/
+     tagline/subtitle group rather than the empty sky above them. */
+  .hero-text-bloom {
+    position: absolute;
+    /* Extend outward generously so the falloff feels natural at all viewport widths */
+    inset: -120% -70%;
+    background: radial-gradient(
+      ellipse 50% 60% at 50% 85%,
+      rgba(0, 0, 0, 0.88)  0%,
+      rgba(0, 0, 0, 0.70) 25%,
+      rgba(0, 0, 0, 0.40) 50%,
+      transparent          70%
+    );
+    pointer-events: none;
+    z-index: -1;
   }
 
   .hero-label {
@@ -646,7 +672,7 @@ import Base from '../../layouts/Base.astro';
     }
 
     .hero-content {
-      padding: 3.5rem 1.5rem 3rem;
+      padding: 3.5rem 1.5rem calc(3rem + 10px);
     }
 
     .feature-grid {
