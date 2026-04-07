@@ -86,6 +86,16 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
           </div>
         </a>
 
+        <!-- TODO: replace feature-graphic-placeholder.png with final landscape hero image -->
+        <a href="/text-easy" class="product-card product-card--text-easy">
+          <div class="product-card-bg" style="background-image: url('/text-easy/feature-graphic-placeholder.png');"></div>
+          <div class="product-card-scrim product-card-scrim--text-easy"></div>
+          <div class="product-card-content">
+            <p class="product-tagline">AI-generated replies in your own voice.</p>
+            <span class="product-cta">Learn More →</span>
+          </div>
+        </a>
+
       </div>
     </div>
   </section>
@@ -395,7 +405,7 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
 
   .product-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.25rem;
   }
 
@@ -423,6 +433,11 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
   .product-card--siftr:hover {
     box-shadow: 0 8px 40px rgba(212, 161, 90, 0.2);
     border-color: rgba(212, 161, 90, 0.35);
+  }
+
+  .product-card--text-easy:hover {
+    box-shadow: 0 8px 40px rgba(0, 255, 136, 0.2);
+    border-color: rgba(0, 255, 136, 0.35);
   }
 
   .product-card:active {
@@ -468,6 +483,15 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
       rgba(8, 6, 4, 0.92) 0%,
       rgba(8, 6, 4, 0.55) 45%,
       rgba(8, 6, 4, 0.15) 100%
+    );
+  }
+
+  .product-card-scrim--text-easy {
+    background: linear-gradient(
+      to top,
+      rgba(4, 10, 6, 0.94) 0%,
+      rgba(4, 10, 6, 0.58) 45%,
+      rgba(4, 10, 6, 0.18) 100%
     );
   }
 
@@ -525,9 +549,11 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
 
   .product-card--clide .product-cta { color: var(--sg57-clide-accent); }
   .product-card--siftr .product-cta { color: var(--sg57-siftr-accent); }
+  .product-card--text-easy .product-cta { color: var(--sg57-text-easy-accent); }
 
   .product-card--clide:hover .product-cta { color: var(--sg57-clide-accent-hover); }
   .product-card--siftr:hover .product-cta { color: var(--sg57-siftr-accent-hover); }
+  .product-card--text-easy:hover .product-cta { color: var(--sg57-text-easy-accent-hover); }
 
   /* ════════════════════════════════════════════════════
      SERVICES
@@ -697,9 +723,9 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
       letter-spacing: 0.12em;
     }
 
-    .product-grid { grid-template-columns: 1fr; }
+    .product-grid { grid-template-columns: repeat(2, 1fr); }
 
-    .product-card { height: 240px; }
+    .product-card { height: 220px; }
 
     .hero-ctas { flex-direction: column; align-items: flex-start; }
 
@@ -710,5 +736,10 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
     .services-card {
       padding: 1.5rem;
     }
+  }
+
+  @media (max-width: 480px) {
+    .product-grid { grid-template-columns: 1fr; }
+    .product-card { height: 200px; }
   }
 </style>

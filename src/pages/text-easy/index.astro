@@ -34,10 +34,6 @@ import Base from '../../layouts/Base.astro';
       </svg>
     </div>
     <div class="hero-content container bloom">
-      <!-- Dark scrim concentrated behind the text cluster — supplements the global
-           .bloom utility which is tuned for the subtle violet site wallpaper, not
-           a vivid green hero image like this one. -->
-      <div class="hero-text-bloom" aria-hidden="true"></div>
       <!-- h1 for SEO/a11y — visually minimal -->
       <h1 class="sr-only">Text Easy — Intent-to-Text AI</h1>
       <span class="hero-label">INTENT-TO-TEXT ENGINE</span>
@@ -258,30 +254,16 @@ import Base from '../../layouts/Base.astro';
     position: relative;
     z-index: 2;
     text-align: center;
-    /* Bottom padding: 4rem base + 10px browser-chrome buffer so the CTA
-       button never kisses the viewport bottom edge on tall phones. */
-    padding: 0 1.5rem calc(4rem + 10px);
+    /* Bottom padding: 4rem base + 30px browser-chrome buffer so the CTA
+       button has clear breathing room from the viewport bottom edge. */
+    padding: 0 1.5rem calc(4rem + 30px);
     width: 100%;
-  }
-
-  /* Tight dark oval directly behind the text cluster.
-     The global .bloom scrim is calibrated for the site wallpaper (subtle violet);
-     this vivid green hero image needs a stronger, more focused dark bloom.
-     Radial origin is pushed low (85%) so opacity peak sits behind the label/
-     tagline/subtitle group rather than the empty sky above them. */
-  .hero-text-bloom {
-    position: absolute;
-    /* Extend outward generously so the falloff feels natural at all viewport widths */
-    inset: -120% -70%;
-    background: radial-gradient(
-      ellipse 50% 60% at 50% 85%,
-      rgba(0, 0, 0, 0.88)  0%,
-      rgba(0, 0, 0, 0.70) 25%,
-      rgba(0, 0, 0, 0.40) 50%,
-      transparent          70%
-    );
-    pointer-events: none;
-    z-index: -1;
+    /* Dark bloom scrim — box-shadow spreads outward from the text container at
+       z-index 2, above the hero-bg wallpaper (z-index auto). This avoids the
+       stacking-context issue that makes z-index:-1 children invisible when their
+       parent has a transparent background. The 80px spread + 100px blur creates
+       a ~180px soft dark halo that rises above the text cluster into the image. */
+    box-shadow: 0 0 100px 80px rgba(0, 0, 0, 0.82);
   }
 
   .hero-label {
@@ -672,7 +654,7 @@ import Base from '../../layouts/Base.astro';
     }
 
     .hero-content {
-      padding: 3.5rem 1.5rem calc(3rem + 10px);
+      padding: 3.5rem 1.5rem calc(3rem + 30px);
     }
 
     .feature-grid {

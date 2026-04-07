@@ -19,6 +19,7 @@ function isActive(href: string): boolean {
     <div class="nav-links">
       <a href="/clide" class:list={[{ 'is-active': isActive('/clide') }]} aria-current={isActive('/clide') ? 'page' : undefined}>Clide</a>
       <a href="/siftr" class:list={[{ 'is-active': isActive('/siftr') }]} aria-current={isActive('/siftr') ? 'page' : undefined}>Siftr</a>
+      <a href="/text-easy" class:list={[{ 'is-active': isActive('/text-easy') }]} aria-current={isActive('/text-easy') ? 'page' : undefined}>Text Easy</a>
       <a href="/services" class:list={[{ 'is-active': isActive('/services') }]} aria-current={isActive('/services') ? 'page' : undefined}>Services</a>
     </div>
 
@@ -41,6 +42,7 @@ function isActive(href: string): boolean {
   <div class="mobile-menu" id="mobile-menu" role="region" aria-label="Mobile navigation">
     <a href="/clide" class:list={[{ 'is-active': isActive('/clide') }]} aria-current={isActive('/clide') ? 'page' : undefined}>Clide</a>
     <a href="/siftr" class:list={[{ 'is-active': isActive('/siftr') }]} aria-current={isActive('/siftr') ? 'page' : undefined}>Siftr</a>
+    <a href="/text-easy" class:list={[{ 'is-active': isActive('/text-easy') }]} aria-current={isActive('/text-easy') ? 'page' : undefined}>Text Easy</a>
     <a href="/services" class:list={[{ 'is-active': isActive('/services') }]} aria-current={isActive('/services') ? 'page' : undefined}>Services</a>
   </div>
 </nav>
@@ -287,7 +289,7 @@ function isActive(href: string): boolean {
   }
 
   .mobile-menu.is-open {
-    max-height: 280px;
+    max-height: 340px;
     opacity: 1;
   }
 
