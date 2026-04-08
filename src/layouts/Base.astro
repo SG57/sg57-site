@@ -185,6 +185,15 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       </svg>
     </button>
 
+    <!-- Reset scroll to top on every client-side navigation.
+         astro:after-swap fires immediately after the DOM is swapped (before
+         view-transition animations complete), so the new page renders from y=0. -->
+    <script>
+      document.addEventListener('astro:after-swap', () => {
+        window.scrollTo(0, 0);
+      });
+    </script>
+
     <script>
       document.addEventListener('astro:page-load', () => {
         try {

@@ -218,6 +218,10 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* clip horizontal overflow at viewport level — clip does not propagate from
+     body to viewport, so this must be on html to prevent lateral scrollbars
+     caused by bloom::before (inset:-40% -50%) and sway animation bleed */
+  overflow-x: clip;
 }
 
 body {
