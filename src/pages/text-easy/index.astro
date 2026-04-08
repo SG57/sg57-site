@@ -12,9 +12,6 @@ import Base from '../../layouts/Base.astro';
 >
   <!-- Hero — cinematic banner -->
   <section class="hero">
-    <!-- TODO: replace feature-graphic-placeholder.png with 8K landscape hero image
-         Current placeholder is a portrait/square image used with object-fit: cover.
-         Target dimensions: match clide-hero.webp / siftr-hero.webp (landscape, ~7680×4320). -->
     <div class="hero-bg" aria-hidden="true"></div>
     <div class="hero-atmosphere" aria-hidden="true">
       <svg class="hero-stars" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -40,15 +37,46 @@ import Base from '../../layouts/Base.astro';
       <p class="hero-tagline">Say what you mean. Easy.</p>
       <p class="hero-subtitle">AI-generated replies in your own voice.</p>
       <div class="hero-actions">
-        <!-- TODO: replace href with live Google Play Store listing URL -->
-        <a
-          href="#"
-          class="cta-button"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Get on Google Play &rarr;
-        </a>
+        <div class="platform-buttons">
+          <!-- iOS — coming soon -->
+          <span class="platform-btn platform-btn--coming" aria-label="iOS version coming soon">
+            <svg class="pbtn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/>
+            </svg>
+            <span class="pbtn-text">
+              <span class="pbtn-sub">Coming to</span>
+              <span class="pbtn-main">iOS</span>
+            </span>
+            <span class="pbtn-badge">Soon</span>
+          </span>
+
+          <!-- Android — active (MVP) -->
+          <!-- TODO: replace href with live Google Play Store listing URL -->
+          <a href="#" class="platform-btn platform-btn--android" target="_blank" rel="noopener noreferrer">
+            <svg class="pbtn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.523 15.341c-.551 0-.999-.449-.999-1s.448-.999.999-.999.999.448.999.999c0 .551-.448 1-.999 1m-11.046 0c-.551 0-.999-.449-.999-1s.448-.999.999-.999.999.448.999.999c0 .551-.449 1-.999 1m11.404-6.02l1.998-3.459a.416.416 0 00-.152-.568.416.416 0 00-.568.152l-2.022 3.503A10.875 10.875 0 0012 7.851a10.875 10.875 0 00-5.137 1.099L4.841 5.447a.416.416 0 00-.568-.152.416.416 0 00-.152.568l1.997 3.459C2.689 11.187.343 14.659 0 18.761h24c-.344-4.102-2.689-7.574-6.119-9.44"/>
+            </svg>
+            <span class="pbtn-text">
+              <span class="pbtn-sub">Download on</span>
+              <span class="pbtn-main">Google Play</span>
+            </span>
+          </a>
+
+          <!-- Desktop — coming soon -->
+          <span class="platform-btn platform-btn--coming" aria-label="Desktop version coming soon">
+            <svg class="pbtn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <rect x="2" y="2" width="9" height="9" rx="1.5"/>
+              <rect x="13" y="2" width="9" height="9" rx="1.5"/>
+              <rect x="2" y="13" width="9" height="9" rx="1.5"/>
+              <rect x="13" y="13" width="9" height="9" rx="1.5"/>
+            </svg>
+            <span class="pbtn-text">
+              <span class="pbtn-sub">Coming to</span>
+              <span class="pbtn-main">Desktop</span>
+            </span>
+            <span class="pbtn-badge">Soon</span>
+          </span>
+        </div>
       </div>
     </div>
   </section>
@@ -174,15 +202,46 @@ import Base from '../../layouts/Base.astro';
   <section class="final-cta">
     <div class="container">
       <p class="final-cta-text">Stop staring at a blinking cursor.</p>
-      <!-- TODO: replace href with live Google Play Store listing URL -->
-      <a
-        href="#"
-        class="cta-button"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Get on Google Play &rarr;
-      </a>
+      <div class="platform-buttons">
+        <!-- iOS — coming soon -->
+        <span class="platform-btn platform-btn--coming" aria-label="iOS version coming soon">
+          <svg class="pbtn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/>
+          </svg>
+          <span class="pbtn-text">
+            <span class="pbtn-sub">Coming to</span>
+            <span class="pbtn-main">iOS</span>
+          </span>
+          <span class="pbtn-badge">Soon</span>
+        </span>
+
+        <!-- Android — active (MVP) -->
+        <!-- TODO: replace href with live Google Play Store listing URL -->
+        <a href="#" class="platform-btn platform-btn--android" target="_blank" rel="noopener noreferrer">
+          <svg class="pbtn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.523 15.341c-.551 0-.999-.449-.999-1s.448-.999.999-.999.999.448.999.999c0 .551-.448 1-.999 1m-11.046 0c-.551 0-.999-.449-.999-1s.448-.999.999-.999.999.448.999.999c0 .551-.449 1-.999 1m11.404-6.02l1.998-3.459a.416.416 0 00-.152-.568.416.416 0 00-.568.152l-2.022 3.503A10.875 10.875 0 0012 7.851a10.875 10.875 0 00-5.137 1.099L4.841 5.447a.416.416 0 00-.568-.152.416.416 0 00-.152.568l1.997 3.459C2.689 11.187.343 14.659 0 18.761h24c-.344-4.102-2.689-7.574-6.119-9.44"/>
+          </svg>
+          <span class="pbtn-text">
+            <span class="pbtn-sub">Download on</span>
+            <span class="pbtn-main">Google Play</span>
+          </span>
+        </a>
+
+        <!-- Desktop — coming soon -->
+        <span class="platform-btn platform-btn--coming" aria-label="Desktop version coming soon">
+          <svg class="pbtn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <rect x="2" y="2" width="9" height="9" rx="1.5"/>
+            <rect x="13" y="2" width="9" height="9" rx="1.5"/>
+            <rect x="2" y="13" width="9" height="9" rx="1.5"/>
+            <rect x="13" y="13" width="9" height="9" rx="1.5"/>
+          </svg>
+          <span class="pbtn-text">
+            <span class="pbtn-sub">Coming to</span>
+            <span class="pbtn-main">Desktop</span>
+          </span>
+          <span class="pbtn-badge">Soon</span>
+        </span>
+      </div>
     </div>
   </section>
 </Base>
@@ -217,14 +276,11 @@ import Base from '../../layouts/Base.astro';
     overflow-x: clip; /* see clide/index.astro — same fix for bloom crease */
   }
 
-  /* TODO: replace feature-graphic-placeholder.png with 8K landscape hero image.
-     The placeholder is portrait/square — object-fit: cover fills the hero area adequately
-     for a development stand-in.
-     Sway intensity: --sway: 12px = medium (matches Clide/Siftr) */
+  /* Sway intensity: --sway: 12px = medium (matches Clide/Siftr) */
   .hero-bg {
     position: absolute;
     inset: -3%;
-    background-image: url('/text-easy/feature-graphic-placeholder.png');
+    background-image: url('/text-easy/feature-graphic.webp');
     background-size: cover;
     background-position: center;
     pointer-events: none;
@@ -334,6 +390,127 @@ import Base from '../../layouts/Base.astro';
   .cta-button:focus-visible {
     box-shadow: var(--sg57-focus-ring), 0 0 28px var(--sg57-accent-glow);
     outline: none;
+  }
+
+  /* --- Platform Store Buttons --- */
+  .platform-buttons {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+  }
+
+  .platform-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 56px;
+    padding: 0.75rem 1.25rem;
+    background: var(--sg57-glass-bg);
+    backdrop-filter: blur(var(--sg57-glass-blur));
+    -webkit-backdrop-filter: blur(var(--sg57-glass-blur));
+    border: 1px solid var(--sg57-border);
+    border-radius: var(--sg57-radius-md);
+    text-decoration: none;
+    position: relative;
+  }
+
+  .pbtn-icon {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+  }
+
+  .pbtn-text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    line-height: 1;
+  }
+
+  .pbtn-sub {
+    font-family: var(--sg57-font-display);
+    font-weight: 400;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.18em;
+  }
+
+  .pbtn-main {
+    font-family: var(--sg57-font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.03em;
+  }
+
+  /* Active: Android */
+  .platform-btn--android {
+    color: var(--sg57-accent);
+    border-color: var(--sg57-accent-muted);
+    transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease,
+                box-shadow 0.3s ease, transform 0.2s var(--sg57-ease-out);
+  }
+
+  .platform-btn--android:hover {
+    color: var(--sg57-text-on-accent);
+    background: var(--sg57-accent);
+    border-color: var(--sg57-accent);
+    box-shadow: 0 0 28px var(--sg57-accent-glow);
+    transform: translateY(-1px);
+  }
+
+  .platform-btn--android:active {
+    transform: scale(0.97) translateY(0);
+  }
+
+  .platform-btn--android:focus-visible {
+    box-shadow: var(--sg57-focus-ring), 0 0 28px var(--sg57-accent-glow);
+    outline: none;
+  }
+
+  /* Inactive: coming soon */
+  .platform-btn--coming {
+    color: var(--sg57-text-muted);
+    border-color: rgba(255, 255, 255, 0.07);
+    opacity: 0.42;
+    cursor: not-allowed;
+    user-select: none;
+  }
+
+  .pbtn-badge {
+    position: absolute;
+    top: -8px;
+    right: -4px;
+    font-family: var(--sg57-font-mono);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sg57-text-dim);
+    background: var(--sg57-surface);
+    border: 1px solid var(--sg57-border);
+    border-radius: 999px;
+    padding: 0.1em 0.5em;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 600px) {
+    .platform-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .platform-btn--android {
+      order: -1;
+    }
+
+    .platform-btn {
+      width: 100%;
+      max-width: 260px;
+      justify-content: center;
+    }
   }
 
   /* --- Hero atmosphere: starfield above wallpaper --- */
