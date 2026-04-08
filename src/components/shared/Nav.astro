@@ -234,6 +234,23 @@ function isActive(href: string): boolean {
     border-radius: var(--sg57-radius-sm);
   }
 
+  /* Group separator before Services */
+  .nav-links a:last-child {
+    position: relative;
+  }
+
+  .nav-links a:last-child::before {
+    content: '';
+    position: absolute;
+    left: calc(-1.75rem / 2);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 1rem;
+    background: rgba(255, 255, 255, 0.14);
+    border-radius: 1px;
+  }
+
   /* -- Hamburger (hidden on desktop) -- */
   .hamburger {
     display: none;
