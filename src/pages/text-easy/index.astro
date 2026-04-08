@@ -13,6 +13,11 @@ import Base from '../../layouts/Base.astro';
   <!-- Hero — cinematic banner -->
   <section class="hero">
     <div class="hero-bg" aria-hidden="true"></div>
+    <!-- Mobile/portrait: product card replaces fullscreen hero bg -->
+    <div class="mobile-hero-card" aria-hidden="true">
+      <div class="mobile-hero-card-bg"></div>
+      <div class="mobile-hero-card-scrim"></div>
+    </div>
     <div class="hero-atmosphere" aria-hidden="true">
       <svg class="hero-stars" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
         <circle cx="145" cy="180" r="2.2" fill="#e4e0f5" opacity="0.45" class="star star-a" style="--td:-0.0s;--dur:9s"/>
@@ -841,6 +846,57 @@ import Base from '../../layouts/Base.astro';
 
     .feature-grid {
       grid-template-columns: 1fr;
+    }
+  }
+
+  /* --- Mobile hero card (desktop: hidden) --- */
+  .mobile-hero-card { display: none; }
+
+  .mobile-hero-card-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('/text-easy/feature-graphic.webp');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .mobile-hero-card-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,12,16,.65) 0%, rgba(10,12,16,.2) 40%, transparent 100%);
+  }
+
+  /* --- Mobile / portrait: product card hero layout --- */
+  @media (max-width: 768px), (hover: none) and (orientation: portrait) {
+    .hero {
+      min-height: 0;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      padding-top: 3.5rem;
+    }
+
+    .hero-bg,
+    .hero-atmosphere {
+      display: none;
+    }
+
+    .mobile-hero-card {
+      display: block;
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .hero-content {
+      padding: 1.75rem 1.5rem 2.5rem;
+      text-align: center;
+    }
+
+    /* Suppress bloom scrims — no wallpaper to contrast against on mobile */
+    .hero-content::before {
+      display: none;
     }
   }
 </style>
