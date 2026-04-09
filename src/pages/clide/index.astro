@@ -10,6 +10,16 @@ import Base from '../../layouts/Base.astro';
   accentHover="#6DD4D2"
   accentMuted="#4A9E9C"
   accentGlow="rgba(91, 192, 190, 0.15)"
+  jsonLd={{
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Clide',
+    description: 'Mission Control for your AI terminal sessions. Manage dozens of CLI AI agents from one cockpit.',
+    applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'Windows, macOS, Linux',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Organization', name: 'SG57 Labs', url: 'https://sg57.dev' },
+  }}
 >
   <!-- Hero — cinematic banner -->
   <section class="hero">

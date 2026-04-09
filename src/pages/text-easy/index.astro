@@ -9,6 +9,16 @@ import Base from '../../layouts/Base.astro';
   accentHover="#33FFaa"
   accentMuted="#00CC6E"
   accentGlow="rgba(0, 255, 136, 0.15)"
+  jsonLd={{
+    '@context': 'https://schema.org',
+    '@type': 'MobileApplication',
+    name: 'Text Easy',
+    description: 'AI-generated replies in your own voice. Share any text, pick your intent, choose a reply — done in seconds.',
+    applicationCategory: 'UtilitiesApplication',
+    operatingSystem: 'Android',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Organization', name: 'SG57 Labs', url: 'https://sg57.dev' },
+  }}
 >
   <!-- Hero — cinematic banner -->
   <section class="hero">

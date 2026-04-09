@@ -15,6 +15,9 @@ interface Props {
   accentGlow?: string;
   accentHover?: string;
   accentMuted?: string;
+  /** Page-specific JSON-LD structured data (added alongside the site-wide
+   *  Organization schema). Pass a single object or array of objects. */
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
@@ -25,7 +28,21 @@ const {
   accentGlow,
   accentHover,
   accentMuted,
+  jsonLd,
 } = Astro.props;
+
+// Site-wide Organization structured data (every page)
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'SG57 Labs',
+  url: 'https://sg57.dev',
+  logo: 'https://sg57.dev/sg57/glyph-512.png',
+  description: 'Purpose-built, high-performance software.',
+};
+
+// Normalize page-specific JSON-LD to array
+const pageSchemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 
 // Build per-product accent override style string (injected on <html>)
 const accentStyle = accentColor
@@ -69,6 +86,18 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
+
+    <!-- Theme color for mobile browser chrome -->
+    <meta name="theme-color" content="#0f0f1a" />
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Structured data: Organization (site-wide) -->
+    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+    {pageSchemas.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
 
     <!-- Preload fonts (critical weights: 400 body, 600 headings/buttons, 700 display) -->
     <link rel="preload" href="/fonts/rajdhani-v17-latin-regular.woff2" as="font" type="font/woff2" crossorigin />

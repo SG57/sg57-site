@@ -9,6 +9,16 @@ import Base from '../../layouts/Base.astro';
   accentHover="#DEB374"
   accentMuted="#B8894A"
   accentGlow="rgba(212, 161, 90, 0.15)"
+  jsonLd={{
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Siftr',
+    description: 'High-performance log viewer for .NET/IIS environments. 200MB log files in 3 seconds with forensic analysis, heatmap minimap, and zero configuration.',
+    applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'Windows',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Organization', name: 'SG57 Labs', url: 'https://sg57.dev' },
+  }}
 >
   <!-- Hero — cinematic banner -->
   <section class="hero">
