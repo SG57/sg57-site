@@ -53,7 +53,7 @@ import Base from '../../layouts/Base.astro';
       <p class="hero-tagline">Mission Control for your AI terminal sessions.</p>
       <p class="hero-subtitle">Manage dozens of CLI AI agents from one cockpit.</p>
       <div class="hero-actions">
-        <span class="platform-btn platform-btn--coming" aria-label="Windows version coming soon">
+        <a href="https://github.com/SG57/clide-releases/releases/latest" class="platform-btn platform-btn--windows" data-download="installer" aria-label="Download Clide for Windows">
           <svg class="pbtn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <rect x="2" y="2" width="9" height="9" rx="1.5"/>
             <rect x="13" y="2" width="9" height="9" rx="1.5"/>
@@ -61,11 +61,12 @@ import Base from '../../layouts/Base.astro';
             <rect x="13" y="13" width="9" height="9" rx="1.5"/>
           </svg>
           <span class="pbtn-text">
-            <span class="pbtn-sub">Coming to</span>
+            <span class="pbtn-sub">Download for</span>
             <span class="pbtn-main">Windows</span>
           </span>
-          <span class="pbtn-badge">Soon</span>
-        </span>
+          <span class="pbtn-badge" data-version>Latest</span>
+        </a>
+        <a href="https://github.com/SG57/clide-releases/releases/latest" class="download-alt" data-download="portable">or get the portable version</a>
       </div>
     </div>
   </section>
@@ -201,7 +202,7 @@ import Base from '../../layouts/Base.astro';
   <!-- Download CTA -->
   <section class="download container">
     <h2 class="download-heading">Ready to take control?</h2>
-    <span class="platform-btn platform-btn--coming" aria-label="Windows version coming soon">
+    <a href="https://github.com/SG57/clide-releases/releases/latest" class="platform-btn platform-btn--windows" data-download="installer" aria-label="Download Clide for Windows">
       <svg class="pbtn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <rect x="2" y="2" width="9" height="9" rx="1.5"/>
         <rect x="13" y="2" width="9" height="9" rx="1.5"/>
@@ -209,13 +210,38 @@ import Base from '../../layouts/Base.astro';
         <rect x="13" y="13" width="9" height="9" rx="1.5"/>
       </svg>
       <span class="pbtn-text">
-        <span class="pbtn-sub">Coming to</span>
+        <span class="pbtn-sub">Download for</span>
         <span class="pbtn-main">Windows</span>
       </span>
-      <span class="pbtn-badge">Soon</span>
-    </span>
+      <span class="pbtn-badge" data-version>Latest</span>
+    </a>
+    <a href="https://github.com/SG57/clide-releases/releases/latest" class="download-alt" data-download="portable">or get the portable version</a>
   </section>
 </Base>
+
+<script>
+  (async () => {
+    try {
+      const res = await fetch('https://api.github.com/repos/SG57/clide-releases/releases/latest');
+      if (!res.ok) return;
+      const release = await res.json();
+      const assets = release.assets || [];
+      const installer = assets.find(a => /Setup.*\.exe$/i.test(a.name));
+      const portable = assets.find(a => /portable.*\.exe$/i.test(a.name));
+      const version = release.tag_name;
+
+      document.querySelectorAll('[data-download="installer"]').forEach(el => {
+        if (installer) el.href = installer.browser_download_url;
+        const badge = el.querySelector('[data-version]');
+        if (badge) badge.textContent = version;
+      });
+
+      document.querySelectorAll('[data-download="portable"]').forEach(el => {
+        if (portable) el.href = portable.browser_download_url;
+      });
+    } catch { /* network error — buttons still link to releases page */ }
+  })();
+</script>
 
 <style>
   /* --- Hero --- */
@@ -797,13 +823,21 @@ import Base from '../../layouts/Base.astro';
     outline: none;
   }
 
-  /* Inactive: coming soon */
-  .platform-btn--coming {
+  /* Alt download link (portable version) */
+  .download-alt {
+    display: block;
+    margin-top: 0.75rem;
+    font-family: var(--sg57-font-display);
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
     color: var(--sg57-text-muted);
-    border-color: rgba(255, 255, 255, 0.07);
-    opacity: 0.42;
-    cursor: not-allowed;
-    user-select: none;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .download-alt:hover {
+    color: var(--sg57-accent);
   }
 
   .pbtn-badge {
