@@ -17,7 +17,10 @@ import Base from '../../layouts/Base.astro';
     description: 'Mission Control for your AI terminal sessions. Manage dozens of CLI AI agents from one cockpit.',
     applicationCategory: 'DeveloperApplication',
     operatingSystem: 'Windows, macOS, Linux',
-    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    offers: [
+      { '@type': 'Offer', price: '0', priceCurrency: 'USD', name: 'Free' },
+      { '@type': 'Offer', price: '39', priceCurrency: 'USD', name: 'Pro', priceValidUntil: '2027-12-31' },
+    ],
     author: { '@type': 'Organization', name: 'SG57 Labs', url: 'https://sg57.dev' },
   }}
 >
@@ -51,7 +54,7 @@ import Base from '../../layouts/Base.astro';
       <h1 class="hero-title sr-only">Clide — AI Terminal Command Center</h1>
       <span class="hero-label">AI TERMINAL COMMAND CENTER</span>
       <p class="hero-tagline">Mission Control for your AI terminal sessions.</p>
-      <p class="hero-subtitle">Manage dozens of CLI AI agents from one cockpit.</p>
+      <p class="hero-subtitle">Manage dozens of Claude Code, Cursor, and Aider sessions from one cockpit — without the tab chaos.</p>
       <div class="hero-actions">
         <a href="https://github.com/SG57/clide-releases/releases/latest" class="platform-btn platform-btn--windows" data-download="installer" aria-label="Download Clide for Windows">
           <svg class="pbtn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -128,16 +131,41 @@ import Base from '../../layouts/Base.astro';
 
   <!-- Store Gallery -->
   <section class="media container">
-    <h2 class="section-heading">Store Preview</h2>
-    <div class="store-placeholder">
-      <span class="placeholder-glyph">[ ]</span>
-      <p class="placeholder-label">Store screenshots coming soon</p>
+    <h2 class="section-heading">Built for the AI Era</h2>
+    <p class="media-tagline">Managing one AI session is easy. Managing ten is chaos. Clide is your mission control.</p>
+  </section>
+
+  <!-- Why Pro -->
+  <section class="why-pro container bloom">
+    <h2 class="section-heading">Why upgrade?</h2>
+    <div class="why-pro-grid">
+      <div class="why-pro-card">
+        <div class="why-pro-icon">&#8734;</div>
+        <h3>No session limits</h3>
+        <p>Run as many AI agents simultaneously as your machine can handle. No artificial caps.</p>
+      </div>
+      <div class="why-pro-card">
+        <div class="why-pro-icon">&#10766;</div>
+        <h3>Multi-window layout</h3>
+        <p>Pop sessions into separate windows. Keep Claude in one monitor, your editor in another.</p>
+      </div>
+      <div class="why-pro-card">
+        <div class="why-pro-icon">&#11041;</div>
+        <h3>Intel Panel</h3>
+        <p>Live diff viewer, structured notes, and context sidebar &mdash; attached to every session.</p>
+      </div>
+      <div class="why-pro-card">
+        <div class="why-pro-icon">&#10760;</div>
+        <h3>One-time payment</h3>
+        <p>$39, forever. No subscription, no cloud lock-in. Your license, your machine.</p>
+      </div>
     </div>
   </section>
 
   <!-- Pricing Table -->
   <section class="pricing container">
-    <h2 class="section-heading">Plans</h2>
+    <h2 class="section-heading">Simple, Honest Pricing</h2>
+    <p class="section-subheading">One payment. No subscription. Yours forever.</p>
     <div class="pricing-grid">
       <!-- Free -->
       <div class="pricing-card">
@@ -164,6 +192,7 @@ import Base from '../../layouts/Base.astro';
         <div class="pricing-header">
           <h3 class="pricing-tier">Pro</h3>
           <p class="pricing-price">$39 <span class="price-note">one-time</span></p>
+          <p class="pricing-benefit">Everything you need to run dozens of AI agents.</p>
         </div>
         <ul class="pricing-features">
           <li>Unlimited sessions</li>
@@ -176,25 +205,7 @@ import Base from '../../layouts/Base.astro';
           <li class="disabled">Concierge AI</li>
           <li class="disabled">Steward Mode</li>
         </ul>
-      </div>
-
-      <!-- AI Tier -->
-      <div class="pricing-card">
-        <div class="pricing-header">
-          <h3 class="pricing-tier">AI Tier</h3>
-          <p class="pricing-price">$5 <span class="price-note">/month</span></p>
-        </div>
-        <ul class="pricing-features">
-          <li>Unlimited sessions</li>
-          <li>Full dashboard</li>
-          <li class="included">Multi-window</li>
-          <li class="included">Intel Panel</li>
-          <li class="included">Custom themes</li>
-          <li class="included">Terminal search</li>
-          <li class="included">Emoji tags</li>
-          <li class="included">Concierge AI</li>
-          <li class="included">Steward Mode</li>
-        </ul>
+        <a href="https://sg57.dev/buy/clide-pro" class="pricing-cta">Get Pro &mdash; $39</a>
       </div>
     </div>
   </section>
@@ -315,6 +326,7 @@ import Base from '../../layouts/Base.astro';
   .problem,
   .features,
   .media,
+  .why-pro,
   .pricing,
   .download {
     --sg57-accent: var(--sg57-clide-accent);
@@ -537,33 +549,15 @@ import Base from '../../layouts/Base.astro';
     padding: 0 1.5rem 5rem;
   }
 
-  .store-placeholder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    padding: 3rem 2rem;
-    border: 1px dashed var(--sg57-border);
-    border-radius: var(--sg57-radius-md);
-    background: var(--sg57-surface);
-  }
-
-  .placeholder-glyph {
-    font-family: var(--sg57-font-display);
-    font-size: 2rem;
-    color: var(--sg57-accent-muted);
-    letter-spacing: 0.3em;
-    opacity: 0.4;
-  }
-
-  .placeholder-label {
-    font-family: var(--sg57-font-display);
-    font-size: 1.125rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+  /* --- Media tagline --- */
+  .media-tagline {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
     color: var(--sg57-text-muted);
-    opacity: 0.5;
+    font-family: var(--sg57-font-display);
+    font-size: var(--font-lg, 1.1rem);
+    line-height: 1.7;
   }
 
   /* --- Pricing --- */
@@ -584,9 +578,10 @@ import Base from '../../layouts/Base.astro';
 
   .pricing-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 380px));
     gap: 1.5rem;
     align-items: start;
+    justify-content: center;
   }
 
   .pricing-card {
@@ -715,7 +710,7 @@ import Base from '../../layouts/Base.astro';
   }
 
   /* --- Responsive --- */
-  @media (max-width: 900px) {
+  @media (max-width: 700px) {
     .pricing-grid {
       grid-template-columns: 1fr;
       max-width: 400px;
@@ -855,6 +850,116 @@ import Base from '../../layouts/Base.astro';
     border-radius: 999px;
     padding: 0.1em 0.5em;
     line-height: 1.5;
+  }
+
+  /* --- Section subheading --- */
+  .section-subheading {
+    text-align: center;
+    color: var(--sg57-text-muted);
+    font-family: var(--sg57-font-display);
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    margin-top: -1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  /* --- Pricing benefit line --- */
+  .pricing-benefit {
+    font-family: var(--sg57-font-display);
+    font-size: 0.9rem;
+    color: var(--sg57-text-dim);
+    margin-top: 0.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* --- Pricing CTA button --- */
+  .pricing-cta {
+    display: block;
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    text-align: center;
+    text-decoration: none;
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    color: var(--sg57-text-on-accent);
+    background: var(--sg57-accent);
+    border: 1px solid var(--sg57-accent);
+    border-radius: var(--sg57-radius-md);
+    transition: background 0.25s ease, box-shadow 0.3s ease, transform 0.2s var(--sg57-ease-out);
+  }
+
+  .pricing-cta:hover {
+    background: var(--sg57-accent-hover);
+    border-color: var(--sg57-accent-hover);
+    box-shadow: 0 0 28px var(--sg57-accent-glow);
+    transform: translateY(-1px);
+  }
+
+  .pricing-cta:active {
+    transform: scale(0.97) translateY(0);
+  }
+
+  .pricing-cta:focus-visible {
+    box-shadow: var(--sg57-focus-ring), 0 0 28px var(--sg57-accent-glow);
+    outline: none;
+  }
+
+  /* --- Why Pro section --- */
+  .why-pro {
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .why-pro-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .why-pro-card {
+    background: var(--sg57-surface);
+    border: 1px solid var(--sg57-border);
+    border-radius: var(--sg57-radius-md);
+    padding: 1.75rem 1.5rem;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s var(--sg57-ease-out);
+  }
+
+  .why-pro-card:hover {
+    border-color: var(--sg57-accent-muted);
+    box-shadow: 0 0 20px var(--sg57-accent-glow);
+    transform: translateY(-2px);
+  }
+
+  .why-pro-icon {
+    font-size: 1.75rem;
+    color: var(--sg57-accent);
+    margin-bottom: 0.75rem;
+    line-height: 1;
+  }
+
+  .why-pro-card h3 {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: 0.06em;
+    color: var(--sg57-text);
+    margin-bottom: 0.5rem;
+  }
+
+  .why-pro-card p {
+    font-family: var(--sg57-font-display);
+    font-weight: 400;
+    font-size: 1rem;
+    color: var(--sg57-text-dim);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 600px) {
+    .why-pro-grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   /* --- Mobile / portrait: product card hero layout --- */
