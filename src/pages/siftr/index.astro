@@ -45,26 +45,30 @@ import Base from '../../layouts/Base.astro';
         <circle cx="1280" cy="400" r="1.5" fill="#8090b0" opacity="0.2" class="star star-d" style="--td:-1.5s;--dur:15.5s"/>
       </svg>
     </div>
-    <div class="hero-content container bloom">
-      <!-- h1 for SEO/a11y — "SIFTR" is in the banner image -->
-      <h1 class="sr-only">Siftr — Log Analysis System</h1>
-      <span class="hero-label">LOG ANALYSIS SYSTEM</span>
-      <p class="hero-tagline">200MB log files. 3 seconds. Zero crashes.</p>
-      <p class="hero-subtitle">High-performance log viewer for .NET/IIS environments.</p>
-      <div class="hero-actions">
-        <span class="platform-btn platform-btn--coming" aria-label="Windows version coming soon">
-          <svg class="pbtn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <rect x="2" y="2" width="9" height="9" rx="1.5"/>
-            <rect x="13" y="2" width="9" height="9" rx="1.5"/>
-            <rect x="2" y="13" width="9" height="9" rx="1.5"/>
-            <rect x="13" y="13" width="9" height="9" rx="1.5"/>
-          </svg>
-          <span class="pbtn-text">
-            <span class="pbtn-sub">Coming to</span>
-            <span class="pbtn-main">Windows</span>
+    <div class="hero-panel">
+      <div class="hero-panel-inner container">
+        <div class="hero-identity">
+          <!-- h1 for SEO/a11y — "SIFTR" is in the banner image -->
+          <h1 class="sr-only">Siftr — Log Analysis System</h1>
+          <span class="hero-label">LOG ANALYSIS SYSTEM</span>
+          <p class="hero-tagline">200MB log files. 3 seconds. Zero crashes.</p>
+          <p class="hero-subtitle">High-performance log viewer for .NET/IIS environments.</p>
+        </div>
+        <div class="hero-actions">
+          <span class="platform-btn platform-btn--coming" aria-label="Windows version coming soon">
+            <svg class="pbtn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <rect x="2" y="2" width="9" height="9" rx="1.5"/>
+              <rect x="13" y="2" width="9" height="9" rx="1.5"/>
+              <rect x="2" y="13" width="9" height="9" rx="1.5"/>
+              <rect x="13" y="13" width="9" height="9" rx="1.5"/>
+            </svg>
+            <span class="pbtn-text">
+              <span class="pbtn-sub">Coming to</span>
+              <span class="pbtn-main">Windows</span>
+            </span>
+            <span class="pbtn-badge">Soon</span>
           </span>
-          <span class="pbtn-badge">Soon</span>
-        </span>
+        </div>
       </div>
     </div>
   </section>
@@ -286,9 +290,6 @@ import Base from '../../layouts/Base.astro';
   /* --- Hero --- */
   .hero {
     position: relative;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
     min-height: 100vh;
     min-height: 100svh;
     overflow-x: clip; /* see clide/index.astro — same fix for bloom crease */
@@ -342,40 +343,79 @@ import Base from '../../layouts/Base.astro';
     .hero-bg { animation: none; inset: 0; }
   }
 
-  .hero-content {
-    position: relative;
+  /* --- Glass Pedestal Panel --- */
+  .hero-panel {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     z-index: 2;
-    text-align: center;
-    padding: 0 1.5rem 4rem;
-    width: 100%;
+    padding-top: 5rem;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(10, 12, 16, 0.82) 42%,
+      rgba(10, 12, 16, 0.96) 100%
+    );
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    animation: panel-rise 0.5s var(--sg57-ease-snap) both;
+    animation-delay: 0.15s;
+  }
+
+  @keyframes panel-rise {
+    from { transform: translateY(10px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-panel { animation: none; }
+  }
+
+  .hero-panel-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    padding: 0 1.5rem 2.75rem;
+  }
+
+  .hero-identity { /* left column — label, tagline, subtitle */ }
+
+  .hero-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
   }
 
   .hero-label {
     display: block;
     font-family: var(--sg57-font-mono);
-    font-size: 1.125rem;
-    letter-spacing: 0.22em;
+    font-size: 0.8125rem;
+    letter-spacing: 0.3em;
     color: var(--sg57-accent);
     text-transform: uppercase;
-    margin-bottom: 1rem;
+    margin-bottom: 0.6rem;
   }
 
 
   .hero-tagline {
     font-family: var(--sg57-font-display);
     font-weight: 600;
-    font-size: clamp(1.125rem, 2.5vw, 1.6rem);
-    color: var(--sg57-text);
-    margin-bottom: 0.5rem;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    color: var(--sg57-text-bright);
+    line-height: 1.2;
+    margin-bottom: 0.6rem;
   }
 
   .hero-subtitle {
     font-family: var(--sg57-font-display);
     font-weight: 400;
-    font-size: clamp(1.125rem, 1.8vw, 1.25rem);
-    color: var(--sg57-text);
-    margin-bottom: 2rem;
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+    font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+    color: var(--sg57-text-dim);
+    line-height: 1.65;
+    margin-bottom: 0;
   }
 
   /* --- CTA Button --- */
@@ -793,15 +833,6 @@ import Base from '../../layouts/Base.astro';
 
   /* --- Responsive --- */
   @media (max-width: 720px) {
-    .hero {
-      min-height: 100vh;
-      min-height: 100svh;
-    }
-
-    .hero-content {
-      padding: 3.5rem 1.5rem 3rem;
-    }
-
     .feature-grid {
       grid-template-columns: 1fr;
     }
@@ -935,6 +966,7 @@ import Base from '../../layouts/Base.astro';
   @media (max-width: 768px), (hover: none) and (orientation: portrait) {
     .hero {
       min-height: 0;
+      display: flex;
       flex-direction: column;
       align-items: stretch;
       justify-content: flex-start;
@@ -957,14 +989,28 @@ import Base from '../../layouts/Base.astro';
       -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 87%, transparent 100%);
     }
 
-    .hero-content {
-      padding: 1.75rem 1.5rem 2.5rem;
-      text-align: center;
+    /* Glass panel resets to plain content block on mobile */
+    .hero-panel {
+      position: static;
+      padding-top: 0;
+      background: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      animation: none;
     }
 
-    /* Suppress bloom scrim — no wallpaper to contrast against on mobile */
-    .hero-content::before {
-      display: none;
+    .hero-panel-inner {
+      display: block;
+      padding: 1.75rem 1.5rem 2.5rem;
+    }
+
+    .hero-identity {
+      text-align: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-actions {
+      align-items: center;
     }
   }
 
