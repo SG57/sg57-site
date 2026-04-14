@@ -90,65 +90,81 @@ import Base from '../../layouts/Base.astro';
     <h2 class="section-heading">Capabilities</h2>
     <div class="feature-grid">
       <div class="feature-card">
-        <div class="feature-icon">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="4" y="6" width="4" height="20" rx="1" fill="var(--sg57-accent-muted)" opacity="0.5"/>
-            <rect x="10" y="10" width="4" height="16" rx="1" fill="var(--sg57-accent-muted)" opacity="0.65"/>
-            <rect x="16" y="4" width="4" height="22" rx="1" fill="var(--sg57-accent)" opacity="0.8"/>
-            <rect x="22" y="8" width="4" height="18" rx="1" fill="var(--sg57-accent)"/>
-          </svg>
+        <div class="feature-left">
+          <div class="feature-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="6" width="4" height="20" rx="1" fill="var(--sg57-accent-muted)" opacity="0.5"/>
+              <rect x="10" y="10" width="4" height="16" rx="1" fill="var(--sg57-accent-muted)" opacity="0.65"/>
+              <rect x="16" y="4" width="4" height="22" rx="1" fill="var(--sg57-accent)" opacity="0.8"/>
+              <rect x="22" y="8" width="4" height="18" rx="1" fill="var(--sg57-accent)"/>
+            </svg>
+          </div>
+          <h3 class="feature-name">Heatmap Minimap</h3>
         </div>
-        <h3 class="feature-name">Heatmap Minimap</h3>
-        <p class="feature-desc">
-          Scrollbar-integrated density visualization. See errors, warnings, and patterns
-          across the entire file at a glance. Click to jump anywhere instantly.
-        </p>
+        <div class="feature-right">
+          <p class="feature-desc">
+            Scrollbar-integrated density visualization. See errors, warnings, and patterns
+            across the entire file at a glance. Click to jump anywhere instantly.
+          </p>
+        </div>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="16" cy="16" r="10" stroke="var(--sg57-accent)" stroke-width="2" fill="none"/>
-            <path d="M12 16l3 3 5-6" stroke="var(--sg57-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M16 4v4M16 24v4M4 16h4M24 16h4" stroke="var(--sg57-accent-muted)" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
-          </svg>
+        <div class="feature-left">
+          <div class="feature-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="16" cy="16" r="10" stroke="var(--sg57-accent)" stroke-width="2" fill="none"/>
+              <path d="M12 16l3 3 5-6" stroke="var(--sg57-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M16 4v4M16 24v4M4 16h4M24 16h4" stroke="var(--sg57-accent-muted)" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+            </svg>
+          </div>
+          <h3 class="feature-name">Forensic Reports</h3>
         </div>
-        <h3 class="feature-name">Forensic Reports</h3>
-        <p class="feature-desc">
-          Automated anomaly detection with temporal segmentation, spike analysis, and
-          component health scoring. 6-pass analysis turns 200MB of noise into actionable findings.
-        </p>
+        <div class="feature-right">
+          <p class="feature-desc">
+            Automated anomaly detection with temporal segmentation, spike analysis, and
+            component health scoring. 6-pass analysis turns 200MB of noise into actionable findings.
+          </p>
+        </div>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6 22l5-8 4 4 6-10 5 6" stroke="var(--sg57-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="26" cy="14" r="3" fill="var(--sg57-accent)" opacity="0.8"/>
-            <path d="M26 14v8" stroke="var(--sg57-accent-muted)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 2"/>
-          </svg>
+        <div class="feature-left">
+          <div class="feature-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 22l5-8 4 4 6-10 5 6" stroke="var(--sg57-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="26" cy="14" r="3" fill="var(--sg57-accent)" opacity="0.8"/>
+              <path d="M26 14v8" stroke="var(--sg57-accent-muted)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 2"/>
+            </svg>
+          </div>
+          <h3 class="feature-name">Follow Mode</h3>
         </div>
-        <h3 class="feature-name">Follow Mode</h3>
-        <p class="feature-desc">
-          Real-time file watching with rollover detection. Monitor active log files as
-          your application runs. Never miss a critical error again.
-        </p>
+        <div class="feature-right">
+          <p class="feature-desc">
+            Real-time file watching with rollover detection. Monitor active log files as
+            your application runs. Never miss a critical error again.
+          </p>
+        </div>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="5" y="6" width="22" height="4" rx="1" fill="var(--sg57-accent-muted)" opacity="0.4"/>
-            <rect x="5" y="12" width="22" height="4" rx="1" fill="var(--sg57-accent-muted)" opacity="0.6"/>
-            <rect x="5" y="18" width="22" height="4" rx="1" fill="var(--sg57-accent)" opacity="0.8"/>
-            <rect x="5" y="24" width="14" height="4" rx="1" fill="var(--sg57-accent)"/>
-          </svg>
+        <div class="feature-left">
+          <div class="feature-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="5" y="6" width="22" height="4" rx="1" fill="var(--sg57-accent-muted)" opacity="0.4"/>
+              <rect x="5" y="12" width="22" height="4" rx="1" fill="var(--sg57-accent-muted)" opacity="0.6"/>
+              <rect x="5" y="18" width="22" height="4" rx="1" fill="var(--sg57-accent)" opacity="0.8"/>
+              <rect x="5" y="24" width="14" height="4" rx="1" fill="var(--sg57-accent)"/>
+            </svg>
+          </div>
+          <h3 class="feature-name">Multi-Format Parsing</h3>
         </div>
-        <h3 class="feature-name">Multi-Format Parsing</h3>
-        <p class="feature-desc">
-          Native support for log4net, NLog, Serilog, and IIS W3C formats. Auto-detection
-          means zero configuration &mdash; just open the file.
-        </p>
+        <div class="feature-right">
+          <p class="feature-desc">
+            Native support for log4net, NLog, Serilog, and IIS W3C formats. Auto-detection
+            means zero configuration &mdash; just open the file.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -612,19 +628,17 @@ import Base from '../../layouts/Base.astro';
   }
 
   .feature-card {
-    background: var(--sg57-surface);
-    border: 1px solid var(--sg57-border);
+    display: grid;
+    grid-template-columns: 1fr 2fr;
     border-radius: var(--sg57-radius-md);
-    padding: 2rem;
-    transition:
-      border-color 0.25s ease,
-      box-shadow 0.25s ease,
-      transform 0.2s var(--sg57-ease-out);
+    overflow: hidden;
+    border: 1px solid var(--sg57-border);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s var(--sg57-ease-out);
   }
 
   .feature-card:hover {
     border-color: var(--sg57-accent-muted);
-    box-shadow: 0 0 24px var(--sg57-accent-glow), inset 0 0 24px var(--sg57-accent-glow);
+    box-shadow: 0 0 24px var(--sg57-accent-glow);
     transform: translateY(-2px);
   }
 
@@ -633,19 +647,44 @@ import Base from '../../layouts/Base.astro';
     outline: none;
   }
 
+  .feature-left {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.6rem; padding: 1.5rem 1rem;
+    background: radial-gradient(ellipse 120% 80% at 50% 50%, color-mix(in srgb, var(--sg57-accent) 11%, var(--sg57-elevated)) 0%, color-mix(in srgb, var(--sg57-accent) 4%, var(--sg57-elevated)) 100%);
+    border-right: 1px solid var(--sg57-accent-muted);
+    text-align: center; position: relative;
+  }
+
+  .feature-left::before {
+    content: ''; position: absolute; width: 80px; height: 80px; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, var(--sg57-accent-glow) 0%, transparent 70%);
+    filter: blur(20px); pointer-events: none; animation: pulse-glow 5s ease-in-out infinite;
+  }
+
   .feature-icon {
-    margin-bottom: 1.25rem;
-    width: 32px;
-    height: 32px;
+    position: relative;
+    width: 44px; height: 44px;
+    color: var(--sg57-accent);
+  }
+
+  .feature-icon svg {
+    width: 100%; height: 100%;
+    filter: drop-shadow(0 0 10px var(--sg57-accent-glow));
   }
 
   .feature-name {
+    position: relative;
     font-family: var(--sg57-font-display);
     font-weight: 600;
-    font-size: 1.125rem;
+    font-size: 1rem;
     letter-spacing: 0.08em;
-    color: var(--sg57-text);
-    margin-bottom: 0.75rem;
+    color: var(--sg57-accent);
+  }
+
+  .feature-right {
+    display: flex; align-items: center; padding: 1.5rem;
+    background: radial-gradient(ellipse at 10% 50%, color-mix(in srgb, var(--sg57-accent) 4%, var(--sg57-surface)) 0%, var(--sg57-surface) 60%);
   }
 
   .feature-desc {
@@ -654,6 +693,7 @@ import Base from '../../layouts/Base.astro';
     font-size: 1.125rem;
     color: var(--sg57-text-dim);
     line-height: 1.6;
+    text-align: left;
   }
 
   /* --- Store Media --- */
@@ -867,6 +907,28 @@ import Base from '../../layouts/Base.astro';
   @media (max-width: 720px) {
     .feature-grid {
       grid-template-columns: 1fr;
+    }
+
+    .feature-card {
+      grid-template-columns: auto 1fr;
+    }
+
+    .feature-left {
+      flex-direction: row;
+      gap: 0.75rem;
+      padding: 1.25rem 1rem;
+    }
+
+    .feature-left::before {
+      width: 60px; height: 60px;
+    }
+
+    .feature-icon {
+      width: 32px; height: 32px;
+    }
+
+    .feature-right {
+      padding: 1.25rem;
     }
 
     .pricing-grid {

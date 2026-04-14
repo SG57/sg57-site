@@ -95,39 +95,84 @@ import Base from '../../layouts/Base.astro';
     <h2 class="section-heading">Capabilities</h2>
     <div class="features-grid">
       <div class="feature-card">
-        <div class="feature-icon">&#9638;</div>
-        <h3 class="feature-heading">Mission Control</h3>
-        <p class="feature-desc">
-          Grid dashboard showing all your AI sessions at a glance.
-          Status, duration, last output &mdash; everything visible without switching tabs.
-        </p>
+        <div class="feature-left">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="6" y="6" width="14" height="14" rx="2"/>
+              <rect x="24" y="6" width="14" height="14" rx="2"/>
+              <rect x="6" y="24" width="14" height="14" rx="2"/>
+              <rect x="24" y="24" width="14" height="14" rx="2"/>
+              <circle cx="13" cy="13" r="2" opacity="0.4"/>
+              <circle cx="31" cy="13" r="2" opacity="0.4"/>
+              <circle cx="13" cy="31" r="2" opacity="0.4"/>
+              <circle cx="31" cy="31" r="2" opacity="0.4"/>
+            </svg>
+          </div>
+          <h3 class="feature-name">Mission Control</h3>
+        </div>
+        <div class="feature-right">
+          <p class="feature-desc">
+            Grid dashboard showing all your AI sessions at a glance.
+            Status, duration, last output &mdash; everything visible without switching tabs.
+          </p>
+        </div>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">&#9655;</div>
-        <h3 class="feature-heading">Sidekicks</h3>
-        <p class="feature-desc">
-          Run your dev server, test watcher, or log tail alongside your AI session.
-          Unlimited background companions per session on Pro.
-        </p>
+        <div class="feature-left">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="8" y="8" width="28" height="28" rx="3"/>
+              <path d="M18 16l10 6-10 6V16z" fill="none" stroke-width="1.5"/>
+              <path d="M8 14h28" opacity="0.25"/>
+            </svg>
+          </div>
+          <h3 class="feature-name">Sidekicks</h3>
+        </div>
+        <div class="feature-right">
+          <p class="feature-desc">
+            Run your dev server, test watcher, or log tail alongside your AI session.
+            Unlimited background companions per session on Pro.
+          </p>
+        </div>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">&#9998;</div>
-        <h3 class="feature-heading">Structured Notes</h3>
-        <p class="feature-desc">
-          Capture prompts, diffs, and context as titled searchable cards.
-          Pro unlocks the card mode; all users get freeform notes.
-        </p>
+        <div class="feature-left">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 34l6-6 4 4 8-10 6 6"/>
+              <rect x="8" y="8" width="28" height="28" rx="2" opacity="0.25"/>
+              <path d="M14 12h16M14 18h10M14 24h12" opacity="0.3"/>
+            </svg>
+          </div>
+          <h3 class="feature-name">Structured Notes</h3>
+        </div>
+        <div class="feature-right">
+          <p class="feature-desc">
+            Capture prompts, diffs, and context as titled searchable cards.
+            Pro unlocks the card mode; all users get freeform notes.
+          </p>
+        </div>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">&#128269;</div>
-        <h3 class="feature-heading">Session Explorer</h3>
-        <p class="feature-desc">
-          Folder-based organization for your AI sessions. Pin, archive, recover
-          from crashes, jump between dozens of contexts.
-        </p>
+        <div class="feature-left">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="20" cy="20" r="12"/>
+              <path d="M29 29l7 7"/>
+              <path d="M16 18h8M16 22h5" opacity="0.35"/>
+            </svg>
+          </div>
+          <h3 class="feature-name">Session Explorer</h3>
+        </div>
+        <div class="feature-right">
+          <p class="feature-desc">
+            Folder-based organization for your AI sessions. Pin, archive, recover
+            from crashes, jump between dozens of contexts.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -142,25 +187,72 @@ import Base from '../../layouts/Base.astro';
   <section class="why-pro container bloom">
     <h2 class="section-heading">Why upgrade?</h2>
     <div class="why-pro-grid">
-      <div class="why-pro-card">
-        <div class="why-pro-icon">&#8734;</div>
-        <h3>No session limits</h3>
-        <p>Run as many AI agents simultaneously as your machine can handle. No artificial caps.</p>
+      <div class="feature-card">
+        <div class="feature-left">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 22c4-8 8-12 14-12s10 4 14 12c-4 8-8 12-14 12S12 30 8 22z" opacity="0.25"/>
+              <path d="M10 22c0-6.6 5.4-12 12-12M34 22c0 6.6-5.4 12-12 12"/>
+              <path d="M16 22h12" stroke-width="2"/>
+            </svg>
+          </div>
+          <h3 class="feature-name">No session limits</h3>
+        </div>
+        <div class="feature-right">
+          <p class="feature-desc">Run as many AI agents simultaneously as your machine can handle. No artificial caps.</p>
+        </div>
       </div>
-      <div class="why-pro-card">
-        <div class="why-pro-icon">&#9998;</div>
-        <h3>Structured notes</h3>
-        <p>Organize AI context into titled, searchable cards per session. Never lose that one prompt that worked.</p>
+
+      <div class="feature-card">
+        <div class="feature-left">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="8" y="10" width="28" height="24" rx="2"/>
+              <path d="M8 18h28" opacity="0.3"/>
+              <path d="M14 24h10M14 29h6" opacity="0.4"/>
+              <circle cx="32" cy="14" r="1" fill="currentColor" opacity="0.3"/>
+            </svg>
+          </div>
+          <h3 class="feature-name">Structured notes</h3>
+        </div>
+        <div class="feature-right">
+          <p class="feature-desc">Organize AI context into titled, searchable cards per session. Never lose that one prompt that worked.</p>
+        </div>
       </div>
-      <div class="why-pro-card">
-        <div class="why-pro-icon">&#9889;</div>
-        <h3>Sidekick presets</h3>
-        <p>Save <code>pnpm dev</code>, <code>pnpm test --watch</code>, and your log tails once. Pro gives you unlimited sidekicks per session (vs 1 on Free) and one-click presets to spawn them.</p>
+
+      <div class="feature-card">
+        <div class="feature-left">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 6v10l6 4"/>
+              <path d="M12 16l10 8 10-8" opacity="0.25"/>
+              <path d="M16 30l6-4 6 4" stroke-width="2"/>
+              <circle cx="22" cy="34" r="4" opacity="0.3"/>
+            </svg>
+          </div>
+          <h3 class="feature-name">Sidekick presets</h3>
+        </div>
+        <div class="feature-right">
+          <p class="feature-desc">Save <code>pnpm dev</code>, <code>pnpm test --watch</code>, and your log tails once. Pro gives you unlimited sidekicks per session (vs 1 on Free) and one-click presets to spawn them.</p>
+        </div>
       </div>
-      <div class="why-pro-card">
-        <div class="why-pro-icon">&#10760;</div>
-        <h3>One-time payment</h3>
-        <p>$39, forever. No subscription, no cloud lock-in. Your license, your machine.</p>
+
+      <div class="feature-card">
+        <div class="feature-left">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 8h20l-2 28H14L12 8z"/>
+              <path d="M18 8v-2a2 2 0 012-2h4a2 2 0 012 2v2" opacity="0.3"/>
+              <path d="M16 18h12M16 24h8" opacity="0.35"/>
+              <circle cx="30" cy="32" r="6" opacity="0.2"/>
+              <path d="M27 32l2 2 4-4" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <h3 class="feature-name">One-time payment</h3>
+        </div>
+        <div class="feature-right">
+          <p class="feature-desc">$39, forever. No subscription, no cloud lock-in. Your license, your machine.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -584,38 +676,74 @@ import Base from '../../layouts/Base.astro';
   }
 
   .feature-card {
-    background: var(--sg57-surface);
-    border: 1px solid var(--sg57-border);
+    display: grid;
+    grid-template-columns: 1fr 2fr;
     border-radius: var(--sg57-radius-md);
-    padding: 2rem;
+    overflow: hidden;
+    border: 1px solid var(--sg57-border);
     transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s var(--sg57-ease-out);
   }
 
   .feature-card:hover {
     border-color: var(--sg57-accent-muted);
-    box-shadow: 0 0 20px var(--sg57-accent-glow);
+    box-shadow: 0 0 24px var(--sg57-accent-glow);
     transform: translateY(-2px);
   }
 
-  .feature-card:focus-visible {
-    box-shadow: var(--sg57-focus-ring);
-    outline: none;
+  .feature-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 1.5rem 1rem;
+    background: radial-gradient(ellipse 120% 80% at 50% 50%, color-mix(in srgb, var(--sg57-accent) 11%, var(--sg57-elevated)) 0%, color-mix(in srgb, var(--sg57-accent) 4%, var(--sg57-elevated)) 100%);
+    border-right: 1px solid var(--sg57-accent-muted);
+    text-align: center;
+    position: relative;
+  }
+
+  .feature-left::before {
+    content: '';
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, var(--sg57-accent-glow) 0%, transparent 70%);
+    filter: blur(20px);
+    pointer-events: none;
+    animation: pulse-glow 5s ease-in-out infinite;
   }
 
   .feature-icon {
-    font-size: 1.75rem;
+    position: relative;
+    width: 44px;
+    height: 44px;
     color: var(--sg57-accent);
-    margin-bottom: 1rem;
-    line-height: 1;
   }
 
-  .feature-heading {
+  .feature-icon svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 10px var(--sg57-accent-glow));
+  }
+
+  .feature-name {
+    position: relative;
     font-family: var(--sg57-font-display);
     font-weight: 600;
-    font-size: 1.125rem;
+    font-size: 1rem;
     letter-spacing: 0.08em;
-    color: var(--sg57-text);
-    margin-bottom: 0.75rem;
+    color: var(--sg57-accent);
+  }
+
+  .feature-right {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+    background: radial-gradient(ellipse at 10% 50%, color-mix(in srgb, var(--sg57-accent) 4%, var(--sg57-surface)) 0%, var(--sg57-surface) 60%);
   }
 
   .feature-desc {
@@ -624,6 +752,7 @@ import Base from '../../layouts/Base.astro';
     font-size: 1.125rem;
     color: var(--sg57-text-dim);
     line-height: 1.6;
+    text-align: left;
   }
 
   /* --- Store Media --- */
@@ -801,8 +930,34 @@ import Base from '../../layouts/Base.astro';
   }
 
   @media (max-width: 720px) {
-    .features-grid {
+    .features-grid,
+    .why-pro-grid {
       grid-template-columns: 1fr;
+    }
+
+    .feature-card {
+      grid-template-columns: auto 1fr;
+    }
+
+    .feature-left {
+      flex-direction: row;
+      gap: 0.75rem;
+      padding: 1.25rem 1rem;
+      border-right: 1px solid var(--sg57-accent-muted);
+    }
+
+    .feature-left::before {
+      width: 60px;
+      height: 60px;
+    }
+
+    .feature-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .feature-right {
+      padding: 1.25rem;
     }
   }
 
@@ -989,50 +1144,6 @@ import Base from '../../layouts/Base.astro';
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
-  }
-
-  .why-pro-card {
-    background: var(--sg57-surface);
-    border: 1px solid var(--sg57-border);
-    border-radius: var(--sg57-radius-md);
-    padding: 1.75rem 1.5rem;
-    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s var(--sg57-ease-out);
-  }
-
-  .why-pro-card:hover {
-    border-color: var(--sg57-accent-muted);
-    box-shadow: 0 0 20px var(--sg57-accent-glow);
-    transform: translateY(-2px);
-  }
-
-  .why-pro-icon {
-    font-size: 1.75rem;
-    color: var(--sg57-accent);
-    margin-bottom: 0.75rem;
-    line-height: 1;
-  }
-
-  .why-pro-card h3 {
-    font-family: var(--sg57-font-display);
-    font-weight: 600;
-    font-size: 1.05rem;
-    letter-spacing: 0.06em;
-    color: var(--sg57-text);
-    margin-bottom: 0.5rem;
-  }
-
-  .why-pro-card p {
-    font-family: var(--sg57-font-display);
-    font-weight: 400;
-    font-size: 1rem;
-    color: var(--sg57-text-dim);
-    line-height: 1.6;
-  }
-
-  @media (max-width: 600px) {
-    .why-pro-grid {
-      grid-template-columns: 1fr;
-    }
   }
 
   /* --- Mobile / portrait: product card hero layout --- */

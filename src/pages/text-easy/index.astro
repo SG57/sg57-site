@@ -115,34 +115,69 @@ import Base from '../../layouts/Base.astro';
     <h2 class="section-heading">How It Works</h2>
     <div class="steps-grid">
       <div class="step-card">
-        <div class="step-number">01</div>
-        <h3 class="step-heading">Share any text</h3>
-        <p class="step-desc">
-          Select a message in any app &mdash; SMS, Slack, email, Reddit, anywhere &mdash;
-          and share it to Text Easy. No typing required.
-        </p>
+        <div class="step-left">
+          <div class="step-icon" aria-hidden="true">
+            <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="8" y="10" width="18" height="24" rx="2" opacity="0.3"/>
+              <path d="M20 22l8-6v16z"/>
+              <path d="M28 16l4-3"/>
+              <path d="M32 13l-3 1M32 13l-1-3" stroke-width="1.2"/>
+            </svg>
+          </div>
+          <div class="step-number" aria-hidden="true">01</div>
+        </div>
+        <div class="step-right">
+          <h3 class="step-heading">Share any text</h3>
+          <p class="step-desc">
+            Select a message in any app &mdash; SMS, Slack, email, Reddit, anywhere &mdash;
+            and share it to Text Easy. No typing required.
+          </p>
+        </div>
       </div>
 
       <div class="step-connector" aria-hidden="true">&rarr;</div>
 
       <div class="step-card">
-        <div class="step-number">02</div>
-        <h3 class="step-heading">Pick your intent</h3>
-        <p class="step-desc">
-          The AI infers 3 likely response intents from the message. You recognize
-          the right one &mdash; no prompting, no typing.
-        </p>
+        <div class="step-left">
+          <div class="step-icon" aria-hidden="true">
+            <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="22" cy="22" r="16" opacity="0.2"/>
+              <circle cx="22" cy="22" r="10" opacity="0.4"/>
+              <circle cx="22" cy="22" r="4"/>
+              <circle cx="22" cy="22" r="1.5" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+          <div class="step-number" aria-hidden="true">02</div>
+        </div>
+        <div class="step-right">
+          <h3 class="step-heading">Pick your intent</h3>
+          <p class="step-desc">
+            The AI infers 3 likely response intents from the message. You recognize
+            the right one &mdash; no prompting, no typing.
+          </p>
+        </div>
       </div>
 
       <div class="step-connector" aria-hidden="true">&rarr;</div>
 
       <div class="step-card">
-        <div class="step-number">03</div>
-        <h3 class="step-heading">Choose a reply, send</h3>
-        <p class="step-desc">
-          Pick from 3 reply options in your voice. Tap to copy, paste back
-          into your conversation. Done in under 15 seconds.
-        </p>
+        <div class="step-left">
+          <div class="step-icon" aria-hidden="true">
+            <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 10h20a2 2 0 012 2v14a2 2 0 01-2 2H16l-6 5v-5a2 2 0 01-2-2V12a2 2 0 012-2z" opacity="0.3"/>
+              <path d="M16 19l3 3 7-7" stroke-width="2"/>
+              <path d="M34 16v10a2 2 0 01-2 2h-1" opacity="0.2"/>
+            </svg>
+          </div>
+          <div class="step-number" aria-hidden="true">03</div>
+        </div>
+        <div class="step-right">
+          <h3 class="step-heading">Choose a reply, send</h3>
+          <p class="step-desc">
+            Pick from 3 reply options in your voice. Tap to copy, paste back
+            into your conversation. Done in under 15 seconds.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -781,27 +816,86 @@ import Base from '../../layouts/Base.astro';
   }
 
   .step-card {
-    background: var(--sg57-surface);
-    border: 1px solid var(--sg57-border);
+    display: grid;
+    grid-template-columns: 1fr 2fr;
     border-radius: var(--sg57-radius-md);
-    padding: 2rem;
+    overflow: hidden;
+    border: 1px solid var(--sg57-border);
     transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s var(--sg57-ease-out);
   }
 
   .step-card:hover {
     border-color: var(--sg57-accent-muted);
-    box-shadow: 0 0 24px var(--sg57-accent-glow), inset 0 0 24px var(--sg57-accent-glow);
+    box-shadow: 0 0 24px var(--sg57-accent-glow);
     transform: translateY(-2px);
   }
 
+  .step-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1.5rem 1rem;
+    background:
+      radial-gradient(
+        ellipse 120% 80% at 50% 50%,
+        color-mix(in srgb, var(--sg57-accent) 11%, var(--sg57-elevated)) 0%,
+        color-mix(in srgb, var(--sg57-accent) 4%, var(--sg57-elevated)) 100%
+      );
+    border-right: 1px solid var(--sg57-accent-muted);
+    text-align: center;
+    position: relative;
+  }
+
+  .step-left::before {
+    content: '';
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, var(--sg57-accent-glow) 0%, transparent 70%);
+    filter: blur(20px);
+    pointer-events: none;
+    animation: pulse-glow 5s ease-in-out infinite;
+  }
+
+  .step-icon {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    color: var(--sg57-accent);
+  }
+
+  .step-icon svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 10px var(--sg57-accent-glow));
+  }
+
   .step-number {
+    position: relative;
     font-family: var(--sg57-font-mono);
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: var(--sg57-accent);
-    opacity: 0.5;
-    margin-bottom: 1rem;
+    opacity: 0.4;
     line-height: 1;
+  }
+
+  .step-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.5rem;
+    background:
+      radial-gradient(
+        ellipse at 10% 50%,
+        color-mix(in srgb, var(--sg57-accent) 4%, var(--sg57-surface)) 0%,
+        var(--sg57-surface) 60%
+      );
   }
 
   .step-heading {
@@ -1139,6 +1233,30 @@ import Base from '../../layouts/Base.astro';
   @media (max-width: 900px) {
     .steps-grid {
       grid-template-columns: 1fr;
+    }
+
+    .step-card {
+      grid-template-columns: auto 1fr;
+    }
+
+    .step-left {
+      flex-direction: row;
+      gap: 0.75rem;
+      padding: 1.25rem 1rem;
+    }
+
+    .step-left::before {
+      width: 60px;
+      height: 60px;
+    }
+
+    .step-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .step-number {
+      font-size: 1.25rem;
     }
 
     .step-connector {
