@@ -1,0 +1,1419 @@
+---
+import Base from '../../layouts/Base.astro';
+
+// ── LemonSqueezy variant ─────────────────────────────────────────────────────
+// Store: sg57 (ID 296726) · Product: CLIDE Pro (ID 841060) · Variant: 1325333
+// Public checkout URL uses the variant UUID (not the numeric ID).
+const LEMONSQUEEZY_VARIANT_UUID = 'd1fceb6b-039b-4b40-8838-f8920c18e9a7';
+const LEMONSQUEEZY_CHECKOUT_URL = `https://sg57.lemonsqueezy.com/checkout/buy/${LEMONSQUEEZY_VARIANT_UUID}?embed=1&logo=0&media=0`;
+---
+
+<Base
+  title="Unlock CLIDE Pro — $39 one-time | SG57 Labs"
+  description="Initiate your CLIDE Pro license. Unlimited concurrent AI sessions, structured notes, sidekick presets. $39 one-time. No subscription."
+  ogImage="/brand/clide-icon.svg"
+  accentColor="#5BC0BE"
+  accentHover="#6DD4D2"
+  accentMuted="#4A9E9C"
+  accentGlow="rgba(91, 192, 190, 0.15)"
+  jsonLd={{
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: 'CLIDE Pro',
+    description: 'Unlimited concurrent AI terminal sessions. One-time license.',
+    image: 'https://sg57.dev/brand/clide-icon.svg',
+    brand: { '@type': 'Brand', name: 'SG57 Labs' },
+    offers: {
+      '@type': 'Offer',
+      price: '39',
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+      url: 'https://sg57.dev/clide/buy',
+    },
+  }}
+>
+  <!-- ══ §1 ACQUISITION TERMINAL — hero + product card ═══════════════════ -->
+  <section class="buy container">
+
+    <!-- Back to Clide (subtle breadcrumb) -->
+    <a href="/clide" class="buy-back" data-astro-prefetch>
+      <span aria-hidden="true">&larr;</span>
+      <span>Back to CLIDE</span>
+    </a>
+
+    <!-- Title block -->
+    <div class="buy-titleblock">
+      <span class="buy-eyebrow">&#47;&#47; SG57 LICENSE REGISTRY</span>
+      <h1 class="buy-title">License Acquisition Terminal</h1>
+      <p class="buy-subtitle">
+        Machine-bound CLIDE Pro license. <strong>$39 one-time.</strong>
+        No subscription. No cloud. Transfer freely between machines.
+      </p>
+    </div>
+
+    <!-- ── TERMINAL LOG (animated line reveal) ─────────────────────────── -->
+    <div class="buy-terminal" aria-hidden="true">
+      <div class="buy-terminal-chrome">
+        <span class="buy-terminal-dot buy-terminal-dot--r"></span>
+        <span class="buy-terminal-dot buy-terminal-dot--y"></span>
+        <span class="buy-terminal-dot buy-terminal-dot--g"></span>
+        <span class="buy-terminal-label">sg57-licensed &mdash; registry.sh</span>
+      </div>
+      <div class="buy-terminal-body" id="buy-terminal-body">
+        <p class="buy-log-line" style="--i:0">
+          <span class="buy-log-prompt">&gt;</span>
+          <span class="buy-log-text">connecting to sg57 license registry ...</span>
+          <span class="buy-log-status buy-log-status--ok">OK</span>
+        </p>
+        <p class="buy-log-line" style="--i:1">
+          <span class="buy-log-prompt">&gt;</span>
+          <span class="buy-log-text">identifying merchant: sg57 &middot; lemonsqueezy ...</span>
+          <span class="buy-log-status buy-log-status--ok">VERIFIED</span>
+        </p>
+        <p class="buy-log-line" style="--i:2">
+          <span class="buy-log-prompt">&gt;</span>
+          <span class="buy-log-text">license tier: <strong>clide-pro</strong> &middot; price: <strong>$39 usd</strong> &middot; term: <strong>perpetual</strong></span>
+        </p>
+        <p class="buy-log-line" style="--i:3">
+          <span class="buy-log-prompt">&gt;</span>
+          <span class="buy-log-text buy-log-text--dim">awaiting user authorization</span>
+          <span class="buy-cursor" aria-hidden="true">_</span>
+        </p>
+
+        <!-- Post-click log lines (hidden at idle, revealed by JS) -->
+        <p class="buy-log-line buy-log-line--deferred" data-defer="1">
+          <span class="buy-log-prompt">&gt;</span>
+          <span class="buy-log-text">opening secure payment channel ...</span>
+          <span class="buy-log-status buy-log-status--pending">...</span>
+        </p>
+        <p class="buy-log-line buy-log-line--deferred" data-defer="2">
+          <span class="buy-log-prompt">&gt;</span>
+          <span class="buy-log-text">handing off to stripe &middot; embedded iframe ...</span>
+          <span class="buy-log-status buy-log-status--pending">...</span>
+        </p>
+
+        <!-- Post-success log lines (hidden, revealed by JS on Checkout.Success) -->
+        <p class="buy-log-line buy-log-line--success" data-success="1">
+          <span class="buy-log-prompt buy-log-prompt--ok">&gt;</span>
+          <span class="buy-log-text">payment authorized &middot; transaction confirmed</span>
+          <span class="buy-log-status buy-log-status--ok">CAPTURED</span>
+        </p>
+        <p class="buy-log-line buy-log-line--success" data-success="2">
+          <span class="buy-log-prompt buy-log-prompt--ok">&gt;</span>
+          <span class="buy-log-text">generating license key &middot; binding to account ...</span>
+          <span class="buy-log-status buy-log-status--ok">ISSUED</span>
+        </p>
+        <p class="buy-log-line buy-log-line--success" data-success="3">
+          <span class="buy-log-prompt buy-log-prompt--ok">&gt;</span>
+          <span class="buy-log-text">dispatching license to inbox &middot; check your email</span>
+          <span class="buy-log-status buy-log-status--ok">SENT</span>
+        </p>
+        <p class="buy-log-line buy-log-line--success" data-success="4">
+          <span class="buy-log-prompt buy-log-prompt--ok">&gt;</span>
+          <span class="buy-log-text"><strong>done.</strong> welcome to pro.</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- ── PRODUCT CARD (the primary offer) ────────────────────────────── -->
+    <div class="buy-card" id="buy-card" data-state="idle">
+
+      <!-- Progress bar (bottom edge, absolute) -->
+      <div class="buy-progress" id="buy-progress" aria-hidden="true">
+        <div class="buy-progress-fill" id="buy-progress-fill"></div>
+      </div>
+
+      <!-- Ambient glow orb -->
+      <div class="buy-card-glow" aria-hidden="true"></div>
+
+      <!-- Success-only particle burst layer -->
+      <div class="buy-burst" id="buy-burst" aria-hidden="true"></div>
+
+      <!-- ── IDLE / SCANNING STATE (visible at rest and during scan) ── -->
+      <div class="buy-card-idle" id="buy-card-idle">
+
+        <div class="buy-card-head">
+          <div class="buy-card-brand">
+            <img
+              src="/brand/clide-icon.svg"
+              alt=""
+              class="buy-card-icon"
+              aria-hidden="true"
+              width="40"
+              height="40"
+            />
+            <div class="buy-card-brand-text">
+              <span class="buy-card-eyebrow">CLIDE PRO</span>
+              <span class="buy-card-tier">Perpetual License</span>
+            </div>
+          </div>
+          <div class="buy-card-price">
+            <span class="buy-card-price-value">$39</span>
+            <span class="buy-card-price-term">one-time</span>
+          </div>
+        </div>
+
+        <ul class="buy-card-features">
+          <li>
+            <span class="buy-feature-check" aria-hidden="true">&#10003;</span>
+            <span><strong>Unlimited</strong> concurrent AI sessions</span>
+          </li>
+          <li>
+            <span class="buy-feature-check" aria-hidden="true">&#10003;</span>
+            <span><strong>Structured notes</strong> with full-text search</span>
+          </li>
+          <li>
+            <span class="buy-feature-check" aria-hidden="true">&#10003;</span>
+            <span><strong>Sidekick presets</strong> &middot; unlimited per session</span>
+          </li>
+          <li>
+            <span class="buy-feature-check" aria-hidden="true">&#10003;</span>
+            <span>Priority support</span>
+          </li>
+          <li>
+            <span class="buy-feature-check" aria-hidden="true">&#10003;</span>
+            <span>Active on 2 machines &middot; <strong>transfer anytime</strong></span>
+          </li>
+        </ul>
+
+        <button type="button" class="buy-cta" id="buy-cta" data-ls-checkout>
+          <span class="buy-cta-glyph" aria-hidden="true">&#9830;</span>
+          <span class="buy-cta-label">INITIATE UNLOCK</span>
+          <span class="buy-cta-arrow" aria-hidden="true">&rarr;</span>
+        </button>
+
+        <div class="buy-cta-fineprint">
+          <span class="buy-cta-fine-item">
+            <span class="buy-cta-fine-glyph" aria-hidden="true">&#9679;</span>
+            secure checkout by LemonSqueezy
+          </span>
+          <span class="buy-cta-fine-sep" aria-hidden="true">&middot;</span>
+          <span class="buy-cta-fine-item">
+            <span class="buy-cta-fine-glyph" aria-hidden="true">&#9679;</span>
+            no account required
+          </span>
+          <span class="buy-cta-fine-sep" aria-hidden="true">&middot;</span>
+          <span class="buy-cta-fine-item">
+            <span class="buy-cta-fine-glyph" aria-hidden="true">&#9679;</span>
+            refund within 14 days
+          </span>
+        </div>
+      </div>
+
+      <!-- ── SUCCESS STATE (hidden, revealed by JS on Checkout.Success) ── -->
+      <div class="buy-card-success" id="buy-card-success" aria-hidden="true">
+        <div class="buy-success-ring" aria-hidden="true">
+          <span class="buy-success-glyph">&#9670;</span>
+        </div>
+        <div class="buy-success-eyebrow">&#47;&#47; LICENSE GRANTED</div>
+        <h2 class="buy-success-headline">
+          Welcome to <span class="buy-success-pro">CLIDE Pro</span>.
+        </h2>
+        <p class="buy-success-body">
+          Your license key is on its way.<br/>
+          Check your email &mdash; it should arrive within a minute.
+        </p>
+        <div class="buy-success-next">
+          <p class="buy-success-next-label">Next step</p>
+          <ol class="buy-success-steps">
+            <li>Open Clide and click the Pro badge in the title bar.</li>
+            <li>Paste your license key into <strong>"Already have a key?"</strong></li>
+            <li>Click <strong>Activate</strong> &mdash; Pro features unlock instantly.</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /buy-card -->
+  </section>
+
+  <!-- ══ §2 CROSS-SELL — "also engineered at sg57" ═══════════════════════ -->
+  <section class="sell container">
+    <div class="sell-head">
+      <span class="sell-eyebrow">&#47;&#47; ALSO ENGINEERED AT SG57</span>
+      <h2 class="sell-heading">While you're here.</h2>
+    </div>
+
+    <div class="sell-grid">
+
+      <!-- Siftr -->
+      <a href="/siftr" class="sell-card sell-card--siftr" data-astro-prefetch>
+        <div class="sell-card-icon" aria-hidden="true">
+          <img src="/brand/siftr-icon.svg" alt="" width="36" height="36" />
+        </div>
+        <span class="sell-card-eyebrow">LOG ANALYSIS SYSTEM</span>
+        <h3 class="sell-card-title">Siftr</h3>
+        <p class="sell-card-line">200MB log files. 3 seconds. Zero crashes.</p>
+        <p class="sell-card-desc">High-performance log viewer for .NET / IIS environments.</p>
+        <span class="sell-card-link">
+          explore <span aria-hidden="true">&rarr;</span>
+        </span>
+      </a>
+
+      <!-- Text Easy -->
+      <a href="/text-easy" class="sell-card sell-card--text-easy" data-astro-prefetch>
+        <div class="sell-card-icon sell-card-icon--glyph" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            <path d="M8 10h.01"/>
+            <path d="M12 10h.01"/>
+            <path d="M16 10h.01"/>
+          </svg>
+        </div>
+        <span class="sell-card-eyebrow">INTENT-TO-TEXT ENGINE</span>
+        <h3 class="sell-card-title">Text Easy</h3>
+        <p class="sell-card-line">Say what you mean. Easy.</p>
+        <p class="sell-card-desc">AI-generated replies in your own voice &mdash; on Android.</p>
+        <span class="sell-card-link">
+          explore <span aria-hidden="true">&rarr;</span>
+        </span>
+      </a>
+
+      <!-- Services -->
+      <a href="/services" class="sell-card sell-card--services" data-astro-prefetch>
+        <div class="sell-card-icon sell-card-icon--glyph" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l3 6 6 .8-4.5 4.3 1 6.4-5.5-3.2-5.5 3.2 1-6.4L3 8.8 9 8z"/>
+          </svg>
+        </div>
+        <span class="sell-card-eyebrow">CUSTOM ENGINEERING</span>
+        <h3 class="sell-card-title">Have an idea?</h3>
+        <p class="sell-card-line">We'll build it for you.</p>
+        <p class="sell-card-desc">Free brief &middot; 24h turnaround &middot; no-pitch first call.</p>
+        <span class="sell-card-link">
+          start a brief <span aria-hidden="true">&rarr;</span>
+        </span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ══ §3 FINE PRINT ═══════════════════════════════════════════════════ -->
+  <section class="finefoot container">
+    <p>
+      Payments and refunds handled by <a href="https://www.lemonsqueezy.com/" target="_blank" rel="noopener noreferrer">LemonSqueezy</a>,
+      our merchant of record. License keys are delivered by email immediately after purchase.
+      Activation is machine-bound with free transfer &mdash; deactivate one machine to free the slot for another.
+    </p>
+  </section>
+</Base>
+
+<!-- ── LemonSqueezy overlay SDK ──────────────────────────────────────────── -->
+<script is:inline src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+
+<script define:vars={{ LEMONSQUEEZY_CHECKOUT_URL }}>
+  // ════════════════════════════════════════════════════════════════════════
+  //  Acquisition terminal orchestration
+  //  — Reveals the terminal log staggered
+  //  — On [INITIATE UNLOCK]: runs a 1.8s scan sequence, opens LS overlay
+  //  — On Checkout.Success: triggers the "LICENSE GRANTED" reveal
+  //  — On Checkout.Close without success: resets to idle so user can retry
+  // ════════════════════════════════════════════════════════════════════════
+  document.addEventListener('astro:page-load', () => {
+    try {
+      const card          = document.getElementById('buy-card');
+      const cta           = document.getElementById('buy-cta');
+      const idleState     = document.getElementById('buy-card-idle');
+      const successState  = document.getElementById('buy-card-success');
+      const progressEl    = document.getElementById('buy-progress');
+      const progressFill  = document.getElementById('buy-progress-fill');
+      const burst         = document.getElementById('buy-burst');
+      const terminalBody  = document.getElementById('buy-terminal-body');
+
+      if (!card || !cta || !idleState || !successState) return;
+
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let state = 'idle'; // idle | scanning | checkout | success
+
+      const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+
+      function setProgress(pct, duration) {
+        if (!progressFill) return;
+        progressFill.style.transition = `width ${duration}ms cubic-bezier(0.4, 0, 0.6, 1)`;
+        progressFill.style.width = `${pct}%`;
+      }
+
+      // Reveal a deferred log line (stagger it in)
+      function revealDeferred(selector, extraDelay = 0) {
+        const nodes = terminalBody?.querySelectorAll(selector);
+        if (!nodes) return;
+        nodes.forEach((n, idx) => {
+          setTimeout(() => n.classList.add('is-shown'), extraDelay + idx * 220);
+        });
+      }
+
+      // Reset scan artefacts (progress, deferred lines) without touching success state
+      function resetScan() {
+        card.dataset.state = 'idle';
+        state = 'idle';
+        document.body.classList.remove('ls-loading', 'ls-ready');
+        if (progressEl) progressEl.style.opacity = '0';
+        setProgress(0, 250);
+        cta.disabled = false;
+        cta.classList.remove('is-sending');
+        const ctaLabel = cta.querySelector('.buy-cta-label');
+        if (ctaLabel) ctaLabel.textContent = 'INITIATE UNLOCK';
+        // Hide deferred lines
+        terminalBody?.querySelectorAll('.buy-log-line--deferred')
+          .forEach((n) => n.classList.remove('is-shown'));
+      }
+
+      // Coordinate the full unlock sequence.
+      //
+      // Important: LemonSqueezy's iframe takes ~3 s to load cold. Instead of
+      // running a 1.8 s scan and THEN calling Url.Open() (total wait 4.8 s),
+      // we fire Url.Open() at scan start — the iframe loads in parallel, hidden
+      // by a `body.ls-loading` CSS rule. When the scan completes we swap the
+      // class to `body.ls-ready` and the (already-loaded) overlay cross-fades
+      // in, giving the illusion of an instant handoff.
+      async function initiateUnlock() {
+        if (state !== 'idle') return;
+        state = 'scanning';
+        card.dataset.state = 'scanning';
+
+        cta.disabled = true;
+        cta.classList.add('is-sending');
+        const ctaLabel = cta.querySelector('.buy-cta-label');
+        if (ctaLabel) ctaLabel.textContent = 'SCANNING...';
+
+        if (prefersReduced) {
+          // a11y path — skip animation; overlay opens as soon as LS is ready
+          state = 'checkout';
+          card.dataset.state = 'checkout';
+          launchCheckout();
+          return;
+        }
+
+        // Phase 1: start progress + launch LS load in parallel (hidden)
+        if (progressEl) progressEl.style.opacity = '1';
+        setProgress(0, 0);
+        await wait(40);
+        setProgress(72, 1800);
+
+        // Pre-hide any LS overlay element *before* we call Url.Open() so that
+        // the moment lemon.js appends its nodes to the DOM, they start in the
+        // hidden state and never flash visible.
+        document.body.classList.add('ls-loading');
+        launchCheckout();
+
+        // Reveal deferred log lines staggered during scan
+        revealDeferred('[data-defer="1"]', 300);
+        revealDeferred('[data-defer="2"]', 900);
+
+        // Phase 2: scan complete — cross-fade the overlay into view
+        await wait(1850);
+
+        if (state !== 'scanning') return; // success/close raced us; bail
+        state = 'checkout';
+        card.dataset.state = 'checkout';
+        document.body.classList.remove('ls-loading');
+        document.body.classList.add('ls-ready');
+      }
+
+      function launchCheckout() {
+        // lemon.js exposes window.LemonSqueezy after createLemonSqueezy()
+        if (window.createLemonSqueezy) {
+          window.createLemonSqueezy();
+          if (window.LemonSqueezy?.Setup) {
+            window.LemonSqueezy.Setup({
+              eventHandler: (data) => {
+                if (!data?.event) return;
+                if (data.event === 'Checkout.Success') {
+                  triggerSuccess();
+                }
+              },
+            });
+          }
+          if (window.LemonSqueezy?.Url?.Open) {
+            window.LemonSqueezy.Url.Open(LEMONSQUEEZY_CHECKOUT_URL);
+          } else {
+            // lemon.js not yet attached — fallback to opening in new tab
+            window.open(LEMONSQUEEZY_CHECKOUT_URL, '_blank', 'noopener,noreferrer');
+          }
+        } else {
+          // SDK failed to load — open the checkout in a new tab anyway
+          window.open(LEMONSQUEEZY_CHECKOUT_URL, '_blank', 'noopener,noreferrer');
+        }
+
+        // If the overlay closes without firing Success, watch for that and
+        // reset. lemon.js doesn't expose a reliable "closed without purchase"
+        // event in v0, so we poll for the iframe disappearing after being
+        // present — coarse 500 ms interval; we only care about the transition.
+        watchForOverlayClose();
+      }
+
+      function watchForOverlayClose() {
+        const start = Date.now();
+        // Poll for the LS overlay's presence. When it disappears after being present,
+        // if we haven't succeeded, reset. Poll interval is coarse (500ms) since we
+        // only care about the transition, not sub-second precision.
+        let seen = false;
+        const poll = setInterval(() => {
+          if (state === 'success') { clearInterval(poll); return; }
+          if (Date.now() - start > 120_000) { clearInterval(poll); resetScan(); return; }
+
+          const overlay = document.querySelector('iframe[src*="lemonsqueezy.com"]')
+                         || document.querySelector('.lemonsqueezy-overlay');
+          if (overlay) seen = true;
+          else if (seen && state === 'checkout') {
+            clearInterval(poll);
+            resetScan();
+          }
+        }, 500);
+      }
+
+      // ── Success reveal ────────────────────────────────────────────────
+      async function triggerSuccess() {
+        if (state === 'success') return;
+        state = 'success';
+        card.dataset.state = 'success';
+
+        // Finish the progress bar
+        setProgress(100, 260);
+        await wait(280);
+
+        // Reveal success log lines
+        terminalBody?.querySelectorAll('.buy-log-line--success').forEach((n, idx) => {
+          setTimeout(() => n.classList.add('is-shown'), idx * 260);
+        });
+
+        // Fade the idle state out
+        idleState.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+        idleState.style.opacity = '0';
+        idleState.style.transform = 'translateY(-8px)';
+        await wait(380);
+        idleState.classList.add('is-hidden');
+
+        // Reveal success state with a bloom
+        successState.setAttribute('aria-hidden', 'false');
+        successState.classList.add('is-shown');
+
+        // Fade the progress bar out after a moment
+        await wait(600);
+        if (progressEl) progressEl.style.opacity = '0';
+
+        // Emit the particle burst
+        spawnBurst();
+
+        // Fade the "inactive" look off the cross-sell cards
+        document.querySelectorAll('.sell-card').forEach((el, idx) => {
+          setTimeout(() => el.classList.add('is-revealed'), 400 + idx * 140);
+        });
+      }
+
+      function spawnBurst() {
+        if (!burst || prefersReduced) return;
+        const PARTICLE_COUNT = 18;
+        const frag = document.createDocumentFragment();
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+          const p = document.createElement('span');
+          p.className = 'buy-burst-p';
+          const angle = (Math.PI * 2 * i) / PARTICLE_COUNT + (Math.random() - 0.5) * 0.35;
+          const dist = 120 + Math.random() * 80;
+          const tx = Math.cos(angle) * dist;
+          const ty = Math.sin(angle) * dist;
+          p.style.setProperty('--tx', `${tx.toFixed(1)}px`);
+          p.style.setProperty('--ty', `${ty.toFixed(1)}px`);
+          p.style.setProperty('--d', `${(600 + Math.random() * 500).toFixed(0)}ms`);
+          frag.appendChild(p);
+        }
+        burst.replaceChildren(frag);
+        // Clean up after the longest-running particle
+        setTimeout(() => burst.replaceChildren(), 1400);
+      }
+
+      // Wire the CTA
+      cta.addEventListener('click', (e) => {
+        e.preventDefault();
+        initiateUnlock();
+      });
+
+      // Dev shortcut: ?status=success on the URL triggers the reveal so you can
+      // iterate the success UI without running a real checkout.
+      if (new URLSearchParams(window.location.search).get('status') === 'success') {
+        setTimeout(() => triggerSuccess(), 300);
+      }
+    } catch (err) {
+      // Log only; the CTA will still fall back to a plain anchor target below
+      console.error('[clide/buy] init failed', err);
+    }
+  });
+</script>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════════════
+     PAGE: /clide/buy — Acquisition Terminal
+     Matches Clide accent (teal). All effects degrade via prefers-reduced-motion.
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  /* ── Shared spacing ─────────────────────────────────────────────────── */
+  .buy {
+    padding: 4.5rem 1.5rem 4.5rem;
+    max-width: 980px;
+    position: relative;
+  }
+
+  /* Back link */
+  .buy-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--sg57-font-display);
+    font-weight: 500;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    color: var(--sg57-text-dim);
+    text-decoration: none;
+    margin-bottom: 1.75rem;
+    padding: 0.5rem 0.75rem;
+    margin-left: -0.75rem; /* align visual left edge with page content */
+    border-radius: var(--sg57-radius-sm, 4px);
+    transition: color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+  }
+  .buy-back:focus-visible {
+    outline: none;
+    box-shadow: var(--sg57-focus-ring);
+    background: rgba(255, 255, 255, 0.04);
+  }
+  .buy-back:hover { color: var(--sg57-accent); transform: translateX(-2px); }
+
+  /* ── Title block ─────────────────────────────────────────────────────── */
+  .buy-titleblock { text-align: center; margin-bottom: 2.5rem; }
+
+  .buy-eyebrow {
+    display: inline-block;
+    font-family: var(--sg57-font-mono, ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace);
+    font-size: 0.9375rem; /* 15px — readable at glance, meets ≥14px floor */
+    letter-spacing: 0.18em;
+    color: var(--sg57-accent);
+    margin-bottom: 0.85rem;
+    /* Solid color (no opacity) — constitution bans rgba text below 18px */
+  }
+
+  .buy-title {
+    font-family: var(--sg57-font-display);
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: var(--sg57-text);
+    margin: 0 0 0.85rem;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  .buy-subtitle {
+    font-family: var(--sg57-font-display);
+    font-size: 1.125rem;
+    color: var(--sg57-text-dim);
+    max-width: 620px;
+    margin: 0 auto;
+    line-height: 1.6; /* ≥1.5 body text per Constitution Law 17(D) */
+  }
+  .buy-subtitle strong {
+    color: var(--sg57-accent);
+    font-weight: 600;
+  }
+
+  /* ════════════════════════════════════════════════════════════════════════
+     §1  TERMINAL LOG — monospaced animated intro
+     ════════════════════════════════════════════════════════════════════════ */
+
+  .buy-terminal {
+    max-width: 720px;
+    margin: 2.75rem auto 2rem;
+    font-family: var(--sg57-font-mono, ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace);
+    background: rgba(10, 12, 16, 0.65);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--sg57-glass-border);
+    border-radius: var(--sg57-radius-md);
+    overflow: hidden;
+    box-shadow: var(--sg57-glass-shadow);
+  }
+
+  .buy-terminal-chrome {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 0.85rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid var(--sg57-border-subtle);
+  }
+  .buy-terminal-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--sg57-border);
+  }
+  .buy-terminal-dot--r { background: #e06f6f; }
+  .buy-terminal-dot--y { background: #d7b766; }
+  .buy-terminal-dot--g { background: #6fb878; }
+  .buy-terminal-label {
+    margin-left: auto;
+    font-size: 0.875rem; /* 14px minimum */
+    letter-spacing: 0.05em;
+    color: var(--sg57-text-muted);
+  }
+
+  .buy-terminal-body {
+    padding: 1rem 1.25rem 1.15rem;
+    min-height: 160px;
+    font-size: 0.9375rem; /* 15px — readable monospace */
+    line-height: 1.7;     /* ≥1.5 body text */
+    color: var(--sg57-text-dim);
+  }
+
+  .buy-log-line {
+    margin: 0 0 0.15rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.55rem;
+    opacity: 0;
+    transform: translateX(-6px);
+    animation: log-reveal 0.38s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: calc(var(--i, 0) * 220ms + 200ms);
+  }
+  .buy-log-line--deferred,
+  .buy-log-line--success {
+    animation: none;
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 0.32s ease, transform 0.32s ease;
+    display: none;
+  }
+  .buy-log-line--deferred.is-shown,
+  .buy-log-line--success.is-shown {
+    opacity: 1;
+    transform: translateX(0);
+    display: flex;
+  }
+
+  @keyframes log-reveal {
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .buy-log-line { animation: none; opacity: 1; transform: none; }
+    .buy-log-line--deferred, .buy-log-line--success { transition: none; }
+  }
+
+  .buy-log-prompt {
+    color: var(--sg57-accent);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .buy-log-prompt--ok { color: var(--sg57-success); }
+
+  .buy-log-text { flex: 1; min-width: 0; word-break: break-word; }
+  .buy-log-text strong { color: var(--sg57-text); font-weight: 600; }
+  .buy-log-text--dim { color: var(--sg57-text-muted); }
+
+  .buy-log-status {
+    flex-shrink: 0;
+    font-size: 0.8125rem; /* 13px — status pill, single-line label */
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.06);
+    line-height: 1.4; /* single-line per Law 17(D) exception */
+  }
+  .buy-log-status--ok {
+    color: var(--sg57-success);
+    background: var(--sg57-success-bg);
+  }
+  .buy-log-status--pending {
+    color: var(--sg57-accent);
+    background: var(--sg57-accent-glow);
+  }
+
+  .buy-cursor {
+    display: inline-block;
+    margin-left: 0.15rem;
+    color: var(--sg57-accent);
+    animation: cursor-blink 1.05s steps(2, end) infinite;
+    animation-delay: 1.2s;
+  }
+  @keyframes cursor-blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .buy-cursor { animation: none; opacity: 0.8; }
+  }
+
+  /* ════════════════════════════════════════════════════════════════════════
+     §2  PRODUCT CARD — idle, scanning, success
+     ════════════════════════════════════════════════════════════════════════ */
+
+  .buy-card {
+    position: relative;
+    max-width: 720px;
+    margin: 0 auto;
+    background: var(--sg57-glass-bg);
+    backdrop-filter: blur(var(--sg57-glass-blur));
+    -webkit-backdrop-filter: blur(var(--sg57-glass-blur));
+    border: 1px solid var(--sg57-glass-border);
+    border-radius: var(--sg57-radius-lg);
+    box-shadow: var(--sg57-glass-shadow);
+    overflow: hidden;
+    transition: border-color 0.5s ease, box-shadow 0.5s ease;
+  }
+
+  .buy-card[data-state="scanning"] {
+    border-color: var(--sg57-accent-muted);
+    box-shadow: 0 0 40px var(--sg57-accent-glow), var(--sg57-glass-shadow);
+  }
+  .buy-card[data-state="success"] {
+    border-color: var(--sg57-accent);
+    box-shadow: 0 0 80px var(--sg57-accent-glow), var(--sg57-glass-shadow);
+  }
+
+  /* Scanner sweep line during 'scanning' state */
+  .buy-card[data-state="scanning"]::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 15%,
+      var(--sg57-accent-muted) 40%,
+      var(--sg57-accent) 50%,
+      var(--sg57-accent-muted) 60%,
+      transparent 85%,
+      transparent 100%
+    );
+    box-shadow: 0 0 14px 3px var(--sg57-accent-glow);
+    z-index: 3;
+    pointer-events: none;
+    animation: buy-scanner-sweep 1.05s ease-in-out infinite;
+  }
+
+  @keyframes buy-scanner-sweep {
+    0%   { transform: translateY(0);    opacity: 0; }
+    6%   { opacity: 1; }
+    94%  { opacity: 1; }
+    100% { transform: translateY(520px); opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .buy-card[data-state="scanning"]::before { animation: none; opacity: 0; }
+  }
+
+  /* Ambient glow orb inside card */
+  .buy-card-glow {
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: var(--sg57-accent);
+    opacity: 0.08;
+    filter: blur(44px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Progress bar */
+  .buy-progress {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 4;
+  }
+  .buy-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--sg57-accent-muted), var(--sg57-accent), var(--sg57-accent-hover));
+    box-shadow: 0 0 10px var(--sg57-accent-glow);
+    border-radius: 0 2px 0 0;
+  }
+
+  /* Particle burst on success */
+  .buy-burst {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 0; height: 0;
+    pointer-events: none;
+    z-index: 5;
+  }
+  .buy-burst-p {
+    position: absolute;
+    left: 0; top: 0;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--sg57-accent);
+    box-shadow: 0 0 8px var(--sg57-accent);
+    opacity: 0;
+    animation: burst-fly var(--d, 800ms) cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  @keyframes burst-fly {
+    0%   { transform: translate(-50%, -50%) scale(0.6); opacity: 0; }
+    20%  { opacity: 1; }
+    100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0.2); opacity: 0; }
+  }
+
+  /* ── IDLE layout ────────────────────────────────────────────────────── */
+  .buy-card-idle {
+    position: relative;
+    padding: 2.25rem 2.25rem 2rem;
+    z-index: 1;
+  }
+  .buy-card-idle.is-hidden { display: none; }
+
+  .buy-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--sg57-border-subtle);
+  }
+
+  .buy-card-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+  .buy-card-icon {
+    width: 40px; height: 40px;
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--sg57-accent) 10%, var(--sg57-elevated));
+    padding: 6px;
+    filter: drop-shadow(0 0 8px var(--sg57-accent-glow));
+  }
+  .buy-card-brand-text { display: flex; flex-direction: column; gap: 0.15rem; }
+  .buy-card-eyebrow {
+    font-family: var(--sg57-font-display);
+    font-weight: 700;
+    font-size: 0.9375rem; /* 15px */
+    letter-spacing: 0.16em;
+    color: var(--sg57-accent);
+    text-transform: uppercase;
+    line-height: 1.4; /* single-line label */
+  }
+  .buy-card-tier {
+    font-family: var(--sg57-font-display);
+    font-size: 1rem; /* 16px */
+    color: var(--sg57-text-dim);
+    line-height: 1.4; /* single-line label */
+  }
+
+  .buy-card-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  .buy-card-price-value {
+    font-family: var(--sg57-font-display);
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: var(--sg57-text);
+    line-height: 1;
+  }
+  .buy-card-price-term {
+    font-family: var(--sg57-font-display);
+    font-size: 1rem; /* 16px */
+    color: var(--sg57-accent);
+    font-weight: 600;
+  }
+
+  .buy-card-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .buy-card-features li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    font-family: var(--sg57-font-display);
+    font-size: 1.0625rem; /* 17px — primary benefit text */
+    color: var(--sg57-text);
+    line-height: 1.55; /* ≥1.5 body text */
+  }
+  .buy-card-features strong { color: var(--sg57-text); font-weight: 600; }
+  .buy-feature-check {
+    color: var(--sg57-accent);
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  /* CTA */
+  .buy-cta {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    min-height: 56px;
+    font-family: var(--sg57-font-display);
+    font-weight: 700;
+    font-size: 1.125rem;
+    letter-spacing: 0.14em;
+    color: var(--sg57-text-on-accent);
+    background: var(--sg57-accent);
+    border: 1px solid var(--sg57-accent);
+    border-radius: var(--sg57-radius-md);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.25s ease, border-color 0.25s ease,
+                box-shadow 0.3s ease, transform 0.2s var(--sg57-ease-out);
+    box-shadow: 0 0 0 0 var(--sg57-accent-glow);
+    animation: buy-cta-pulse 2.6s ease-in-out infinite;
+  }
+
+  @keyframes buy-cta-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 var(--sg57-accent-glow), 0 0 30px var(--sg57-accent-glow); }
+    50%      { box-shadow: 0 0 0 8px transparent,               0 0 48px var(--sg57-accent-glow); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .buy-cta { animation: none; }
+  }
+
+  .buy-cta:hover:not(:disabled) {
+    background: var(--sg57-accent-hover);
+    border-color: var(--sg57-accent-hover);
+    transform: translateY(-1px);
+  }
+  .buy-cta:active:not(:disabled) { transform: scale(0.98) translateY(0); }
+  .buy-cta:focus-visible {
+    outline: none;
+    box-shadow: var(--sg57-focus-ring), 0 0 40px var(--sg57-accent-glow);
+  }
+  .buy-cta:disabled, .buy-cta.is-sending {
+    cursor: wait;
+    opacity: 0.8;
+    animation: none;
+  }
+
+  .buy-cta-glyph {
+    font-size: 1rem;
+    opacity: 0.9;
+  }
+  .buy-cta.is-sending .buy-cta-glyph {
+    animation: buy-glyph-spin 0.9s linear infinite;
+  }
+  @keyframes buy-glyph-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  .buy-cta-arrow {
+    display: inline-block;
+    transition: transform 0.2s ease;
+  }
+  .buy-cta:hover:not(:disabled) .buy-cta-arrow { transform: translateX(4px); }
+
+  .buy-cta-fineprint {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.75rem;
+    font-family: var(--sg57-font-display);
+    font-size: 0.9375rem; /* 15px — no "fine" print */
+    color: var(--sg57-text-muted);
+    line-height: 1.5;
+  }
+  .buy-cta-fine-glyph {
+    color: var(--sg57-accent);
+    font-size: 0.5rem;
+    margin-right: 0.25rem;
+    vertical-align: middle;
+    opacity: 0.7;
+  }
+  .buy-cta-fine-item { display: inline-flex; align-items: center; }
+
+  /* ── SUCCESS layout ─────────────────────────────────────────────────── */
+  .buy-card-success {
+    position: relative;
+    padding: 3rem 2.25rem 2.5rem;
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+    transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    display: none;
+    text-align: center;
+    z-index: 1;
+  }
+  .buy-card-success.is-shown {
+    display: block;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .buy-success-ring {
+    width: 74px; height: 74px;
+    margin: 0 auto 1.35rem;
+    border-radius: 50%;
+    border: 2px solid var(--sg57-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 40px var(--sg57-accent-glow), inset 0 0 18px var(--sg57-accent-glow);
+    background: color-mix(in srgb, var(--sg57-accent) 8%, transparent);
+    animation: buy-ring-bloom 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes buy-ring-bloom {
+    0%   { transform: scale(0.4); opacity: 0; }
+    60%  { transform: scale(1.08); opacity: 1; }
+    100% { transform: scale(1);    opacity: 1; }
+  }
+  .buy-success-glyph {
+    font-size: 1.8rem;
+    color: var(--sg57-accent);
+    filter: drop-shadow(0 0 10px var(--sg57-accent-glow));
+  }
+
+  .buy-success-eyebrow {
+    font-family: var(--sg57-font-mono, ui-monospace, Menlo, monospace);
+    font-size: 0.9375rem; /* 15px */
+    letter-spacing: 0.16em;
+    color: var(--sg57-accent);
+    margin-bottom: 0.65rem;
+    /* Solid color — no opacity on text <18px */
+  }
+
+  .buy-success-headline {
+    font-family: var(--sg57-font-display);
+    font-weight: 700;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    color: var(--sg57-text);
+    margin: 0 0 0.75rem;
+    line-height: 1.2;
+  }
+  .buy-success-pro {
+    color: var(--sg57-accent);
+    text-shadow: 0 0 18px var(--sg57-accent-glow);
+  }
+
+  .buy-success-body {
+    font-family: var(--sg57-font-display);
+    font-size: 1.0625rem; /* 17px */
+    color: var(--sg57-text-dim);
+    margin: 0 auto 1.75rem;
+    max-width: 460px;
+    line-height: 1.6; /* ≥1.5 body */
+  }
+
+  .buy-success-next {
+    text-align: left;
+    max-width: 440px;
+    margin: 0 auto;
+    padding: 1.25rem 1.4rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--sg57-border-subtle);
+    border-radius: var(--sg57-radius-md);
+  }
+  .buy-success-next-label {
+    font-family: var(--sg57-font-display);
+    font-weight: 700;
+    font-size: 0.9375rem; /* 15px */
+    letter-spacing: 0.14em;
+    color: var(--sg57-text-muted);
+    text-transform: uppercase;
+    margin: 0 0 0.75rem;
+    line-height: 1.4; /* single-line label */
+  }
+  .buy-success-steps {
+    margin: 0;
+    padding-left: 1.35rem;
+    color: var(--sg57-text);
+    font-family: var(--sg57-font-display);
+    font-size: 1.0625rem; /* 17px */
+    line-height: 1.7; /* ≥1.5 body */
+  }
+  .buy-success-steps li { padding-left: 0.2rem; }
+  .buy-success-steps strong { color: var(--sg57-accent); font-weight: 600; }
+
+  /* ════════════════════════════════════════════════════════════════════════
+     §2  CROSS-SELL
+     ════════════════════════════════════════════════════════════════════════ */
+
+  .sell {
+    padding: 3.5rem 1.5rem 4rem;
+    max-width: 1120px;
+  }
+
+  .sell-head {
+    text-align: center;
+    margin-bottom: 2.25rem;
+  }
+  .sell-eyebrow {
+    display: inline-block;
+    font-family: var(--sg57-font-mono, ui-monospace, Menlo, monospace);
+    font-size: 0.9375rem; /* 15px */
+    letter-spacing: 0.18em;
+    color: var(--sg57-text-muted);
+    margin-bottom: 0.85rem;
+    line-height: 1.4; /* single-line label */
+  }
+  .sell-heading {
+    font-family: var(--sg57-font-display);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+    color: var(--sg57-text);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .sell-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  @media (max-width: 900px) {
+    .sell-grid { grid-template-columns: 1fr; }
+  }
+
+  .sell-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1.6rem 1.5rem 1.4rem;
+    background: var(--sg57-glass-bg);
+    backdrop-filter: blur(var(--sg57-glass-blur));
+    -webkit-backdrop-filter: blur(var(--sg57-glass-blur));
+    border: 1px solid var(--sg57-glass-border);
+    border-radius: var(--sg57-radius-md);
+    text-decoration: none;
+    color: inherit;
+    box-shadow: var(--sg57-glass-shadow);
+    transition: border-color 0.25s ease, box-shadow 0.3s ease, transform 0.25s var(--sg57-ease-out);
+    overflow: hidden;
+  }
+
+  .sell-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, var(--card-accent-glow, var(--sg57-accent-glow)) 0%, transparent 60%);
+    opacity: 0.25;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .sell-card:hover {
+    border-color: var(--card-accent, var(--sg57-accent-muted));
+    box-shadow: 0 0 30px var(--card-accent-glow, var(--sg57-accent-glow)), var(--sg57-glass-shadow);
+    transform: translateY(-3px);
+  }
+  .sell-card:hover::after { opacity: 0.5; }
+  .sell-card:focus-visible {
+    outline: none;
+    box-shadow: var(--sg57-focus-ring), 0 0 30px var(--card-accent-glow, var(--sg57-accent-glow));
+  }
+
+  /* Post-success subtle bloom on the cards to draw eye */
+  .sell-card.is-revealed {
+    animation: sell-bloom 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  @keyframes sell-bloom {
+    0%   { box-shadow: var(--sg57-glass-shadow); }
+    50%  { box-shadow: 0 0 40px var(--card-accent-glow, var(--sg57-accent-glow)), var(--sg57-glass-shadow); }
+    100% { box-shadow: var(--sg57-glass-shadow); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sell-card.is-revealed { animation: none; }
+  }
+
+  /* Per-card accent — matches each product's identity */
+  .sell-card--siftr      { --card-accent: #D4A15A; --card-accent-glow: rgba(212, 161, 90, 0.22); }
+  .sell-card--text-easy  { --card-accent: #00FF88; --card-accent-glow: rgba(0, 255, 136, 0.18); }
+  .sell-card--services   { --card-accent: #c4896a; --card-accent-glow: rgba(196, 137, 106, 0.22); }
+
+  .sell-card-icon {
+    width: 42px; height: 42px;
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--card-accent, var(--sg57-accent)) 12%, var(--sg57-elevated));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+    padding: 7px;
+    position: relative;
+    z-index: 1;
+  }
+  .sell-card-icon img { width: 100%; height: 100%; display: block; }
+  .sell-card-icon--glyph svg {
+    width: 22px; height: 22px;
+    color: var(--card-accent, var(--sg57-accent));
+    filter: drop-shadow(0 0 6px var(--card-accent-glow, var(--sg57-accent-glow)));
+  }
+
+  .sell-card-eyebrow {
+    position: relative; z-index: 1;
+    font-family: var(--sg57-font-mono, Menlo, monospace);
+    font-size: 0.875rem; /* 14px floor */
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    color: var(--card-accent, var(--sg57-accent));
+    text-transform: uppercase;
+    line-height: 1.4; /* single-line label */
+  }
+
+  .sell-card-title {
+    position: relative; z-index: 1;
+    font-family: var(--sg57-font-display);
+    font-weight: 700;
+    font-size: 1.45rem;
+    color: var(--sg57-text);
+    margin: 0.1rem 0 0.2rem;
+    line-height: 1.15;
+  }
+
+  .sell-card-line {
+    position: relative; z-index: 1;
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1.0625rem; /* 17px */
+    color: var(--sg57-text);
+    margin: 0 0 0.35rem;
+    line-height: 1.4;
+  }
+  .sell-card-desc {
+    position: relative; z-index: 1;
+    font-family: var(--sg57-font-display);
+    font-size: 1rem; /* 16px */
+    color: var(--sg57-text-dim);
+    margin: 0 0 1.35rem;
+    line-height: 1.55; /* ≥1.5 body */
+  }
+
+  .sell-card-link {
+    position: relative; z-index: 1;
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1rem; /* 16px */
+    letter-spacing: 0.04em;
+    color: var(--card-accent, var(--sg57-accent));
+    transition: gap 0.25s ease;
+  }
+  .sell-card:hover .sell-card-link { gap: 0.55rem; }
+
+  /* ════════════════════════════════════════════════════════════════════════
+     §3  FINE PRINT
+     ════════════════════════════════════════════════════════════════════════ */
+
+  .finefoot {
+    padding: 0 1.5rem 5rem;
+    max-width: 720px;
+  }
+  .finefoot p {
+    font-family: var(--sg57-font-display);
+    font-size: 1rem; /* 16px — not "fine" print */
+    color: var(--sg57-text-muted);
+    text-align: center;
+    line-height: 1.7; /* ≥1.5 body */
+    margin: 0;
+  }
+  .finefoot a {
+    color: var(--sg57-text-dim);
+    text-decoration: underline;
+    text-decoration-color: var(--sg57-border);
+    text-underline-offset: 3px;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  }
+  .finefoot a:hover {
+    color: var(--sg57-accent);
+    text-decoration-color: var(--sg57-accent);
+  }
+
+  /* ════════════════════════════════════════════════════════════════════════
+     MOBILE ADJUSTMENTS
+     ════════════════════════════════════════════════════════════════════════ */
+
+  @media (max-width: 640px) {
+    .buy { padding: 3rem 1rem; }
+    .buy-card-idle { padding: 1.75rem 1.4rem 1.5rem; }
+    .buy-card-head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .buy-card-price { align-self: flex-end; }
+    /* Terminal body stays at readable 0.9375rem; only the status badges hide
+       to reduce clutter at narrow widths — they're redundant with the OK/SENT
+       glyph prompt color. */
+    .buy-terminal-body { padding: 0.85rem 1rem 1rem; font-size: 0.9375rem; }
+    .buy-log-status { display: none; }
+    .buy-cta { font-size: 1.0625rem; letter-spacing: 0.1em; }
+    /* Fine print wraps instead of shrinking below the 14px floor. */
+    .buy-cta-fineprint { font-size: 0.9375rem; }
+    .sell { padding: 2.5rem 1rem 3rem; }
+  }
+</style>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     LemonSqueezy overlay overrides — GLOBAL
+     The LS overlay is injected into document.body by lemon.js at runtime, so
+     scoped styles above don't reach it. These rules:
+       1. Hide the overlay while `body.ls-loading` — gives us a ~1.8 s head start
+          to preload the iframe under cover of our scan animation.
+       2. Cross-fade the overlay in when `body.ls-ready` — feels instant.
+       3. Darken LS's default backdrop to match our void palette and wrap the
+          (cross-origin, unstyleable) iframe in an accent halo so it reads as
+          part of our interface.
+     We cannot style inside the iframe (cross-origin). Everything here lives
+     on OUR side of the iframe boundary.
+     ══════════════════════════════════════════════════════════════════════════ -->
+<style is:global>
+  /* ── 1. Hide during scan ─────────────────────────────────────────────── */
+  body.ls-loading .lemonsqueezy-overlay,
+  body.ls-loading iframe[src*="lemonsqueezy.com"] {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.35s ease !important;
+  }
+
+  /* ── 2. Reveal when ready ────────────────────────────────────────────── */
+  body.ls-ready .lemonsqueezy-overlay,
+  body.ls-ready iframe[src*="lemonsqueezy.com"] {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1) !important;
+  }
+
+  /* ── 3. Brand the surroundings ──────────────────────────────────────── */
+  /* Replace LS's default near-black backdrop with our site's void gradient.
+     Matches the rest of sg57.dev so the overlay doesn't feel like a foreign
+     object landing mid-page. */
+  .lemonsqueezy-overlay {
+    background: radial-gradient(
+      ellipse at center,
+      rgba(12, 15, 22, 0.82) 0%,
+      rgba(8, 10, 14, 0.94) 100%
+    ) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+  }
+
+  /* Accent halo around the (necessarily white) iframe so it reads as a
+     framed artefact rather than a plain white rectangle. The iframe itself
+     retains LS's interior styling — dashboard theme is the only way to
+     change those colors. */
+  body.ls-ready iframe[src*="lemonsqueezy.com"] {
+    border-radius: 14px !important;
+    box-shadow:
+      0 0 0 1px var(--sg57-accent-muted, rgba(91, 192, 190, 0.6)),
+      0 0 60px rgba(91, 192, 190, 0.22),
+      0 30px 90px rgba(0, 0, 0, 0.55) !important;
+    outline: none !important;
+  }
+</style>
