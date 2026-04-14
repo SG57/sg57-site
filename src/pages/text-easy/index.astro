@@ -394,11 +394,12 @@ import Base from '../../layouts/Base.astro';
     gap: 0.75rem;
   }
 
-  /* Stack platform buttons vertically in the right panel column */
+  /* Platform buttons row in the hero panel — plenty of horizontal room */
   .hero-actions .platform-buttons {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
     gap: 0.5rem;
   }
 
@@ -539,7 +540,7 @@ import Base from '../../layouts/Base.astro';
   }
 
   .platform-btn--android:hover {
-    color: var(--sg57-text-on-accent);
+    color: #fff;
     background: var(--sg57-accent);
     border-color: var(--sg57-accent);
     box-shadow: 0 0 28px var(--sg57-accent-glow);
@@ -997,6 +998,7 @@ import Base from '../../layouts/Base.astro';
     }
 
     .hero-actions .platform-buttons {
+      flex-direction: column;
       align-items: center;
     }
   }
