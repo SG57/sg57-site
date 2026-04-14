@@ -556,11 +556,12 @@ import Base from '../../layouts/Base.astro';
     outline: none;
   }
 
-  /* Inactive: coming soon */
+  /* Inactive: coming soon — light grey, clearly dimmed */
   .platform-btn--coming {
-    color: var(--sg57-text-muted);
-    border-color: rgba(255, 255, 255, 0.07);
-    opacity: 0.42;
+    color: var(--sg57-text-dim);
+    background: rgba(255, 255, 255, 0.09);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    opacity: 0.82;
     cursor: not-allowed;
     user-select: none;
   }
