@@ -656,19 +656,30 @@
     border: 1px solid rgba(0, 255, 136, 0.15);
   }
 
-  /* ── SCROLL COLUMNS (shared) — auto-hide scrollbars + fade edges ── */
+  /* ── SCROLL COLUMNS (shared) — overlay scrollbar, fade on hover ── */
   .akw-slide-content,
   .akw-slide-shots {
     overflow-y: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; /* Firefox: hidden by default */
+    /* Firefox: thin scrollbar, always in DOM, transparent by default */
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    scrollbar-gutter: stable;
     position: relative;
   }
 
-  /* Webkit: hidden by default, visible on scroll via hover */
+  /* Show scrollbar color on hover (Firefox) */
+  .akw-slide-content:hover,
+  .akw-slide-shots:hover {
+    scrollbar-color: var(--sg57-scrollbar-thumb) transparent;
+  }
+
+  /* Webkit: overlay scrollbar — always in DOM, never shifts layout */
   .akw-slide-content::-webkit-scrollbar,
   .akw-slide-shots::-webkit-scrollbar {
     width: 4px;
+    background: transparent;
   }
 
   .akw-slide-content::-webkit-scrollbar-track,
@@ -680,20 +691,12 @@
   .akw-slide-shots::-webkit-scrollbar-thumb {
     background: transparent;
     border-radius: 4px;
-    transition: background 0.3s ease;
   }
 
-  /* Show scrollbar only while hovering the column */
+  /* Fade thumb in on hover */
   .akw-slide-content:hover::-webkit-scrollbar-thumb,
   .akw-slide-shots:hover::-webkit-scrollbar-thumb {
     background: var(--sg57-scrollbar-thumb);
-  }
-
-  /* Firefox: show scrollbar on hover */
-  .akw-slide-content:hover,
-  .akw-slide-shots:hover {
-    scrollbar-width: thin;
-    scrollbar-color: var(--sg57-scrollbar-thumb) transparent;
   }
 
   /* Soft fade edges on top and bottom of scroll containers */
