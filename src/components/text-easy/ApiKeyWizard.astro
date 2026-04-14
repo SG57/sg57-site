@@ -34,18 +34,20 @@
       <div class="akw-fill" id="akw-fill"></div>
     </div>
 
-    <!-- Slide: step content -->
+    <!-- Slide: 2-column on desktop (screenshots left, content right) -->
     <div class="akw-slide" id="akw-slide" aria-live="polite" aria-atomic="true">
-      <div class="akw-step-top">
-        <div class="akw-step-icon" id="akw-step-icon" aria-hidden="true"></div>
-        <div class="akw-step-meta">
-          <div class="akw-step-number" id="akw-step-number" aria-hidden="true"></div>
-          <h2 class="akw-heading" id="akw-heading" tabindex="-1"></h2>
+      <div class="akw-slide-shots" id="akw-screenshots"></div>
+      <div class="akw-slide-content">
+        <div class="akw-step-top">
+          <div class="akw-step-icon" id="akw-step-icon" aria-hidden="true"></div>
+          <div class="akw-step-meta">
+            <div class="akw-step-number" id="akw-step-number" aria-hidden="true"></div>
+            <h2 class="akw-heading" id="akw-heading" tabindex="-1"></h2>
+          </div>
         </div>
+        <div class="akw-instructions" id="akw-instructions"></div>
+        <div class="akw-action" id="akw-action"></div>
       </div>
-      <div class="akw-instructions" id="akw-instructions"></div>
-      <div class="akw-screenshots" id="akw-screenshots"></div>
-      <div class="akw-action" id="akw-action"></div>
     </div>
 
     <!-- Navigation -->
@@ -280,11 +282,9 @@
     });
     instrEl.appendChild(ul);
 
-    // Screenshots
+    // Screenshots — populate left column
     screenshotEl.innerHTML = '';
     if (step.screenshots && step.screenshots.length > 0) {
-      const grid = document.createElement('div');
-      grid.className = step.screenshots.length > 1 ? 'akw-img-grid akw-img-grid--duo' : 'akw-img-grid';
       step.screenshots.forEach((src, i) => {
         const figure = document.createElement('figure');
         figure.className = 'akw-img-frame';
@@ -294,9 +294,8 @@
         img.loading = 'lazy';
         img.decoding = 'async';
         figure.appendChild(img);
-        grid.appendChild(figure);
+        screenshotEl.appendChild(figure);
       });
-      screenshotEl.appendChild(grid);
     }
 
     // Action area (clear — inline actions are now embedded in instructions)
@@ -522,10 +521,22 @@
     box-shadow: 0 0 8px var(--sg57-accent-glow);
   }
 
-  /* ── SLIDE ── */
+  /* ── SLIDE (2-column: screenshots left, content right) ── */
   .akw-slide {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
     padding: 1.75rem 2rem 0.5rem;
     transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease;
+  }
+
+  /* When no screenshots, content spans full width */
+  .akw-slide-shots:empty {
+    display: none;
+  }
+
+  .akw-slide-shots:empty + .akw-slide-content {
+    grid-column: 1 / -1;
   }
 
   .akw-slide.exiting-left  { transform: translateX(-40px); opacity: 0; }
@@ -636,49 +647,36 @@
     border: 1px solid rgba(0, 255, 136, 0.15);
   }
 
-  /* ── SCREENSHOTS ── */
-  .akw-screenshots {
-    margin-top: 1.25rem;
-  }
-
-  .akw-screenshots :global(.akw-img-grid) {
+  /* ── SCREENSHOTS (left column on desktop) ── */
+  .akw-slide-shots {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.5rem;
     align-items: center;
+    justify-content: center;
+    width: 190px;
+    flex-shrink: 0;
   }
 
-  .akw-screenshots :global(.akw-img-grid--duo) {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
-  }
-
-  .akw-screenshots :global(.akw-img-frame) {
+  .akw-slide-shots :global(.akw-img-frame) {
     margin: 0;
-    border-radius: var(--sg57-radius-lg);
+    border-radius: var(--sg57-radius-md);
     overflow: hidden;
     border: 1px solid var(--sg57-accent-muted);
-    box-shadow: 0 0 20px var(--sg57-accent-glow);
+    box-shadow: 0 0 16px var(--sg57-accent-glow);
     background: var(--sg57-void);
     transition: border-color 0.25s ease, box-shadow 0.25s ease;
   }
 
-  .akw-screenshots :global(.akw-img-frame:hover) {
+  .akw-slide-shots :global(.akw-img-frame:hover) {
     border-color: var(--sg57-accent);
-    box-shadow: 0 0 32px var(--sg57-accent-glow), 0 0 8px var(--sg57-accent-glow);
+    box-shadow: 0 0 24px var(--sg57-accent-glow), 0 0 8px var(--sg57-accent-glow);
   }
 
-  .akw-screenshots :global(.akw-img-frame img) {
+  .akw-slide-shots :global(.akw-img-frame img) {
     display: block;
     width: 100%;
     height: auto;
-    border-radius: var(--sg57-radius-lg);
-  }
-
-  /* Single screenshot — constrain width for phone-sized images */
-  .akw-screenshots :global(.akw-img-grid:not(.akw-img-grid--duo) .akw-img-frame) {
-    max-width: 280px;
   }
 
   /* ── INLINE ACTION (button embedded in instruction list) ── */
@@ -776,8 +774,29 @@
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
       -ms-overflow-style: none;
+      /* Stack to single column on mobile */
+      grid-template-columns: 1fr;
+      gap: 1rem;
     }
     .akw-slide::-webkit-scrollbar { display: none; }
+
+    /* Screenshots move below content on mobile */
+    .akw-slide-shots {
+      order: 2;
+      width: 100%;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .akw-slide-shots :global(.akw-img-frame) {
+      max-width: 200px;
+    }
+
+    .akw-slide-content {
+      order: 1;
+    }
 
     .akw-nav {
       flex-shrink: 0;
@@ -785,11 +804,6 @@
       background: var(--sg57-glass-bg, rgba(10, 10, 10, 0.7));
       backdrop-filter: blur(var(--sg57-glass-blur, 16px));
       -webkit-backdrop-filter: blur(var(--sg57-glass-blur, 16px));
-    }
-
-    /* Duo screenshots stack on narrow phones */
-    .akw-screenshots :global(.akw-img-grid--duo) {
-      grid-template-columns: 1fr;
     }
   }
 
