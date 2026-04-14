@@ -452,7 +452,7 @@
     border: 1px solid var(--sg57-glass-border);
     box-shadow: var(--sg57-glass-shadow);
     border-radius: var(--sg57-radius-md);
-    overflow: visible;
+    overflow: hidden;
     width: 100%;
     max-width: 900px;
     margin: 0 auto;
@@ -656,17 +656,79 @@
     border: 1px solid rgba(0, 255, 136, 0.15);
   }
 
-  /* ── CONTENT (right column) ── */
-  .akw-slide-content {
+  /* ── SCROLL COLUMNS (shared) — auto-hide scrollbars + fade edges ── */
+  .akw-slide-content,
+  .akw-slide-shots {
     overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--sg57-scrollbar-thumb) transparent;
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox: hidden by default */
+    position: relative;
   }
 
-  .akw-slide-content::-webkit-scrollbar { width: 4px; }
-  .akw-slide-content::-webkit-scrollbar-track { background: transparent; }
-  .akw-slide-content::-webkit-scrollbar-thumb { background: var(--sg57-scrollbar-thumb); border-radius: 4px; }
+  /* Webkit: hidden by default, visible on scroll via hover */
+  .akw-slide-content::-webkit-scrollbar,
+  .akw-slide-shots::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .akw-slide-content::-webkit-scrollbar-track,
+  .akw-slide-shots::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .akw-slide-content::-webkit-scrollbar-thumb,
+  .akw-slide-shots::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+  }
+
+  /* Show scrollbar only while hovering the column */
+  .akw-slide-content:hover::-webkit-scrollbar-thumb,
+  .akw-slide-shots:hover::-webkit-scrollbar-thumb {
+    background: var(--sg57-scrollbar-thumb);
+  }
+
+  /* Firefox: show scrollbar on hover */
+  .akw-slide-content:hover,
+  .akw-slide-shots:hover {
+    scrollbar-width: thin;
+    scrollbar-color: var(--sg57-scrollbar-thumb) transparent;
+  }
+
+  /* Soft fade edges on top and bottom of scroll containers */
+  .akw-slide-content::before,
+  .akw-slide-content::after,
+  .akw-slide-shots::before,
+  .akw-slide-shots::after {
+    content: '';
+    position: sticky;
+    left: 0;
+    right: 0;
+    height: 24px;
+    display: block;
+    pointer-events: none;
+    z-index: 5;
+    flex-shrink: 0;
+  }
+
+  .akw-slide-content::before,
+  .akw-slide-shots::before {
+    top: 0;
+    background: linear-gradient(to bottom, var(--sg57-glass-bg), transparent);
+  }
+
+  .akw-slide-content::after,
+  .akw-slide-shots::after {
+    bottom: 0;
+    background: linear-gradient(to top, var(--sg57-glass-bg), transparent);
+  }
+
+  /* ── CONTENT (right column) ── */
+  .akw-slide-content {
+    display: flex;
+    flex-direction: column;
+  }
 
   /* ── SCREENSHOTS (left column on desktop) ── */
   .akw-slide-shots {
@@ -675,33 +737,16 @@
     gap: 0.6rem;
     align-items: center;
     justify-content: flex-start;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--sg57-scrollbar-thumb) transparent;
-    -webkit-overflow-scrolling: touch;
   }
-
-  .akw-slide-shots::-webkit-scrollbar { width: 4px; }
-  .akw-slide-shots::-webkit-scrollbar-track { background: transparent; }
-  .akw-slide-shots::-webkit-scrollbar-thumb { background: var(--sg57-scrollbar-thumb); border-radius: 4px; }
 
   .akw-slide-shots :global(.akw-img-frame) {
     margin: 0;
     border-radius: var(--sg57-radius-md);
-    overflow: visible;
+    overflow: hidden;
     border: 1px solid var(--sg57-accent-muted);
     box-shadow: 0 0 16px var(--sg57-accent-glow);
     background: var(--sg57-void);
-    cursor: zoom-in;
-    transition: border-color 0.3s ease, box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .akw-slide-shots :global(.akw-img-frame:hover) {
-    border-color: var(--sg57-accent);
-    box-shadow: 0 0 48px var(--sg57-accent-glow), 0 0 20px var(--sg57-accent-glow);
-    transform: scale(1.35);
-    z-index: 20;
-    position: relative;
+    flex-shrink: 0;
   }
 
   .akw-slide-shots :global(.akw-img-frame img) {
