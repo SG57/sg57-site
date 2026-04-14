@@ -114,19 +114,15 @@
       heading: 'Open Google AI Studio & Accept Terms',
       icon: 'globe',
       instructions: [
-        'Tap the green button below to open Google AI Studio.',
+        'Tap the green button to open Google AI Studio:',
+        { type: 'action', label: 'Open Google AI Studio', url: 'https://aistudio.google.com/apikey', hint: 'Opens in a new tab \u2014 come back here when you\u2019re done.' },
         'A <strong>Terms of Service</strong> screen will appear.',
         'Check the <strong>&ldquo;I acknowledge&rdquo;</strong> checkbox.',
         'Tap <strong>&ldquo;Continue&rdquo;</strong>.',
       ],
       screenshots: ['/text-easy/setup/step-1-terms.png'],
       screenshotAlts: ['Google AI Studio Terms of Service screen with agreement checkbox'],
-      action: {
-        type: 'link',
-        label: 'Open Google AI Studio',
-        url: 'https://aistudio.google.com/apikey',
-        hint: 'This opens in a new tab \u2014 come back here when you\u2019re done.',
-      },
+      action: null,
       nextLabel: 'I accepted the terms \u2192',
     },
     {
@@ -184,6 +180,7 @@
       instructions: [
         'Switch back to <strong>Text Easy</strong> on your phone.',
         'Tap <strong>&ldquo;API Key&rdquo;</strong> in Settings.',
+        'Tap the <strong>&ldquo;Change&rdquo;</strong> link next to the API key field.',
         'Long-press the text field and tap <strong>&ldquo;Paste&rdquo;</strong>.',
         'Tap <strong>&ldquo;Save&rdquo;</strong>.',
       ],
@@ -248,14 +245,34 @@
     stepNumEl.textContent = step.number;
     headingEl.textContent = step.heading;
 
-    // Instructions
+    // Instructions (supports strings and inline {type:'action'} objects)
     instrEl.innerHTML = '';
     const ul = document.createElement('ul');
     ul.className = 'akw-list';
-    step.instructions.forEach(text => {
-      const li = document.createElement('li');
-      li.innerHTML = text;
-      ul.appendChild(li);
+    step.instructions.forEach(item => {
+      if (typeof item === 'object' && item.type === 'action') {
+        // Inline action button — rendered as a centered block within the list
+        const wrapper = document.createElement('li');
+        wrapper.className = 'akw-inline-action';
+        const a = document.createElement('a');
+        a.className = 'akw-action-btn';
+        a.href = item.url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.innerHTML = item.label + ' <span class="akw-link-arrow" aria-hidden="true">&nearr;</span>';
+        wrapper.appendChild(a);
+        if (item.hint) {
+          const hint = document.createElement('span');
+          hint.className = 'akw-inline-hint';
+          hint.textContent = item.hint;
+          wrapper.appendChild(hint);
+        }
+        ul.appendChild(wrapper);
+      } else {
+        const li = document.createElement('li');
+        li.innerHTML = item;
+        ul.appendChild(li);
+      }
     });
     instrEl.appendChild(ul);
 
@@ -278,24 +295,8 @@
       screenshotEl.appendChild(grid);
     }
 
-    // Action button
+    // Action area (clear — inline actions are now embedded in instructions)
     actionEl.innerHTML = '';
-    if (step.action && step.action.type === 'link') {
-      const a = document.createElement('a');
-      a.className = 'akw-action-btn';
-      a.href = step.action.url;
-      a.target = '_blank';
-      a.rel = 'noopener noreferrer';
-      a.innerHTML = step.action.label + ' <span class="akw-link-arrow" aria-hidden="true">&nearr;</span>';
-      actionEl.appendChild(a);
-
-      if (step.action.hint) {
-        const hint = document.createElement('p');
-        hint.className = 'akw-action-hint';
-        hint.textContent = step.action.hint;
-        actionEl.appendChild(hint);
-      }
-    }
 
     // Counter + progress
     currentEl.textContent = step.number;
@@ -672,12 +673,22 @@
     max-width: 280px;
   }
 
-  /* ── ACTION BUTTON ── */
-  .akw-action {
-    margin-top: 1.25rem;
+  /* ── INLINE ACTION (button embedded in instruction list) ── */
+  .akw-instructions :global(.akw-inline-action) {
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.75rem 0 0.5rem;
   }
 
-  .akw-action :global(.akw-action-btn) {
+  .akw-instructions :global(.akw-inline-action::before) {
+    display: none; /* no bullet */
+  }
+
+  .akw-instructions :global(.akw-action-btn) {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -695,34 +706,37 @@
     transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
   }
 
-  .akw-action :global(.akw-action-btn:hover) {
+  .akw-instructions :global(.akw-action-btn:hover) {
     box-shadow: 0 0 24px var(--sg57-accent-glow);
     transform: translateY(-1px);
     color: var(--sg57-text-on-accent);
   }
 
-  .akw-action :global(.akw-action-btn:active) {
+  .akw-instructions :global(.akw-action-btn:active) {
     transform: scale(0.97) translateY(0);
   }
 
-  .akw-action :global(.akw-action-btn:focus-visible) {
+  .akw-instructions :global(.akw-action-btn:focus-visible) {
     box-shadow: var(--sg57-focus-ring), 0 0 24px var(--sg57-accent-glow);
     outline: none;
   }
 
-  .akw-action :global(.akw-link-arrow) {
+  .akw-instructions :global(.akw-link-arrow) {
     font-size: 0.9em;
   }
 
-  /* Hint text — NOT fine print, full readable size */
-  .akw-action :global(.akw-action-hint) {
+  .akw-instructions :global(.akw-inline-hint) {
     font-family: var(--sg57-font-display);
     font-weight: 400;
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: var(--sg57-text-dim);
-    margin-top: 0.75rem;
     letter-spacing: 0.02em;
-    line-height: 1.5;
+    line-height: 1.4;
+  }
+
+  /* Action area (kept for future use, hidden when empty) */
+  .akw-action:empty {
+    display: none;
   }
 
   /* ── NAV ── */
