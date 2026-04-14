@@ -205,23 +205,30 @@ import Base from '../../layouts/Base.astro';
     </div>
   </section>
 
-  <!-- Free / BYOAPI callout -->
+  <!-- Free / BYOAPI callout — duotone card -->
   <section class="byoapi container">
-    <div class="byoapi-card">
-      <p class="byoapi-heading">Free to use.</p>
-      <p class="byoapi-body">
-        Text Easy runs on your own Gemini API key &mdash; available free from Google AI Studio
-        at 1,500 requests per day. No subscription. No backend. Your key, your data.
-      </p>
-      <a href="/text-easy/setup" class="byoapi-setup-link">
-        <svg class="byoapi-setup-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="18" y="18" width="20" height="20" rx="4" transform="translate(-16 -16) scale(1)"/>
-          <rect x="6" y="6" width="12" height="12" rx="2.5"/>
-          <path d="M12 10v4M10 12h4"/>
-        </svg>
-        Setup Guide &mdash; Get your free API key in 2 minutes
-        <span aria-hidden="true">&rarr;</span>
-      </a>
+    <div class="byoapi-duotone">
+      <div class="byoapi-duo-left">
+        <div class="byoapi-duo-icon" aria-hidden="true">
+          <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="28" cy="28" r="18" opacity="0.2"/>
+            <circle cx="28" cy="28" r="10"/>
+            <path d="M28 18v-6M28 44v-6M18 28h-6M44 28h-6" opacity="0.3"/>
+            <path d="M28 24v8M24 28h8" stroke-width="2"/>
+          </svg>
+        </div>
+        <p class="byoapi-duo-heading">Free to use.</p>
+      </div>
+      <div class="byoapi-duo-right">
+        <p class="byoapi-duo-body">
+          Text Easy runs on your own Gemini API key &mdash; available free from Google AI Studio
+          at 1,500 requests per day. No subscription. No backend. Your key, your data.
+        </p>
+        <a href="/text-easy/setup" class="byoapi-setup-link">
+          Setup Guide &mdash; Get your free API key in 2 minutes
+          <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -874,44 +881,102 @@ import Base from '../../layouts/Base.astro';
     padding: 0 1.5rem 5rem;
   }
 
-  .byoapi-card {
-    background: var(--sg57-surface);
-    border: 1px solid var(--sg57-border);
-    border-left: 3px solid var(--sg57-accent-muted);
+  /* ── Duotone card (Clide splash pattern) ──────────── */
+  .byoapi-duotone {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
     border-radius: var(--sg57-radius-md);
-    padding: 2rem;
+    overflow: hidden;
+    border: 1px solid var(--sg57-border);
   }
 
-  .byoapi-heading {
+  .byoapi-duo-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 2rem 1.5rem;
+    background:
+      radial-gradient(
+        ellipse 120% 80% at 50% 50%,
+        color-mix(in srgb, var(--sg57-accent) 11%, var(--sg57-elevated)) 0%,
+        color-mix(in srgb, var(--sg57-accent) 4%, var(--sg57-elevated)) 100%
+      );
+    border-right: 1px solid var(--sg57-accent-muted);
+    text-align: center;
+    position: relative;
+  }
+
+  .byoapi-duo-left::before {
+    content: '';
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, var(--sg57-accent-glow) 0%, transparent 70%);
+    filter: blur(24px);
+    pointer-events: none;
+    animation: pulse-glow 5s ease-in-out infinite;
+  }
+
+  .byoapi-duo-icon {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    color: var(--sg57-accent);
+  }
+
+  .byoapi-duo-icon svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 12px var(--sg57-accent-glow));
+  }
+
+  .byoapi-duo-heading {
+    position: relative;
     font-family: var(--sg57-font-display);
     font-weight: 700;
     font-size: clamp(1.125rem, 2vw, 1.4rem);
     color: var(--sg57-accent);
-    margin-bottom: 0.75rem;
+    letter-spacing: 0.06em;
   }
 
-  .byoapi-body {
+  .byoapi-duo-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    background:
+      radial-gradient(
+        ellipse at 10% 50%,
+        color-mix(in srgb, var(--sg57-accent) 4%, var(--sg57-surface)) 0%,
+        var(--sg57-surface) 60%
+      );
+  }
+
+  .byoapi-duo-body {
     font-family: var(--sg57-font-display);
     font-weight: 400;
     font-size: 1.125rem;
     color: var(--sg57-text-dim);
     line-height: 1.7;
-    max-width: 640px;
+    text-align: left;
   }
 
   .byoapi-setup-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    margin-top: 1.25rem;
+    gap: 0.5rem;
     font-family: var(--sg57-font-display);
     font-weight: 600;
     font-size: 1.125rem;
     letter-spacing: 0.04em;
     color: var(--sg57-accent);
     background: var(--sg57-glass-bg);
-    backdrop-filter: blur(var(--sg57-glass-blur));
-    -webkit-backdrop-filter: blur(var(--sg57-glass-blur));
     border: 1px solid var(--sg57-accent-muted);
     border-radius: var(--sg57-radius-md);
     padding: 0.75rem 1.5rem;
@@ -938,10 +1003,33 @@ import Base from '../../layouts/Base.astro';
     outline: none;
   }
 
-  .byoapi-setup-icon {
-    width: 22px;
-    height: 22px;
-    flex-shrink: 0;
+  /* Duotone responsive — stack on mobile */
+  @media (max-width: 600px) {
+    .byoapi-duotone {
+      grid-template-columns: 1fr;
+    }
+
+    .byoapi-duo-left {
+      border-right: none;
+      border-bottom: 1px solid var(--sg57-accent-muted);
+      padding: 1.5rem;
+      flex-direction: row;
+      gap: 1rem;
+    }
+
+    .byoapi-duo-left::before {
+      width: 80px;
+      height: 80px;
+    }
+
+    .byoapi-duo-icon {
+      width: 40px;
+      height: 40px;
+    }
+
+    .byoapi-duo-right {
+      padding: 1.5rem;
+    }
   }
 
   /* --- Final CTA --- */

@@ -235,6 +235,10 @@
     return new Promise(r => setTimeout(r, ms));
   }
 
+  function scrollToWizard() {
+    akw.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   function renderStep(idx) {
     const step = STEPS[idx];
 
@@ -336,6 +340,7 @@
 
     // Scroll slide area to top on step change (mobile)
     slide.scrollTop = 0;
+    scrollToWizard();
 
     await wait(320);
     animating = false;
@@ -347,6 +352,8 @@
     animating = true;
     nextBtn.disabled = true;
     backBtn.disabled = true;
+
+    scrollToWizard();
 
     body.classList.add('phase-out');
     await wait(350);
@@ -401,6 +408,7 @@
     renderStep(0);
     body.classList.remove('hidden');
     updateNav();
+    scrollToWizard();
     requestAnimationFrame(() => headingEl.focus());
   }
 

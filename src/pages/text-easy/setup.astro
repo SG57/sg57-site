@@ -74,24 +74,28 @@ import ApiKeyWizard from '../../components/text-easy/ApiKeyWizard.astro';
        §2 CONTEXT — warm explanation of what this is and why
        ══════════════════════════════════════════════════════════════════════════ -->
   <section class="context container">
-    <div class="context-card bloom">
-      <div class="context-icon" aria-hidden="true">
-        <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M28 8v6M28 42v6M8 28h6M42 28h6" opacity="0.3"/>
-          <path d="M16 16l4 4M36 36l4 4M36 16l-4 4M16 36l4-4" opacity="0.2"/>
-          <rect x="18" y="18" width="20" height="20" rx="4" stroke-width="1.5"/>
-          <path d="M28 24v8M24 28h8" stroke-width="2"/>
-        </svg>
+    <div class="duotone-card">
+      <div class="duotone-left">
+        <div class="duotone-icon" aria-hidden="true">
+          <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M28 8v6M28 42v6M8 28h6M42 28h6" opacity="0.3"/>
+            <path d="M16 16l4 4M36 36l4 4M36 16l-4 4M16 36l4-4" opacity="0.2"/>
+            <rect x="18" y="18" width="20" height="20" rx="4" stroke-width="1.5"/>
+            <path d="M28 24v8M24 28h8" stroke-width="2"/>
+          </svg>
+        </div>
+        <h2 class="duotone-heading">Why you need this</h2>
       </div>
-      <h2 class="context-heading">Why you need this</h2>
-      <p class="context-body">
-        Text Easy uses Google&rsquo;s Gemini AI to read messages and write replies in your voice.
-        To do this, it needs a free <strong>API key</strong> &mdash; think of it like a library card
-        that lets the app borrow from Google&rsquo;s AI.
-      </p>
-      <p class="context-body">
-        You get one for free, it takes about 2 minutes, and you never have to do it again.
-      </p>
+      <div class="duotone-right">
+        <p class="duotone-body">
+          Text Easy uses Google&rsquo;s Gemini AI to read messages and write replies in your voice.
+          To do this, it needs a free <strong>API key</strong> &mdash; think of it like a library card
+          that lets the app borrow from Google&rsquo;s AI.
+        </p>
+        <p class="duotone-body">
+          You get one for free, it takes about 2 minutes, and you never have to do it again.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -400,62 +404,138 @@ import ApiKeyWizard from '../../components/text-easy/ApiKeyWizard.astro';
     line-height: 1;
   }
 
-  /* ── Context card ────────────────────────────────────── */
+  /* ── Context section ─────────────────────────────────── */
   .context {
     padding: 0 1.5rem 3rem;
-    max-width: 780px;
+    max-width: 820px;
   }
 
-  .context-card {
-    background: var(--sg57-surface);
-    border: 1px solid var(--sg57-border);
-    border-left: 3px solid var(--sg57-accent-muted);
+  /* ── Duotone card — Clide splash-inspired 2-column ─── */
+  .duotone-card {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
     border-radius: var(--sg57-radius-md);
-    padding: 2rem;
-    text-align: center;
+    overflow: hidden;
+    border: 1px solid var(--sg57-border);
   }
 
-  .context-icon {
+  /* Left panel — accent-tinted, icon + title */
+  .duotone-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 2rem 1.5rem;
+    background:
+      radial-gradient(
+        ellipse 120% 80% at 50% 50%,
+        color-mix(in srgb, var(--sg57-accent) 11%, var(--sg57-elevated)) 0%,
+        color-mix(in srgb, var(--sg57-accent) 4%, var(--sg57-elevated)) 100%
+      );
+    border-right: 1px solid var(--sg57-accent-muted);
+    text-align: center;
+    position: relative;
+  }
+
+  /* Ambient glow orb behind the icon */
+  .duotone-left::before {
+    content: '';
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+      circle,
+      var(--sg57-accent-glow) 0%,
+      transparent 70%
+    );
+    filter: blur(24px);
+    pointer-events: none;
+    animation: pulse-glow 5s ease-in-out infinite;
+  }
+
+  .duotone-icon {
+    position: relative;
     width: 56px;
     height: 56px;
     color: var(--sg57-accent);
-    margin: 0 auto 1rem;
-    animation: pulse-glow 4s ease-in-out infinite;
   }
 
-  .context-icon svg {
+  .duotone-icon svg {
     width: 100%;
     height: 100%;
+    filter: drop-shadow(0 0 12px var(--sg57-accent-glow));
   }
 
-  .context-heading {
+  .duotone-heading {
+    position: relative;
     font-family: var(--sg57-font-display);
     font-weight: 600;
     font-size: 1.125rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--sg57-accent);
-    margin-bottom: 1rem;
   }
 
-  .context-body {
+  /* Right panel — neutral, body text */
+  .duotone-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 2rem;
+    background:
+      radial-gradient(
+        ellipse at 10% 50%,
+        color-mix(in srgb, var(--sg57-accent) 4%, var(--sg57-surface)) 0%,
+        var(--sg57-surface) 60%
+      );
+  }
+
+  .duotone-body {
     font-family: var(--sg57-font-display);
     font-weight: 400;
     font-size: 1.125rem;
     color: var(--sg57-text);
     line-height: 1.75;
-    max-width: 640px;
-    margin-left: auto;
-    margin-right: auto;
+    text-align: left;
   }
 
-  .context-body + .context-body {
-    margin-top: 0.75rem;
-  }
-
-  .context-body strong {
+  .duotone-body strong {
     color: var(--sg57-text-bright);
     font-weight: 600;
+  }
+
+  /* Duotone responsive — stack on mobile */
+  @media (max-width: 600px) {
+    .duotone-card {
+      grid-template-columns: 1fr;
+    }
+
+    .duotone-left {
+      border-right: none;
+      border-bottom: 1px solid var(--sg57-accent-muted);
+      padding: 1.5rem;
+      flex-direction: row;
+      gap: 1rem;
+    }
+
+    .duotone-left::before {
+      width: 80px;
+      height: 80px;
+    }
+
+    .duotone-icon {
+      width: 40px;
+      height: 40px;
+    }
+
+    .duotone-right {
+      padding: 1.5rem;
+    }
   }
 
   /* ── Wizard section ──────────────────────────────────── */
