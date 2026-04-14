@@ -208,7 +208,7 @@ import Base from '../../layouts/Base.astro';
           <li class="included">Full appearance customization</li>
           <li class="included">Priority support</li>
         </ul>
-        <a href="https://sg57.lemonsqueezy.com/checkout/buy/d1fceb6b-039b-4b40-8838-f8920c18e9a7" class="pricing-cta">Get Pro &mdash; $39</a>
+        <a href="/clide/buy" class="pricing-cta" data-astro-prefetch>Get Pro &mdash; $39</a>
       </div>
     </div>
   </section>
@@ -311,21 +311,53 @@ import Base from '../../layouts/Base.astro';
     right: 0;
     z-index: 2;
     padding-top: 5rem;
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      rgba(10, 12, 16, 0.82) 42%,
-      rgba(10, 12, 16, 0.96) 100%
-    );
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    padding-bottom: 1.5rem; /* buffer below content for bottom fade */
+    /* No background/backdrop-filter here — handled by ::before so we can mask it */
     animation: panel-rise 0.5s var(--sg57-ease-snap) both;
     animation-delay: 0.15s;
   }
 
+  /* Glass layer — separate from content so the mask only affects the glass,
+     not the text/buttons sitting on top of it */
+  .hero-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(10, 12, 16, 0.80) 28%,
+      rgba(10, 12, 16, 0.96) 55%,
+      rgba(10, 12, 16, 0.96) 78%,
+      rgba(10, 12, 16, 0.20) 94%,
+      transparent 100%
+    );
+    /* Fade the whole glass effect (blur + tint) at both top and bottom —
+       eliminates the hard rectangular clip edge when scrolling */
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 16%,
+      black 82%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 16%,
+      black 82%,
+      transparent 100%
+    );
+  }
+
   @keyframes panel-rise {
-    from { transform: translateY(10px); opacity: 0; }
-    to   { transform: translateY(0);    opacity: 1; }
+    /* Animate transform only — opacity+backdrop-filter causes compositing bugs */
+    from { transform: translateY(14px); }
+    to   { transform: translateY(0); }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -333,8 +365,10 @@ import Base from '../../layouts/Base.astro';
   }
 
   .hero-panel-inner {
+    position: relative; /* sits above ::before glass layer */
+    z-index: 1;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr auto;
     gap: 3rem;
     align-items: center;
     padding: 0 1.5rem 2.75rem;
@@ -347,6 +381,15 @@ import Base from '../../layouts/Base.astro';
     flex-direction: column;
     align-items: flex-start;
     gap: 0.75rem;
+  }
+
+  /* Boost button visibility inside the dark glass panel */
+  .hero-panel .platform-btn--windows {
+    background: var(--sg57-accent-glow); /* subtle accent fill */
+  }
+
+  .hero-panel .platform-btn--coming {
+    opacity: 0.7; /* less brutal than 0.42 on a near-black background */
   }
 
   .hero-label {
@@ -1023,10 +1066,12 @@ import Base from '../../layouts/Base.astro';
     .hero-panel {
       position: static;
       padding-top: 0;
-      background: none;
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
+      padding-bottom: 0;
       animation: none;
+    }
+
+    .hero-panel::before {
+      display: none;
     }
 
     .hero-panel-inner {
