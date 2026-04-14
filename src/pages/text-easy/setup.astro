@@ -1,0 +1,498 @@
+---
+import Base from '../../layouts/Base.astro';
+import ApiKeyWizard from '../../components/text-easy/ApiKeyWizard.astro';
+---
+
+<Base
+  title="Set Up Your Free AI Key — Text Easy | SG57 Labs"
+  description="One-time setup guide to get your free Gemini API key for Text Easy. Takes about 2 minutes. Your key stays on your device."
+  accentColor="#00FF88"
+  accentHover="#33FFaa"
+  accentMuted="#00CC6E"
+  accentGlow="rgba(0, 255, 136, 0.15)"
+  jsonLd={{
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: 'Set Up Your Free Gemini API Key for Text Easy',
+    description: 'A step-by-step guide to getting your free AI key from Google and connecting it to the Text Easy app.',
+    totalTime: 'PT2M',
+    tool: { '@type': 'HowToTool', name: 'Google account (Gmail, YouTube, etc.)' },
+    step: [
+      {
+        '@type': 'HowToStep',
+        position: 1,
+        name: 'Sign in to Google AI Studio',
+        text: 'Go to aistudio.google.com/apikey and sign in with your Google account.',
+        url: 'https://aistudio.google.com/apikey',
+      },
+      {
+        '@type': 'HowToStep',
+        position: 2,
+        name: 'Create your API key',
+        text: 'Click the blue "Create API key" button. If asked, create a new project with any name. Google will generate a key starting with "AIza...".',
+      },
+      {
+        '@type': 'HowToStep',
+        position: 3,
+        name: 'Copy the key',
+        text: 'Tap or click the copy icon (two overlapping squares) next to the key.',
+      },
+      {
+        '@type': 'HowToStep',
+        position: 4,
+        name: 'Paste it in Text Easy',
+        text: 'Open Text Easy, go to Settings, tap "API Key", long-press the text field and paste, then tap Save.',
+      },
+      {
+        '@type': 'HowToStep',
+        position: 5,
+        name: 'Done',
+        text: 'Text Easy is now connected to Google\'s AI. Try it by copying any text message and tapping the Text Easy Quick Settings tile.',
+      },
+    ],
+  }}
+>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════
+       §1 HERO — compact, informational, not cinematic
+       ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="setup-hero">
+    <div class="container bloom">
+      <span class="hero-eyebrow">TEXT EASY SETUP</span>
+      <h1 class="hero-headline">Set Up Your Free AI Key</h1>
+      <div class="hero-badges">
+        <span class="hero-badge">One-time setup</span>
+        <span class="hero-badge-sep" aria-hidden="true">&middot;</span>
+        <span class="hero-badge">About 2 minutes</span>
+        <span class="hero-badge-sep" aria-hidden="true">&middot;</span>
+        <span class="hero-badge">Your key stays on your device</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════
+       §2 CONTEXT — warm explanation of what this is and why
+       ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="context container">
+    <div class="context-card bloom">
+      <h2 class="context-heading">Why you need this</h2>
+      <p class="context-body">
+        Text Easy uses Google&rsquo;s Gemini AI to read messages and write replies in your voice.
+        To do this, it needs a free <strong>API key</strong> &mdash; think of it like a library card
+        that lets the app borrow from Google&rsquo;s AI.
+      </p>
+      <p class="context-body">
+        You get one for free, it takes about 2 minutes, and you never have to do it again.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════
+       §3 INTERACTIVE WIZARD — guided step-by-step setup
+       ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="wizard-section container" aria-label="Setup wizard">
+    <ApiKeyWizard />
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════
+       §4 FAQ — common concerns, addressed warmly
+       ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="faq container" aria-labelledby="faq-heading">
+    <h2 class="section-label" id="faq-heading">Common Questions</h2>
+
+    <div class="faq-grid">
+
+      <details class="faq-card" open>
+        <summary class="faq-question">Is this really free?</summary>
+        <p class="faq-answer">
+          Yes. Google&rsquo;s free tier gives you <strong>1,500 requests per day</strong>.
+          Even heavy texters rarely use 50 in a day. You&rsquo;d need to generate replies
+          non-stop for hours to come close. There&rsquo;s no credit card required and no surprise charges.
+        </p>
+      </details>
+
+      <details class="faq-card">
+        <summary class="faq-question">Is my key safe?</summary>
+        <p class="faq-answer">
+          Your API key is stored <strong>only on your device</strong> using Android&rsquo;s encrypted storage
+          (the same system that protects your passwords and fingerprints). SG57 Labs never sees,
+          collects, or transmits your key. It goes directly from your phone to Google &mdash; we&rsquo;re
+          not in the middle.
+        </p>
+      </details>
+
+      <details class="faq-card">
+        <summary class="faq-question">What if I lose my key?</summary>
+        <p class="faq-answer">
+          No problem. Go back to
+          <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">aistudio.google.com/apikey</a>
+          and create a new one. You can have multiple keys, and old ones keep working
+          until you delete them.
+        </p>
+      </details>
+
+      <details class="faq-card">
+        <summary class="faq-question">Can I use this key on multiple devices?</summary>
+        <p class="faq-answer">
+          Yes. Copy the same key into Text Easy on any Android device you own.
+          They all share the same free 1,500 daily requests, which is still
+          far more than you&rsquo;ll ever need.
+        </p>
+      </details>
+
+      <details class="faq-card">
+        <summary class="faq-question">What exactly is an &ldquo;API key&rdquo;?</summary>
+        <p class="faq-answer">
+          It&rsquo;s a password that tells Google &ldquo;this app has permission to
+          use my AI.&rdquo; That&rsquo;s it. You create it once, paste it into Text Easy,
+          and never think about it again. It&rsquo;s tied to your own Google account so
+          that you control it &mdash; you can delete it or create a new one anytime.
+        </p>
+      </details>
+
+      <details class="faq-card">
+        <summary class="faq-question">I pasted the key but Text Easy isn&rsquo;t working</summary>
+        <p class="faq-answer">
+          Make sure you copied the <strong>entire key</strong> &mdash; it&rsquo;s a long
+          string that starts with <code>AIza</code>. If you accidentally copied only part
+          of it, go back to
+          <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">aistudio.google.com/apikey</a>,
+          copy it again, and paste it into Settings. If it still doesn&rsquo;t work,
+          try creating a brand new key. And if you&rsquo;re still stuck,
+          email us at <a href="mailto:support@sg57.dev">support@sg57.dev</a> &mdash;
+          we&rsquo;re happy to help.
+        </p>
+      </details>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════
+       §5 FOOTER CTA
+       ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="setup-footer">
+    <div class="container">
+      <div class="footer-cta-card bloom">
+        <p class="footer-help">
+          Need help? Email us at
+          <a href="mailto:support@sg57.dev" class="footer-email">support@sg57.dev</a>
+        </p>
+        <a href="/text-easy" class="footer-back">
+          <span class="back-arrow" aria-hidden="true">&larr;</span>
+          Back to Text Easy
+        </a>
+      </div>
+    </div>
+  </section>
+
+</Base>
+
+<style>
+  /* ============================================
+     Text Easy Setup Guide — Scoped Styles
+     ============================================ */
+
+  /* Product accent override — neon green, scoped to all page sections */
+  .setup-hero,
+  .context,
+  .wizard-section,
+  .faq,
+  .setup-footer {
+    --sg57-accent: var(--sg57-text-easy-accent);
+    --sg57-accent-hover: var(--sg57-text-easy-accent-hover);
+    --sg57-accent-muted: #00CC6E;
+    --sg57-accent-glow: rgba(0, 255, 136, 0.15);
+  }
+
+  /* ── Hero ─────────────────────────────────────────────── */
+  .setup-hero {
+    padding: 6rem 1.5rem 3rem;
+    text-align: center;
+  }
+
+  .hero-eyebrow {
+    display: block;
+    font-family: var(--sg57-font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.22em;
+    color: var(--sg57-accent);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .hero-headline {
+    font-family: var(--sg57-font-display);
+    font-weight: 700;
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    color: var(--sg57-text-bright);
+    margin-bottom: 1.25rem;
+    line-height: 1.15;
+  }
+
+  .hero-badges {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+  }
+
+  .hero-badge {
+    font-family: var(--sg57-font-display);
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--sg57-text-dim);
+    letter-spacing: 0.02em;
+  }
+
+  .hero-badge-sep {
+    color: var(--sg57-accent-muted);
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  /* ── Context card ────────────────────────────────────── */
+  .context {
+    padding: 0 1.5rem 3rem;
+    max-width: 780px;
+  }
+
+  .context-card {
+    background: var(--sg57-surface);
+    border: 1px solid var(--sg57-border);
+    border-left: 3px solid var(--sg57-accent-muted);
+    border-radius: var(--sg57-radius-md);
+    padding: 2rem;
+  }
+
+  .context-heading {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1.125rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sg57-accent);
+    margin-bottom: 1rem;
+  }
+
+  .context-body {
+    font-family: var(--sg57-font-display);
+    font-weight: 400;
+    font-size: 1.125rem;
+    color: var(--sg57-text);
+    line-height: 1.75;
+    max-width: 640px;
+  }
+
+  .context-body + .context-body {
+    margin-top: 0.75rem;
+  }
+
+  .context-body strong {
+    color: var(--sg57-text-bright);
+    font-weight: 600;
+  }
+
+  /* ── Wizard section ──────────────────────────────────── */
+  .wizard-section {
+    padding: 0 1.5rem 4rem;
+    max-width: 780px;
+  }
+
+  /* ── FAQ section ─────────────────────────────────────── */
+  .faq {
+    padding: 2rem 1.5rem 4rem;
+    max-width: 780px;
+  }
+
+  .section-label {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1.125rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--sg57-accent);
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .faq-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .faq-card {
+    background: var(--sg57-surface);
+    border: 1px solid var(--sg57-border);
+    border-radius: var(--sg57-radius-md);
+    overflow: hidden;
+    transition: border-color 0.25s ease;
+  }
+
+  .faq-card[open] {
+    border-color: rgba(0, 255, 136, 0.2);
+  }
+
+  .faq-question {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: var(--sg57-text-bright);
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    transition: color 0.2s ease;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-question::marker {
+    content: '';
+  }
+
+  .faq-question::after {
+    content: '+';
+    font-family: var(--sg57-font-mono);
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--sg57-accent-muted);
+    flex-shrink: 0;
+    transition: transform 0.2s var(--sg57-ease-out), color 0.2s ease;
+  }
+
+  .faq-card[open] > .faq-question::after {
+    content: '\2212'; /* minus sign */
+    color: var(--sg57-accent);
+  }
+
+  .faq-question:hover {
+    color: var(--sg57-accent);
+  }
+
+  .faq-answer {
+    font-family: var(--sg57-font-display);
+    font-weight: 400;
+    font-size: 1.125rem;
+    color: var(--sg57-text-dim);
+    line-height: 1.7;
+    padding: 0 1.5rem 1.5rem;
+  }
+
+  .faq-answer strong {
+    color: var(--sg57-text);
+    font-weight: 600;
+  }
+
+  .faq-answer a {
+    color: var(--sg57-accent);
+    text-decoration: none;
+  }
+
+  .faq-answer a:hover {
+    color: var(--sg57-accent-hover);
+  }
+
+  /* ── Footer CTA ──────────────────────────────────────── */
+  .setup-footer {
+    padding: 0 1.5rem 5rem;
+  }
+
+  .footer-cta-card {
+    text-align: center;
+    padding: 2.5rem 2rem;
+  }
+
+  .footer-help {
+    font-family: var(--sg57-font-display);
+    font-weight: 400;
+    font-size: 1.125rem;
+    color: var(--sg57-text-dim);
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-email {
+    color: var(--sg57-accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .footer-email:hover {
+    color: var(--sg57-accent-hover);
+  }
+
+  .footer-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1.125rem;
+    letter-spacing: 0.05em;
+    color: var(--sg57-accent);
+    background: var(--sg57-glass-bg);
+    backdrop-filter: blur(var(--sg57-glass-blur));
+    -webkit-backdrop-filter: blur(var(--sg57-glass-blur));
+    border: 1px solid var(--sg57-accent-muted);
+    border-radius: var(--sg57-radius-md);
+    padding: 0.75rem 2rem;
+    text-decoration: none;
+    transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease,
+                box-shadow 0.3s ease, transform 0.2s var(--sg57-ease-out);
+  }
+
+  .footer-back:hover {
+    color: var(--sg57-text-on-accent);
+    background: var(--sg57-accent);
+    border-color: var(--sg57-accent);
+    box-shadow: 0 0 28px var(--sg57-accent-glow);
+    transform: translateY(-1px);
+  }
+
+  .footer-back:active {
+    transform: scale(0.97) translateY(0);
+  }
+
+  .footer-back:focus-visible {
+    box-shadow: var(--sg57-focus-ring), 0 0 28px var(--sg57-accent-glow);
+    outline: none;
+  }
+
+  .back-arrow {
+    font-size: 1.1em;
+    line-height: 1;
+  }
+
+  /* ── Responsive ──────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .setup-hero {
+      padding: 4.5rem 1.5rem 2rem;
+    }
+
+    .hero-badges {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .hero-badge-sep {
+      display: none;
+    }
+
+    .faq-question {
+      padding: 1rem 1.25rem;
+      font-size: 1.05rem;
+    }
+
+    .faq-answer {
+      padding: 0 1.25rem 1.25rem;
+    }
+  }
+</style>
