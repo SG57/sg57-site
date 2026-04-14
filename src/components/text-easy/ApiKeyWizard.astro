@@ -1,7 +1,7 @@
 ---
-// API Key Setup Wizard — 4 guided steps + celebration finale
+// API Key Setup Wizard — 5 guided steps + celebration finale
 // Self-contained Astro component, vanilla JS state machine.
-// Modeled on DigitalHealthQuiz.astro pattern.
+// Steps reconstructed from actual aistudio.google.com screenshots.
 ---
 
 <div class="akw-wrapper" id="akw">
@@ -18,7 +18,7 @@
       <div class="akw-counter" aria-live="polite">
         <span id="akw-current">01</span>
         <span class="akw-counter-sep">/</span>
-        <span>04</span>
+        <span>05</span>
       </div>
     </div>
 
@@ -27,7 +27,7 @@
       class="akw-track"
       role="progressbar"
       aria-valuemin="1"
-      aria-valuemax="4"
+      aria-valuemax="5"
       aria-valuenow="1"
       aria-label="Setup progress"
     >
@@ -36,9 +36,15 @@
 
     <!-- Slide: step content -->
     <div class="akw-slide" id="akw-slide" aria-live="polite" aria-atomic="true">
-      <div class="akw-step-number" id="akw-step-number" aria-hidden="true"></div>
-      <h2 class="akw-heading" id="akw-heading"></h2>
+      <div class="akw-step-top">
+        <div class="akw-step-icon" id="akw-step-icon" aria-hidden="true"></div>
+        <div class="akw-step-meta">
+          <div class="akw-step-number" id="akw-step-number" aria-hidden="true"></div>
+          <h2 class="akw-heading" id="akw-heading" tabindex="-1"></h2>
+        </div>
+      </div>
       <div class="akw-instructions" id="akw-instructions"></div>
+      <div class="akw-screenshots" id="akw-screenshots"></div>
       <div class="akw-action" id="akw-action"></div>
     </div>
 
@@ -66,16 +72,22 @@
   <!-- ── DONE PHASE ── -->
   <div class="akw-done hidden" id="akw-done" aria-live="polite">
     <div class="akw-done-inner">
-      <div class="akw-done-signal" data-stagger="0">YOU'RE ALL SET</div>
-      <h2  class="akw-done-headline" data-stagger="1">Text Easy is connected to Google&rsquo;s AI</h2>
-      <p   class="akw-done-desc" data-stagger="2">
+      <div class="akw-done-icon" data-stagger="0" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="24" cy="24" r="20" opacity="0.3"/>
+          <path d="M15 25l6 6 12-12" stroke-width="2.5"/>
+        </svg>
+      </div>
+      <div class="akw-done-signal" data-stagger="1">YOU'RE ALL SET</div>
+      <h2  class="akw-done-headline" data-stagger="2">Text Easy is connected to Google&rsquo;s AI</h2>
+      <p   class="akw-done-desc" data-stagger="3">
         Give it a try &mdash; copy any text message, swipe down to open
         your Quick Settings, and tap the <strong>Text Easy tile</strong>.
       </p>
-      <p class="akw-done-sub" data-stagger="3">
+      <p class="akw-done-sub" data-stagger="4">
         Switch back to the app &mdash; you&rsquo;re good to go.
       </p>
-      <button class="akw-retake" id="akw-retake" data-stagger="4">
+      <button class="akw-retake" id="akw-retake" data-stagger="5">
         Start over <span aria-hidden="true">&rarr;</span>
       </button>
     </div>
@@ -84,54 +96,104 @@
 </div><!-- /akw-wrapper -->
 
 <script>
+  // ── SVG ICONS (inline, no external deps) ────────────────────────────────────
+
+  const ICONS = {
+    globe: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="16"/><ellipse cx="20" cy="20" rx="8" ry="16"/><line x1="4" y1="20" x2="36" y2="20"/><path d="M6.5 12h27M6.5 28h27"/></svg>',
+    plus: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="16" opacity="0.3"/><line x1="20" y1="12" x2="20" y2="28"/><line x1="12" y1="20" x2="28" y2="20"/></svg>',
+    gear: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="5"/><path d="M20 4v4M20 32v4M36 20h-4M8 20H4M31.3 8.7l-2.8 2.8M11.5 28.5l-2.8 2.8M31.3 31.3l-2.8-2.8M11.5 11.5L8.7 8.7"/></svg>',
+    copy: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="12" y="12" width="20" height="22" rx="3"/><path d="M8 28V10a3 3 0 013-3h14"/></svg>',
+    phone: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="11" y="4" width="18" height="32" rx="4"/><line x1="17" y1="32" x2="23" y2="32"/><circle cx="20" cy="8" r="1" fill="currentColor" stroke="none"/></svg>',
+  };
+
   // ── DATA ────────────────────────────────────────────────────────────────────
 
   const STEPS = [
     {
       number: '01',
-      heading: 'Sign in to Google AI Studio',
+      heading: 'Open Google AI Studio & Accept Terms',
+      icon: 'globe',
       instructions: [
-        'Tap the button below to open Google AI Studio.',
-        'Sign in with your <strong>Google account</strong> &mdash; the same one you use for Gmail, YouTube, or Google Maps.',
-        'Don\u2019t have a Google account? <a href="https://accounts.google.com/signup" target="_blank" rel="noopener noreferrer" class="akw-link">Create one free <span class="akw-link-arrow" aria-hidden="true">&nearr;</span></a>',
+        'Tap the green button below to open Google AI Studio.',
+        'A <strong>Terms of Service</strong> screen will appear.',
+        'Check the <strong>&ldquo;I acknowledge&rdquo;</strong> checkbox.',
+        'Tap <strong>&ldquo;Continue&rdquo;</strong>.',
       ],
+      screenshots: ['/text-easy/setup/step-1-terms.png'],
+      screenshotAlts: ['Google AI Studio Terms of Service screen with agreement checkbox'],
       action: {
         type: 'link',
         label: 'Open Google AI Studio',
         url: 'https://aistudio.google.com/apikey',
+        hint: 'This opens in a new tab \u2014 come back here when you\u2019re done.',
       },
-      nextLabel: 'I\u2019m signed in \u2192',
+      nextLabel: 'I accepted the terms \u2192',
     },
     {
       number: '02',
-      heading: 'Create your API key',
+      heading: 'Tap "Create API Key"',
+      icon: 'plus',
       instructions: [
-        'Click the blue <strong>&ldquo;Create API key&rdquo;</strong> button.',
-        'If it asks you to pick a project, tap <strong>&ldquo;Create API key in new project&rdquo;</strong> &mdash; the name doesn\u2019t matter.',
-        'A long string of letters and numbers will appear. It starts with <code class="akw-code">AIza...</code> &mdash; that\u2019s your key.',
+        'You\u2019ll see the <strong>API Keys</strong> page.',
+        'Tap the <strong>&ldquo;Create API key&rdquo;</strong> button in the top right corner.',
       ],
+      screenshots: ['/text-easy/setup/step-2-api-keys.png'],
+      screenshotAlts: ['API Keys page showing the Create API key button'],
       action: null,
-      nextLabel: 'I see my key \u2192',
+      nextLabel: 'I tapped Create API key \u2192',
     },
     {
       number: '03',
-      heading: 'Copy the key',
+      heading: 'Name Your Key & Create a Project',
+      icon: 'gear',
       instructions: [
-        'Tap or click the <strong>copy icon</strong> next to the key. It looks like two overlapping squares.',
-        'Your key is now on your clipboard &mdash; ready to paste.',
+        'A <strong>&ldquo;Create a new key&rdquo;</strong> dialog will appear.',
+        'The default key name is fine \u2014 you don\u2019t need to change it.',
+        'If it asks you to create a project, give it any name (like <strong>&ldquo;Gemini Project&rdquo;</strong>) and tap <strong>&ldquo;Create project&rdquo;</strong>.',
+        'Then tap <strong>&ldquo;Create key&rdquo;</strong>.',
       ],
+      screenshots: [
+        '/text-easy/setup/step-3a-name-key.png',
+        '/text-easy/setup/step-3b-create-project.png',
+      ],
+      screenshotAlts: [
+        'Create a new key dialog with name field and project dropdown',
+        'Create a new project dialog with name field',
+      ],
+      action: null,
+      nextLabel: 'I created my key \u2192',
+    },
+    {
+      number: '04',
+      heading: 'Copy Your Key',
+      icon: 'copy',
+      instructions: [
+        'Your new API key will appear \u2014 it starts with <code class="akw-code">AIza...</code>',
+        'Tap the <strong>&ldquo;Copy key&rdquo;</strong> button at the bottom of the dialog.',
+        'Your key is now on your clipboard \u2014 ready to paste.',
+      ],
+      screenshots: ['/text-easy/setup/step-4-copy-key.png'],
+      screenshotAlts: ['API key details dialog showing the key and Copy key button'],
       action: null,
       nextLabel: 'I\u2019ve copied it \u2192',
     },
     {
-      number: '04',
-      heading: 'Paste it in Text Easy',
+      number: '05',
+      heading: 'Paste It in Text Easy',
+      icon: 'phone',
       instructions: [
         'Switch back to <strong>Text Easy</strong> on your phone.',
-        'Go to <strong>Settings</strong> (the gear icon).',
-        'Tap <strong>&ldquo;API Key&rdquo;</strong>.',
+        'Tap <strong>&ldquo;API Key&rdquo;</strong> in Settings.',
         'Long-press the text field and tap <strong>&ldquo;Paste&rdquo;</strong>.',
         'Tap <strong>&ldquo;Save&rdquo;</strong>.',
+      ],
+      screenshots: [
+        '/text-easy/setup/step-5a-app-empty.png',
+        '/text-easy/setup/step-5b-app-pasted.png',
+      ],
+      screenshotAlts: [
+        'Text Easy API Key settings page before pasting',
+        'Text Easy API Key settings page after pasting with Save button',
       ],
       action: null,
       nextLabel: 'Done! \u2192',
@@ -147,18 +209,16 @@
   const akw = document.getElementById('akw');
   if (!akw) return;
 
-  // ── STATE ───────────────────────────────────────────────────────────────────
-
   let current   = 0;
   let animating = false;
 
-  // ── DOM REFS ────────────────────────────────────────────────────────────────
-
   const body         = document.getElementById('akw-body');
   const slide        = document.getElementById('akw-slide');
+  const stepIconEl   = document.getElementById('akw-step-icon');
   const stepNumEl    = document.getElementById('akw-step-number');
   const headingEl    = document.getElementById('akw-heading');
   const instrEl      = document.getElementById('akw-instructions');
+  const screenshotEl = document.getElementById('akw-screenshots');
   const actionEl     = document.getElementById('akw-action');
   const fill         = document.getElementById('akw-fill');
   const currentEl    = document.getElementById('akw-current');
@@ -170,25 +230,25 @@
   const retakeBtn    = document.getElementById('akw-retake');
   const trackEl      = akw.querySelector('.akw-track');
 
-  if (!body || !slide || !stepNumEl || !headingEl || !instrEl || !actionEl ||
-      !fill || !currentEl || !backBtn || !nextBtn || !connPhase || !connBar ||
-      !doneEl || !retakeBtn) return;
-
-  // ── HELPERS ─────────────────────────────────────────────────────────────────
+  if (!body || !slide || !stepIconEl || !stepNumEl || !headingEl || !instrEl ||
+      !screenshotEl || !actionEl || !fill || !currentEl || !backBtn || !nextBtn ||
+      !connPhase || !connBar || !doneEl || !retakeBtn) return;
 
   function wait(ms) {
     return new Promise(r => setTimeout(r, ms));
   }
 
-  // ── RENDER ──────────────────────────────────────────────────────────────────
-
   function renderStep(idx) {
     const step = STEPS[idx];
 
+    // Icon
+    stepIconEl.innerHTML = ICONS[step.icon] || '';
+
+    // Number + heading
     stepNumEl.textContent = step.number;
     headingEl.textContent = step.heading;
 
-    // Build instruction list
+    // Instructions
     instrEl.innerHTML = '';
     const ul = document.createElement('ul');
     ul.className = 'akw-list';
@@ -199,7 +259,26 @@
     });
     instrEl.appendChild(ul);
 
-    // Build action button (optional)
+    // Screenshots
+    screenshotEl.innerHTML = '';
+    if (step.screenshots && step.screenshots.length > 0) {
+      const grid = document.createElement('div');
+      grid.className = step.screenshots.length > 1 ? 'akw-img-grid akw-img-grid--duo' : 'akw-img-grid';
+      step.screenshots.forEach((src, i) => {
+        const figure = document.createElement('figure');
+        figure.className = 'akw-img-frame';
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = step.screenshotAlts[i] || '';
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        figure.appendChild(img);
+        grid.appendChild(figure);
+      });
+      screenshotEl.appendChild(grid);
+    }
+
+    // Action button
     actionEl.innerHTML = '';
     if (step.action && step.action.type === 'link') {
       const a = document.createElement('a');
@@ -210,13 +289,15 @@
       a.innerHTML = step.action.label + ' <span class="akw-link-arrow" aria-hidden="true">&nearr;</span>';
       actionEl.appendChild(a);
 
-      const hint = document.createElement('p');
-      hint.className = 'akw-action-hint';
-      hint.textContent = 'Opens in a new tab. Come back here when you\u2019re done.';
-      actionEl.appendChild(hint);
+      if (step.action.hint) {
+        const hint = document.createElement('p');
+        hint.className = 'akw-action-hint';
+        hint.textContent = step.action.hint;
+        actionEl.appendChild(hint);
+      }
     }
 
-    // Update counter + progress
+    // Counter + progress
     currentEl.textContent = step.number;
     const pct = ((idx + 1) / TOTAL) * 100;
     fill.style.width = pct + '%';
@@ -224,7 +305,7 @@
       trackEl.setAttribute('aria-valuenow', String(idx + 1));
     }
 
-    // Update next button label
+    // Next button label
     nextBtn.innerHTML = step.nextLabel;
   }
 
@@ -233,8 +314,6 @@
     nextBtn.disabled = animating;
     backBtn.title = current === 0 ? 'No previous step' : 'Go back';
   }
-
-  // ── TRANSITIONS ─────────────────────────────────────────────────────────────
 
   async function goToStep(target, direction) {
     if (animating || target === current || target < 0 || target >= TOTAL) return;
@@ -254,11 +333,12 @@
     void slide.offsetWidth;
     slide.classList.remove(enterClass);
 
+    // Scroll slide area to top on step change (mobile)
+    slide.scrollTop = 0;
+
     await wait(320);
     animating = false;
     updateNav();
-
-    // Focus heading for screen readers
     headingEl.focus();
   }
 
@@ -267,13 +347,11 @@
     nextBtn.disabled = true;
     backBtn.disabled = true;
 
-    // Slide body out
     body.classList.add('phase-out');
     await wait(350);
     body.classList.add('hidden');
     body.classList.remove('phase-out');
 
-    // Show connecting phase
     connPhase.classList.remove('hidden');
     connPhase.classList.add('phase-in');
     connBar.style.transition = 'none';
@@ -283,13 +361,11 @@
     connBar.style.width = '100%';
     await wait(1100);
 
-    // Hide connecting, show done
     connPhase.classList.add('phase-out');
     await wait(300);
     connPhase.classList.add('hidden');
     connPhase.classList.remove('phase-in', 'phase-out');
 
-    // Staggered entrance
     doneEl.classList.remove('hidden');
     doneEl.classList.add('phase-in');
     const staggerEls = doneEl.querySelectorAll('[data-stagger]');
@@ -324,12 +400,8 @@
     renderStep(0);
     body.classList.remove('hidden');
     updateNav();
-    requestAnimationFrame(() => {
-      headingEl.focus();
-    });
+    requestAnimationFrame(() => headingEl.focus());
   }
-
-  // ── EVENT BINDINGS ──────────────────────────────────────────────────────────
 
   backBtn.addEventListener('click', () => {
     if (current > 0) goToStep(current - 1, 'back');
@@ -345,28 +417,24 @@
 
   retakeBtn.addEventListener('click', resetWizard);
 
-  // Keyboard: Enter on next button
   document.addEventListener('keydown', e => {
     if (!akw.contains(e.target)) return;
     if (e.key === 'Enter' && !animating) {
       e.preventDefault();
+      if (doneEl.classList.contains('hidden') === false) return;
       if (current < TOTAL - 1) {
         goToStep(current + 1, 'forward');
-      } else if (!doneEl.classList.contains('hidden')) {
-        // Already on done screen, do nothing
       } else {
         showDone();
       }
     }
   });
 
-  // ── INIT ────────────────────────────────────────────────────────────────────
-
   renderStep(0);
   updateNav();
 
-  } catch (_) { /* Wizard init failed — page remains functional without it */ }
-  }); // end astro:page-load
+  } catch (_) { /* Wizard init failed — page remains functional */ }
+  });
 </script>
 
 <style>
@@ -380,7 +448,7 @@
     border-radius: var(--sg57-radius-md);
     overflow: hidden;
     width: 100%;
-    max-width: 680px;
+    max-width: 720px;
     margin: 0 auto;
   }
 
@@ -438,7 +506,7 @@
 
   .akw-fill {
     height: 100%;
-    width: 25%;
+    width: 20%;
     background: var(--sg57-accent);
     border-radius: 2px;
     transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
@@ -447,51 +515,57 @@
 
   /* ── SLIDE ── */
   .akw-slide {
-    padding: 2rem 2rem 0.5rem;
+    padding: 1.75rem 2rem 0.5rem;
     transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease;
   }
 
-  .akw-slide.exiting-left {
-    transform: translateX(-40px);
-    opacity: 0;
+  .akw-slide.exiting-left  { transform: translateX(-40px); opacity: 0; }
+  .akw-slide.exiting-right { transform: translateX(40px);  opacity: 0; }
+  .akw-slide.entering-right { transform: translateX(40px); opacity: 0; transition: none; }
+  .akw-slide.entering-left  { transform: translateX(-40px); opacity: 0; transition: none; }
+
+  /* ── STEP TOP (icon + number + heading) ── */
+  .akw-step-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
   }
 
-  .akw-slide.exiting-right {
-    transform: translateX(40px);
-    opacity: 0;
+  .akw-step-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    color: var(--sg57-accent);
+    opacity: 0.7;
   }
 
-  .akw-slide.entering-right {
-    transform: translateX(40px);
-    opacity: 0;
-    transition: none;
+  .akw-step-icon :global(svg) {
+    width: 100%;
+    height: 100%;
   }
 
-  .akw-slide.entering-left {
-    transform: translateX(-40px);
-    opacity: 0;
-    transition: none;
+  .akw-step-meta {
+    flex: 1;
+    min-width: 0;
   }
 
-  /* ── STEP NUMBER ── */
   .akw-step-number {
     font-family: var(--sg57-font-mono);
-    font-size: 2.25rem;
-    font-weight: 700;
+    font-size: 0.85rem;
+    font-weight: 600;
     color: var(--sg57-accent);
-    opacity: 0.35;
-    line-height: 1;
-    margin-bottom: 0.5rem;
+    opacity: 0.5;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.15rem;
   }
 
-  /* ── HEADING ── */
   .akw-heading {
     font-family: var(--sg57-font-display);
     font-weight: 600;
     font-size: clamp(1.2rem, 2.5vw, 1.35rem);
     color: var(--sg57-text-bright);
     line-height: 1.3;
-    margin-bottom: 1.25rem;
     letter-spacing: 0.02em;
     outline: none;
   }
@@ -543,11 +617,6 @@
     color: var(--sg57-accent-hover);
   }
 
-  .akw-instructions :global(.akw-link-arrow) {
-    font-size: 0.85em;
-    margin-left: 0.15em;
-  }
-
   .akw-instructions :global(.akw-code) {
     font-family: var(--sg57-font-mono);
     font-size: 0.95em;
@@ -556,6 +625,51 @@
     padding: 0.1em 0.4em;
     border-radius: var(--sg57-radius-sm);
     border: 1px solid rgba(0, 255, 136, 0.15);
+  }
+
+  /* ── SCREENSHOTS ── */
+  .akw-screenshots {
+    margin-top: 1.25rem;
+  }
+
+  .akw-screenshots :global(.akw-img-grid) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .akw-screenshots :global(.akw-img-grid--duo) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .akw-screenshots :global(.akw-img-frame) {
+    margin: 0;
+    border-radius: var(--sg57-radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--sg57-accent-muted);
+    box-shadow: 0 0 20px var(--sg57-accent-glow);
+    background: var(--sg57-void);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .akw-screenshots :global(.akw-img-frame:hover) {
+    border-color: var(--sg57-accent);
+    box-shadow: 0 0 32px var(--sg57-accent-glow), 0 0 8px var(--sg57-accent-glow);
+  }
+
+  .akw-screenshots :global(.akw-img-frame img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--sg57-radius-lg);
+  }
+
+  /* Single screenshot — constrain width for phone-sized images */
+  .akw-screenshots :global(.akw-img-grid:not(.akw-img-grid--duo) .akw-img-frame) {
+    max-width: 280px;
   }
 
   /* ── ACTION BUTTON ── */
@@ -567,7 +681,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    min-height: 44px;
+    min-height: 48px;
     font-family: var(--sg57-font-display);
     font-weight: 600;
     font-size: 1.125rem;
@@ -575,7 +689,7 @@
     color: var(--sg57-text-on-accent);
     background: var(--sg57-accent);
     border: 1px solid var(--sg57-accent);
-    padding: 0.75rem 1.75rem;
+    padding: 0.85rem 1.75rem;
     border-radius: var(--sg57-radius-md);
     text-decoration: none;
     transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
@@ -596,18 +710,19 @@
     outline: none;
   }
 
-  .akw-action :global(.akw-action-btn .akw-link-arrow) {
+  .akw-action :global(.akw-link-arrow) {
     font-size: 0.9em;
   }
 
+  /* Hint text — NOT fine print, full readable size */
   .akw-action :global(.akw-action-hint) {
     font-family: var(--sg57-font-display);
     font-weight: 400;
-    font-size: 0.875rem;
+    font-size: 1rem;
     color: var(--sg57-text-dim);
-    opacity: 0.7;
-    margin-top: 0.5rem;
+    margin-top: 0.75rem;
     letter-spacing: 0.02em;
+    line-height: 1.5;
   }
 
   /* ── NAV ── */
@@ -626,7 +741,7 @@
     .akw-body {
       display: flex;
       flex-direction: column;
-      max-height: 75dvh;
+      max-height: 80dvh;
     }
 
     .akw-header { flex-shrink: 0; }
@@ -640,9 +755,7 @@
       scrollbar-width: none;
       -ms-overflow-style: none;
     }
-    .akw-slide::-webkit-scrollbar {
-      display: none;
-    }
+    .akw-slide::-webkit-scrollbar { display: none; }
 
     .akw-nav {
       flex-shrink: 0;
@@ -650,6 +763,11 @@
       background: var(--sg57-glass-bg, rgba(10, 10, 10, 0.7));
       backdrop-filter: blur(var(--sg57-glass-blur, 16px));
       -webkit-backdrop-filter: blur(var(--sg57-glass-blur, 16px));
+    }
+
+    /* Duo screenshots stack on narrow phones */
+    .akw-screenshots :global(.akw-img-grid--duo) {
+      grid-template-columns: 1fr;
     }
   }
 
@@ -659,7 +777,7 @@
     font-size: 1.125rem;
     letter-spacing: 0.06em;
     padding: 0.65rem 1.4rem;
-    min-height: 44px;
+    min-height: 48px;
     border-radius: var(--sg57-radius-md);
     cursor: pointer;
     touch-action: manipulation;
@@ -680,19 +798,9 @@
     border: 1px solid var(--sg57-border);
   }
 
-  .akw-btn-back:not(:disabled):hover {
-    color: var(--sg57-text);
-    border-color: var(--sg57-text-dim);
-  }
-
-  .akw-btn-back:not(:disabled):active {
-    transform: scale(0.96);
-  }
-
-  .akw-btn-back:focus-visible {
-    box-shadow: var(--sg57-focus-ring);
-    outline: none;
-  }
+  .akw-btn-back:not(:disabled):hover { color: var(--sg57-text); border-color: var(--sg57-text-dim); }
+  .akw-btn-back:not(:disabled):active { transform: scale(0.96); }
+  .akw-btn-back:focus-visible { box-shadow: var(--sg57-focus-ring); outline: none; }
 
   .akw-btn-next {
     background: var(--sg57-glass-bg);
@@ -707,14 +815,8 @@
     box-shadow: 0 0 20px var(--sg57-accent-glow);
   }
 
-  .akw-btn-next:not(:disabled):active {
-    transform: scale(0.96);
-  }
-
-  .akw-btn-next:focus-visible {
-    box-shadow: var(--sg57-focus-ring);
-    outline: none;
-  }
+  .akw-btn-next:not(:disabled):active { transform: scale(0.96); }
+  .akw-btn-next:focus-visible { box-shadow: var(--sg57-focus-ring); outline: none; }
 
   /* ── CONNECTING PHASE ── */
   .akw-connecting {
@@ -768,6 +870,18 @@
     flex-direction: column;
     align-items: center;
     gap: 0.75rem;
+  }
+
+  .akw-done-icon {
+    width: 64px;
+    height: 64px;
+    color: var(--sg57-accent);
+    margin-bottom: 0.25rem;
+  }
+
+  .akw-done-icon svg {
+    width: 100%;
+    height: 100%;
   }
 
   .akw-done-signal {
@@ -832,66 +946,30 @@
     transition: color 0.2s ease;
   }
 
-  .akw-retake:hover {
-    color: var(--sg57-text);
-  }
-
-  .akw-retake:active {
-    opacity: 0.7;
-  }
-
-  .akw-retake:focus-visible {
-    box-shadow: var(--sg57-focus-ring);
-    border-radius: var(--sg57-radius-sm);
-  }
+  .akw-retake:hover { color: var(--sg57-text); }
+  .akw-retake:active { opacity: 0.7; }
+  .akw-retake:focus-visible { box-shadow: var(--sg57-focus-ring); border-radius: var(--sg57-radius-sm); }
 
   /* ── TRANSITIONS ── */
-  .phase-out {
-    animation: akw-fade-out 0.3s ease forwards;
-  }
+  .phase-out { animation: akw-fade-out 0.3s ease forwards; }
+  .phase-in  { animation: akw-fade-in 0.4s ease forwards; }
 
-  .phase-in {
-    animation: akw-fade-in 0.4s ease forwards;
-  }
+  @keyframes akw-fade-out { to { opacity: 0; transform: translateY(-8px); } }
+  @keyframes akw-fade-in  { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-  @keyframes akw-fade-out {
-    to { opacity: 0; transform: translateY(-8px); }
-  }
-
-  @keyframes akw-fade-in {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0);   }
-  }
-
-  /* ── UTILITY ── */
-  .hidden {
-    display: none !important;
-  }
+  .hidden { display: none !important; }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 600px) {
-    .akw-header {
-      padding: 1.25rem 1.25rem 0;
-    }
+    .akw-header { padding: 1.25rem 1.25rem 0; }
+    .akw-track  { margin: 1rem 1.25rem 0; }
+    .akw-slide  { padding: 1.5rem 1.25rem 0.25rem; }
+    .akw-nav    { padding: 1.25rem 1.25rem 1.5rem; }
+    .akw-done   { padding: 2rem 1.25rem; }
 
-    .akw-track {
-      margin: 1rem 1.25rem 0;
-    }
-
-    .akw-slide {
-      padding: 1.5rem 1.25rem 0.25rem;
-    }
-
-    .akw-nav {
-      padding: 1.25rem 1.25rem 1.5rem;
-    }
-
-    .akw-done {
-      padding: 2rem 1.25rem;
-    }
-
-    .akw-step-number {
-      font-size: 1.5rem;
+    .akw-step-icon {
+      width: 36px;
+      height: 36px;
     }
   }
 </style>

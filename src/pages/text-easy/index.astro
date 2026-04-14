@@ -213,6 +213,15 @@ import Base from '../../layouts/Base.astro';
         Text Easy runs on your own Gemini API key &mdash; available free from Google AI Studio
         at 1,500 requests per day. No subscription. No backend. Your key, your data.
       </p>
+      <a href="/text-easy/setup" class="byoapi-setup-link">
+        <svg class="byoapi-setup-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="18" y="18" width="20" height="20" rx="4" transform="translate(-16 -16) scale(1)"/>
+          <rect x="6" y="6" width="12" height="12" rx="2.5"/>
+          <path d="M12 10v4M10 12h4"/>
+        </svg>
+        Setup Guide &mdash; Get your free API key in 2 minutes
+        <span aria-hidden="true">&rarr;</span>
+      </a>
     </div>
   </section>
 
@@ -888,6 +897,51 @@ import Base from '../../layouts/Base.astro';
     color: var(--sg57-text-dim);
     line-height: 1.7;
     max-width: 640px;
+  }
+
+  .byoapi-setup-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 1.25rem;
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1.125rem;
+    letter-spacing: 0.04em;
+    color: var(--sg57-accent);
+    background: var(--sg57-glass-bg);
+    backdrop-filter: blur(var(--sg57-glass-blur));
+    -webkit-backdrop-filter: blur(var(--sg57-glass-blur));
+    border: 1px solid var(--sg57-accent-muted);
+    border-radius: var(--sg57-radius-md);
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    min-height: 48px;
+    transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease,
+                box-shadow 0.3s ease, transform 0.2s var(--sg57-ease-out);
+  }
+
+  .byoapi-setup-link:hover {
+    color: var(--sg57-text-on-accent);
+    background: var(--sg57-accent);
+    border-color: var(--sg57-accent);
+    box-shadow: 0 0 28px var(--sg57-accent-glow);
+    transform: translateY(-1px);
+  }
+
+  .byoapi-setup-link:active {
+    transform: scale(0.97) translateY(0);
+  }
+
+  .byoapi-setup-link:focus-visible {
+    box-shadow: var(--sg57-focus-ring), 0 0 28px var(--sg57-accent-glow);
+    outline: none;
+  }
+
+  .byoapi-setup-icon {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
   }
 
   /* --- Final CTA --- */

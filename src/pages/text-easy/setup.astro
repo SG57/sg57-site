@@ -75,6 +75,14 @@ import ApiKeyWizard from '../../components/text-easy/ApiKeyWizard.astro';
        ══════════════════════════════════════════════════════════════════════════ -->
   <section class="context container">
     <div class="context-card bloom">
+      <div class="context-icon" aria-hidden="true">
+        <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M28 8v6M28 42v6M8 28h6M42 28h6" opacity="0.3"/>
+          <path d="M16 16l4 4M36 36l4 4M36 16l-4 4M16 36l4-4" opacity="0.2"/>
+          <rect x="18" y="18" width="20" height="20" rx="4" stroke-width="1.5"/>
+          <path d="M28 24v8M24 28h8" stroke-width="2"/>
+        </svg>
+      </div>
       <h2 class="context-heading">Why you need this</h2>
       <p class="context-body">
         Text Easy uses Google&rsquo;s Gemini AI to read messages and write replies in your voice.
@@ -95,77 +103,218 @@ import ApiKeyWizard from '../../components/text-easy/ApiKeyWizard.astro';
   </section>
 
   <!-- ══════════════════════════════════════════════════════════════════════════
-       §4 FAQ — common concerns, addressed warmly
+       §4 FAQ — animated accordion with icons
        ══════════════════════════════════════════════════════════════════════════ -->
   <section class="faq container" aria-labelledby="faq-heading">
     <h2 class="section-label" id="faq-heading">Common Questions</h2>
 
-    <div class="faq-grid">
+    <div class="faq-grid" id="faq-grid">
 
-      <details class="faq-card" open>
-        <summary class="faq-question">Is this really free?</summary>
-        <p class="faq-answer">
-          Yes. Google&rsquo;s free tier gives you <strong>1,500 requests per day</strong>.
-          Even heavy texters rarely use 50 in a day. You&rsquo;d need to generate replies
-          non-stop for hours to come close. There&rsquo;s no credit card required and no surprise charges.
-        </p>
-      </details>
+      <div class="faq-card" data-faq data-open="true">
+        <button class="faq-question" aria-expanded="true">
+          <span class="faq-icon" aria-hidden="true">
+            <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="14" cy="14" r="11"/>
+              <path d="M10 14h8"/>
+              <path d="M14 7v3M14 18v3" opacity="0.3"/>
+            </svg>
+          </span>
+          <span class="faq-label">Is this really free?</span>
+          <span class="faq-toggle" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="10" x2="16" y2="10"/><line class="faq-toggle-vert" x1="10" y1="4" x2="10" y2="16"/></svg>
+          </span>
+        </button>
+        <div class="faq-panel">
+          <div class="faq-answer">
+            Yes. Google&rsquo;s free tier gives you <strong>1,500 requests per day</strong>.
+            Even heavy texters rarely use 50 in a day. You&rsquo;d need to generate replies
+            non-stop for hours to come close. There&rsquo;s no credit card required and no surprise charges.
+          </div>
+        </div>
+      </div>
 
-      <details class="faq-card">
-        <summary class="faq-question">Is my key safe?</summary>
-        <p class="faq-answer">
-          Your API key is stored <strong>only on your device</strong> using Android&rsquo;s encrypted storage
-          (the same system that protects your passwords and fingerprints). SG57 Labs never sees,
-          collects, or transmits your key. It goes directly from your phone to Google &mdash; we&rsquo;re
-          not in the middle.
-        </p>
-      </details>
+      <div class="faq-card" data-faq>
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-icon" aria-hidden="true">
+            <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="7" y="12" width="14" height="11" rx="2"/>
+              <path d="M10 12V9a4 4 0 018 0v3"/>
+              <circle cx="14" cy="18" r="1.5" fill="currentColor" stroke="none"/>
+            </svg>
+          </span>
+          <span class="faq-label">Is my key safe?</span>
+          <span class="faq-toggle" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="10" x2="16" y2="10"/><line class="faq-toggle-vert" x1="10" y1="4" x2="10" y2="16"/></svg>
+          </span>
+        </button>
+        <div class="faq-panel">
+          <div class="faq-answer">
+            Your API key is stored <strong>only on your device</strong> using Android&rsquo;s encrypted storage
+            (the same system that protects your passwords and fingerprints). SG57 Labs never sees,
+            collects, or transmits your key. It goes directly from your phone to Google &mdash; we&rsquo;re
+            not in the middle.
+          </div>
+        </div>
+      </div>
 
-      <details class="faq-card">
-        <summary class="faq-question">What if I lose my key?</summary>
-        <p class="faq-answer">
-          No problem. Go back to
-          <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">aistudio.google.com/apikey</a>
-          and create a new one. You can have multiple keys, and old ones keep working
-          until you delete them.
-        </p>
-      </details>
+      <div class="faq-card" data-faq>
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-icon" aria-hidden="true">
+            <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 14a10 10 0 0118-6"/>
+              <path d="M24 14a10 10 0 01-18 6"/>
+              <polyline points="22 4 22 8 18 8"/>
+              <polyline points="6 24 6 20 10 20"/>
+            </svg>
+          </span>
+          <span class="faq-label">What if I lose my key?</span>
+          <span class="faq-toggle" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="10" x2="16" y2="10"/><line class="faq-toggle-vert" x1="10" y1="4" x2="10" y2="16"/></svg>
+          </span>
+        </button>
+        <div class="faq-panel">
+          <div class="faq-answer">
+            No problem. Go back to
+            <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">aistudio.google.com/apikey</a>
+            and create a new one. You can have multiple keys, and old ones keep working
+            until you delete them.
+          </div>
+        </div>
+      </div>
 
-      <details class="faq-card">
-        <summary class="faq-question">Can I use this key on multiple devices?</summary>
-        <p class="faq-answer">
-          Yes. Copy the same key into Text Easy on any Android device you own.
-          They all share the same free 1,500 daily requests, which is still
-          far more than you&rsquo;ll ever need.
-        </p>
-      </details>
+      <div class="faq-card" data-faq>
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-icon" aria-hidden="true">
+            <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="6" width="10" height="16" rx="2"/>
+              <rect x="15" y="6" width="10" height="16" rx="2"/>
+              <line x1="6" y1="19" x2="10" y2="19" opacity="0.5"/>
+              <line x1="18" y1="19" x2="22" y2="19" opacity="0.5"/>
+            </svg>
+          </span>
+          <span class="faq-label">Can I use this key on multiple devices?</span>
+          <span class="faq-toggle" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="10" x2="16" y2="10"/><line class="faq-toggle-vert" x1="10" y1="4" x2="10" y2="16"/></svg>
+          </span>
+        </button>
+        <div class="faq-panel">
+          <div class="faq-answer">
+            Yes. Copy the same key into Text Easy on any Android device you own.
+            They all share the same free 1,500 daily requests, which is still
+            far more than you&rsquo;ll ever need.
+          </div>
+        </div>
+      </div>
 
-      <details class="faq-card">
-        <summary class="faq-question">What exactly is an &ldquo;API key&rdquo;?</summary>
-        <p class="faq-answer">
-          It&rsquo;s a password that tells Google &ldquo;this app has permission to
-          use my AI.&rdquo; That&rsquo;s it. You create it once, paste it into Text Easy,
-          and never think about it again. It&rsquo;s tied to your own Google account so
-          that you control it &mdash; you can delete it or create a new one anytime.
-        </p>
-      </details>
+      <div class="faq-card" data-faq>
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-icon" aria-hidden="true">
+            <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="5" opacity="0.3"/>
+              <path d="M14 18v2a3 3 0 003 3h0"/>
+              <circle cx="11" cy="11" r="2"/>
+              <path d="M15 15l6 6"/>
+              <path d="M8 4l1 2M4 8l2 1" opacity="0.3"/>
+            </svg>
+          </span>
+          <span class="faq-label">What exactly is an &ldquo;API key&rdquo;?</span>
+          <span class="faq-toggle" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="10" x2="16" y2="10"/><line class="faq-toggle-vert" x1="10" y1="4" x2="10" y2="16"/></svg>
+          </span>
+        </button>
+        <div class="faq-panel">
+          <div class="faq-answer">
+            It&rsquo;s a password that tells Google &ldquo;this app has permission to
+            use my AI.&rdquo; That&rsquo;s it. You create it once, paste it into Text Easy,
+            and never think about it again. It&rsquo;s tied to your own Google account so
+            that you control it &mdash; you can delete it or create a new one anytime.
+          </div>
+        </div>
+      </div>
 
-      <details class="faq-card">
-        <summary class="faq-question">I pasted the key but Text Easy isn&rsquo;t working</summary>
-        <p class="faq-answer">
-          Make sure you copied the <strong>entire key</strong> &mdash; it&rsquo;s a long
-          string that starts with <code>AIza</code>. If you accidentally copied only part
-          of it, go back to
-          <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">aistudio.google.com/apikey</a>,
-          copy it again, and paste it into Settings. If it still doesn&rsquo;t work,
-          try creating a brand new key. And if you&rsquo;re still stuck,
-          email us at <a href="mailto:support@sg57.dev">support@sg57.dev</a> &mdash;
-          we&rsquo;re happy to help.
-        </p>
-      </details>
+      <div class="faq-card" data-faq>
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-icon" aria-hidden="true">
+            <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 4l-2 8h12l-2-8"/>
+              <circle cx="14" cy="18" r="6"/>
+              <path d="M12 18l2 2 4-4"/>
+            </svg>
+          </span>
+          <span class="faq-label">I pasted the key but Text Easy isn&rsquo;t working</span>
+          <span class="faq-toggle" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="10" x2="16" y2="10"/><line class="faq-toggle-vert" x1="10" y1="4" x2="10" y2="16"/></svg>
+          </span>
+        </button>
+        <div class="faq-panel">
+          <div class="faq-answer">
+            Make sure you copied the <strong>entire key</strong> &mdash; it&rsquo;s a long
+            string that starts with <code>AIza</code>. If you accidentally copied only part
+            of it, go back to
+            <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">aistudio.google.com/apikey</a>,
+            copy it again, and paste it into Settings. If it still doesn&rsquo;t work,
+            try creating a brand new key. And if you&rsquo;re still stuck,
+            email us at <a href="mailto:support@sg57.dev">support@sg57.dev</a> &mdash;
+            we&rsquo;re happy to help.
+          </div>
+        </div>
+      </div>
 
     </div>
   </section>
+
+  <!-- FAQ accordion script — animated expand/collapse -->
+  <script>
+    document.addEventListener('astro:page-load', () => {
+      const grid = document.getElementById('faq-grid');
+      if (!grid) return;
+
+      const cards = grid.querySelectorAll('[data-faq]');
+
+      // Initialize: set panel heights for open items
+      cards.forEach(card => {
+        const panel = card.querySelector('.faq-panel');
+        const answer = panel.querySelector('.faq-answer');
+        if (!panel || !answer) return;
+
+        if (card.dataset.open === 'true') {
+          panel.style.maxHeight = answer.scrollHeight + 'px';
+          panel.style.opacity = '1';
+        } else {
+          panel.style.maxHeight = '0';
+          panel.style.opacity = '0';
+        }
+      });
+
+      grid.addEventListener('click', e => {
+        const btn = e.target.closest('.faq-question');
+        if (!btn) return;
+
+        const card = btn.closest('[data-faq]');
+        const panel = card.querySelector('.faq-panel');
+        const answer = panel.querySelector('.faq-answer');
+        if (!panel || !answer) return;
+
+        const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+        if (isOpen) {
+          // Collapse
+          panel.style.maxHeight = answer.scrollHeight + 'px';
+          void panel.offsetWidth; // force reflow
+          panel.style.maxHeight = '0';
+          panel.style.opacity = '0';
+          btn.setAttribute('aria-expanded', 'false');
+          card.removeAttribute('data-open');
+        } else {
+          // Expand
+          panel.style.maxHeight = answer.scrollHeight + 'px';
+          panel.style.opacity = '1';
+          btn.setAttribute('aria-expanded', 'true');
+          card.dataset.open = 'true';
+        }
+      });
+    });
+  </script>
 
   <!-- ══════════════════════════════════════════════════════════════════════════
        §5 FOOTER CTA
@@ -263,6 +412,20 @@ import ApiKeyWizard from '../../components/text-easy/ApiKeyWizard.astro';
     border-left: 3px solid var(--sg57-accent-muted);
     border-radius: var(--sg57-radius-md);
     padding: 2rem;
+    text-align: center;
+  }
+
+  .context-icon {
+    width: 56px;
+    height: 56px;
+    color: var(--sg57-accent);
+    margin: 0 auto 1rem;
+    animation: pulse-glow 4s ease-in-out infinite;
+  }
+
+  .context-icon svg {
+    width: 100%;
+    height: 100%;
   }
 
   .context-heading {
@@ -282,6 +445,8 @@ import ApiKeyWizard from '../../components/text-easy/ApiKeyWizard.astro';
     color: var(--sg57-text);
     line-height: 1.75;
     max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .context-body + .context-body {
@@ -327,55 +492,97 @@ import ApiKeyWizard from '../../components/text-easy/ApiKeyWizard.astro';
     border: 1px solid var(--sg57-border);
     border-radius: var(--sg57-radius-md);
     overflow: hidden;
-    transition: border-color 0.25s ease;
+    transition: border-color 0.3s ease;
   }
 
-  .faq-card[open] {
+  .faq-card[data-open] {
     border-color: rgba(0, 255, 136, 0.2);
   }
 
   .faq-question {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    width: 100%;
     font-family: var(--sg57-font-display);
     font-weight: 600;
     font-size: 1.125rem;
     color: var(--sg57-text-bright);
+    background: transparent;
+    border: none;
     padding: 1.25rem 1.5rem;
     cursor: pointer;
-    list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
+    text-align: left;
     transition: color 0.2s ease;
     user-select: none;
     -webkit-user-select: none;
-  }
-
-  .faq-question::-webkit-details-marker {
-    display: none;
-  }
-
-  .faq-question::marker {
-    content: '';
-  }
-
-  .faq-question::after {
-    content: '+';
-    font-family: var(--sg57-font-mono);
-    font-size: 1.25rem;
-    font-weight: 400;
-    color: var(--sg57-accent-muted);
-    flex-shrink: 0;
-    transition: transform 0.2s var(--sg57-ease-out), color 0.2s ease;
-  }
-
-  .faq-card[open] > .faq-question::after {
-    content: '\2212'; /* minus sign */
-    color: var(--sg57-accent);
+    -webkit-tap-highlight-color: transparent;
   }
 
   .faq-question:hover {
     color: var(--sg57-accent);
+  }
+
+  .faq-question:focus-visible {
+    box-shadow: var(--sg57-focus-ring);
+    outline: none;
+  }
+
+  .faq-icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    color: var(--sg57-accent);
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+  }
+
+  .faq-card[data-open] .faq-icon {
+    opacity: 1;
+  }
+
+  .faq-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .faq-label {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Animated +/− toggle */
+  .faq-toggle {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: var(--sg57-accent-muted);
+    transition: color 0.2s ease;
+  }
+
+  .faq-card[data-open] .faq-toggle {
+    color: var(--sg57-accent);
+  }
+
+  .faq-toggle svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .faq-toggle .faq-toggle-vert {
+    transition: transform 0.3s var(--sg57-ease-out), opacity 0.3s ease;
+    transform-origin: center;
+  }
+
+  .faq-card[data-open] .faq-toggle .faq-toggle-vert {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+
+  /* Animated panel */
+  .faq-panel {
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
   }
 
   .faq-answer {
@@ -384,7 +591,7 @@ import ApiKeyWizard from '../../components/text-easy/ApiKeyWizard.astro';
     font-size: 1.125rem;
     color: var(--sg57-text-dim);
     line-height: 1.7;
-    padding: 0 1.5rem 1.5rem;
+    padding: 0 1.5rem 1.5rem 4.35rem; /* left aligned with label text */
   }
 
   .faq-answer strong {
@@ -492,7 +699,7 @@ import ApiKeyWizard from '../../components/text-easy/ApiKeyWizard.astro';
     }
 
     .faq-answer {
-      padding: 0 1.25rem 1.25rem;
+      padding: 0 1.25rem 1.25rem 1.25rem;
     }
   }
 </style>
