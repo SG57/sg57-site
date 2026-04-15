@@ -54,12 +54,6 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
       </div>
 
     </div>
-
-    <!-- Scroll hint -->
-    <div class="hero-scroll-hint" aria-hidden="true">
-      <span class="scroll-label">scroll</span>
-      <span class="scroll-arrow">↓</span>
-    </div>
   </section>
 
   <!-- ══ PRODUCTS ══ -->
@@ -350,39 +344,6 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
   @keyframes cursor-blink {
     0%, 100% { opacity: 1; }
     50%       { opacity: 0; }
-  }
-
-  /* ── Scroll hint ── */
-  .hero-scroll-hint {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.25rem;
-    opacity: 0;
-    animation: fade-in 1s 1.2s ease forwards;
-  }
-
-  .scroll-label {
-    font-family: var(--sg57-font-mono);
-    font-size: 1.125rem;
-    letter-spacing: 0.2em;
-    color: var(--sg57-text-muted);
-    text-transform: uppercase;
-  }
-
-  .scroll-arrow {
-    color: var(--sg57-text-muted);
-    font-size: 1.125rem;
-    animation: scroll-bounce 2s ease-in-out infinite;
-  }
-
-  @keyframes scroll-bounce {
-    0%, 100% { transform: translateY(0);   opacity: 0.4; }
-    50%       { transform: translateY(4px); opacity: 0.9; }
   }
 
   /* ════════════════════════════════════════════════════
