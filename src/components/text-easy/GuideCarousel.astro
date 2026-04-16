@@ -102,13 +102,14 @@ const slides: Slide[] = [
   /* ── Scroll-snap track ── */
   .carousel-track {
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    padding: 0 calc(50% - 160px);
+    /* Mobile: center a single slide with generous padding */
+    padding: 0 calc(50% - 130px);
     outline: none;
   }
   .carousel-track::-webkit-scrollbar { display: none; }
@@ -119,7 +120,8 @@ const slides: Slide[] = [
 
   /* ── Slide ── */
   .carousel-slide {
-    flex: 0 0 280px;
+    /* Mobile: single slide fills most of the viewport */
+    flex: 0 0 260px;
     scroll-snap-align: center;
     display: flex;
     flex-direction: column;
@@ -304,6 +306,23 @@ const slides: Slide[] = [
 
     dots.forEach((dot, i) => {
       dot.addEventListener('click', () => { scrollToSlide(i); updateState(i); });
+    });
+
+    // On wider screens (3 slides visible), start focused on slide 2 (index 1)
+    // so the user sees slides 1-2-3 on load. On mobile, start at slide 0.
+    const isDesktop = window.matchMedia('(min-width: 640px)').matches;
+    const initialSlide = isDesktop ? 1 : 0;
+
+    // Use requestAnimationFrame to ensure layout is complete before scrolling
+    requestAnimationFrame(() => {
+      // Disable smooth scroll for the initial positioning
+      track.style.scrollBehavior = 'auto';
+      scrollToSlide(initialSlide);
+      updateState(initialSlide);
+      // Re-enable smooth scroll after a tick
+      requestAnimationFrame(() => {
+        track.style.scrollBehavior = '';
+      });
     });
 
     // Keyboard nav when track is focused
