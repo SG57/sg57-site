@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import GuideCarousel from '../../components/text-easy/GuideCarousel.astro';
 ---
 
 <Base
@@ -269,17 +270,7 @@ import Base from '../../layouts/Base.astro';
   <!-- Store Gallery -->
   <section class="media container">
     <h2 class="section-heading">App Preview</h2>
-    <!-- TODO: replace with actual Play Store screenshots in a portrait frame grid
-         Screenshot strategy (from TEXT-EASY-DNA.md §9):
-           1. Intent picker — 3 inferred intents
-           2. Reply picker — 3 flavored options
-           3. Refinement panel — tone/length controls
-           4. Quick Settings tile trigger
-           5. Settings / personalization screen -->
-    <div class="store-placeholder">
-      <span class="placeholder-glyph">[ ]</span>
-      <p class="placeholder-label">App screenshots coming soon</p>
-    </div>
+    <GuideCarousel />
   </section>
 
   <!-- Free / BYOAPI callout — duotone card -->
@@ -1028,35 +1019,6 @@ import Base from '../../layouts/Base.astro';
   /* --- Store Media --- */
   .media {
     padding: 0 1.5rem 5rem;
-  }
-
-  .store-placeholder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    padding: 3rem 2rem;
-    border: 1px dashed var(--sg57-border);
-    border-radius: var(--sg57-radius-md);
-    background: var(--sg57-surface);
-  }
-
-  .placeholder-glyph {
-    font-family: var(--sg57-font-display);
-    font-size: 2rem;
-    color: var(--sg57-accent-muted);
-    letter-spacing: 0.3em;
-    opacity: 0.4;
-  }
-
-  .placeholder-label {
-    font-family: var(--sg57-font-display);
-    font-size: 1.125rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--sg57-text-muted);
-    opacity: 0.5;
   }
 
   /* --- BYOAPI Callout --- */
