@@ -1295,8 +1295,11 @@ import Base from '../../layouts/Base.astro';
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none; /* Firefox */
-    /* Horizontal padding lets the first/last slide center in the viewport */
-    padding: 1rem calc(50vw - min(45%, 450px)) 1.5rem;
+    /* Horizontal padding = half the gallery width so first/last slide can dead-center.
+       The gallery is 100vw wide; 50% of parent = 50vw = half viewport. scroll-snap-align:center
+       on each slide will position the slide center at the snap point, so this padding
+       ensures even edge slides have room to scroll to center. */
+    padding: 1rem 50% 1.5rem;
     cursor: grab;
   }
 
