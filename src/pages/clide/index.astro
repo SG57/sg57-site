@@ -1295,7 +1295,8 @@ import Base from '../../layouts/Base.astro';
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none; /* Firefox */
-    padding: 1rem 0 1.5rem;
+    /* Horizontal padding lets the first/last slide center in the viewport */
+    padding: 1rem calc(50vw - min(45%, 450px)) 1.5rem;
     cursor: grab;
   }
 
