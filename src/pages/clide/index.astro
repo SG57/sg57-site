@@ -1288,6 +1288,7 @@ import Base from '../../layouts/Base.astro';
   }
 
   .gallery-track {
+    --slide-w: min(90vw, 900px);
     display: flex;
     gap: 1.5rem;
     overflow-x: auto;
@@ -1295,12 +1296,15 @@ import Base from '../../layouts/Base.astro';
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none; /* Firefox */
-    /* Horizontal padding = half the gallery width so first/last slide can dead-center.
-       The gallery is 100vw wide; 50% of parent = 50vw = half viewport. scroll-snap-align:center
-       on each slide will position the slide center at the snap point, so this padding
-       ensures even edge slides have room to scroll to center. */
-    padding: 1rem 50% 1.5rem;
+    padding: 1rem 0 1.5rem;
     cursor: grab;
+  }
+
+  /* Spacers so first/last slide can scroll to dead center */
+  .gallery-track::before,
+  .gallery-track::after {
+    content: "";
+    flex: 0 0 max(0px, calc(50vw - var(--slide-w) / 2 - 0.75rem));
   }
 
   .gallery-track.is-dragging {
@@ -1315,7 +1319,7 @@ import Base from '../../layouts/Base.astro';
   }
 
   .gallery-slide {
-    flex: 0 0 min(90%, 900px);
+    flex: 0 0 var(--slide-w);
     scroll-snap-align: center;
     margin: 0;
     border-radius: var(--sg57-radius-lg, 12px);
@@ -1587,8 +1591,12 @@ import Base from '../../layouts/Base.astro';
       align-items: center;
     }
 
+    .gallery-track {
+      --slide-w: 92vw;
+    }
+
     .gallery-slide {
-      flex: 0 0 92%;
+      flex: 0 0 var(--slide-w);
     }
 
     .gallery-arrow {
