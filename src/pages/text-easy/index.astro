@@ -273,6 +273,51 @@ import GuideCarousel from '../../components/text-easy/GuideCarousel.astro';
     </div>
   </section>
 
+  <!-- Text Easy Cloud — subscription upsell -->
+  <section class="cloud container">
+    <span class="cloud-eyebrow">Text Easy Cloud</span>
+    <h2 class="cloud-headline">Skip the setup. Subscribe and go.</h2>
+    <p class="cloud-subheadline">Text Easy Cloud handles the AI for you. No API key, no setup, no limits.</p>
+
+    <div class="cloud-features">
+      <div class="cloud-feature-card">
+        <div class="cloud-feature-icon" aria-hidden="true">⚡</div>
+        <h3 class="cloud-feature-name">Zero Setup</h3>
+        <p class="cloud-feature-desc">Subscribe and start replying. No Google account, no API key, no tutorial.</p>
+      </div>
+      <div class="cloud-feature-card">
+        <div class="cloud-feature-icon" aria-hidden="true">∞</div>
+        <h3 class="cloud-feature-name">Unlimited Flows</h3>
+        <p class="cloud-feature-desc">No weekly limits. Reply as much as you want, whenever you want.</p>
+      </div>
+      <div class="cloud-feature-card">
+        <div class="cloud-feature-icon" aria-hidden="true">★</div>
+        <h3 class="cloud-feature-name">All Pro Features</h3>
+        <p class="cloud-feature-desc">Everything in Pro &mdash; custom refinements, all reply modes, compose from scratch.</p>
+      </div>
+    </div>
+
+    <div class="cloud-pricing">
+      <div class="cloud-price-card">
+        <h3 class="cloud-price-tier">Monthly</h3>
+        <p class="cloud-price-amount"><span class="cloud-price-currency">$</span>4.99<span class="cloud-price-period">/month</span></p>
+        <p class="cloud-price-note">Flexible. Cancel anytime.</p>
+      </div>
+      <div class="cloud-price-card cloud-price-card--best">
+        <span class="cloud-price-badge">BEST VALUE</span>
+        <h3 class="cloud-price-tier">Annual</h3>
+        <p class="cloud-price-amount"><span class="cloud-price-currency">$</span>39.99<span class="cloud-price-period">/year</span></p>
+        <p class="cloud-price-note">Best value &mdash; save 33%</p>
+      </div>
+    </div>
+
+    <a href="https://PLACEHOLDER.lemonsqueezy.com/checkout" class="cloud-cta" target="_blank" rel="noopener noreferrer">
+      Subscribe Now
+      <span aria-hidden="true">&rarr;</span>
+    </a>
+    <p class="cloud-small-print">Already subscribed? Sign in from the app to activate.</p>
+  </section>
+
   <!-- Free / BYOAPI callout — duotone card -->
   <section class="byoapi container">
     <div class="byoapi-duotone">
@@ -358,6 +403,7 @@ import GuideCarousel from '../../components/text-easy/GuideCarousel.astro';
   .how-it-works,
   .features,
   .media,
+  .cloud,
   .byoapi,
   .final-cta {
     --sg57-accent: var(--sg57-text-easy-accent);
@@ -1019,6 +1065,217 @@ import GuideCarousel from '../../components/text-easy/GuideCarousel.astro';
   /* --- Store Media --- */
   .media {
     padding: 0 1.5rem 5rem;
+  }
+
+  /* --- Cloud Subscription --- */
+  .cloud {
+    padding: 0 1.5rem 5rem;
+    text-align: center;
+  }
+
+  .cloud-eyebrow {
+    display: inline-block;
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sg57-accent);
+    border: 1px solid color-mix(in srgb, var(--sg57-accent) 30%, transparent);
+    border-radius: 999px;
+    padding: 0.3em 1em;
+    margin-bottom: 1rem;
+  }
+
+  .cloud-headline {
+    font-family: var(--sg57-font-display);
+    font-weight: 700;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    color: var(--sg57-text-bright);
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+  }
+
+  .cloud-subheadline {
+    font-size: 1.05rem;
+    color: var(--sg57-text-dim);
+    max-width: 540px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.5;
+  }
+
+  .cloud-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .cloud-feature-card {
+    background: rgba(18, 21, 26, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--sg57-radius-lg);
+    padding: 1.75rem 1.25rem;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s var(--sg57-ease-out);
+  }
+
+  .cloud-feature-card:hover {
+    border-color: var(--sg57-accent-muted);
+    box-shadow: 0 0 24px var(--sg57-accent-glow);
+    transform: translateY(-2px);
+  }
+
+  .cloud-feature-icon {
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom: 0.75rem;
+  }
+
+  .cloud-feature-name {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--sg57-text-bright);
+    margin: 0 0 0.5rem;
+  }
+
+  .cloud-feature-desc {
+    font-size: 0.9rem;
+    color: var(--sg57-text-dim);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .cloud-pricing {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    max-width: 560px;
+    margin: 0 auto 2rem;
+  }
+
+  .cloud-price-card {
+    position: relative;
+    background: rgba(18, 21, 26, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--sg57-radius-lg);
+    padding: 2rem 1.5rem;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .cloud-price-card--best {
+    border-color: var(--sg57-accent-muted);
+    box-shadow: 0 0 32px var(--sg57-accent-glow);
+  }
+
+  .cloud-price-badge {
+    position: absolute;
+    top: -0.7em;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--sg57-font-display);
+    font-weight: 700;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--sg57-void);
+    background: var(--sg57-accent);
+    border-radius: 999px;
+    padding: 0.25em 0.85em;
+    white-space: nowrap;
+  }
+
+  .cloud-price-tier {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sg57-text);
+    margin: 0 0 0.5rem;
+  }
+
+  .cloud-price-amount {
+    font-family: var(--sg57-font-display);
+    font-weight: 700;
+    font-size: 2.2rem;
+    color: var(--sg57-text-bright);
+    margin: 0 0 0.4rem;
+    line-height: 1;
+  }
+
+  .cloud-price-currency {
+    font-size: 1.2rem;
+    vertical-align: super;
+    margin-right: 0.1em;
+  }
+
+  .cloud-price-period {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--sg57-text-dim);
+    margin-left: 0.15em;
+  }
+
+  .cloud-price-note {
+    font-size: 0.85rem;
+    color: var(--sg57-text-dim);
+    margin: 0;
+  }
+
+  .cloud-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    color: var(--sg57-void);
+    background: var(--sg57-accent);
+    border-radius: var(--sg57-radius-lg);
+    padding: 0.75em 2em;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.15s var(--sg57-ease-out), box-shadow 0.25s ease;
+    box-shadow: 0 0 20px var(--sg57-accent-glow);
+  }
+
+  .cloud-cta:hover {
+    background: var(--sg57-accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 0 32px var(--sg57-accent-glow);
+  }
+
+  .cloud-cta:active {
+    transform: translateY(0);
+  }
+
+  .cloud-cta:focus-visible {
+    outline: 2px solid var(--sg57-accent);
+    outline-offset: 3px;
+  }
+
+  .cloud-small-print {
+    font-size: 0.8rem;
+    color: var(--sg57-text-dim);
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 720px) {
+    .cloud-features {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .cloud-pricing {
+      grid-template-columns: 1fr;
+      max-width: 320px;
+    }
   }
 
   /* --- BYOAPI Callout --- */
