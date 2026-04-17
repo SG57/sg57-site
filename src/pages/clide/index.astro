@@ -1282,6 +1282,9 @@ import Base from '../../layouts/Base.astro';
     position: relative;
     margin-top: 2.5rem;
     outline: none;
+    /* Break out of .container to full viewport width */
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
   }
 
   .gallery-track {
