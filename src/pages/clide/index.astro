@@ -1259,9 +1259,9 @@ import Base from '../../layouts/Base.astro';
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none; /* Firefox */
     padding: 1rem 0 1.5rem;
-    /* Soft fade edges so clipped slides aren't hard-cut */
-    mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+    /* Soft fade edges — narrow so the focused slide isn't clipped */
+    mask-image: linear-gradient(to right, transparent, black 2.5%, black 97.5%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 2.5%, black 97.5%, transparent);
   }
 
   .gallery-track::-webkit-scrollbar {
@@ -1334,7 +1334,7 @@ import Base from '../../layouts/Base.astro';
     transform: scale(1.15);
   }
 
-  /* Side arrows — flanking the gallery track */
+  /* Side arrows — flanking the gallery track, hover-reveal */
   .gallery-arrow {
     position: absolute;
     top: 50%;
@@ -1352,9 +1352,14 @@ import Base from '../../layouts/Base.astro';
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease,
-                box-shadow 0.3s ease, transform 0.2s var(--sg57-ease-out);
     padding: 0;
+    opacity: 0;
+    transition: opacity 0.25s ease, color 0.2s ease, border-color 0.2s ease,
+                background 0.2s ease, box-shadow 0.3s ease, transform 0.2s var(--sg57-ease-out);
+  }
+
+  .gallery:hover .gallery-arrow {
+    opacity: 1;
   }
 
   .gallery-arrow--left { left: 0.75rem; }

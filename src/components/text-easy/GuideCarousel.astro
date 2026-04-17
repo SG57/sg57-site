@@ -124,9 +124,9 @@ const slides: Slide[] = [
     /* Mobile: center a single slide with generous padding */
     padding: 0 calc(50% - 130px);
     outline: none;
-    /* Soft fade edges */
-    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    /* Soft fade edges — narrow so the focused slide isn't clipped */
+    mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent);
   }
   .carousel-track::-webkit-scrollbar { display: none; }
 
@@ -259,7 +259,7 @@ const slides: Slide[] = [
     }
   }
 
-  /* ── Side arrows ── */
+  /* ── Side arrows — hover-reveal ── */
   .carousel-side-arrow {
     position: absolute;
     top: 40%;
@@ -277,8 +277,16 @@ const slides: Slide[] = [
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: all var(--sg57-duration-150, 150ms) ease;
     padding: 0;
+    opacity: 0;
+    transition: opacity 0.25s ease, color var(--sg57-duration-150, 150ms) ease,
+                border-color var(--sg57-duration-150, 150ms) ease,
+                box-shadow var(--sg57-duration-150, 150ms) ease,
+                transform var(--sg57-duration-150, 150ms) ease;
+  }
+
+  .guide-carousel:hover .carousel-side-arrow {
+    opacity: 1;
   }
 
   .carousel-side-arrow--left { left: 0.5rem; }
