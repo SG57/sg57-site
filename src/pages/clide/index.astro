@@ -97,6 +97,14 @@ import Base from '../../layouts/Base.astro';
     <p class="media-tagline">Managing one AI session is easy. Managing ten is chaos. Clide is your mission control.</p>
 
     <div class="gallery" role="region" aria-label="Screenshot gallery" tabindex="0">
+      <!-- Side arrows -->
+      <button class="gallery-arrow gallery-arrow--left" aria-label="Previous screenshot" id="gallery-prev">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="gallery-arrow gallery-arrow--right" aria-label="Next screenshot" id="gallery-next">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+      </button>
+
       <div class="gallery-track" id="gallery-track">
         <figure class="gallery-slide">
           <img src="/clide/screenshots/whats-new-dialog.webp" alt="Clide What's New dialog showing latest features on launch" width="1280" height="800" loading="eager" decoding="async" />
@@ -138,16 +146,6 @@ import Base from '../../layouts/Base.astro';
       <button class="gallery-dot" role="tab" aria-selected="false" aria-label="Screenshot 5" data-slide="4"></button>
       <button class="gallery-dot" role="tab" aria-selected="false" aria-label="Screenshot 6" data-slide="5"></button>
       <button class="gallery-dot" role="tab" aria-selected="false" aria-label="Screenshot 7" data-slide="6"></button>
-    </div>
-
-    <!-- Prev / Next arrows -->
-    <div class="gallery-nav">
-      <button class="gallery-arrow gallery-prev" aria-label="Previous screenshot" id="gallery-prev">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-      </button>
-      <button class="gallery-arrow gallery-next" aria-label="Next screenshot" id="gallery-next">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
-      </button>
     </div>
   </section>
 
@@ -1261,6 +1259,9 @@ import Base from '../../layouts/Base.astro';
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none; /* Firefox */
     padding: 1rem 0 1.5rem;
+    /* Soft fade edges so clipped slides aren't hard-cut */
+    mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
   }
 
   .gallery-track::-webkit-scrollbar {
@@ -1333,43 +1334,47 @@ import Base from '../../layouts/Base.astro';
     transform: scale(1.15);
   }
 
-  /* Arrow buttons */
-  .gallery-nav {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 0.75rem;
-  }
-
+  /* Side arrows — flanking the gallery track */
   .gallery-arrow {
-    width: 40px;
-    height: 40px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     border: 1px solid var(--sg57-border);
-    background: var(--sg57-surface);
+    background: rgba(var(--sg57-surface-rgb, 18, 18, 18), 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     color: var(--sg57-text-muted);
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s var(--sg57-ease-out);
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease,
+                box-shadow 0.3s ease, transform 0.2s var(--sg57-ease-out);
     padding: 0;
   }
 
+  .gallery-arrow--left { left: 0.75rem; }
+  .gallery-arrow--right { right: 0.75rem; }
+
   .gallery-arrow svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
   }
 
   .gallery-arrow:hover {
     color: var(--sg57-accent);
     border-color: var(--sg57-accent);
-    background: rgba(91, 192, 190, 0.06);
-    transform: scale(1.08);
+    background: rgba(91, 192, 190, 0.1);
+    box-shadow: 0 0 16px var(--sg57-accent-glow);
+    transform: translateY(-50%) scale(1.08);
   }
 
   .gallery-arrow:active {
-    transform: scale(0.95);
+    transform: translateY(-50%) scale(0.95);
   }
 
   /* --- Supported Languages --- */
@@ -1535,7 +1540,7 @@ import Base from '../../layouts/Base.astro';
       flex: 0 0 92%;
     }
 
-    .gallery-nav {
+    .gallery-arrow {
       display: none;
     }
 

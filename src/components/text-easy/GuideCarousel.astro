@@ -46,6 +46,18 @@ const slides: Slide[] = [
 ---
 
 <div class="guide-carousel" role="region" aria-label="App screenshots" aria-roledescription="carousel">
+  <!-- Side arrows -->
+  <button class="carousel-side-arrow carousel-side-arrow--left carousel-prev-side" aria-label="Previous screenshot">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15 18l-6-6 6-6"/>
+    </svg>
+  </button>
+  <button class="carousel-side-arrow carousel-side-arrow--right carousel-next-side" aria-label="Next screenshot">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 18l6-6-6-6"/>
+    </svg>
+  </button>
+
   <div class="carousel-track" tabindex="0">
     {slides.map((slide, i) => (
       <div class="carousel-slide" role="group" aria-roledescription="slide" aria-label={`${i + 1} of ${slides.length}: ${slide.title}`}>
@@ -97,6 +109,7 @@ const slides: Slide[] = [
     width: 100%;
     max-width: 100%;
     overflow: hidden;
+    position: relative;
   }
 
   /* ── Scroll-snap track ── */
@@ -111,6 +124,9 @@ const slides: Slide[] = [
     /* Mobile: center a single slide with generous padding */
     padding: 0 calc(50% - 130px);
     outline: none;
+    /* Soft fade edges */
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
   }
   .carousel-track::-webkit-scrollbar { display: none; }
 
@@ -242,6 +258,52 @@ const slides: Slide[] = [
       border-radius: 2rem;
     }
   }
+
+  /* ── Side arrows ── */
+  .carousel-side-arrow {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    z-index: 3;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--sg57-border);
+    background: rgba(var(--sg57-surface-rgb, 18, 18, 18), 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--sg57-text-muted);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--sg57-duration-150, 150ms) ease;
+    padding: 0;
+  }
+
+  .carousel-side-arrow--left { left: 0.5rem; }
+  .carousel-side-arrow--right { right: 0.5rem; }
+
+  .carousel-side-arrow svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .carousel-side-arrow:hover {
+    border-color: var(--sg57-accent);
+    color: var(--sg57-accent);
+    box-shadow: 0 0 12px var(--sg57-accent-glow);
+    transform: translateY(-50%) scale(1.08);
+  }
+
+  .carousel-side-arrow:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+
+  /* Hide side arrows on mobile/portrait */
+  @media (max-width: 639px), (hover: none) and (orientation: portrait) {
+    .carousel-side-arrow { display: none; }
+  }
 </style>
 
 <script>
@@ -254,6 +316,8 @@ const slides: Slide[] = [
     const dots = carousel.querySelectorAll('.carousel-dot');
     const prevBtn = carousel.querySelector('.carousel-prev') as HTMLButtonElement;
     const nextBtn = carousel.querySelector('.carousel-next') as HTMLButtonElement;
+    const prevSide = carousel.querySelector('.carousel-prev-side') as HTMLButtonElement;
+    const nextSide = carousel.querySelector('.carousel-next-side') as HTMLButtonElement;
 
     let current = 0;
     const total = slides.length;
@@ -301,6 +365,12 @@ const slides: Slide[] = [
       if (current > 0) { scrollToSlide(current - 1); updateState(current - 1); }
     });
     nextBtn.addEventListener('click', () => {
+      if (current < total - 1) { scrollToSlide(current + 1); updateState(current + 1); }
+    });
+    prevSide?.addEventListener('click', () => {
+      if (current > 0) { scrollToSlide(current - 1); updateState(current - 1); }
+    });
+    nextSide?.addEventListener('click', () => {
       if (current < total - 1) { scrollToSlide(current + 1); updateState(current + 1); }
     });
 
