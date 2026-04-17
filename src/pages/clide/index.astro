@@ -16,7 +16,8 @@ import Base from '../../layouts/Base.astro';
     name: 'Clide',
     description: 'Mission Control for your AI terminal sessions. Manage dozens of CLI AI agents from one cockpit.',
     applicationCategory: 'DeveloperApplication',
-    operatingSystem: 'Windows, macOS, Linux',
+    operatingSystem: 'Windows 10, Windows 11',
+    inLanguage: ['en', 'es', 'ja', 'de', 'fr', 'ko', 'zh-Hans', 'pt-BR'],
     offers: [
       { '@type': 'Offer', price: '0', priceCurrency: 'USD', name: 'Free' },
       { '@type': 'Offer', price: '39', priceCurrency: 'USD', name: 'Pro', priceValidUntil: '2027-12-31' },
@@ -177,10 +178,59 @@ import Base from '../../layouts/Base.astro';
     </div>
   </section>
 
-  <!-- Store Gallery -->
+  <!-- Screenshot Gallery -->
   <section class="media container">
-    <h2 class="section-heading">Built for the AI Era</h2>
+    <h2 class="section-heading">See It in Action</h2>
     <p class="media-tagline">Managing one AI session is easy. Managing ten is chaos. Clide is your mission control.</p>
+
+    <div class="gallery" role="region" aria-label="Screenshot gallery" tabindex="0">
+      <div class="gallery-track" id="gallery-track">
+        <figure class="gallery-slide">
+          <img src="/clide/screenshots/hero-full-workspace-1.webp" alt="Clide workspace with multiple AI sessions and sidekick processes" width="1920" height="1080" loading="lazy" decoding="async" />
+          <figcaption class="gallery-caption">Full workspace — sessions, sidekicks, and notes in one cockpit</figcaption>
+        </figure>
+        <figure class="gallery-slide">
+          <img src="/clide/screenshots/hero-full-workspace-2.webp" alt="Clide workspace showing terminal output and structured notes" width="1920" height="1080" loading="lazy" decoding="async" />
+          <figcaption class="gallery-caption">Multi-session workflow with structured notes and live terminals</figcaption>
+        </figure>
+        <figure class="gallery-slide">
+          <img src="/clide/screenshots/terminal-session.webp" alt="Clide terminal session with AI CLI output" width="1920" height="1080" loading="lazy" decoding="async" />
+          <figcaption class="gallery-caption">Terminal session — rich output from Claude, Copilot, or any CLI</figcaption>
+        </figure>
+        <figure class="gallery-slide">
+          <img src="/clide/screenshots/explorer-tree.webp" alt="Clide session explorer tree with color-coded sessions" width="1920" height="1080" loading="lazy" decoding="async" />
+          <figcaption class="gallery-caption">Session explorer — color-coded, NATO-named, instantly recognizable</figcaption>
+        </figure>
+        <figure class="gallery-slide">
+          <img src="/clide/screenshots/power-launch.webp" alt="Clide Power Launch dialog for batch session creation" width="1920" height="1080" loading="lazy" decoding="async" />
+          <figcaption class="gallery-caption">Power Launch — spin up a full project stack in one shot</figcaption>
+        </figure>
+        <figure class="gallery-slide">
+          <img src="/clide/screenshots/settings.webp" alt="Clide settings panel with appearance and terminal options" width="1920" height="1080" loading="lazy" decoding="async" />
+          <figcaption class="gallery-caption">Settings — CRT effects, themes, fonts, and deep terminal config</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- Dot navigation -->
+    <div class="gallery-dots" role="tablist" aria-label="Gallery navigation">
+      <button class="gallery-dot active" role="tab" aria-selected="true" aria-label="Screenshot 1" data-slide="0"></button>
+      <button class="gallery-dot" role="tab" aria-selected="false" aria-label="Screenshot 2" data-slide="1"></button>
+      <button class="gallery-dot" role="tab" aria-selected="false" aria-label="Screenshot 3" data-slide="2"></button>
+      <button class="gallery-dot" role="tab" aria-selected="false" aria-label="Screenshot 4" data-slide="3"></button>
+      <button class="gallery-dot" role="tab" aria-selected="false" aria-label="Screenshot 5" data-slide="4"></button>
+      <button class="gallery-dot" role="tab" aria-selected="false" aria-label="Screenshot 6" data-slide="5"></button>
+    </div>
+
+    <!-- Prev / Next arrows -->
+    <div class="gallery-nav">
+      <button class="gallery-arrow gallery-prev" aria-label="Previous screenshot" id="gallery-prev">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="gallery-arrow gallery-next" aria-label="Next screenshot" id="gallery-next">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+      </button>
+    </div>
   </section>
 
   <!-- Why Pro -->
@@ -305,6 +355,46 @@ import Base from '../../layouts/Base.astro';
     </div>
   </section>
 
+  <!-- Supported Languages -->
+  <section class="languages container">
+    <h2 class="section-heading">Speaks Your Language</h2>
+    <p class="media-tagline">Clide ships with full UI translations in 8 languages — every menu, tooltip, and dialog, localized.</p>
+    <div class="lang-grid">
+      <div class="lang-badge" style="--stagger: 0">
+        <span class="lang-flag" aria-hidden="true">🇺🇸</span>
+        <span class="lang-name">English</span>
+      </div>
+      <div class="lang-badge" style="--stagger: 1">
+        <span class="lang-flag" aria-hidden="true">🇪🇸</span>
+        <span class="lang-name">Español</span>
+      </div>
+      <div class="lang-badge" style="--stagger: 2">
+        <span class="lang-flag" aria-hidden="true">🇯🇵</span>
+        <span class="lang-name">日本語</span>
+      </div>
+      <div class="lang-badge" style="--stagger: 3">
+        <span class="lang-flag" aria-hidden="true">🇩🇪</span>
+        <span class="lang-name">Deutsch</span>
+      </div>
+      <div class="lang-badge" style="--stagger: 4">
+        <span class="lang-flag" aria-hidden="true">🇫🇷</span>
+        <span class="lang-name">Français</span>
+      </div>
+      <div class="lang-badge" style="--stagger: 5">
+        <span class="lang-flag" aria-hidden="true">🇰🇷</span>
+        <span class="lang-name">한국어</span>
+      </div>
+      <div class="lang-badge" style="--stagger: 6">
+        <span class="lang-flag" aria-hidden="true">🇨🇳</span>
+        <span class="lang-name">简体中文</span>
+      </div>
+      <div class="lang-badge" style="--stagger: 7">
+        <span class="lang-flag" aria-hidden="true">🇧🇷</span>
+        <span class="lang-name">Português</span>
+      </div>
+    </div>
+  </section>
+
   <!-- Download CTA -->
   <section class="download container">
     <h2 class="download-heading">Ready to take control?</h2>
@@ -346,6 +436,64 @@ import Base from '../../layouts/Base.astro';
         if (portable) el.href = portable.browser_download_url;
       });
     } catch { /* network error — buttons still link to releases page */ }
+  })();
+</script>
+
+<script>
+  /* --- Screenshot Gallery --- */
+  (() => {
+    const track = document.getElementById('gallery-track');
+    const dots = document.querySelectorAll('.gallery-dot');
+    const prev = document.getElementById('gallery-prev');
+    const next = document.getElementById('gallery-next');
+    if (!track || !dots.length) return;
+
+    const slides = track.querySelectorAll('.gallery-slide');
+    const total = slides.length;
+    let current = 0;
+
+    function goTo(i: number) {
+      current = ((i % total) + total) % total;
+      slides[current].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      dots.forEach((d, idx) => {
+        d.classList.toggle('active', idx === current);
+        d.setAttribute('aria-selected', String(idx === current));
+      });
+    }
+
+    // Sync dots on native scroll-snap settle
+    let scrollTimer: ReturnType<typeof setTimeout>;
+    track.addEventListener('scroll', () => {
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        const rect = track.getBoundingClientRect();
+        const center = rect.left + rect.width / 2;
+        let closest = 0;
+        let minDist = Infinity;
+        slides.forEach((s, i) => {
+          const sr = s.getBoundingClientRect();
+          const dist = Math.abs(sr.left + sr.width / 2 - center);
+          if (dist < minDist) { minDist = dist; closest = i; }
+        });
+        if (closest !== current) {
+          current = closest;
+          dots.forEach((d, idx) => {
+            d.classList.toggle('active', idx === current);
+            d.setAttribute('aria-selected', String(idx === current));
+          });
+        }
+      }, 80);
+    }, { passive: true });
+
+    dots.forEach(d => d.addEventListener('click', () => goTo(Number((d as HTMLElement).dataset.slide))));
+    prev?.addEventListener('click', () => goTo(current - 1));
+    next?.addEventListener('click', () => goTo(current + 1));
+
+    // Keyboard nav when gallery is focused
+    track.closest('.gallery')?.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
+    });
   })();
 </script>
 
@@ -499,6 +647,7 @@ import Base from '../../layouts/Base.astro';
   .problem,
   .features,
   .media,
+  .languages,
   .why-pro,
   .pricing,
   .download {
@@ -1091,6 +1240,184 @@ import Base from '../../layouts/Base.astro';
     margin-bottom: 2rem;
   }
 
+  /* --- Screenshot Gallery --- */
+  .gallery {
+    position: relative;
+    margin-top: 2.5rem;
+    outline: none;
+  }
+
+  .gallery-track {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    padding: 1rem 0 1.5rem;
+  }
+
+  .gallery-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .gallery-slide {
+    flex: 0 0 min(90%, 900px);
+    scroll-snap-align: center;
+    margin: 0;
+    border-radius: var(--sg57-radius-lg, 12px);
+    overflow: hidden;
+    border: 1px solid var(--sg57-border);
+    background: var(--sg57-surface);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(91, 192, 190, 0.08);
+    transition: transform 0.35s var(--sg57-ease-out), box-shadow 0.35s ease;
+  }
+
+  .gallery-slide:hover {
+    transform: translateY(-4px) scale(1.005);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45), 0 0 32px rgba(91, 192, 190, 0.12);
+  }
+
+  .gallery-slide img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .gallery-caption {
+    padding: 0.75rem 1rem;
+    text-align: center;
+    font-family: var(--sg57-font-display);
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    color: var(--sg57-text-muted);
+    border-top: 1px solid var(--sg57-border);
+    background: linear-gradient(to bottom, var(--sg57-surface), transparent);
+  }
+
+  /* Dot navigation */
+  .gallery-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+
+  .gallery-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1.5px solid var(--sg57-accent);
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.25s ease, transform 0.2s var(--sg57-ease-out), box-shadow 0.25s ease;
+  }
+
+  .gallery-dot:hover {
+    background: var(--sg57-accent-muted);
+    transform: scale(1.2);
+  }
+
+  .gallery-dot.active {
+    background: var(--sg57-accent);
+    box-shadow: 0 0 8px var(--sg57-accent-glow);
+    transform: scale(1.15);
+  }
+
+  /* Arrow buttons */
+  .gallery-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.75rem;
+  }
+
+  .gallery-arrow {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--sg57-border);
+    background: var(--sg57-surface);
+    color: var(--sg57-text-muted);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s var(--sg57-ease-out);
+    padding: 0;
+  }
+
+  .gallery-arrow svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .gallery-arrow:hover {
+    color: var(--sg57-accent);
+    border-color: var(--sg57-accent);
+    background: rgba(91, 192, 190, 0.06);
+    transform: scale(1.08);
+  }
+
+  .gallery-arrow:active {
+    transform: scale(0.95);
+  }
+
+  /* --- Supported Languages --- */
+  .languages {
+    padding: 3rem 1.5rem 4rem;
+  }
+
+  .lang-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .lang-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--sg57-radius-md);
+    border: 1px solid var(--sg57-border);
+    background: var(--sg57-surface);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    animation: lang-fade-in 0.5s var(--sg57-ease-out) both;
+    animation-delay: calc(var(--stagger, 0) * 0.07s);
+    transition: transform 0.2s var(--sg57-ease-out), border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .lang-badge:hover {
+    transform: translateY(-2px);
+    border-color: var(--sg57-accent-muted);
+    box-shadow: 0 4px 16px rgba(91, 192, 190, 0.1);
+  }
+
+  .lang-flag {
+    font-size: 1.35rem;
+    line-height: 1;
+  }
+
+  .lang-name {
+    font-family: var(--sg57-font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    color: var(--sg57-text);
+  }
+
+  @keyframes lang-fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
   /* --- Pricing benefit line --- */
   .pricing-benefit {
     font-family: var(--sg57-font-display);
@@ -1197,6 +1524,22 @@ import Base from '../../layouts/Base.astro';
 
     .hero-actions {
       align-items: center;
+    }
+
+    .gallery-slide {
+      flex: 0 0 92%;
+    }
+
+    .gallery-nav {
+      display: none;
+    }
+
+    .lang-grid {
+      gap: 0.65rem;
+    }
+
+    .lang-badge {
+      padding: 0.4rem 0.75rem;
     }
   }
 </style>
