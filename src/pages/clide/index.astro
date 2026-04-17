@@ -91,6 +91,66 @@ import Base from '../../layouts/Base.astro';
     </p>
   </section>
 
+  <!-- Screenshot Gallery -->
+  <section class="media container">
+    <h2 class="section-heading">See It in Action</h2>
+    <p class="media-tagline">Managing one AI session is easy. Managing ten is chaos. Clide is your mission control.</p>
+
+    <div class="gallery" role="region" aria-label="Screenshot gallery" tabindex="0">
+      <div class="gallery-track" id="gallery-track">
+        <figure class="gallery-slide">
+          <img src="/clide/screenshots/whats-new-dialog.webp" alt="Clide What's New dialog showing latest features on launch" width="1280" height="800" loading="eager" decoding="async" />
+          <figcaption class="gallery-caption">Welcome — the What's New dialog greets you with every release</figcaption>
+        </figure>
+        <figure class="gallery-slide">
+          <img src="/clide/screenshots/hero-full-workspace-1.webp" alt="Clide workspace with multiple AI sessions and sidekick processes" width="1920" height="1080" loading="lazy" decoding="async" />
+          <figcaption class="gallery-caption">Full workspace — sessions, sidekicks, and notes in one cockpit</figcaption>
+        </figure>
+        <figure class="gallery-slide">
+          <img src="/clide/screenshots/hero-full-workspace-2.webp" alt="Clide workspace showing terminal output and structured notes" width="1920" height="1080" loading="lazy" decoding="async" />
+          <figcaption class="gallery-caption">Multi-session workflow with structured notes and live terminals</figcaption>
+        </figure>
+        <figure class="gallery-slide">
+          <img src="/clide/screenshots/terminal-session.webp" alt="Clide terminal session with AI CLI output" width="1920" height="1080" loading="lazy" decoding="async" />
+          <figcaption class="gallery-caption">Terminal session — rich output from Claude, Copilot, or any CLI</figcaption>
+        </figure>
+        <figure class="gallery-slide">
+          <img src="/clide/screenshots/explorer-tree.webp" alt="Clide session explorer tree with color-coded sessions" width="1920" height="1080" loading="lazy" decoding="async" />
+          <figcaption class="gallery-caption">Session explorer — color-coded, NATO-named, instantly recognizable</figcaption>
+        </figure>
+        <figure class="gallery-slide">
+          <img src="/clide/screenshots/power-launch.webp" alt="Clide Power Launch dialog for batch session creation" width="1920" height="1080" loading="lazy" decoding="async" />
+          <figcaption class="gallery-caption">Power Launch — spin up a full project stack in one shot</figcaption>
+        </figure>
+        <figure class="gallery-slide">
+          <img src="/clide/screenshots/settings.webp" alt="Clide settings panel with appearance and terminal options" width="1920" height="1080" loading="lazy" decoding="async" />
+          <figcaption class="gallery-caption">Settings — CRT effects, themes, fonts, and deep terminal config</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- Dot navigation -->
+    <div class="gallery-dots" role="tablist" aria-label="Gallery navigation">
+      <button class="gallery-dot active" role="tab" aria-selected="true" aria-label="Screenshot 1" data-slide="0"></button>
+      <button class="gallery-dot" role="tab" aria-selected="false" aria-label="Screenshot 2" data-slide="1"></button>
+      <button class="gallery-dot" role="tab" aria-selected="false" aria-label="Screenshot 3" data-slide="2"></button>
+      <button class="gallery-dot" role="tab" aria-selected="false" aria-label="Screenshot 4" data-slide="3"></button>
+      <button class="gallery-dot" role="tab" aria-selected="false" aria-label="Screenshot 5" data-slide="4"></button>
+      <button class="gallery-dot" role="tab" aria-selected="false" aria-label="Screenshot 6" data-slide="5"></button>
+      <button class="gallery-dot" role="tab" aria-selected="false" aria-label="Screenshot 7" data-slide="6"></button>
+    </div>
+
+    <!-- Prev / Next arrows -->
+    <div class="gallery-nav">
+      <button class="gallery-arrow gallery-prev" aria-label="Previous screenshot" id="gallery-prev">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="gallery-arrow gallery-next" aria-label="Next screenshot" id="gallery-next">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+      </button>
+    </div>
+  </section>
+
   <!-- Feature Cards -->
   <section class="features container">
     <h2 class="section-heading">Capabilities</h2>
@@ -175,66 +235,6 @@ import Base from '../../layouts/Base.astro';
           </p>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- Screenshot Gallery -->
-  <section class="media container">
-    <h2 class="section-heading">See It in Action</h2>
-    <p class="media-tagline">Managing one AI session is easy. Managing ten is chaos. Clide is your mission control.</p>
-
-    <div class="gallery" role="region" aria-label="Screenshot gallery" tabindex="0">
-      <div class="gallery-track" id="gallery-track">
-        <figure class="gallery-slide">
-          <img src="/clide/screenshots/whats-new-dialog.webp" alt="Clide What's New dialog showing latest features on launch" width="1280" height="800" loading="eager" decoding="async" />
-          <figcaption class="gallery-caption">Welcome — the What's New dialog greets you with every release</figcaption>
-        </figure>
-        <figure class="gallery-slide">
-          <img src="/clide/screenshots/hero-full-workspace-1.webp" alt="Clide workspace with multiple AI sessions and sidekick processes" width="1920" height="1080" loading="lazy" decoding="async" />
-          <figcaption class="gallery-caption">Full workspace — sessions, sidekicks, and notes in one cockpit</figcaption>
-        </figure>
-        <figure class="gallery-slide">
-          <img src="/clide/screenshots/hero-full-workspace-2.webp" alt="Clide workspace showing terminal output and structured notes" width="1920" height="1080" loading="lazy" decoding="async" />
-          <figcaption class="gallery-caption">Multi-session workflow with structured notes and live terminals</figcaption>
-        </figure>
-        <figure class="gallery-slide">
-          <img src="/clide/screenshots/terminal-session.webp" alt="Clide terminal session with AI CLI output" width="1920" height="1080" loading="lazy" decoding="async" />
-          <figcaption class="gallery-caption">Terminal session — rich output from Claude, Copilot, or any CLI</figcaption>
-        </figure>
-        <figure class="gallery-slide">
-          <img src="/clide/screenshots/explorer-tree.webp" alt="Clide session explorer tree with color-coded sessions" width="1920" height="1080" loading="lazy" decoding="async" />
-          <figcaption class="gallery-caption">Session explorer — color-coded, NATO-named, instantly recognizable</figcaption>
-        </figure>
-        <figure class="gallery-slide">
-          <img src="/clide/screenshots/power-launch.webp" alt="Clide Power Launch dialog for batch session creation" width="1920" height="1080" loading="lazy" decoding="async" />
-          <figcaption class="gallery-caption">Power Launch — spin up a full project stack in one shot</figcaption>
-        </figure>
-        <figure class="gallery-slide">
-          <img src="/clide/screenshots/settings.webp" alt="Clide settings panel with appearance and terminal options" width="1920" height="1080" loading="lazy" decoding="async" />
-          <figcaption class="gallery-caption">Settings — CRT effects, themes, fonts, and deep terminal config</figcaption>
-        </figure>
-      </div>
-    </div>
-
-    <!-- Dot navigation -->
-    <div class="gallery-dots" role="tablist" aria-label="Gallery navigation">
-      <button class="gallery-dot active" role="tab" aria-selected="true" aria-label="Screenshot 1" data-slide="0"></button>
-      <button class="gallery-dot" role="tab" aria-selected="false" aria-label="Screenshot 2" data-slide="1"></button>
-      <button class="gallery-dot" role="tab" aria-selected="false" aria-label="Screenshot 3" data-slide="2"></button>
-      <button class="gallery-dot" role="tab" aria-selected="false" aria-label="Screenshot 4" data-slide="3"></button>
-      <button class="gallery-dot" role="tab" aria-selected="false" aria-label="Screenshot 5" data-slide="4"></button>
-      <button class="gallery-dot" role="tab" aria-selected="false" aria-label="Screenshot 6" data-slide="5"></button>
-      <button class="gallery-dot" role="tab" aria-selected="false" aria-label="Screenshot 7" data-slide="6"></button>
-    </div>
-
-    <!-- Prev / Next arrows -->
-    <div class="gallery-nav">
-      <button class="gallery-arrow gallery-prev" aria-label="Previous screenshot" id="gallery-prev">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-      </button>
-      <button class="gallery-arrow gallery-next" aria-label="Next screenshot" id="gallery-next">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
-      </button>
     </div>
   </section>
 
