@@ -497,6 +497,40 @@ import Base from '../../layouts/Base.astro';
       if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
       if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
     });
+
+    // Click-to-drag support
+    let isDragging = false;
+    let startX = 0;
+    let scrollStart = 0;
+
+    track.addEventListener('mousedown', (e: MouseEvent) => {
+      isDragging = true;
+      startX = e.pageX;
+      scrollStart = track.scrollLeft;
+      track.classList.add('is-dragging');
+    });
+
+    window.addEventListener('mousemove', (e: MouseEvent) => {
+      if (!isDragging) return;
+      const dx = e.pageX - startX;
+      track.scrollLeft = scrollStart - dx;
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      track.classList.remove('is-dragging');
+      // Re-enable snap — browser will settle to nearest snap point
+      // Small delay so the snap-type restoration triggers a snap animation
+      requestAnimationFrame(() => {
+        track.style.scrollSnapType = 'x mandatory';
+      });
+    });
+
+    // Prevent image drag from hijacking the gesture
+    track.querySelectorAll('img').forEach(img => {
+      img.addEventListener('dragstart', (e) => e.preventDefault());
+    });
   })();
 </script>
 
@@ -1259,9 +1293,14 @@ import Base from '../../layouts/Base.astro';
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none; /* Firefox */
     padding: 1rem 0 1.5rem;
-    /* Soft fade edges — narrow so the focused slide isn't clipped */
-    mask-image: linear-gradient(to right, transparent, black 2.5%, black 97.5%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 2.5%, black 97.5%, transparent);
+    cursor: grab;
+  }
+
+  .gallery-track.is-dragging {
+    scroll-behavior: auto;
+    scroll-snap-type: none;
+    cursor: grabbing;
+    user-select: none;
   }
 
   .gallery-track::-webkit-scrollbar {

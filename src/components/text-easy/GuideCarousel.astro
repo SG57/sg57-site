@@ -124,9 +124,14 @@ const slides: Slide[] = [
     /* Mobile: center a single slide with generous padding */
     padding: 0 calc(50% - 130px);
     outline: none;
-    /* Soft fade edges — narrow so the focused slide isn't clipped */
-    mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent);
+    cursor: grab;
+  }
+
+  .carousel-track.is-dragging {
+    scroll-behavior: auto;
+    scroll-snap-type: none;
+    cursor: grabbing;
+    user-select: none;
   }
   .carousel-track::-webkit-scrollbar { display: none; }
 
@@ -410,6 +415,36 @@ const slides: Slide[] = [
       } else if (e.key === 'ArrowRight' && current < total - 1) {
         e.preventDefault(); scrollToSlide(current + 1); updateState(current + 1);
       }
+    });
+
+    // Click-to-drag support
+    let isDragging = false;
+    let startX = 0;
+    let scrollStart = 0;
+
+    track.addEventListener('mousedown', (e: MouseEvent) => {
+      isDragging = true;
+      startX = e.pageX;
+      scrollStart = track.scrollLeft;
+      track.classList.add('is-dragging');
+    });
+
+    window.addEventListener('mousemove', (e: MouseEvent) => {
+      if (!isDragging) return;
+      track.scrollLeft = scrollStart - (e.pageX - startX);
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      track.classList.remove('is-dragging');
+      requestAnimationFrame(() => {
+        track.style.scrollSnapType = 'x mandatory';
+      });
+    });
+
+    track.querySelectorAll('img').forEach(img => {
+      img.addEventListener('dragstart', (e) => e.preventDefault());
     });
   }
 
