@@ -5,7 +5,7 @@ import Base from '../../layouts/Base.astro';
 // Store: sg57 (ID 296726) · Product: CLIDE Pro (ID 841060) · Variant: 1325333
 // Public checkout URL uses the variant UUID (not the numeric ID).
 const LEMONSQUEEZY_VARIANT_UUID = '326ca45e-f49b-4523-b560-d74371d46bbb';
-const LEMONSQUEEZY_CHECKOUT_URL = `https://sg57.lemonsqueezy.com/checkout/buy/${LEMONSQUEEZY_VARIANT_UUID}?embed=1`;
+const LEMONSQUEEZY_CHECKOUT_URL = `https://sg57.lemonsqueezy.com/checkout/buy/${LEMONSQUEEZY_VARIANT_UUID}?embed=1&dark=1`;
 ---
 
 <Base
@@ -1404,10 +1404,8 @@ const LEMONSQUEEZY_CHECKOUT_URL = `https://sg57.lemonsqueezy.com/checkout/buy/${
     -webkit-backdrop-filter: blur(10px) !important;
   }
 
-  /* Accent halo around the (necessarily white) iframe so it reads as a
-     framed artefact rather than a plain white rectangle. The iframe itself
-     retains LS's interior styling — dashboard theme is the only way to
-     change those colors. */
+  /* Accent halo around the iframe. With ?dark=1 the interior is dark-themed;
+     we add border-radius and a glow so it reads as part of our interface. */
   body.ls-ready iframe[src*="lemonsqueezy.com"] {
     border-radius: 14px !important;
     box-shadow:
