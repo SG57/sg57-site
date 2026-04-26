@@ -3,6 +3,7 @@ title: "Introducing Siftr — 200MB Log Files in 3 Seconds"
 description: "When your IIS crashes and leaves you a 180MB log file, you need Siftr."
 date: 2026-02-19
 tags: ["siftr", "announcement", "log-analysis"]
+author: Cord Rehn
 ---
 
 It's 2 AM. Your IIS application pool just recycled unexpectedly, and the log file it left behind is 180MB of log4net output. You open it in klogg -- it freezes. You try Notepad++ -- it allocates a gigabyte of RAM and crawls. You resort to PowerShell `Select-String` and scroll through thousands of lines of raw text looking for the needle. There has to be a better way.

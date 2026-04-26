@@ -3,6 +3,7 @@ title: "Introducing Clide — Mission Control for AI Terminal Sessions"
 description: "Managing a dozen AI CLI agents shouldn't require a dozen terminal windows."
 date: 2026-02-19
 tags: ["clide", "announcement", "ai-tools"]
+author: Cord Rehn
 ---
 
 If you're a senior engineer running Claude Code, GitHub Copilot CLI, or similar tools across multiple repositories, you've felt the pain: ten or more terminal tabs, each running a different AI agent, all demanding attention at unpredictable intervals. Windows Terminal can open tabs. It cannot tell you which agent is waiting for input, which one just errored out, or which session has been idle for thirty minutes.

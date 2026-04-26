@@ -21,6 +21,7 @@ function isActive(href: string): boolean {
       <a href="/siftr" class:list={[{ 'is-active': isActive('/siftr') }]} aria-current={isActive('/siftr') ? 'page' : undefined}>Siftr</a>
       <a href="/text-easy" class:list={[{ 'is-active': isActive('/text-easy') }]} aria-current={isActive('/text-easy') ? 'page' : undefined}>Text Easy</a>
       <a href="/services" class:list={[{ 'is-active': isActive('/services') }]} aria-current={isActive('/services') ? 'page' : undefined}>Services</a>
+      <a href="/blog" class:list={['nav-blog', { 'is-active': isActive('/blog') }]} aria-current={isActive('/blog') ? 'page' : undefined}>Blog</a>
     </div>
 
     <!-- Mobile hamburger -->
@@ -44,6 +45,7 @@ function isActive(href: string): boolean {
     <a href="/siftr" class:list={[{ 'is-active': isActive('/siftr') }]} aria-current={isActive('/siftr') ? 'page' : undefined}>Siftr</a>
     <a href="/text-easy" class:list={[{ 'is-active': isActive('/text-easy') }]} aria-current={isActive('/text-easy') ? 'page' : undefined}>Text Easy</a>
     <a href="/services" class:list={[{ 'is-active': isActive('/services') }]} aria-current={isActive('/services') ? 'page' : undefined}>Services</a>
+    <a href="/blog" class:list={[{ 'is-active': isActive('/blog') }]} aria-current={isActive('/blog') ? 'page' : undefined}>Blog</a>
   </div>
 </nav>
 
@@ -234,12 +236,12 @@ function isActive(href: string): boolean {
     border-radius: var(--sg57-radius-sm);
   }
 
-  /* Group separator before Services */
-  .nav-links a:last-child {
+  /* Group separator before Services (4th link) */
+  .nav-links a:nth-child(4) {
     position: relative;
   }
 
-  .nav-links a:last-child::before {
+  .nav-links a:nth-child(4)::before {
     content: '';
     position: absolute;
     left: calc(-1.75rem / 2);
@@ -249,6 +251,16 @@ function isActive(href: string): boolean {
     height: 1rem;
     background: rgba(255, 255, 255, 0.14);
     border-radius: 1px;
+  }
+
+  /* Blog link — subtle accent highlight to surface it */
+  .nav-links .nav-blog {
+    color: var(--sg57-accent);
+    opacity: 0.85;
+  }
+
+  .nav-links .nav-blog:hover {
+    opacity: 1;
   }
 
   /* -- Hamburger (hidden on desktop) -- */

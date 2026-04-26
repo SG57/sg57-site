@@ -7,9 +7,11 @@ interface Props {
   date: Date;
   tags: string[];
   author: string;
+  image?: string;
+  imageAlt?: string;
 }
 
-const { title, description, date, tags, author } = Astro.props;
+const { title, description, date, tags, author, image, imageAlt } = Astro.props;
 
 const formattedDate = date.toLocaleDateString('en-US', {
   year: 'numeric',
@@ -22,30 +24,36 @@ const content = await Astro.slots.render('default');
 const wordCount = content.replace(/<[^>]*>/g, '').split(/\s+/).length;
 const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 
+const authorAvatar = author === 'Cord Rehn' ? '/team/cord-rehn.jpg' : null;
+
 const blogSchema = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
   headline: title,
   description,
   datePublished: date.toISOString(),
-  author: { '@type': 'Organization', name: author || 'SG57 Labs', url: 'https://sg57.dev' },
+  image: image ? `https://sg57.dev${image}` : 'https://sg57.dev/sg57/glyph-512.png',
+  author: { '@type': 'Person', name: author || 'Cord Rehn', url: 'https://sg57.dev' },
   publisher: { '@type': 'Organization', name: 'SG57 Labs', url: 'https://sg57.dev', logo: { '@type': 'ImageObject', url: 'https://sg57.dev/sg57/glyph-512.png' } },
   keywords: tags?.join(', '),
 };
 ---
 
-<Base title={`${title} — SG57 Blog`} description={description} jsonLd={blogSchema}>
+<Base title={`${title} — SG57 Blog`} description={description} jsonLd={blogSchema} ogImage={image ?? '/sg57/glyph-512.png'}>
   <article class="blog-post container">
     <a href="/blog" class="blog-post__back">&larr; Back to Blog</a>
 
     <header class="blog-post__header">
       <h1 class="blog-post__title">{title}</h1>
       <div class="blog-post__meta">
+        {authorAvatar && (
+          <img src={authorAvatar} alt={author} class="blog-post__author-avatar" width="32" height="32" />
+        )}
+        <span class="blog-post__author">{author}</span>
+        <span class="blog-post__sep">&middot;</span>
         <time datetime={date.toISOString()}>{formattedDate}</time>
         <span class="blog-post__sep">&middot;</span>
         <span>{readingTime} min read</span>
-        <span class="blog-post__sep">&middot;</span>
-        <span>{author}</span>
       </div>
       <div class="blog-post__tags">
         {tags.map((tag) => (
@@ -54,9 +62,28 @@ const blogSchema = {
       </div>
     </header>
 
+    {image && (
+      <div class="blog-post__hero-img">
+        <img src={image} alt={imageAlt ?? title} width="1200" height="675" loading="eager" />
+      </div>
+    )}
+
     <div class="blog-post__content">
       <slot />
     </div>
+
+    <footer class="blog-post__footer">
+      <div class="blog-post__author-card">
+        {authorAvatar && (
+          <img src={authorAvatar} alt={author} class="author-card__avatar" width="56" height="56" loading="lazy" />
+        )}
+        <div class="author-card__body">
+          <span class="author-card__name">{author}</span>
+          <span class="author-card__bio">Founder of SG57 Labs. 20+ years full-stack engineering. Building tools that punch above their weight.</span>
+        </div>
+      </div>
+      <a href="/blog" class="blog-post__back-footer">&larr; Back to Blog</a>
+    </footer>
   </article>
 </Base>
 
@@ -236,5 +263,138 @@ const blogSchema = {
 
   .blog-post__content :global(a:hover) {
     color: var(--sg57-accent-hover);
+  }
+
+  /* ── Hero Image ── */
+  .blog-post__hero-img {
+    margin-bottom: 2rem;
+    border-radius: var(--sg57-radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--sg57-border);
+  }
+
+  .blog-post__hero-img img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+  }
+
+  /* ── Author meta avatar ── */
+  .blog-post__author-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--sg57-radius-full);
+    object-fit: cover;
+    border: 1px solid var(--sg57-border);
+  }
+
+  /* ── Footer ── */
+  .blog-post__footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--sg57-border);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .blog-post__author-card {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1.25rem;
+    background: var(--sg57-elevated);
+    border: 1px solid var(--sg57-border-subtle);
+    border-radius: var(--sg57-radius-md);
+  }
+
+  .author-card__avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--sg57-radius-full);
+    object-fit: cover;
+    border: 2px solid var(--sg57-accent);
+    flex-shrink: 0;
+  }
+
+  .author-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .author-card__name {
+    font-family: var(--sg57-font-display);
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--sg57-text);
+    letter-spacing: 0.04em;
+  }
+
+  .author-card__bio {
+    font-family: var(--sg57-font-display);
+    font-size: 1.125rem;
+    color: var(--sg57-text-dim);
+    line-height: 1.5;
+  }
+
+  .blog-post__back-footer {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-family: var(--sg57-font-mono, monospace);
+    font-size: 1.125rem;
+    color: var(--sg57-text-dim);
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+
+  .blog-post__back-footer:hover {
+    color: var(--sg57-accent);
+    transform: translateX(-2px);
+  }
+
+  /* ── Content images ── */
+  .blog-post__content :global(img) {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--sg57-radius-md);
+    border: 1px solid var(--sg57-border);
+    margin: 1.5rem auto;
+  }
+
+  /* ── Tables ── */
+  .blog-post__content :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+  }
+
+  .blog-post__content :global(th) {
+    font-family: var(--sg57-font-mono, monospace);
+    font-weight: 600;
+    font-size: 0.875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sg57-accent);
+    padding: 0.6rem 0.875rem;
+    background: var(--sg57-elevated);
+    border: 1px solid var(--sg57-border);
+    text-align: left;
+  }
+
+  .blog-post__content :global(td) {
+    padding: 0.6rem 0.875rem;
+    border: 1px solid var(--sg57-border);
+    color: var(--sg57-text);
+    font-size: 1rem;
+    vertical-align: top;
+  }
+
+  .blog-post__content :global(tr:nth-child(even) td) {
+    background: var(--sg57-overlay-subtle);
   }
 </style>

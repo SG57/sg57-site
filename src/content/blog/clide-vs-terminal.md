@@ -3,6 +3,7 @@ title: "Clide vs Windows Terminal: Why Managing AI Agents Needs More"
 description: "Windows Terminal is great. But it wasn't designed for orchestrating AI agents."
 date: 2026-02-20
 tags: ["clide", "comparison", "ai-tools"]
+author: Cord Rehn
 ---
 
 Windows Terminal is an excellent terminal emulator. It supports multiple profiles, tabs, split panes, GPU-accelerated text rendering, and a clean settings UI. For running a few shells and SSH sessions, it's hard to beat. But the moment you start running five or more AI CLI agents across different repositories, its limitations become architectural rather than cosmetic.

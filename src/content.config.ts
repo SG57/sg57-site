@@ -8,8 +8,12 @@ const blog = defineCollection({
     description: z.string(),
     date: z.date(),
     tags: z.array(z.string()),
-    author: z.string().default('SG57 Labs'),
+    author: z.string().default('Cord Rehn'),
     draft: z.boolean().default(false),
+    /** Optional featured screenshot or hero image (relative to /public) */
+    image: z.string().optional(),
+    /** Alt text for the featured image */
+    imageAlt: z.string().optional(),
   }),
 });
 
