@@ -311,10 +311,10 @@ import GuideCarousel from '../../components/text-easy/GuideCarousel.astro';
       </div>
     </div>
 
-    <a href="https://sg57.lemonsqueezy.com/checkout/buy/8f5351b7-b599-4f27-8e63-604b607c405c?embed=1" class="cloud-cta lemonsqueezy-button">
+    <button type="button" id="cloud-subscribe-btn" class="cloud-cta">
       Subscribe Now
       <span aria-hidden="true">&rarr;</span>
-    </a>
+    </button>
     <p class="cloud-small-print">Already subscribed? Sign in from the app to activate.</p>
   </section>
 
@@ -393,6 +393,34 @@ import GuideCarousel from '../../components/text-easy/GuideCarousel.astro';
 
   <!-- LemonSqueezy overlay SDK for Text Easy Cloud checkout -->
   <script is:inline src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+  <script is:inline>
+    (function () {
+      const CLOUD_URL = 'https://sg57.lemonsqueezy.com/checkout/buy/8f5351b7-b599-4f27-8e63-604b607c405c?embed=1';
+
+      function init() {
+        const btn = document.getElementById('cloud-subscribe-btn');
+        if (!btn) return;
+
+        // Pre-warm the SDK once the page is ready (no-op if already initialised)
+        if (window.createLemonSqueezy) window.createLemonSqueezy();
+
+        btn.addEventListener('click', () => {
+          if (window.createLemonSqueezy) {
+            window.createLemonSqueezy();
+            if (window.LemonSqueezy?.Url?.Open) {
+              window.LemonSqueezy.Url.Open(CLOUD_URL);
+              return;
+            }
+          }
+          // Fallback: SDK unavailable — open in a new tab so user isn't stranded
+          window.open(CLOUD_URL, '_blank', 'noopener,noreferrer');
+        });
+      }
+
+      document.addEventListener('astro:page-load', init);
+      if (document.readyState !== 'loading') init();
+    })();
+  </script>
 </Base>
 
 <style>
@@ -1240,9 +1268,11 @@ import GuideCarousel from '../../components/text-easy/GuideCarousel.astro';
     letter-spacing: 0.04em;
     color: var(--sg57-void);
     background: var(--sg57-accent);
+    border: none;
     border-radius: var(--sg57-radius-lg);
     padding: 0.75em 2em;
     text-decoration: none;
+    cursor: pointer;
     transition: background 0.2s ease, transform 0.15s var(--sg57-ease-out), box-shadow 0.25s ease;
     box-shadow: 0 0 20px var(--sg57-accent-glow);
   }
@@ -1598,5 +1628,32 @@ import GuideCarousel from '../../components/text-easy/GuideCarousel.astro';
       flex-direction: column;
       align-items: center;
     }
+  }
+</style>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     LemonSqueezy overlay overrides — GLOBAL
+     The overlay is injected into document.body by lemon.js at runtime, so
+     scoped styles above can't reach it. Darkens the backdrop to match the
+     page and wraps the iframe in a green accent halo.
+     ══════════════════════════════════════════════════════════════════════════ -->
+<style is:global>
+  .lemonsqueezy-overlay {
+    background: radial-gradient(
+      ellipse at center,
+      rgba(12, 15, 22, 0.82) 0%,
+      rgba(8, 10, 14, 0.94) 100%
+    ) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+  }
+
+  iframe[src*="lemonsqueezy.com"] {
+    border-radius: 14px !important;
+    box-shadow:
+      0 0 0 1px rgba(0, 204, 110, 0.55),
+      0 0 60px rgba(0, 255, 136, 0.18),
+      0 30px 90px rgba(0, 0, 0, 0.55) !important;
+    outline: none !important;
   }
 </style>
