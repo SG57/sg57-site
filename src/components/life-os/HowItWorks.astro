@@ -65,10 +65,10 @@ const depts = ['Money', 'Health', 'Home', 'Pets'];
   .hiw { display: grid; gap: 0.75rem; align-items: center; justify-items: center; width: 100%; }
   .hiw-col { margin: 0; width: 100%; max-width: 340px; display: flex; flex-direction: column; gap: 0.75rem; }
   .hiw figcaption, .hiw-you :global(figcaption) { text-align: center; color: var(--sg57-text-dim); font-size: 0.95rem; line-height: 1.5; }
-  .hiw-num { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--sg57-accent); color: var(--sg57-text-on-accent); font-family: var(--sg57-font-display); font-weight: 700; font-size: 0.8rem; margin-right: 0.3rem; vertical-align: -3px; }
-  .hiw-arrow { color: var(--sg57-accent); display: grid; place-items: center; transform: rotate(90deg); }
+  .hiw-num { user-select: none; -webkit-user-select: none; display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--sg57-accent); color: var(--sg57-text-on-accent); font-family: var(--sg57-font-display); font-weight: 700; font-size: 0.8rem; margin-right: 0.3rem; vertical-align: -3px; }
+  .hiw-arrow { user-select: none; -webkit-user-select: none; color: var(--sg57-accent); display: grid; place-items: center; transform: rotate(90deg); }
 
-  .pc { width: 100%; border-radius: 14px; background: var(--sg57-glass-bg-dense); border: 1px solid var(--sg57-glass-border); box-shadow: var(--sg57-glass-shadow); overflow: hidden; }
+  .pc { user-select: none; -webkit-user-select: none; width: 100%; border-radius: 14px; background: var(--sg57-glass-bg-dense); border: 1px solid var(--sg57-glass-border); box-shadow: var(--sg57-glass-shadow); overflow: hidden; }
   .pc-bar { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--sg57-border-subtle); }
   .pc-on { position: relative; width: 10px; height: 10px; border-radius: 50%; background: var(--sg57-accent); box-shadow: 0 0 10px var(--sg57-accent); }
   .pc-title { font-family: var(--sg57-font-display); font-size: 0.8rem; letter-spacing: 0.06em; color: var(--sg57-text-dim); }
@@ -79,7 +79,7 @@ const depts = ['Money', 'Health', 'Home', 'Pets'];
   .pc-lines li:last-child { color: var(--sg57-text-bright); }
   .pc-lines li:last-child::after { content: ""; display: inline-block; width: 7px; height: 1em; margin-left: 3px; vertical-align: -2px; background: var(--sg57-accent); }
 
-  .os { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+  .os { user-select: none; -webkit-user-select: none; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
   .os-plate { width: 100%; padding: 0.9rem 1rem; border-radius: 14px; border: 2px solid var(--sg57-accent); background: var(--sg57-accent-glow); box-shadow: 0 0 40px var(--sg57-accent-glow); display: flex; flex-direction: column; align-items: center; gap: 0.15rem; }
   .os-name { font-family: var(--sg57-font-display); font-weight: 700; font-size: 1.4rem; letter-spacing: 0.2em; color: var(--sg57-text-bright); }
   .os-sub { font-family: var(--sg57-font-display); font-size: 0.85rem; letter-spacing: 0.04em; color: var(--sg57-text-dim); }

@@ -1,0 +1,58 @@
+---
+/**
+ * The whole stack, top to bottom: You → your departments → Life OS → an always-on AI bot → an AI agent → the
+ * AI model. One line per layer says what that layer is in plain words, and the Life OS layer is lit because
+ * it is the only part Life OS adds. Reveals layer by layer from the bottom. Structural text is not selectable.
+ */
+const layers = [
+  { key: 'you', name: 'You', role: 'the CEO', what: 'You say yes or no. Paying stays with you.', tag: 'you' },
+  { key: 'depts', name: 'Your departments', role: 'Money, Health, Home, Paperwork, and the rest', what: 'Each one knows what good looks like and what to watch.', tag: 'life os' },
+  { key: 'os', name: 'Life OS', role: 'the job description', what: 'Safety rules, one Brief a week, the departments, Oversight. Plain text. Free.', tag: 'life os', lit: true },
+  { key: 'bot', name: 'An AI bot', role: 'always on, with its own computer', what: 'Apps like Muse or Grok Bot. It works while you sleep and messages you first.', tag: 'you already have this' },
+  { key: 'agent', name: 'An AI agent', role: 'memory, tools, a schedule', what: 'It remembers you between chats and can read your calendar, read-only, if you let it.', tag: 'you already have this' },
+  { key: 'model', name: 'An AI model', role: 'the brain', what: 'The part that reads and writes. Alone, it answers and forgets.', tag: 'you already have this' },
+];
+---
+
+<ol class="stack" data-reveal aria-label="The whole stack, top to bottom">
+  {layers.map((l) => (
+    <li class:list={['layer', `layer-${l.key}`, { lit: l.lit }]}>
+      <span class="layer-tag">{l.tag}</span>
+      <span class="layer-main">
+        <span class="layer-name">{l.name}</span>
+        <span class="layer-role">{l.role}</span>
+      </span>
+      <span class="layer-what">{l.what}</span>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .stack { list-style: none; margin: 0; padding: 0; width: 100%; max-width: 760px; display: grid; gap: 0.35rem; }
+  .layer {
+    display: grid; grid-template-columns: 1fr; gap: 0.15rem 1rem; align-items: center; text-align: left;
+    padding: 0.55rem 0.9rem; border-radius: 14px; background: var(--sg57-glass-bg); border: 1px solid var(--sg57-glass-border);
+  }
+  .layer-you { border-color: var(--sg57-accent-muted); }
+  .layer.lit { border: 2px solid var(--sg57-accent); background: var(--sg57-accent-glow); box-shadow: 0 0 40px var(--sg57-accent-glow); }
+  .layer-tag { font-family: var(--sg57-font-display); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sg57-text-dim); user-select: none; -webkit-user-select: none; }
+  .layer.lit .layer-tag, .layer-depts .layer-tag { color: var(--sg57-accent); }
+  .layer-main { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.6rem; }
+  .layer-name { font-family: var(--sg57-font-display); font-weight: 700; font-size: 1.15rem; color: var(--sg57-text-bright); }
+  .layer-role { font-family: var(--sg57-font-display); font-size: 0.9rem; letter-spacing: 0.03em; color: var(--sg57-text-dim); }
+  .layer-what { color: var(--sg57-text); font-size: 0.92rem; line-height: 1.4; }
+  @media (min-width: 720px) {
+    .layer { grid-template-columns: 150px 1fr; }
+    .layer-tag { grid-row: 1 / span 2; align-self: start; padding-top: 0.25rem; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.lo[data-anim]) .layer { opacity: 0; }
+    :global(.lo[data-anim]) .stack.in .layer { animation: lo-rise 0.6s var(--sg57-ease-snap, cubic-bezier(0.4, 0, 0.2, 1)) both; }
+    :global(.lo[data-anim]) .stack.in .layer-model { animation-delay: 0s; }
+    :global(.lo[data-anim]) .stack.in .layer-agent { animation-delay: 0.25s; }
+    :global(.lo[data-anim]) .stack.in .layer-bot { animation-delay: 0.5s; }
+    :global(.lo[data-anim]) .stack.in .layer-os { animation-delay: 0.9s; }
+    :global(.lo[data-anim]) .stack.in .layer-depts { animation-delay: 1.2s; }
+    :global(.lo[data-anim]) .stack.in .layer-you { animation-delay: 1.45s; }
+  }
+</style>

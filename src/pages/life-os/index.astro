@@ -10,6 +10,10 @@ import DiagramCompany from '../../components/life-os/DiagramCompany.astro';
 import Filmstrip from '../../components/life-os/Filmstrip.astro';
 import NeverTiles from '../../components/life-os/NeverTiles.astro';
 import HandOff from '../../components/life-os/HandOff.astro';
+import LogoMark from '../../components/life-os/LogoMark.astro';
+import SlideBadge from '../../components/life-os/SlideBadge.astro';
+import StackDiagram from '../../components/life-os/StackDiagram.astro';
+import Ribbon from '../../components/life-os/Ribbon.astro';
 import { version, fingerprint, pasteKB, isRC, allUntested, assertCited, assertRecommended, assertStartSays } from '../../lib/lifeos-kit';
 
 // Every rule id this page cites, with a phrase its definition must still contain. The build fails on drift.
@@ -26,6 +30,7 @@ const SLIDES = [
   { id: 'company', label: 'Your life as a company' },
   { id: 'why', label: 'Why now' },
   { id: 'engine', label: 'How it works' },
+  { id: 'stack', label: 'The whole stack' },
   { id: 'not-an-app', label: 'Not an app' },
   { id: 'how', label: 'Paste, connect, relax' },
   { id: 'safe', label: 'Your sign-off' },
@@ -82,8 +87,9 @@ r.setAttribute('data-mode',m||'beginner');})();
   <section class="slide hero" id="top">
     <div class="slide-inner">
       <div class="hero-text">
-        <span class="eyebrow" data-show="beginner normal">LIFE OS · FREE FOR EVERYONE · {isRC ? 'EARLY VERSION' : 'VERSION ' + version}</span>
-        <span class="eyebrow" data-show="technical">LIFE OS {version}{isRC ? ' · RELEASE CANDIDATE' : ''}</span>
+        <LogoMark size={92} wordmark label="Life OS" class="hero-logo" />
+        <span class="eyebrow" data-show="beginner normal">FREE FOR EVERYONE · {isRC ? 'EARLY VERSION' : 'VERSION ' + version}</span>
+        <span class="eyebrow" data-show="technical">VERSION {version}{isRC ? ' · RELEASE CANDIDATE' : ''} · CC BY 4.0</span>
         <h1 class="headline">Enjoy adulthood.<br /><span class="headline-accent">Let your AI do the adulting.</span></h1>
         <p class="line">AI apps can now remember you and reach out on their own.</p>
         <div class="line-stack">
@@ -102,12 +108,14 @@ r.setAttribute('data-mode',m||'beginner');})();
         <p class="spec" data-show="technical">Vendor-neutral prompt kit · kit {fingerprint} · {pasteKB} KB setup paste · 5 kernel files · 3 capability tiers</p>
       </div>
     </div>
+    <div class="slide-ribbon"><Ribbon /></div>
   </section>
 
   <!-- 2 · Company -->
   <section class="slide slide-alt" id="company">
     <div class="slide-inner slide-inner-wide">
       <div class="slide-copy" data-reveal>
+        <SlideBadge icon="company" />
         <h2 class="h2">Your life becomes a company. You're the CEO.</h2>
         <div class="line-stack">
           <p class="line" data-show="beginner">Every chore gets a department. They share what they know. Nothing big happens without the CEO's sign-off.</p>
@@ -123,6 +131,7 @@ r.setAttribute('data-mode',m||'beginner');})();
   <section class="slide" id="why">
     <div class="slide-inner">
       <div class="slide-copy" data-reveal>
+        <SlideBadge icon="spark" />
         <h2 class="h2">AI stopped waiting to be asked.</h2>
         <div class="line-stack">
           <p class="line" data-show="beginner">That last part is new. It's what makes Life OS possible.</p>
@@ -138,6 +147,7 @@ r.setAttribute('data-mode',m||'beginner');})();
   <section class="slide slide-alt" id="engine">
     <div class="slide-inner slide-inner-xwide">
       <div class="slide-copy" data-reveal>
+        <SlideBadge icon="cpu" />
         <h2 class="h2">It's not magic.</h2>
         <div class="line-stack">
           <p class="line" data-show="beginner">Apps like Muse give an AI a computer of its own, on all day, doing things the way you would at a PC. Life OS gives that AI the job: run the machinery of your life, and reach out when something's done or needs your yes.</p>
@@ -149,10 +159,27 @@ r.setAttribute('data-mode',m||'beginner');})();
     </div>
   </section>
 
+  <!-- 5 · Stack -->
+  <section class="slide" id="stack">
+    <div class="slide-inner">
+      <div class="slide-copy" data-reveal>
+        <SlideBadge icon="stack" />
+        <h2 class="h2">The whole stack.</h2>
+        <div class="line-stack">
+          <p class="line" data-show="beginner">An AI model reads and writes. An agent gives it memory and tools. A bot gives it a computer that stays on. Life OS is the job description on top. That's why it's free: you already have the rest.</p>
+          <p class="line" data-show="normal technical">Model, agent, bot: that's what you're already paying for, or using free. Life OS adds the one layer nobody ships: what an adult life run as a company should look like, written down as rules your AI follows. It's text, so it costs nothing to copy.</p>
+        </div>
+        <p class="spec" data-show="technical">Kernel: SAFETY, RHYTHM, STATE, BOOTSTRAP, CRISIS. Departments: AREA bundles. Oversight: always on. Every file carries the official source, maintainer, and kit fingerprint {fingerprint}.</p>
+      </div>
+      <StackDiagram />
+    </div>
+  </section>
+
   <!-- 5 · Not an app -->
   <section class="slide" id="not-an-app">
     <div class="slide-inner">
       <div class="slide-copy" data-reveal>
+        <SlideBadge icon="noapp" />
         <h2 class="h2 h2-loud">Life OS is <span class="headline-accent">not</span> an app.</h2>
         <p class="line">Nothing to download. No account. It's a job description you paste into the AI you already have.</p>
         <p class="line line-strong">"Life OS" is just the name for a set of instructions. Your AI follows them.</p>
@@ -167,6 +194,7 @@ r.setAttribute('data-mode',m||'beginner');})();
   <section class="slide slide-alt" id="how">
     <div class="slide-inner">
       <div class="slide-copy" data-reveal>
+        <SlideBadge icon="briefcase" />
         <h2 class="h2">Like a tax accountant. For everything. Free.</h2>
         <div class="line-stack">
           <p class="line" data-show="beginner">Don't know how? Paste the message and the AI fills every gap. Connect what you want watched, read-only, or just tell it things. Then it does things you didn't know you could hand off.</p>
@@ -184,6 +212,7 @@ r.setAttribute('data-mode',m||'beginner');})();
   <section class="slide" id="safe">
     <div class="slide-inner slide-inner-wide">
       <div class="slide-copy" data-reveal>
+        <SlideBadge icon="stamp" />
         <h2 class="h2">Nothing happens without the CEO's sign-off.</h2>
         <div class="line-stack">
           <p class="line" data-show="beginner">Book the dentist? Cancel a plan? It gets it ready and waits for your yes. Paying stays with you, always. <a href="/life-os/trust">What that means in practice</a>.</p>
@@ -193,12 +222,14 @@ r.setAttribute('data-mode',m||'beginner');})();
       </div>
       <NeverTiles />
     </div>
+    <div class="slide-ribbon"><Ribbon words={['Your yes, every time', 'Paying stays with you', 'Say stop, it stops', 'Read back before anything leaves', 'Rules, written down']} /></div>
   </section>
 
   <!-- 8 · Try it -->
   <section class="slide" id="start">
     <div class="slide-inner">
       <div class="slide-copy" data-reveal>
+        <SlideBadge icon="paste" />
         <h2 class="h2">Free, for everyone. One paste.</h2>
         <p class="line best">We recommend <strong>Meta Muse</strong> (free to start) or <strong>Grok Bot</strong> (paid). Any assistant works; setup tells you what yours can do.<span data-show="technical"> Per-assistant results in <a href="/life-os/CAPABILITIES.txt">CAPABILITIES.txt</a>: {allUntested ? 'none recorded yet' : 'recorded'}.</span></p>
         <p class="line">Muse is made by Meta. By default it learns from your chats; you can turn that off in its settings. <a href="/life-os/trust">What else to know</a>.</p>
@@ -244,6 +275,7 @@ r.setAttribute('data-mode',m||'beginner');})();
   <section class="slide slide-alt slide-last" id="more">
     <div class="slide-inner">
       <div class="slide-copy" data-reveal>
+        <SlideBadge icon="book" />
         <h2 class="h2">Want the details?</h2>
         <p class="line">Everything this page leaves out, in one place.</p>
       </div>
@@ -286,7 +318,7 @@ r.setAttribute('data-mode',m||'beginner');})();
   .lo-skip { position: absolute; left: 1rem; top: -100%; z-index: 200; background: var(--sg57-accent); color: var(--sg57-text-on-accent); padding: 0.6rem 1rem; border-radius: var(--sg57-radius-md); }
   .lo-skip:focus { top: 4rem; width: auto; height: auto; clip: auto; clip-path: none; overflow: visible; }
 
-  .slide { position: relative; min-height: calc(100vh - 3.5rem); display: flex; align-items: center; padding: 2.5rem 1.25rem; }
+  .slide { position: relative; min-height: calc(100vh - 3.5rem); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2.5rem 1.25rem; }
   @supports (height: 100svh) { .slide { min-height: calc(100svh - 3.5rem); } }
   .slide-last { min-height: 0; padding-bottom: 4rem; }
   .slide-alt::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(70% 60% at 50% 50%, var(--sg57-accent-glow), transparent 70%); opacity: 0.6; }
@@ -296,7 +328,7 @@ r.setAttribute('data-mode',m||'beginner');})();
   .slide-inner-xwide { max-width: 1140px; }
   .slide-inner-xwide .slide-copy { max-width: 760px; }
   .slide-inner-xwide .slide-copy .line { max-width: 64ch; }
-  #start .slide-inner { gap: 1.5rem; }
+  #start .slide-inner, #stack .slide-inner { gap: 1.5rem; }
   #how .slide-inner { gap: 1.25rem; max-width: 1000px; }
   #how .slide-copy { max-width: 760px; }
   #how .slide-copy .line { max-width: 64ch; }
@@ -313,7 +345,9 @@ r.setAttribute('data-mode',m||'beginner');})();
   .best strong { color: var(--sg57-text-bright); }
 
   .hero-text { display: grid; justify-items: center; max-width: 720px; }
-  .eyebrow { display: inline-block; font-family: var(--sg57-font-display); font-weight: 600; letter-spacing: 0.18em; font-size: 0.85rem; color: var(--sg57-accent); margin-bottom: 0.9rem; }
+  .hero :global(.hero-logo) { margin-bottom: 1.1rem; font-size: 1.15rem; }
+  .slide-ribbon { position: absolute; left: 0; right: 0; bottom: 0; }
+  .eyebrow { display: inline-block; font-family: var(--sg57-font-display); font-weight: 600; letter-spacing: 0.18em; font-size: 0.85rem; color: var(--sg57-accent); margin-bottom: 0.9rem; user-select: none; -webkit-user-select: none; }
   .headline { font-family: var(--sg57-font-display); font-weight: 700; font-size: clamp(2.3rem, 6.5vw, 4rem); line-height: 1.05; color: var(--sg57-text-bright); margin: 0 0 1.1rem; letter-spacing: -0.01em; }
   .headline-accent { color: var(--sg57-accent); }
   .hero-text .line { max-width: 52ch; }
@@ -342,12 +376,15 @@ r.setAttribute('data-mode',m||'beginner');})();
   .fine-block { margin-top: 0.5rem; }
   .fine-block .fine { margin-left: auto; margin-right: auto; }
 
-  .dots { display: none; }
-  .lo-pill { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(1rem + env(safe-area-inset-bottom)); z-index: 90; display: inline-flex; align-items: center; min-height: 44px; padding: 0.6rem 1.2rem; border-radius: var(--sg57-radius-full); background: var(--sg57-accent); color: var(--sg57-text-on-accent); font-family: var(--sg57-font-display); font-weight: 700; letter-spacing: 0.04em; text-decoration: none; box-shadow: var(--sg57-glass-shadow); }
+  .dots { display: none; user-select: none; -webkit-user-select: none; }
+  .ci, .after, .copy-row { user-select: none; -webkit-user-select: none; }
+  .lo-pill { user-select: none; -webkit-user-select: none; position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(1rem + env(safe-area-inset-bottom)); z-index: 90; display: inline-flex; align-items: center; min-height: 44px; padding: 0.6rem 1.2rem; border-radius: var(--sg57-radius-full); background: var(--sg57-accent); color: var(--sg57-text-on-accent); font-family: var(--sg57-font-display); font-weight: 700; letter-spacing: 0.04em; text-decoration: none; box-shadow: var(--sg57-glass-shadow); }
   .lo-pill[hidden] { display: none !important; }
 
   @media (max-width: 899px) {
     .slide { padding-bottom: 5rem; }
+    /* In flow on phones, full-bleed past the slide's side padding, so it never covers the last control. */
+    .slide-ribbon { position: static; width: calc(100% + 2.5rem); margin: 2rem -1.25rem -2.5rem; }
   }
   @media (min-width: 900px) {
     .lo-pill { left: auto; right: calc(1.5rem + 44px + 0.75rem); transform: none; }

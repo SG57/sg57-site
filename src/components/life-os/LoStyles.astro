@@ -11,6 +11,8 @@
   .lo[data-mode="normal"] [data-show]:not([data-show~="normal"]),
   .lo[data-mode="technical"] [data-show]:not([data-show~="technical"]) { display: none !important; }
   .lo:not([data-js]) [data-needs-js] { display: none !important; }
+  /* global.css gives every [id] a 4.5rem scroll margin; the html scroll-padding already clears the nav here. */
+  .lo [id] { scroll-margin-top: 0; }
   @keyframes lo-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
   @keyframes lo-drop { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: none; } }
   @keyframes lo-flip { from { transform: scaleX(-1); } to { transform: scaleX(1); } }

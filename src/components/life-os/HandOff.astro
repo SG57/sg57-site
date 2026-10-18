@@ -30,7 +30,7 @@ const items = [
   @media (min-width: 640px) { .ho { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (min-width: 900px) { .ho { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   .ho-item { display: flex; flex-direction: column; gap: 0.2rem; padding: 0.65rem 0.9rem; border-radius: var(--sg57-radius-lg); background: var(--sg57-glass-bg); border: 1px solid var(--sg57-glass-border); text-align: left; }
-  .ho-dept { font-family: var(--sg57-font-display); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sg57-accent); }
+  .ho-dept { user-select: none; -webkit-user-select: none; font-family: var(--sg57-font-display); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sg57-accent); }
   .ho-tag { color: var(--sg57-text-dim); font-weight: 600; }
   .ho-text { color: var(--sg57-text); line-height: 1.45; font-size: 0.98rem; }
   .ho-soon { border-style: dashed; border-color: var(--sg57-accent-muted); }

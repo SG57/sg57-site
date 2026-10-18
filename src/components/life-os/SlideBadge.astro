@@ -1,0 +1,38 @@
+---
+/**
+ * A big glowing icon badge that opens a slide, so each screen is recognizable at a glance.
+ * `icon` picks a path set below. Decorative: aria-hidden, not selectable.
+ */
+interface Props { icon: keyof typeof ICONS; class?: string }
+const ICONS = {
+  company: ['M12 3v5', 'M5 21v-6h14v6', 'M3 21h18', 'M12 8l-7 7', 'M12 8l7 7', 'M9 3h6'],
+  spark: ['M13 2L4 14h7l-1 8 9-12h-7z'],
+  cpu: ['M8 8h8v8H8z', 'M4 4h16v16H4z', 'M12 1v3M12 20v3M1 12h3M20 12h3M6 1v3M18 1v3M6 20v3M18 20v3M1 6h3M1 18h3M20 6h3M20 18h3'],
+  stack: ['M12 3l9 5-9 5-9-5z', 'M3 13l9 5 9-5', 'M3 18l9 5 9-5'],
+  noapp: ['M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z', 'M4 4l16 16'],
+  briefcase: ['M4 8h16v12H4z', 'M9 8V5h6v3', 'M4 13h16'],
+  stamp: ['M6 12h12v4H6z', 'M8 20h8', 'M12 3a3 3 0 0 0-3 3c0 2 1 3 1 6h4c0-3 1-4 1-6a3 3 0 0 0-3-3z'],
+  paste: ['M8 4h8a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z', 'M9 2h6v4H9z', 'M9 13l2 2 4-4'],
+  grid: ['M4 4h6v6H4z', 'M14 4h6v6h-6z', 'M4 14h6v6H4z', 'M14 14h6v6h-6z'],
+  book: ['M4 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4z', 'M20 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z'],
+  bell: ['M6 16V11a6 6 0 0 1 12 0v5l2 2H4z', 'M10 21h4'],
+} as const;
+const { icon, class: cls } = Astro.props;
+const paths = ICONS[icon];
+---
+
+<span class:list={['badge', cls]} aria-hidden="true">
+  <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    {paths.map((d) => <path d={d} />)}
+  </svg>
+</span>
+
+<style>
+  .badge {
+    display: inline-grid; place-items: center; width: 72px; height: 72px; margin: 0 auto 1rem;
+    border-radius: 22px; color: var(--sg57-accent); user-select: none; -webkit-user-select: none;
+    background: linear-gradient(160deg, var(--sg57-accent-glow), rgba(143, 191, 159, 0.04));
+    border: 1px solid var(--sg57-accent-muted);
+    box-shadow: 0 0 40px var(--sg57-accent-glow), inset 0 0 20px rgba(143, 191, 159, 0.08);
+  }
+</style>

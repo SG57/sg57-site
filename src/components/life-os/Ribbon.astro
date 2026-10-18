@@ -1,0 +1,26 @@
+---
+/**
+ * A full-bleed accent band with repeating words, the kind of visual seam that separates big screens.
+ * Decorative: aria-hidden, not selectable, and still under reduced motion.
+ */
+interface Props { words?: string[] }
+const { words = ['Free for everyone', 'Not an app', 'Nothing to buy', 'Your yes, every time', 'Plain text, CC BY 4.0'] } = Astro.props;
+const row = [...words, ...words, ...words];
+---
+
+<div class="ribbon" aria-hidden="true">
+  <div class="ribbon-track">
+    {row.map((w) => <span class="ribbon-word">{w}<span class="ribbon-dot">·</span></span>)}
+  </div>
+</div>
+
+<style>
+  .ribbon { position: relative; overflow: hidden; width: 100%; padding: 0.55rem 0; user-select: none; -webkit-user-select: none; border-top: 1px solid var(--sg57-accent-muted); border-bottom: 1px solid var(--sg57-accent-muted); background: linear-gradient(90deg, transparent, var(--sg57-accent-glow) 30%, var(--sg57-accent-glow) 70%, transparent); }
+  .ribbon-track { display: flex; width: max-content; gap: 0; white-space: nowrap; }
+  .ribbon-word { font-family: var(--sg57-font-display); font-weight: 700; font-size: 0.9rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sg57-accent); padding: 0 0.6rem; }
+  .ribbon-dot { margin-left: 1.2rem; color: var(--sg57-accent-muted); }
+  @media (prefers-reduced-motion: no-preference) {
+    .ribbon-track { animation: lo-ribbon 40s linear infinite; }
+  }
+  @keyframes lo-ribbon { from { transform: translateX(0); } to { transform: translateX(-33.333%); } }
+</style>
