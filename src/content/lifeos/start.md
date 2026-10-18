@@ -12,6 +12,13 @@ You're the CEO of your life. This is your back office.
 
 Life OS is a set of instructions for the AI assistant you already use. You paste one message. Your assistant asks you questions for about twenty minutes, handles one thing on the spot, and from then on you get one short Brief a week. You never keep a list. Your assistant holds the details and shows them any time you ask.
 
+## Which assistant
+We recommend one of two. Both can remember you, connect to your calendar and mail (read-only), run on a schedule, and message you first.
+- **Meta Muse**: free to start, lives on your phone, built for personal errands. The maker uses this one.
+- **Grok Bot** (from xAI): paid, desktop first, built around scheduled routines.
+
+Others work with fewer features. During setup, your assistant tells you honestly what it can do.
+
 ## The one thing to do
 1. Open your assistant and set it up yourself, on your own device.
 2. Copy the setup message from the official page, sg57.dev/life-os, and only from there: [dist/PASTE-SETUP.txt](/life-os/PASTE-SETUP.txt). Copy all of it.

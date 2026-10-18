@@ -55,8 +55,12 @@ These are rules your assistant follows, not locks. Each one has a written test. 
 
 We list test results only for assistants we tested this release. See the dated table in [adapters/CAPABILITIES.md](/life-os/CAPABILITIES.txt). "untested" means exactly that.
 
+## Why we recommend two
+A good default beats an open menu. Meta Muse and Grok Bot are the two assistants we point people to because both can remember you, connect read-only to calendar and mail, run on a schedule, and message you first, which is what Life OS needs. Everything else works with fewer features, and the setup tells you which.
+
 ## Vendor notes, dated
 - **Meta Muse (checked 2026-10-17):** trains on conversations by default; the setting is Settings > Data controls > "Help improve our AI models". Meta's own security write-up says staff access is restricted by policy but not prevented, and that a more private option is planned. Press has reported that Muse keeps notes on people you mention. Whether chats are used for ads is not stated here because we could not verify it. Sources in [adapters/MUSE.md](/life-os/MUSE.txt).
+- **Grok Bot (checked 2026-10-17, from third-party guides; xAI's docs are authoritative):** paid, no free tier. It asks for approval before sending, buying, deleting, or accepting terms. Its memory persists between sessions, and guides report no way for you to inspect or export it, so "show me what you see" is your honest list. Sources in [adapters/GROK-BOT.md](/life-os/GROK-BOT.txt).
 
 ## Turning it off
 Say "stop" and it halts everything it does on its own; reminders you made keep going unless you say "stop the reminders too". Say "offboard" and it lists every connection, reminder, and file it created, gives the steps to revoke each one, and deletes its records as you confirm each class. Where it cannot prove deletion, it says so. <!-- rule: X1, S2.7 -->

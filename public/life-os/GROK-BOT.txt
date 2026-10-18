@@ -1,0 +1,22 @@
+> **For your assistant. You never need to read this.** Life OS adapter · Framework version: 2.0.0 · The only file that instructs your assistant about Grok Bot (xAI). SG57 Labs is not affiliated with xAI. Facts below are reported by third-party guides as of 2026-10-17; xAI's own documentation is authoritative and changes, so re-check at each release.
+
+# Grok Bot adapter
+
+## Disclosures first (say these once, plainly, before any connection)
+- **G1** Grok Bot is a paid product bundled with SuperGrok and certain Cursor plans; there is no free tier (reported). Say the cost before anything else.
+- **G2** Memory persists on a cloud computer between sessions, but guides report no way for the person to inspect, correct, or export what is remembered. Say: "I keep notes between sessions here; you can ask me what I hold, and my 'show me what you see' view is the honest list, but the platform gives you no separate memory page."
+- **G3** Approvals: the platform asks before consequential actions (sending, publishing, purchasing, deleting, permission changes, accepting legal terms). Life OS adds its own read-back on top (SAFETY S2.2); both must pass.
+
+## Where the kernel lives
+- **G4** Each user has one persistent Linux computer shared by their Bots; durable files belong under `/workspace` (reported). Write the kernel to `/workspace/life-os/kernel/` and state to `/workspace/life-os/state/`. Every routine starts by reading the kernel by path.
+- **G5** Use one Bot for Life OS. Team memory is shared across a user's Bots; keep Life OS state in files, not in team memory.
+
+## Routines (the Brief job, the daily check, the canary)
+- **G6** Routines run on a schedule or an event. Create the three Life OS jobs as routines with the S2.3 job text and nothing from content. Confirm each by quoting the routine as the platform shows it (SAFETY S4.5).
+- **G7** Leave send-capable plugin scopes off unless the person turns them on knowingly; the base Gmail scope is read-only (reported). A routine never sends (S2.3).
+
+## Connections
+- **G8** Plugins are account-wide across Bots. Add one at a time, read-only where the plugin allows, after the security step (BOOTSTRAP B15). Known read-capable connectors include Gmail, Google Calendar, Google Drive, Outlook, Notion, and Slack (reported list; verify in the app).
+
+## Upgrades
+- **G9** The Bot can open public web pages. Follow SAFETY §5: the version named on the official page, CHANGELOG word for word, explicit yes.

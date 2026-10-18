@@ -21,13 +21,15 @@ Eval columns are filled only from a dated results file under evals/results/. Not
 
 | Assistant | Memory | Scheduler | Connections | Reads a public URL | Training-data setting | Evals (version, date, pass) |
 |---|---|---|---|---|---|---|
-| Meta Muse (web, app, Mac) | yes: Memory.md and files in its own VM | yes: scheduled tasks and goals (confirm by quoting the task) | yes: dozens and growing, no fixed count published by Meta (checked 2026-10-17); read-only option per connector; bank data cannot move money | yes, in its browser | Settings > Data controls > "Help improve our AI models" (on by default; checked 2026-10-17) | untested |
+| Meta Muse (web, app, Mac) — recommended, free tier | yes: Memory.md and files in its own VM | yes: scheduled tasks and goals (confirm by quoting the task) | yes: dozens and growing, no fixed count published by Meta (checked 2026-10-17); read-only option per connector; bank data cannot move money | yes, in its browser | Settings > Data controls > "Help improve our AI models" (on by default; checked 2026-10-17) | untested |
+| Grok Bot (xAI; desktop, iPhone, Android companion) — recommended, paid plans only | yes: persistent cloud computer; memory not inspectable or exportable by the person (reported 2026-10-17) | yes: routines, scheduled or event-triggered (confirm by quoting the routine) | yes: Gmail, Calendar, Drive, Outlook, Notion, Slack and more (reported); read-only Gmail by default | yes, in its browser | unknown; say so | untested |
 | ChatGPT (free) | varies by plan | varies by plan | no bank data | yes | Settings > Data controls (name varies; verify in the app) | untested |
 | Claude | project files on paid plans | varies by plan | no bank data | yes | Privacy settings (verify in the app) | untested |
 | Gemini | varies | varies by plan | no bank data | yes | Activity settings (verify in the app) | untested |
 | Any other | ask (B2) | ask (B2) | ask (B2) | ask (B2) | unknown; say so | untested |
 
 ## Rules
+- **A0** Recommended path. The start page recommends Meta Muse (free, personal, proactive) or Grok Bot (paid, routine-driven). Any other assistant works with fewer features; the tier check (B2) tells the truth about what this one can do.
 - **A1** At B2, answer the tier check from what you can actually do here, never from this table alone. If the table and your tools disagree, your tools win, and say so.
 - **A2** Where a training-data setting is listed, name it once (B3). Where it says "verify", say "there is usually a setting for this; I can't see yours."
 - **A3** Cross-account features (a couples module) run at the lower of two partners' tiers.

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" width="1200" height="520" role="img" aria-labelledby="t">
+  <title id="t">Then you ask and it forgets; now it remembers you and messages you first</title>
+  <g font-family="Rajdhani, 'Segoe UI', system-ui, sans-serif">
+    <text x="60" y="160" fill="#9aa2ac" font-size="28" font-weight="600" letter-spacing="4">THEN</text>
+    <circle cx="300" cy="150" r="36" fill="none" stroke="#c8ccd2" stroke-width="4"/>
+    <circle cx="300" cy="138" r="10" fill="#c8ccd2"/>
+    <path d="M282 172c4-12 32-12 36 0" fill="none" stroke="#c8ccd2" stroke-width="4" stroke-linecap="round"/>
+    <rect x="830" y="114" width="72" height="72" rx="16" fill="none" stroke="#9aa2ac" stroke-width="4"/>
+    <circle cx="856" cy="146" r="5" fill="#9aa2ac"/><circle cx="876" cy="146" r="5" fill="#9aa2ac"/>
+    <line x1="350" y1="150" x2="806" y2="150" stroke="#9aa2ac" stroke-width="4" stroke-linecap="round"/>
+    <path d="M790 136l18 14-18 14" fill="none" stroke="#9aa2ac" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="578" y="130" fill="#9aa2ac" font-size="24" text-anchor="middle">you ask</text>
+    <text x="600" y="235" fill="#9aa2ac" font-size="26" text-anchor="middle">It answers, then forgets.</text>
+
+    <text x="60" y="390" fill="#8FBF9F" font-size="28" font-weight="600" letter-spacing="4">NOW</text>
+    <circle cx="300" cy="380" r="36" fill="none" stroke="#c8ccd2" stroke-width="4"/>
+    <circle cx="300" cy="368" r="10" fill="#c8ccd2"/>
+    <path d="M282 402c4-12 32-12 36 0" fill="none" stroke="#c8ccd2" stroke-width="4" stroke-linecap="round"/>
+    <rect x="830" y="344" width="72" height="72" rx="16" fill="none" stroke="#8FBF9F" stroke-width="4"/>
+    <circle cx="856" cy="376" r="5" fill="#8FBF9F"/><circle cx="876" cy="376" r="5" fill="#8FBF9F"/>
+    <g fill="none" stroke="#9aa2ac" stroke-width="3">
+      <rect x="780" y="286" width="28" height="28" rx="6"/><rect x="852" y="286" width="28" height="28" rx="6"/><rect x="924" y="286" width="28" height="28" rx="6"/>
+    </g>
+    <text x="794" y="275" fill="#9aa2ac" font-size="18" text-anchor="middle">memory</text>
+    <text x="866" y="275" fill="#9aa2ac" font-size="18" text-anchor="middle">calendar</text>
+    <text x="938" y="275" fill="#9aa2ac" font-size="18" text-anchor="middle">schedule</text>
+    <line x1="806" y1="380" x2="352" y2="380" stroke="#8FBF9F" stroke-width="4" stroke-linecap="round"/>
+    <path d="M368 366l-18 14 18 14" fill="none" stroke="#8FBF9F" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="578" y="360" fill="#8FBF9F" font-size="24" text-anchor="middle">it reaches out first</text>
+    <text x="600" y="465" fill="#c8ccd2" font-size="26" text-anchor="middle">It remembers you, checks your calendar if you let it, and messages you first.</text>
+  </g>
+</svg>

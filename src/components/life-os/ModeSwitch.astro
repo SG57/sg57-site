@@ -1,0 +1,136 @@
+---
+/**
+ * Reader mode switch: simply (default) · in detail · technically.
+ * Native radios so keyboard and screen readers get the real control. Sets data-mode on the nearest
+ * [data-lifeos] wrapper (never on <html>, which Astro's router replaces). Persists only when the
+ * reader chooses; a ?mode= in a shared link applies for that view and is not saved.
+ */
+---
+
+<fieldset class="mode" id="mode" data-needs-js>
+  <legend class="mode-legend">
+    <span aria-hidden="true">Explain it</span>
+    <span class="sr-only">How much detail should this page show?</span>
+  </legend>
+  <div class="mode-seg">
+    <input type="radio" id="lo-m-beginner" name="lo-mode" value="beginner" autocomplete="off" checked />
+    <label for="lo-m-beginner">simply</label>
+    <input type="radio" id="lo-m-normal" name="lo-mode" value="normal" autocomplete="off" />
+    <label for="lo-m-normal">in detail</label>
+    <input type="radio" id="lo-m-technical" name="lo-mode" value="technical" autocomplete="off" />
+    <label for="lo-m-technical">technically</label>
+  </div>
+</fieldset>
+<p id="lo-mode-live" class="sr-only" aria-live="polite"></p>
+<script is:inline data-astro-rerun>(function(){var r=document.querySelector('[data-lifeos]');var i=r&&document.querySelector('input[name="lo-mode"][value="'+r.getAttribute('data-mode')+'"]');if(i)i.checked=true;})();</script>
+
+<script>
+  const MODES = ['beginner', 'normal', 'technical'];
+  const KEY = 'lifeos-mode';
+  const LIVE: Record<string, string> = {
+    beginner: 'Showing the simple version.',
+    normal: 'Showing more detail.',
+    technical: 'Showing the technical version.',
+  };
+
+  function root(): HTMLElement | null {
+    return document.querySelector<HTMLElement>('[data-lifeos]');
+  }
+
+  function resolveInitial(): string {
+    try {
+      const q = new URLSearchParams(location.search).get('mode');
+      if (q && MODES.includes(q)) return q;
+    } catch {}
+    try {
+      const s = localStorage.getItem(KEY);
+      if (s && MODES.includes(s)) return s;
+    } catch {}
+    return 'beginner';
+  }
+
+  function syncRadios(mode: string) {
+    document.querySelectorAll<HTMLInputElement>('input[name="lo-mode"]').forEach((i) => {
+      i.checked = i.value === mode;
+    });
+  }
+
+  function choose(mode: string) {
+    const r = root();
+    if (!r || !MODES.includes(mode)) return;
+    r.dataset.mode = mode;
+    syncRadios(mode);
+    try { localStorage.setItem(KEY, mode); } catch {}
+    const url = new URL(location.href);
+    if (mode === 'beginner') url.searchParams.delete('mode');
+    else url.searchParams.set('mode', mode);
+    history.replaceState(history.state, '', url.toString());
+    const live = document.getElementById('lo-mode-live');
+    if (live) live.textContent = LIVE[mode];
+  }
+
+  // Client-side arrivals: set the mode before paint so a returning reader does not see a flash.
+  document.addEventListener('astro:after-swap', () => {
+    const r = root();
+    if (!r) return;
+    r.setAttribute('data-js', '');
+    r.dataset.mode = resolveInitial();
+  });
+
+  document.addEventListener('astro:page-load', () => {
+    const r = root();
+    if (!r) return;
+    syncRadios(r.dataset.mode || 'beginner');
+    document.querySelectorAll<HTMLInputElement>('input[name="lo-mode"]').forEach((i) => {
+      i.addEventListener('change', () => { if (i.checked) choose(i.value); });
+    });
+    document.querySelectorAll<HTMLElement>('[data-set-mode]').forEach((b) => {
+      b.addEventListener('click', () => {
+        choose(b.dataset.setMode!);
+        const h = document.getElementById('internals-h');
+        if (h) {
+          h.focus({ preventScroll: true });
+          const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+          h.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .mode { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.7rem; }
+  .mode-legend {
+    float: left;
+    font-family: var(--sg57-font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    color: var(--sg57-text-dim);
+    line-height: 44px;
+    margin-right: 0.2rem;
+  }
+  .mode-seg {
+    position: relative;
+    display: inline-flex;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    border-radius: var(--sg57-radius-full);
+    background: var(--sg57-glass-bg);
+    border: 1px solid var(--sg57-glass-border);
+  }
+  .mode-seg input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
+  .mode-seg label {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0.5rem 0.9rem;
+    border-radius: var(--sg57-radius-full); cursor: pointer;
+    font-family: var(--sg57-font-display); font-weight: 600; font-size: 0.95rem; letter-spacing: 0.04em;
+    color: var(--sg57-text);
+  }
+  .mode-seg label:hover { background: var(--sg57-accent-glow); }
+  .mode-seg input:checked + label { background: var(--sg57-accent); color: var(--sg57-text-on-accent); }
+  .mode-seg input:focus-visible + label { box-shadow: var(--sg57-focus-ring); }
+  @media (max-width: 380px) {
+    .mode-legend { float: none; width: 100%; line-height: 1.4; }
+    .mode-seg label { padding: 0.5rem 0.7rem; }
+  }
+</style>

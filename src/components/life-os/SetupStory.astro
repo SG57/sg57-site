@@ -1,0 +1,48 @@
+---
+/** Five static frames of a first setup, quoted from the kit's fictional example (Maya). No motion. */
+---
+
+<ol class="story">
+  <li>
+    <span class="s-num" aria-hidden="true">1</span>
+    <p class="s-cap">It starts with its promises.</p>
+    <p class="bubble ai">Nothing gets sent, booked, or shared without reading it back to you first. I never pay or move money; that stays with you.</p>
+  </li>
+  <li>
+    <span class="s-num" aria-hidden="true">2</span>
+    <p class="s-cap">It's honest about what it can do.</p>
+    <p class="bubble ai">Honestly: I can't make reminders here; your phone's calendar does that.</p>
+  </li>
+  <li>
+    <span class="s-num" aria-hidden="true">3</span>
+    <p class="s-cap">You say what's nagging you. Messy is fine.</p>
+    <p class="bubble ai">What's been nagging you? Messy is fine.</p>
+    <p class="bubble you"><span class="who">Maya</span>Kitchen faucet's leaked under the sink a week. Car payment's $214, due Thursday. My cat Pickle needs the vet.</p>
+  </li>
+  <li>
+    <span class="s-num" aria-hidden="true">4</span>
+    <p class="s-cap">It handles one thing on the spot.</p>
+    <p class="bubble ai">Here's a text, ready: "Hi, it's Maya. My kitchen faucet has been leaking under the sink for about a week. Could someone take a look this week? Thanks." Change it, or ready?</p>
+    <p class="bubble you"><span class="who">Maya</span>Good as is. Sent.</p>
+  </li>
+  <li>
+    <span class="s-num" aria-hidden="true">5</span>
+    <p class="s-cap">It picks two things to watch, then closes.</p>
+    <p class="bubble ai">I'd track two things, plus Good Life, which always stays on: money, and home (the leak and the landlord).</p>
+    <p class="bubble ai">Back office is closed.</p>
+  </li>
+</ol>
+<p class="s-foot">Fictional, written to follow the real script; not a recorded chat. Maya used a free chat assistant with no memory. <a href="/life-os/example">The full example →</a></p>
+
+<style>
+  .story { list-style: none; margin: 0.75rem 0 0; padding: 0; display: grid; gap: 1rem; }
+  .story li { position: relative; display: grid; gap: 0.5rem; padding-left: 2.6rem; }
+  .s-num { position: absolute; left: 0; top: 0; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--sg57-accent); color: var(--sg57-text-on-accent); font-family: var(--sg57-font-display); font-weight: 700; }
+  .s-cap { margin: 0; min-height: 32px; display: flex; align-items: center; font-family: var(--sg57-font-display); font-weight: 600; color: var(--sg57-text-bright); }
+  .bubble { margin: 0; max-width: 52ch; padding: 0.6rem 0.85rem; border-radius: 14px; line-height: 1.45; font-size: 0.95rem; color: var(--sg57-text); }
+  .ai { background: var(--sg57-glass-bg); border: 1px solid var(--sg57-glass-border); justify-self: start; }
+  .you { background: var(--sg57-accent-glow); border: 1px solid var(--sg57-accent-muted); justify-self: end; }
+  .who { display: block; font-family: var(--sg57-font-display); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sg57-accent); }
+  .s-foot { margin: 1rem 0 0; color: var(--sg57-text-dim); font-size: 0.92rem; line-height: 1.5; }
+  .s-foot a { color: var(--sg57-accent); }
+</style>

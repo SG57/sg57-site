@@ -21,7 +21,7 @@ privacy-affecting: yes. This release defines what your assistant may hold, share
 - A fictional example (Maya), a trust page, eval scenarios, and maintainer tools.
 
 ### Changed
-- Works with any assistant. Vendor-specific notes live in their own folder.
+- Works with any assistant; the start page recommends two by name so a newcomer has a default path. The rules your assistant follows name no vendor; vendor notes live in their own folder.
 - Size limits for the rule files were raised from the first design estimate to what the tested kernel needs. See tools/budgets.txt.
 
 ### Removed

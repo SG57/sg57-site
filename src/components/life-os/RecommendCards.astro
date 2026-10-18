@@ -1,0 +1,59 @@
+---
+/**
+ * The recommended path: two assistants, four checks each. Prescriptive by design.
+ * Facts mirror kit/TRUST.md and kit/adapters/*.md as of 2026-10-17.
+ */
+---
+
+<div class="rec">
+  <a class="rec-card rec-primary" href="https://muse.ai" target="_blank" rel="noopener">
+    <div class="rec-head">
+      <span class="rec-name">Meta Muse</span>
+      <span class="rec-tag">Recommended · free to start</span>
+    </div>
+    <ul class="rec-checks" aria-label="What Muse can do">
+      <li>Remembers you between chats</li>
+      <li>Connects to calendar and mail, read-only</li>
+      <li>Runs on a schedule</li>
+      <li>Messages you first when something needs you</li>
+    </ul>
+    <p class="rec-note">Lives on your phone. Built for personal errands. The maker uses this one. US and Canada.</p>
+  </a>
+  <a class="rec-card" href="https://x.ai" target="_blank" rel="noopener">
+    <div class="rec-head">
+      <span class="rec-name">Grok Bot</span>
+      <span class="rec-tag">Recommended · paid plans</span>
+    </div>
+    <ul class="rec-checks" aria-label="What Grok Bot can do">
+      <li>Remembers you between sessions</li>
+      <li>Connects to calendar and mail, read-only by default</li>
+      <li>Runs scheduled routines</li>
+      <li>Asks before it sends, buys, or deletes</li>
+    </ul>
+    <p class="rec-note">Desktop first, with a phone companion. From xAI. No free tier.</p>
+  </a>
+</div>
+<p class="rec-foot">Others work with fewer features. During setup, whichever assistant you use tells you honestly what it can do.</p>
+
+<style>
+  .rec { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .rec-card {
+    display: flex; flex-direction: column; gap: 0.75rem;
+    padding: 1.25rem 1.35rem; border-radius: var(--sg57-radius-lg);
+    background: var(--sg57-glass-bg); border: 1px solid var(--sg57-glass-border);
+    text-decoration: none; color: inherit; transition: border-color 0.2s ease, transform 0.2s var(--sg57-ease-out);
+  }
+  .rec-card:hover { border-color: var(--sg57-accent); transform: translateY(-2px); }
+  .rec-card:focus-visible { outline: none; box-shadow: var(--sg57-focus-ring); }
+  .rec-primary { border-color: var(--sg57-accent-muted); box-shadow: 0 0 40px var(--sg57-accent-glow); }
+  .rec-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.4rem; }
+  .rec-name { font-family: var(--sg57-font-display); font-weight: 700; font-size: 1.4rem; color: var(--sg57-text-bright); }
+  .rec-tag { font-family: var(--sg57-font-display); font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sg57-accent); }
+  .rec-checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem; }
+  .rec-checks li { position: relative; padding-left: 1.6rem; color: var(--sg57-text); line-height: 1.45; }
+  .rec-checks li::before { content: ""; position: absolute; left: 0; top: 0.42em; width: 0.9rem; height: 0.5rem; border-left: 2.5px solid var(--sg57-accent); border-bottom: 2.5px solid var(--sg57-accent); transform: rotate(-45deg); }
+  .rec-note { margin: 0; color: var(--sg57-text-dim); line-height: 1.5; font-size: 0.95rem; }
+  .rec-foot { margin: 0.9rem 0 0; color: var(--sg57-text-dim); line-height: 1.5; }
+  @media (max-width: 720px) { .rec { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) { .rec-card { transition: none; } }
+</style>

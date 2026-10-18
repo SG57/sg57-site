@@ -1,0 +1,39 @@
+---
+/**
+ * The weekly loop: your assistant notices, plans, prepares; you tap once; it's done; one report.
+ * A small circular diagram with a traveling dot. Inline SVG.
+ */
+---
+
+<figure class="diagram loop">
+  <svg viewBox="0 0 420 420" role="img" aria-labelledby="lp-title lp-desc" xmlns="http://www.w3.org/2000/svg">
+    <title id="lp-title">The weekly loop</title>
+    <desc id="lp-desc">A circle with four stops: it notices, it prepares, you tap once, it is done. One report a week sits in the middle.</desc>
+    <circle cx="210" cy="210" r="150" class="track" />
+    <g class="stop" transform="translate(210 60)"><circle r="30" class="ring" /><text y="6" class="g">1</text><text y="-42" class="l">It notices</text></g>
+    <g class="stop" transform="translate(360 210)"><circle r="30" class="ring" /><text y="6" class="g">2</text><text x="0" y="52" class="l">It prepares</text></g>
+    <g class="stop stop-you" transform="translate(210 360)"><circle r="34" class="ring ring-you" /><text y="7" class="g g-you">3</text><text y="56" class="l l-you">You tap once</text></g>
+    <g class="stop" transform="translate(60 210)"><circle r="30" class="ring" /><text y="6" class="g">4</text><text y="52" class="l">Done</text></g>
+    <text x="210" y="200" class="mid">one short report</text>
+    <text x="210" y="226" class="mid mid-accent">every week</text>
+    <circle r="7" class="dot"><animateMotion dur="8s" repeatCount="indefinite" path="M210 60 A150 150 0 1 1 209.9 60" /></circle>
+  </svg>
+  <figcaption><slot>It notices. It prepares the work to one tap. You tap. It's done. You read one short report a week.</slot></figcaption>
+</figure>
+
+<style>
+  .diagram { margin: 0; }
+  .diagram svg { width: min(100%, 420px); height: auto; display: block; margin: 0 auto; }
+  .track { fill: none; stroke: var(--sg57-border); stroke-width: 3; }
+  .ring { fill: var(--sg57-surface); stroke: var(--sg57-text-dim); stroke-width: 2.5; }
+  .ring-you { stroke: var(--sg57-accent); stroke-width: 3; }
+  .g { fill: var(--sg57-text-bright); font-family: var(--sg57-font-display); font-weight: 700; font-size: 22px; text-anchor: middle; }
+  .g-you { fill: var(--sg57-accent); }
+  .l { fill: var(--sg57-text); font-family: var(--sg57-font-display); font-weight: 600; font-size: 17px; text-anchor: middle; }
+  .l-you { fill: var(--sg57-accent); }
+  .mid { fill: var(--sg57-text-dim); font-family: var(--sg57-font-display); font-size: 17px; text-anchor: middle; }
+  .mid-accent { fill: var(--sg57-accent); font-weight: 600; }
+  .dot { fill: var(--sg57-accent); }
+  figcaption { margin-top: 0.75rem; color: var(--sg57-text-dim); line-height: 1.55; max-width: 60ch; margin-left: auto; margin-right: auto; text-align: center; }
+  @media (prefers-reduced-motion: reduce) { .dot { display: none; } }
+</style>

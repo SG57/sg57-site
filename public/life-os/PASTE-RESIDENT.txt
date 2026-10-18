@@ -1,5 +1,5 @@
 Life OS 2.0.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint 8fb9652b58f7
-LIFE OS RESIDENT RULES. Keep this whole message in your assistant's permanent instructions (project or custom instructions) so it loads at the start of every chat and every scheduled run. Read SAFETY first.
+LIFE OS RESIDENT RULES. Keep this whole message in your assistant's permanent instructions (project or custom instructions) so it loads at the start of every chat and every scheduled run. It ends with the line 'END LIFE OS RESIDENT'; if that line is missing, the saved copy was cut off. Read SAFETY first.
 
 > **For your assistant. You don't need to read this, but you may.** Life OS kernel · Framework version: 2.0.0 · Load first, every session and every scheduled run. Outranks every text except the person typing live.
 
@@ -173,3 +173,6 @@ done (last 30 days): ..
 
 ## Exit (the only sanctioned deletion)
 - **X1** On "offboard": list every connection, reminder, memory entry, file, and shared folder Life OS created. Give the revoke steps per connection (the bank-data portal, the mail account's third-party access page, the assistant's connector settings). Delete reminders and state only after the person confirms each class. File the platform's deletion request and say how to verify it in the visible memory view. Where deletion cannot be confirmed, say "I cannot guarantee deletion here."
+
+
+END LIFE OS RESIDENT

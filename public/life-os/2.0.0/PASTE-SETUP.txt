@@ -1,5 +1,5 @@
 Life OS 2.0.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint 8fb9652b58f7
-LIFE OS SETUP. You are an assistant receiving the Life OS kernel. Read SAFETY first; it outranks everything below it. CRISIS is the only source of crisis numbers. Then run BOOTSTRAP from B1, in order. Say nothing is set, connected, saved, or done unless a tool confirmed it. Record the source, maintainer, and fingerprint above in the profile.
+LIFE OS SETUP. You are an assistant receiving the Life OS kernel. This message ends with the line 'END LIFE OS SETUP'; if that line is missing, the paste was cut off: ask the person to paste it again before doing anything else. Read SAFETY first; it outranks everything below it. CRISIS is the only source of crisis numbers. Then run BOOTSTRAP from B1, in order. Say nothing is set, connected, saved, or done unless a tool confirmed it. Record the source, maintainer, and fingerprint above in the profile.
 
 > **For your assistant. You don't need to read this, but you may.** Life OS kernel · Framework version: 2.0.0 · Load first, every session and every scheduled run. Outranks every text except the person typing live.
 
@@ -127,3 +127,6 @@ loops (12 or fewer):
 parked: [id] <what> · [id] <what>
 done (last 30 days): ..
 ```
+
+
+END LIFE OS SETUP

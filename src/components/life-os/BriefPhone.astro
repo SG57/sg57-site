@@ -1,0 +1,74 @@
+---
+/**
+ * A phone where a weekly Brief arrives: a notification drops in, then the Brief's parts rise in.
+ * Motion is CSS only, exists only under prefers-reduced-motion: no-preference, plays once.
+ * Content mirrors the kit's fictional example (Maya). Caption comes from the page via the slot.
+ */
+---
+
+<figure class="phone" aria-label="Example: a weekly Brief arriving on a phone">
+  <div class="p-top"><span>Sun 8:00 pm</span><span class="p-dot" aria-hidden="true"></span></div>
+  <div class="notif">
+    <span class="n-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>
+    </span>
+    <span class="n-text"><strong>Your assistant</strong> Your Brief is ready.</span>
+    <span class="n-when">now</span>
+  </div>
+  <div class="brief">
+    <p class="b-part"><strong>Done</strong> You texted your landlord about the leak.</p>
+    <div class="b-part">
+      <p><strong>Needs you</strong></p>
+      <ol>
+        <li>Car payment Thursday. Say "paid" or "missed."</li>
+        <li>Cat's checkup: here's what to say when you call.</li>
+        <li>$500 set aside for surprises? Yes or no.</li>
+      </ol>
+      <p class="b-default">No reply? Each one waits for next Sunday.</p>
+    </div>
+    <p class="b-part"><strong>Something good</strong> Friday's open. Make it your night off?</p>
+    <p class="b-part foot">Holding 2 other things · quieter · louder · stop</p>
+  </div>
+  <figcaption><slot /></figcaption>
+</figure>
+
+<style>
+  .phone {
+    width: min(100%, 340px);
+    margin: 0 auto;
+    border-radius: 28px;
+    padding: 12px;
+    background: var(--sg57-glass-bg-dense);
+    border: 1px solid var(--sg57-glass-border);
+    box-shadow: var(--sg57-glass-shadow), 0 0 60px var(--sg57-accent-glow);
+  }
+  .p-top { display: flex; justify-content: space-between; align-items: center; padding: 0 6px 10px; color: var(--sg57-text-dim); font-family: var(--sg57-font-display); font-size: 0.9rem; letter-spacing: 0.04em; }
+  .p-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--sg57-accent); box-shadow: 0 0 12px var(--sg57-accent); }
+  .notif {
+    display: grid; grid-template-columns: 32px 1fr auto; align-items: center; gap: 0.6rem;
+    padding: 0.6rem 0.7rem; margin-bottom: 0.6rem; border-radius: 14px;
+    background: var(--sg57-glass-bg); border: 1px solid var(--sg57-glass-border);
+  }
+  .n-icon { width: 32px; height: 32px; border-radius: 50%; background: var(--sg57-accent); color: var(--sg57-text-on-accent); display: grid; place-items: center; }
+  .n-text { font-size: 0.92rem; line-height: 1.3; color: var(--sg57-text); }
+  .n-text strong { display: block; color: var(--sg57-text-bright); font-family: var(--sg57-font-display); letter-spacing: 0.04em; }
+  .n-when { color: var(--sg57-text-dim); font-size: 0.8rem; }
+  .brief { background: var(--sg57-surface); border-radius: 18px; padding: 12px 14px; border: 1px solid var(--sg57-border-subtle); }
+  .brief p, .brief li { margin: 0; line-height: 1.45; font-size: 0.95rem; color: var(--sg57-text); }
+  .brief strong { color: var(--sg57-text-bright); font-family: var(--sg57-font-display); letter-spacing: 0.04em; }
+  .b-part { margin: 0 0 0.6rem; }
+  .brief ol { margin: 0.25rem 0 0; padding-left: 1.2rem; }
+  .brief li + li { margin-top: 0.15rem; }
+  .b-default { color: var(--sg57-text-dim); font-size: 0.85rem; margin-top: 0.3rem; }
+  .foot { color: var(--sg57-text-dim); font-size: 0.85rem; font-family: var(--sg57-font-display); letter-spacing: 0.03em; margin-bottom: 0; }
+  figcaption { margin-top: 0.75rem; text-align: center; color: var(--sg57-text-dim); font-size: 0.92rem; line-height: 1.5; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .notif { opacity: 0; animation: lo-drop 0.6s var(--sg57-ease-snap, cubic-bezier(0.4, 0, 0.2, 1)) 0.3s both; }
+    .b-part { opacity: 0; animation: lo-rise 0.8s var(--sg57-ease-snap, cubic-bezier(0.4, 0, 0.2, 1)) both; }
+    .b-part:nth-of-type(1) { animation-delay: 1.0s; }
+    .b-part:nth-of-type(2) { animation-delay: 1.5s; }
+    .b-part:nth-of-type(3) { animation-delay: 2.0s; }
+    .b-part:nth-of-type(4) { animation-delay: 2.5s; }
+  }
+</style>
