@@ -70,16 +70,17 @@
   }
 
   // Client-side arrivals: set the mode before paint so a returning reader does not see a flash.
+  // Pages that pin a mode (the deep dive) carry data-mode-fixed; this module leaves them alone.
   document.addEventListener('astro:after-swap', () => {
     const r = root();
-    if (!r) return;
+    if (!r || r.hasAttribute('data-mode-fixed')) return;
     r.setAttribute('data-js', '');
     r.dataset.mode = resolveInitial();
   });
 
   document.addEventListener('astro:page-load', () => {
     const r = root();
-    if (!r) return;
+    if (!r || r.hasAttribute('data-mode-fixed')) return;
     syncRadios(r.dataset.mode || 'beginner');
     document.querySelectorAll<HTMLInputElement>('input[name="lo-mode"]').forEach((i) => {
       i.addEventListener('change', () => { if (i.checked) choose(i.value); });

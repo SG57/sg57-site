@@ -1,8 +1,11 @@
 ---
 /**
  * "Your life as a company" as real HTML: you (CEO), your assistant (chief of staff), a weekly Brief
- * rising between them, and the departments below, each a disclosure with one example task.
+ * rising between them, and the departments below. Full mode: each department is a disclosure with one
+ * example task. Compact mode (the short page): departments are plain chips, the partner box is detail-only.
  */
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
 const depts = [
   { key: 'good', name: 'Good Life', tag: 'always on', task: 'One thing to look forward to, every week.', icon: 'M12 3v2M12 19v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M3 12h2M19 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' },
   { key: 'money', name: 'Money', task: 'Car payment Thursday. It reminds you; you pay.', icon: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 8v8M10 10h3a2 2 0 0 1 0 4h-3' },
@@ -28,24 +31,32 @@ const depts = [
   <ul class="org-depts">
     {depts.map((d) => (
       <li class:list={['dept-item', { 'dept-good': d.key === 'good' }]}>
-        <details class="dept">
-          <summary>
+        {compact ? (
+          <span class="dept dept-static">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={d.icon}/></svg>
             <span class="dept-name">{d.name}</span>
             {d.tag && <span class="dept-tag">{d.tag}</span>}
-            <span class="dept-chev" aria-hidden="true"></span>
-          </summary>
-          <p class="dept-task">{d.task}</p>
-        </details>
+          </span>
+        ) : (
+          <details class="dept">
+            <summary>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={d.icon}/></svg>
+              <span class="dept-name">{d.name}</span>
+              {d.tag && <span class="dept-tag">{d.tag}</span>}
+              <span class="dept-chev" aria-hidden="true"></span>
+            </summary>
+            <p class="dept-task">{d.task}</p>
+          </details>
+        )}
       </li>
     ))}
   </ul>
   <p class="org-link"><span class="pill">Pets</span><span class="org-arrows" aria-hidden="true">⇄</span><span class="pill">Money</span><span class="org-link-text">a vet bill lands in both</span></p>
-  <div class="org-ghost"><span class="org-name">A partner's Life OS</span><span class="org-role">in development</span></div>
+  <div class="org-ghost" data-show={compact ? 'normal technical' : undefined}><span class="org-name">A partner's Life OS</span><span class="org-role">in development</span></div>
 </div>
 
 <style>
-  .org { display: flex; flex-direction: column; align-items: center; }
+  .org { display: flex; flex-direction: column; align-items: center; width: 100%; }
   .org-box { display: flex; flex-direction: column; align-items: center; gap: 0.1rem; min-width: 180px; padding: 0.7rem 1.1rem; border-radius: var(--sg57-radius-lg); background: var(--sg57-surface); border: 2px solid var(--sg57-text-dim); }
   .org-ceo { border: 2.5px solid var(--sg57-accent); }
   .org-name { font-family: var(--sg57-font-display); font-weight: 700; font-size: 1.15rem; color: var(--sg57-text-bright); }
@@ -57,11 +68,12 @@ const depts = [
   .org-note { margin: 0.6rem 0 0.8rem; font-family: var(--sg57-font-display); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sg57-accent); text-align: center; }
   .org-depts { list-style: none; margin: 0; padding: 0; width: 100%; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
   .dept-good { grid-column: span 2; }
-  .dept { border-radius: var(--sg57-radius-md); background: var(--sg57-glass-bg); border: 1px solid var(--sg57-glass-border); }
+  .dept { display: block; border-radius: var(--sg57-radius-md); background: var(--sg57-glass-bg); border: 1px solid var(--sg57-glass-border); }
   .dept-good .dept { border-color: var(--sg57-accent); background: var(--sg57-accent-glow); }
-  .dept summary { list-style: none; display: flex; align-items: center; gap: 0.5rem; min-height: 44px; padding: 0.5rem 0.75rem; cursor: pointer; color: var(--sg57-text); }
+  .dept summary, .dept-static { list-style: none; display: flex; align-items: center; gap: 0.5rem; min-height: 44px; padding: 0.5rem 0.75rem; color: var(--sg57-text); }
+  .dept summary { cursor: pointer; }
   .dept summary::-webkit-details-marker { display: none; }
-  .dept summary:focus-visible { outline: none; box-shadow: var(--sg57-focus-ring); border-radius: var(--sg57-radius-md); }
+  .dept summary:focus-visible { outline: 2px solid transparent; box-shadow: var(--sg57-focus-ring); border-radius: var(--sg57-radius-md); }
   .dept-name { font-family: var(--sg57-font-display); font-weight: 600; font-size: 1rem; color: var(--sg57-text-bright); }
   .dept-tag { font-family: var(--sg57-font-display); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sg57-accent); }
   .dept-chev { margin-left: auto; width: 8px; height: 8px; border-right: 2px solid var(--sg57-text-dim); border-bottom: 2px solid var(--sg57-text-dim); transform: rotate(45deg); }
@@ -75,7 +87,12 @@ const depts = [
   .org-ghost .org-name { color: var(--sg57-text-dim); font-size: 1rem; }
 
   @media (min-width: 640px) { .org-depts { grid-template-columns: repeat(4, 1fr); } .dept-good { grid-column: span 1; } }
-  @media (min-width: 900px) { .org-depts { grid-template-columns: repeat(7, 1fr); } }
+  .dept-name { white-space: nowrap; }
+  @media (min-width: 900px) {
+    .org-depts { grid-template-columns: repeat(7, 1fr); }
+    /* Seven across leaves no room for the tag; the accent border already marks Good Life as special. */
+    .dept-static .dept-tag { display: none; }
+  }
 
   @media (prefers-reduced-motion: no-preference) {
     .dept-chev { transition: transform 0.2s var(--sg57-ease-out); }

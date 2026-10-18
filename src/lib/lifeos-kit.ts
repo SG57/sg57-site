@@ -58,7 +58,15 @@ export function assertCited(cited: Record<string, RegExp>): void {
     else if (!phrase.test(line)) problems.push(`${id} no longer matches ${phrase} (now: "${line.slice(0, 80)}...")`);
   }
   if (problems.length) {
-    throw new Error(`Life OS page copy drifted from the kit:\n  ${problems.join('\n  ')}\nUpdate src/pages/life-os/index.astro.`);
+    throw new Error(`Life OS page copy drifted from the kit:\n  ${problems.join('\n  ')}\nUpdate the Life OS pages in src/pages/life-os/.`);
+  }
+}
+
+/** Qualifiers the page repeats from the kit's start page (pricing, for now) must still be there. */
+export function assertStartSays(phrases: RegExp[]): void {
+  const missing = phrases.filter((p) => !p.test(start));
+  if (missing.length) {
+    throw new Error(`Kit start.md no longer says ${missing.join(', ')}. Update the "Best with" line in src/pages/life-os/.`);
   }
 }
 
@@ -66,6 +74,6 @@ export function assertCited(cited: Record<string, RegExp>): void {
 export function assertRecommended(names: string[]): void {
   const missing = names.filter((n) => !start.includes(n));
   if (missing.length) {
-    throw new Error(`Kit start.md no longer names ${missing.join(', ')}. Update the "Best with" line in src/pages/life-os/index.astro.`);
+    throw new Error(`Kit start.md no longer names ${missing.join(', ')}. Update the "Best with" line in src/pages/life-os/.`);
   }
 }

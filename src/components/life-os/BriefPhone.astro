@@ -6,7 +6,7 @@
  */
 ---
 
-<figure class="phone" aria-label="Example: a weekly Brief arriving on a phone">
+<figure class="phone" data-reveal aria-label="Example: a weekly Brief arriving on a phone">
   <div class="p-top"><span>Sun 8:00 pm</span><span class="p-dot" aria-hidden="true"></span></div>
   <div class="notif">
     <span class="n-icon" aria-hidden="true">
@@ -35,6 +35,7 @@
   .phone {
     width: min(100%, 340px);
     margin: 0 auto;
+    text-align: left;
     border-radius: 28px;
     padding: 12px;
     background: var(--sg57-glass-bg-dense);
@@ -62,11 +63,13 @@
   .foot { color: var(--sg57-text-dim); font-size: 0.85rem; font-family: var(--sg57-font-display); letter-spacing: 0.03em; margin-bottom: 0; }
   figcaption { margin-top: 0.75rem; text-align: center; color: var(--sg57-text-dim); font-size: 0.92rem; line-height: 1.5; }
 
+  /* Plays when the phone scrolls into view (LoRuntime adds .in); without JS everything is simply visible. */
   @media (prefers-reduced-motion: no-preference) {
-    .notif { opacity: 0; animation: lo-drop 0.6s var(--sg57-ease-snap, cubic-bezier(0.4, 0, 0.2, 1)) 0.3s both; }
-    .b-part { opacity: 0; animation: lo-rise 0.8s var(--sg57-ease-snap, cubic-bezier(0.4, 0, 0.2, 1)) both; }
-    .b-part:nth-of-type(1) { animation-delay: 1.0s; }
-    .b-part:nth-of-type(2) { animation-delay: 1.5s; }
-    .b-part:nth-of-type(3) { animation-delay: 2.0s; }
+    :global(.lo[data-anim]) .notif, :global(.lo[data-anim]) .b-part { opacity: 0; }
+    :global(.lo[data-anim]) .phone.in .notif { animation: lo-drop 0.6s var(--sg57-ease-snap, cubic-bezier(0.4, 0, 0.2, 1)) 0.3s both; }
+    :global(.lo[data-anim]) .phone.in .b-part { animation: lo-rise 0.8s var(--sg57-ease-snap, cubic-bezier(0.4, 0, 0.2, 1)) both; }
+    :global(.lo[data-anim]) .phone.in .b-part:nth-of-type(1) { animation-delay: 1.0s; }
+    :global(.lo[data-anim]) .phone.in .b-part:nth-of-type(2) { animation-delay: 1.5s; }
+    :global(.lo[data-anim]) .phone.in .b-part:nth-of-type(3) { animation-delay: 2.0s; }
   }
 </style>

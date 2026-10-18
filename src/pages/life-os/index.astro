@@ -1,42 +1,46 @@
 ---
 import Base from '../../layouts/Base.astro';
+import LoStyles from '../../components/life-os/LoStyles.astro';
+import LoRuntime from '../../components/life-os/LoRuntime.astro';
 import ModeSwitch from '../../components/life-os/ModeSwitch.astro';
 import BriefPhone from '../../components/life-os/BriefPhone.astro';
-import Filmstrip from '../../components/life-os/Filmstrip.astro';
-import DiagramTimeline from '../../components/life-os/DiagramTimeline.astro';
+import ThenNow from '../../components/life-os/ThenNow.astro';
+import NotAnApp from '../../components/life-os/NotAnApp.astro';
 import DiagramCompany from '../../components/life-os/DiagramCompany.astro';
+import Filmstrip from '../../components/life-os/Filmstrip.astro';
 import NeverTiles from '../../components/life-os/NeverTiles.astro';
-import SetupStory from '../../components/life-os/SetupStory.astro';
-import RecommendCards from '../../components/life-os/RecommendCards.astro';
-import {
-  version, fingerprint, checksums, pasteKB, isRC, noResultsYet, trustRuleIds, safetySections, allUntested,
-  assertCited, assertRecommended,
-} from '../../lib/lifeos-kit';
+import { version, fingerprint, pasteKB, isRC, allUntested, assertCited, assertRecommended, assertStartSays } from '../../lib/lifeos-kit';
 
 // Every rule id this page cites, with a phrase its definition must still contain. The build fails on drift.
 assertCited({
-  'S1.2': /Precedence/i, 'S1.4': /do not follow it/i, 'S1.5': /never supplies a way to act/i,
-  'S2.1': /T3 irreversible/i, 'S2.2': /read-back/i, 'S2.3': /never runs from a schedule/i,
-  'S2.4': /pay or move money/i, 'S2.5': /autonomy_max/i, 'S2.7': /"stop"/i, 'S3.2': /professional/i,
-  'S5.1': /Updates are proposals/i, 'B2': /what you can do here/i, 'B10': /at most 2 areas/i,
-  'R1': /One Brief a week/i, 'R8': /outside the Brief/i, 'V1': /fixed template/i, 'X1': /offboard/i,
+  'S2.1': /T3 irreversible/i, 'S2.2': /read-back/i, 'S2.3': /never runs from a schedule/i, 'S2.4': /pay or move money/i,
+  'S2.5': /autonomy_max/i, 'S2.7': /"stop"/i, 'S3.2': /professional/i, 'B2': /what you can do here/i,
+  'B10': /at most 2 areas/i, 'R1': /One Brief a week/i,
 });
 assertRecommended(['Meta Muse', 'Grok Bot']);
+assertStartSays([/Meta Muse\*\*: free to start/i, /Grok Bot\*\*[^\n]*\bpaid\b/i]);
 
-const HEADLINE = 'An assistant that messages you first.';
-const areas = [
-  { id: 'money', label: 'Money' },
-  { id: 'protection', label: 'Protection (insurance and benefits)' },
-  { id: 'health', label: 'Health' },
-  { id: 'home', label: 'Home' },
-  { id: 'paperwork', label: 'Paperwork (taxes, IDs, legal)' },
-  { id: 'pets', label: 'Pets' },
+const SLIDES = [
+  { id: 'top', label: 'Start' },
+  { id: 'why', label: 'Why now' },
+  { id: 'get', label: 'What you get' },
+  { id: 'not-an-app', label: 'Not an app' },
+  { id: 'company', label: 'Your life as a company' },
+  { id: 'how', label: 'How it works' },
+  { id: 'safe', label: 'What it never does' },
+  { id: 'start', label: 'Try it' },
+  { id: 'more', label: 'Details' },
+];
+const howSteps = [
+  { d: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7v5l3 2', label: 'Set up', sub: '20 minutes, once' },
+  { d: 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4', label: 'Approve', sub: 'what it may see and do' },
+  { d: 'M4 5h16v11H9l-5 4z', label: 'Relax', sub: 'it messages you first', accent: true },
 ];
 ---
 
 <Base
-  title={`Life OS: ${HEADLINE.replace(/\.$/, '')} | SG57 Labs`}
-  description="Paste one message into the AI assistant you already use. Twenty minutes later it runs your life's back office, with one short Brief a week. Free. Test version."
+  title="Life OS: Enjoy adulthood. Let your AI do the adulting | SG57 Labs"
+  description="Life OS is not an app. It's a job description you paste into the AI you already use, so it runs the boring parts of your life and messages you first. Free. Test version."
   accentColor="#8FBF9F"
   accentHover="#A3D1B1"
   accentMuted="#6F9D80"
@@ -54,7 +58,8 @@ const areas = [
     ],
   }}
 >
-<div class="lo" data-lifeos data-mode="beginner">
+<LoStyles />
+<div class="lo lo-slides" data-lifeos data-mode="beginner">
 <script is:inline data-astro-rerun>
 (function(){var r=document.querySelector('[data-lifeos]');if(!r)return;r.setAttribute('data-js','');
 var M=['beginner','normal','technical'],m=null;
@@ -64,20 +69,29 @@ r.setAttribute('data-mode',m||'beginner');})();
 </script>
 <a class="sr-only lo-skip" href="#copy">Skip to the setup message</a>
 
-  <!-- S1 Hero -->
-  <section class="hero" id="top">
-    <div class="container bloom hero-grid">
+  <nav class="dots" aria-label="Sections">
+    <ol>
+      {SLIDES.map((s, i) => (
+        <li><a href={`#${s.id}`} data-dot={s.id} aria-current={i === 0 ? 'true' : undefined}><span class="sr-only">{s.label}</span></a></li>
+      ))}
+    </ol>
+  </nav>
+
+  <!-- 1 · Hero -->
+  <section class="slide hero" id="top">
+    <div class="slide-inner">
       <div class="hero-text">
         <span class="eyebrow" data-show="beginner normal">LIFE OS · FREE · {isRC ? 'TEST VERSION' : 'VERSION ' + version}</span>
         <span class="eyebrow" data-show="technical">LIFE OS {version}{isRC ? ' · RELEASE CANDIDATE' : ''}</span>
-        <h1 class="headline">{HEADLINE}<br /><span class="headline-accent">You never keep a list.</span></h1>
-        <div class="sub-stack">
-          <p class="lede" data-show="beginner">AI apps can now remember you and reach out on their own. Life OS gives yours a job: keeping track of bills, renewals, and appointments.</p>
-          <p class="lede" data-show="normal technical">Paste one message into the AI assistant you already use. Twenty minutes of questions, one thing handled on the spot, then one Brief a week.</p>
+        <h1 class="headline">Enjoy adulthood.<br /><span class="headline-accent">Let your AI do the adulting.</span></h1>
+        <p class="line">AI apps can now remember you and reach out on their own.</p>
+        <div class="line-stack">
+          <p class="line line-strong" data-show="beginner">Life OS isn't an app. It's a message you paste in that gives your AI one job: the boring parts of your life.</p>
+          <p class="line line-strong" data-show="normal technical">Life OS isn't an app. It's one message you paste into the AI you already use: twenty minutes of questions, then one short Brief a week, and it messages you first when something needs you.</p>
         </div>
         <div class="hero-cta">
-          <a class="btn btn-primary" href="#copy">Try it · 20 min <span aria-hidden="true">↓</span></a>
-          <a class="btn btn-ghost" href="#why">Why now?</a>
+          <a class="btn btn-primary" href="#copy">Try it · 20 min</a>
+          <a class="btn btn-ghost" href="#why">Show me <span aria-hidden="true">↓</span></a>
         </div>
         <div class="mode-row">
           <ModeSwitch />
@@ -85,431 +99,253 @@ r.setAttribute('data-mode',m||'beginner');})();
         </div>
         <p class="spec" data-show="technical">Vendor-neutral prompt kit · kit {fingerprint} · {pasteKB} KB setup paste · 5 kernel files · 3 capability tiers</p>
       </div>
-      <div class="hero-phone">
-        <BriefPhone>
-          <span data-show="beginner normal">Example. If your app can't message first, a phone reminder does.</span>
-          <span data-show="technical">Example. Format per RHYTHM R1: 250 words or fewer; Done, Needs you (at most 3, each with a default), Something good; "On my side" appears only when something broke. Tier 2 sends it on a schedule; tiers 0 and 1 rely on a phone-calendar reminder.</span>
-        </BriefPhone>
-      </div>
     </div>
   </section>
 
-  <!-- S2 Start -->
-  <section class="section container" id="start">
-    <h2 class="h2">Try it. 20 minutes. Just copy and paste.</h2>
-    <Filmstrip />
-    <p class="best">Best with <strong>Meta Muse</strong> (free to start) or <strong>Grok Bot</strong> (paid). Using ChatGPT or another? It works; setup tells you what yours can do.<span data-show="beginner normal"> Muse is from Meta and keeps notes about you; <a href="/life-os/trust">the trust page explains</a>.</span><span data-show="technical"> Test status: {allUntested ? 'every assistant untested' : 'per assistant'} in <a href="/life-os/CAPABILITIES.txt">CAPABILITIES.txt</a>.</span></p>
-
-    <div class="callout" id="copy">
-      <h3 class="callout-heading">Before you start</h3>
-      <ul class="callout-list">
-        <li>
-          <span class="ci" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg></span>
-          <span>
-            {isRC
-              ? <>
-                  <span data-show="beginner"><strong>Brand new.</strong> Its safety checks haven't run on a real assistant yet; the maker is trying it on his own life first.</span>
-                  <span data-show="normal technical"><strong>Test version.</strong> {version} is a release candidate: tests written, not yet run on a real assistant. The maker is trying it on himself first.</span>
-                </>
-              : <><strong>Tested?</strong> Results for version {version} are on the trust page. The maker uses it on his own life.</>}
-            <span data-show="technical"> Results recorded for {version}: {noResultsYet ? 'none yet' : 'see the trust page'}.</span>
-          </span>
-        </li>
-        <li>
-          <span class="ci" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M10 10h3a2 2 0 0 1 0 4h-3"/></svg></span>
-          <span><strong>Never pays or moves money.</strong> No bank or email login needed. Set it up yourself, on your own device.</span>
-        </li>
-        <li>
-          <span class="ci" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
-          <span><strong>Copy only from this page.</strong> Never type a password or card number into any assistant.</span>
-        </li>
-      </ul>
-      <a class="trust-link" href="/life-os/trust">Is it safe? Read the trust page (2 min) <span aria-hidden="true">→</span></a>
-      <div class="copy-row">
-        <button class="btn btn-primary copy-btn" type="button" data-copy-src="/life-os/PASTE-SETUP.txt" data-copy-label="Copy the setup message">Copy the setup message</button>
-        <a class="btn btn-ghost" href="/life-os/PASTE-SETUP.txt" target="_blank" rel="noopener">Open the text instead</a>
-      </div>
-      <p class="check" data-show="beginner">It's long; that's normal. The first line should read "Life OS {version}".</p>
-      <p class="check" data-show="normal technical">Every copy's first line carries kit fingerprint <code>{fingerprint}</code>. <a href="/life-os/FINGERPRINTS.txt">Checksums</a></p>
-      <p class="copy-status" aria-live="polite" data-copy-status></p>
-    </div>
-
-    <details class="dd">
-      <summary>See a setup, start to finish</summary>
-      <SetupStory />
-    </details>
-    <details class="dd">
-      <summary>Asked to paste another message?</summary>
-      <section aria-label="More messages" class="more">
-        <p>Copy only what your assistant asks for.</p>
-        <p><strong>No memory between chats?</strong> Paste this, then your note, each time.</p>
-        <p class="copy-row"><button class="btn btn-small copy-btn" type="button" data-copy-src="/life-os/PASTE-RETURN.txt" data-copy-label="Copy the return message">Copy the return message</button> <a class="open-link" href="/life-os/PASTE-RETURN.txt" target="_blank" rel="noopener">Open the text</a></p>
-        <p><strong>Has memory or projects?</strong> Save this once in its settings when it asks.</p>
-        <p class="copy-row"><button class="btn btn-small copy-btn" type="button" data-copy-src="/life-os/PASTE-RESIDENT.txt" data-copy-label="Copy the resident rules">Copy the resident rules</button> <a class="open-link" href="/life-os/PASTE-RESIDENT.txt" target="_blank" rel="noopener">Open the text</a></p>
-        <p><strong>Asked for an area?</strong></p>
-        <div class="area-grid">
-          {areas.map((a) => (
-            <div class="area-cell">
-              <button class="btn btn-ghost copy-btn area-btn" type="button" data-copy-src={`/life-os/AREA-${a.id}.txt`} data-copy-label={`Copy ${a.label}`}>{a.label}</button>
-              <a class="open-link" href={`/life-os/AREA-${a.id}.txt`} target="_blank" rel="noopener">Open the text</a>
-            </div>
-          ))}
+  <!-- 2 · Why now -->
+  <section class="slide slide-alt" id="why">
+    <div class="slide-inner">
+      <div class="slide-copy" data-reveal>
+        <h2 class="h2">AI stopped waiting to be asked.</h2>
+        <div class="line-stack">
+          <p class="line" data-show="beginner">That last part is new. It's what makes Life OS possible.</p>
+          <p class="line" data-show="normal technical">Mainstream assistants now have memory, read-only connections to calendar and mail, and scheduled tasks. Life OS turns those into a back office with one weekly report.</p>
         </div>
-        <p class="copy-status" aria-live="polite" data-copy-status></p>
-      </section>
-    </details>
-  </section>
-
-  <!-- S3 Why now -->
-  <section class="section container" id="why">
-    <h2 class="h2">AI stopped waiting to be asked.</h2>
-    <DiagramTimeline />
-    <p class="cap" data-show="beginner">That last step is new: your assistant can work in the background and tell you only what needs you.</p>
-    <p class="cap" data-show="normal technical">Today's assistants combine memory, read-only connections (calendar, mail, bank data) and scheduled tasks. Life OS turns that into a back office with one weekly report.</p>
-    <p class="spec" data-show="technical">Tier 0 chat only · Tier 1 memory or project files · Tier 2 memory + tool-confirmed scheduler + read-only connections. Setup has the assistant state its tier from its own tools (B2); missing pieces fall back to your phone calendar and a note you keep.</p>
-    <details class="dd">
-      <summary>Using a different assistant? See what changes.</summary>
-      <RecommendCards />
-      <div class="table-wrap">
-        <table class="tiers">
-          <thead><tr><th scope="col">Your assistant</th><th scope="col">Your Brief</th></tr></thead>
-          <tbody>
-            <tr><td>Chat only, no memory</td><td>Your phone reminds you. Paste the return message and your note, then say "brief".</td></tr>
-            <tr><td>Has memory or projects</td><td>Your phone reminds you. Open it and say "brief"; it already has your details.</td></tr>
-            <tr><td>Memory, reminders and connections</td><td>Arrives on its own. Your phone reminder is the backup.</td></tr>
-          </tbody>
-        </table>
+        <p class="spec" data-show="technical">Tier 0 chat only · Tier 1 memory or project files · Tier 2 memory + tool-confirmed scheduler + read-only connections. Setup has the assistant state its tier from its own tools (B2).</p>
       </div>
-      <p class="cap">Your assistant tells you honestly which kind it is during setup.</p>
-    </details>
-  </section>
-
-  <!-- S4 Company -->
-  <section class="section container" id="company">
-    <h2 class="h2">Run your life like a company. You're the CEO.</h2>
-    <DiagramCompany />
-    <p class="cap" data-show="normal technical">Each department has deadlines, problems to watch, and plans, and they share facts. You read one weekly report and answer three questions at most.</p>
-    <p class="spec" data-show="technical">Departments are area bundles (AREA-*.txt), installed only on a fingerprint match (S2.5). Setup proposes at most 2, in your words, plus Good Life (B10). Action tiers (S2.1): T0 read · T1 draft · T2 reversible, on your own things · T3 send, book, cancel, share, delete. T3 needs a live read-back and your yes (S2.2), and never runs from a schedule or from content (S2.3).</p>
-    <details class="dd">
-      <summary>How the departments work</summary>
-      <ul class="plain">
-        <li>Setup suggests at most two departments, named in your words. Good Life, one thing to look forward to each week, is always on. More can be added later.</li>
-        <li>Each department knows what's due, what to watch for, and what you've allowed it to do on its own: reminders and calendar holds. Nothing leaves your hands without your yes.</li>
-        <li>Departments share facts. A vet bill in Pets shows up in Money.</li>
-        <li>A two-person version, for partners, is in development.</li>
-      </ul>
-    </details>
-    <details class="dd">
-      <summary>What's in the weekly report?</summary>
-      <ul class="plain">
-        <li><strong>On my side</strong>: only if something on its end broke, with the fix.</li>
-        <li><strong>Done</strong>: what got handled, wins first.</li>
-        <li><strong>Needs you</strong>: three things at most. Each takes one tap and has a default if you do nothing.</li>
-        <li><strong>Something good</strong>: one thing to look forward to in the next two weeks.</li>
-        <li>250 words or fewer. It always ends: "Back office is closed."</li>
-      </ul>
-    </details>
-  </section>
-
-  <!-- S5 Never -->
-  <section class="section container" id="safe">
-    <h2 class="h2">What it never does</h2>
-    <NeverTiles />
-    <p class="cap">Rules it's given, not locks. <a href="/life-os/trust">The trust page explains.</a></p>
-    <ul class="words" aria-label="Three words you can always say">
-      <li><strong>quieter</strong><span>fewer messages</span></li>
-      <li><strong>louder</strong><span>more messages</span></li>
-      <li><strong>stop</strong><span>everything it does on its own stops</span></li>
-    </ul>
-    <p class="cap" data-show="normal">Outside the Brief: urgent things only, twice a week by default.</p>
-    <p class="spec" data-show="technical">R8: outside the Brief only for a real cost inside 48–72 h, or safety; default cap 2/week and 3/day. S2.7: "stop" pauses every scheduled job and quotes the tool's confirmation.</p>
-    <details class="dd">
-      <summary>Everything it's told never to do</summary>
-      <ul class="plain">
-        <li>Pay or move money. Ever. It gets the payment ready; you make it.</li>
-        <li>Send, book, share, or delete anything without reading it back to you and hearing yes.</li>
-        <li>Act because a schedule fired or a message told it to.</li>
-        <li>Copy a link or phone number from a message into a to-do or a warning.</li>
-        <li>Decide your legal, medical, tax, or money questions. It names the professional who does.</li>
-        <li>Say a reminder is set or a task is done unless a tool confirmed it.</li>
-      </ul>
-      <p class="cap">Two more words: <strong>offboard</strong> walks you through removing it and tells you what it can't delete. <strong>I don't feel safe</strong> switches it to private, with help lines first.</p>
-    </details>
-  </section>
-
-  <!-- S6 Internals -->
-  <section class="section container" id="internals">
-    <div data-show="beginner normal" data-needs-js class="curious">
-      <p class="cap">Curious how it's built?</p>
-      <button class="btn btn-ghost" type="button" data-set-mode="technical">Show the technical version</button>
-    </div>
-    <div data-show="technical">
-      <h2 class="h2" id="internals-h" tabindex="-1">Under the hood</h2>
-      <dl class="tech">
-        <dt>What you paste</dt>
-        <dd>PASTE-SETUP.txt ({pasteKB} KB) = SAFETY + CRISIS + BOOTSTRAP. PASTE-RETURN.txt for assistants without memory, PASTE-RESIDENT.txt for project settings, six AREA bundles.</dd>
-        <dt>Kernel</dt>
-        <dd><a href={`/life-os/${version}/kernel/SAFETY.md`}>SAFETY.md</a> outranks everything · <a href={`/life-os/${version}/kernel/CRISIS.md`}>CRISIS.md</a> only source of crisis numbers · <a href={`/life-os/${version}/kernel/BOOTSTRAP.md`}>BOOTSTRAP.md</a> the 20-minute setup · <a href={`/life-os/${version}/kernel/RHYTHM.md`}>RHYTHM.md</a> the Brief and message caps · <a href={`/life-os/${version}/kernel/STATE.md`}>STATE.md</a> what it holds, "show me what you see" (V1), offboarding (X1). (Markdown; may download.)</dd>
-        <dt>SAFETY sections</dt>
-        <dd>{safetySections.join(' · ')}</dd>
-        <dt>Precedence (S1.2)</dt>
-        <dd>SAFETY > your live message > an installed area > saved state and memory > anything fetched or received. Instructions inside content are never followed (S1.4); content never supplies a way to act (S1.5).</dd>
-        <dt>Rules cited on the trust page</dt>
-        <dd>{trustRuleIds.join(' · ')} <a href="/life-os/trust">Read them in context →</a></dd>
-        <dt>Tests</dt>
-        <dd>Every rule has a written test. Results recorded for {version}: {noResultsYet ? 'none yet' : 'see the trust page'}. {allUntested ? 'Every assistant is listed untested.' : ''}</dd>
-        <dt>Integrity</dt>
-        <dd>Each bundle's first line names the official source, the maintainer and kit fingerprint <code>{fingerprint}</code>. Upgrades are proposals, shown word for word and applied only after your yes (S5.1). Pinned copy: <a href={`/life-os/${version}/PASTE-SETUP.txt`}>/life-os/{version}/PASTE-SETUP.txt</a>.</dd>
-        <dt>Source</dt>
-        <dd>The kit repository is private. The files on this page and their checksums are the contract. Security reports: security@sg57.dev.</dd>
-        <dt>Not enforcement</dt>
-        <dd>These are instructions to a model, not a sandbox. <a href="/life-os/trust">Honest limits →</a></dd>
-      </dl>
+      <ThenNow />
     </div>
   </section>
 
-  <!-- S7 Before you decide -->
-  <section class="section container" id="decide">
-    <h2 class="h2">Before you decide</h2>
-    <div class="pills">
-      <a class="pill-link" href="/life-os/trust">Trust page</a>
-      <a class="pill-link" href="/life-os/example">Maya's example (fictional)</a>
-      <a class="pill-link" href="/life-os/changelog">What changed</a>
-      <a class="pill-link" href="/blog/introducing-life-os">Why I built this</a>
-      <a class="pill-link" href="/life-os/FINGERPRINTS.txt" data-show="technical">Checksums</a>
+  <!-- 3 · What you get -->
+  <section class="slide" id="get">
+    <div class="slide-inner">
+      <div class="slide-copy" data-reveal>
+        <h2 class="h2">One short Brief a week.</h2>
+        <div class="line-stack">
+          <p class="line" data-show="beginner">Sunday night. Three things at most, one tap each. Don't reply, and they wait for next week.</p>
+          <p class="line" data-show="normal technical">Done, Needs you (three at most, each with a default if you do nothing), Something good. If your app can't message first, a phone reminder does.</p>
+        </div>
+        <p class="spec" data-show="technical">RHYTHM R1: 250 words or fewer; "On my side" appears only when something broke. Tier 2 sends it on a schedule; tiers 0 and 1 rely on a phone-calendar reminder.</p>
+      </div>
+      <BriefPhone>
+        <span>Example, with made-up details.</span>
+      </BriefPhone>
     </div>
   </section>
 
-  <!-- S8 Fine print -->
-  <section class="section container fine" id="fine">
-    <p data-show="beginner">Free, as-is. Not legal, medical, tax, or financial advice. Built for the US first; elsewhere, check local laws and help lines.</p>
-    <p data-show="normal technical">Free, as-is. Not legal, medical, tax, or financial advice. Built for the US first; elsewhere, dates, laws, and help lines need your local versions.</p>
-    <p>Version {version} · <span data-show="normal technical">kit fingerprint <code>{fingerprint}</code> · <a href="/life-os/FINGERPRINTS.txt">checksums</a> · </span><a href="/life-os/LICENSE.txt">License</a> · <a href="mailto:support@sg57.dev">support@sg57.dev</a> · Made by SG57 Labs</p>
-    <details class="dd" data-show="technical">
-      <summary>Checksums (sha256)</summary>
-      <div class="table-wrap"><table class="sums"><tbody>{checksums.map((c) => (<tr><td>{c.file}</td><td><code>{c.sha}</code></td></tr>))}</tbody></table></div>
-    </details>
+  <!-- 4 · Not an app -->
+  <section class="slide" id="not-an-app">
+    <div class="slide-inner">
+      <div class="slide-copy" data-reveal>
+        <h2 class="h2 h2-loud">Life OS is <span class="headline-accent">not</span> an app.</h2>
+        <p class="line">Nothing to download. No account. It's a job description you paste into the AI you already have.</p>
+        <p class="line line-strong">"Life OS" is just the name for a set of instructions. Your AI follows them.</p>
+        <p class="spec" data-show="technical">Plain text: SAFETY + CRISIS + BOOTSTRAP in one {pasteKB} KB paste, five kernel files, six optional area bundles. No code runs on your device.</p>
+      </div>
+      <NotAnApp />
+    </div>
+  </section>
+
+  <!-- 4 · Company -->
+  <section class="slide slide-alt" id="company">
+    <div class="slide-inner slide-inner-wide">
+      <div class="slide-copy" data-reveal>
+        <h2 class="h2">Your life becomes a company. You're the CEO.</h2>
+        <div class="line-stack">
+          <p class="line" data-show="beginner">Every chore gets a department. Departments talk to each other. You get one short Brief a week.</p>
+          <p class="line" data-show="normal technical">Each department has goals, deadlines, and a plan, and they share facts. You read one Brief and answer three questions at most.</p>
+        </div>
+        <p class="spec" data-show="technical">Departments are area bundles (AREA-*.txt), installed only on a fingerprint match (S2.5). Setup proposes at most 2, in your words, plus Good Life (B10).</p>
+      </div>
+      <DiagramCompany compact />
+    </div>
+  </section>
+
+  <!-- 5 · How it works -->
+  <section class="slide" id="how">
+    <div class="slide-inner">
+      <div class="slide-copy" data-reveal>
+        <h2 class="h2">Like a tax accountant, for all of it.</h2>
+        <div class="line-stack">
+          <p class="line" data-show="beginner">Set it up once. Approve what it may see. It does the rest and reaches out when it needs you.</p>
+          <p class="line" data-show="normal technical">It drafts; you send. It prepares the payment; you pay. Reminders and calendar holds are the only things it does alone.</p>
+        </div>
+        <p class="spec" data-show="technical">Action tiers (S2.1): T0 read · T1 draft · T2 reversible, on your own things · T3 send, book, cancel, share, delete. T3 needs a live read-back and your yes (S2.2), never from a schedule or from content (S2.3).</p>
+      </div>
+      <Filmstrip steps={howSteps} label="Set up, approve, relax" />
+    </div>
+  </section>
+
+  <!-- 6 · Never -->
+  <section class="slide slide-alt" id="safe">
+    <div class="slide-inner slide-inner-wide">
+      <div class="slide-copy" data-reveal>
+        <h2 class="h2">It never pays, sends, or deletes without you.</h2>
+        <div class="line-stack">
+          <p class="line" data-show="beginner">Say "stop" and it stops. These are instructions it follows, not hard locks{isRC ? ', and they are untested on a real assistant so far' : ''}. <a href="/life-os/trust">Honest limits</a>.</p>
+          <p class="line" data-show="normal technical">Say "quieter", "louder", or "stop" at any time. These are instructions it follows, not hard locks{isRC ? ', and no test has run on a real assistant yet' : ''}. <a href="/life-os/trust">The trust page explains</a> what that means.</p>
+        </div>
+        <p class="spec" data-show="technical">S2.4 never-list · S2.7 "stop" pauses every scheduled job and quotes the tool's confirmation · S3.2 professionals, not advice.</p>
+      </div>
+      <NeverTiles />
+    </div>
+  </section>
+
+  <!-- 7 · Try it -->
+  <section class="slide" id="start">
+    <div class="slide-inner">
+      <div class="slide-copy" data-reveal>
+        <h2 class="h2">Free. One paste. 20 minutes.</h2>
+        <p class="line best">Best with <strong>Meta Muse</strong> (free to start) or <strong>Grok Bot</strong> (paid). Others work; setup tells you what yours can do.<span data-show="technical"> Test status: {allUntested ? 'every assistant untested' : 'per assistant'} in <a href="/life-os/CAPABILITIES.txt">CAPABILITIES.txt</a>.</span></p>
+        <p class="line">Muse is made by Meta. By default it learns from your chats; you can turn that off in its settings. <a href="/life-os/trust">What else to know</a>.</p>
+      </div>
+      <div class="callout" id="copy">
+        <ul class="facts">
+          <li>
+            <span class="ci" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg></span>
+            <span>
+              {isRC
+                ? <>
+                    <span data-show="beginner"><strong>Brand new.</strong> Its safety checks haven't run on a real assistant yet; the maker is trying it on his own life first.</span>
+                    <span data-show="normal technical"><strong>Test version.</strong> {version} is a release candidate: tests written, not yet run on a real assistant. The maker is trying it on himself first.</span>
+                  </>
+                : <><strong>Tested?</strong> Results for version {version} are on the trust page. The maker uses it on his own life.</>}
+            </span>
+          </li>
+          <li>
+            <span class="ci" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M10 10h3a2 2 0 0 1 0 4h-3"/></svg></span>
+            <span><strong>Never pays or moves money.</strong> No bank or email login needed.</span>
+          </li>
+          <li>
+            <span class="ci" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
+            <span><strong>Copy only from this page.</strong> Never type a password.</span>
+          </li>
+        </ul>
+        <div class="copy-row">
+          <button class="btn btn-primary copy-btn" type="button" data-copy-src="/life-os/PASTE-SETUP.txt" data-copy-label="Copy the setup message" data-needs-js>Copy the setup message</button>
+          <a class="btn btn-ghost" href="/life-os/PASTE-SETUP.txt" target="_blank" rel="noopener">Open the text instead</a>
+        </div>
+        <p class="check" data-show="beginner">It's long; that's normal. The first line reads "Life OS {version}".</p>
+        <p class="check" data-show="normal technical">Every copy's first line carries kit fingerprint <code>{fingerprint}</code>. <a href="/life-os/FINGERPRINTS.txt">Checksums</a></p>
+        <p class="copy-status" aria-live="polite" data-copy-status></p>
+      </div>
+      <p class="after">
+        <a href="/life-os/details#more">Asked to paste another message? <span aria-hidden="true">→</span></a>
+        <a href="/life-os/trust">Is it safe? <span aria-hidden="true">→</span></a>
+      </p>
+    </div>
+  </section>
+
+  <!-- 8 · More -->
+  <section class="slide slide-alt slide-last" id="more">
+    <div class="slide-inner">
+      <div class="slide-copy" data-reveal>
+        <h2 class="h2">Want the details?</h2>
+        <p class="line">Everything this page leaves out, in one place.</p>
+      </div>
+      <div class="cards">
+        <a class="card" href="/life-os/details"><strong>How it works, in depth</strong><span>Assistants, setup, departments, every rule.</span></a>
+        <a class="card" href="/life-os/trust"><strong>Is it safe?</strong><span>Honest limits, in two minutes.</span></a>
+        <a class="card" href="/life-os/example"><strong>A full example</strong><span>Maya's setup, fictional, start to finish.</span></a>
+        <a class="card" href="/blog/introducing-life-os"><strong>Why I built this</strong><span>From the maker.</span></a>
+      </div>
+      <div class="fine-block">
+        <p class="fine">Free, as-is. Not legal, medical, tax, or financial advice. Built for the US first.</p>
+        <p class="fine">Version {version} · <span data-show="normal technical">kit fingerprint <code>{fingerprint}</code> · <a href="/life-os/FINGERPRINTS.txt">checksums</a> · </span><a href="/life-os/LICENSE.txt">License</a> · <a href="mailto:support@sg57.dev">support@sg57.dev</a> · Made by SG57 Labs</p>
+      </div>
+    </div>
   </section>
 
   <a class="lo-pill" href="#copy" hidden data-needs-js>Try it · 20 min</a>
 </div>
+<LoRuntime />
 </Base>
 
-<script>
-  // Copy buttons: prefetch the bundle texts so the clipboard write happens inside the click gesture
-  // (Safari requires that). Fallback: open the text in a new tab.
-  document.addEventListener('astro:page-load', () => {
-    const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>('button.copy-btn[data-copy-src]'));
-    if (!buttons.length) return;
-    const cache = new Map<string, string>();
-    const srcs = Array.from(new Set(buttons.map((b) => b.dataset.copySrc!)));
-    srcs.forEach((src) => {
-      fetch(src, { cache: 'no-cache' }).then((r) => (r.ok ? r.text() : Promise.reject(r.status))).then((t) => cache.set(src, t)).catch(() => {});
-    });
-
-    function status(btn: HTMLButtonElement, text: string) {
-      const section = btn.closest('section') || document;
-      const el = section.querySelector<HTMLElement>('[data-copy-status]');
-      if (el) el.textContent = text;
-    }
-
-    buttons.forEach((btn) => {
-      const label = btn.dataset.copyLabel || btn.textContent || 'Copy';
-      btn.addEventListener('click', () => {
-        const src = btn.dataset.copySrc!;
-        const text = cache.get(src);
-        const done = () => {
-          btn.textContent = 'Copied';
-          status(btn, 'Copied. Now paste it into your assistant and send.');
-          window.setTimeout(() => { btn.textContent = label; }, 2500);
-        };
-        const fallback = () => {
-          // Never claim it opened: browsers block window.open once the tap has ended. Offer a real link instead.
-          const section = btn.closest('section') || document;
-          const el = section.querySelector<HTMLElement>('[data-copy-status]');
-          if (el) {
-            const a = document.createElement('a');
-            a.href = src; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'Open the text';
-            el.replaceChildren("Copy didn't work here. Open the text, select all of it, and copy: ", a);
-          }
-        };
-        try {
-          if (text !== undefined && navigator.clipboard?.writeText) {
-            navigator.clipboard.writeText(text).then(done, fallback);
-          } else if (navigator.clipboard && 'write' in navigator.clipboard && typeof ClipboardItem !== 'undefined') {
-            const blob = fetch(src).then((r) => r.blob());
-            navigator.clipboard.write([new ClipboardItem({ 'text/plain': blob })]).then(done, fallback);
-          } else {
-            fallback();
-          }
-        } catch {
-          fallback();
-        }
-      });
-    });
-  });
-</script>
-
-<script>
-  // Reveal-on-scroll and the sticky pill. Start states exist only once data-anim is set here,
-  // so a failed module never leaves content invisible.
-  let observers: IntersectionObserver[] = [];
-  document.addEventListener('astro:before-swap', () => { observers.forEach((o) => o.disconnect()); observers = []; });
-  document.addEventListener('astro:page-load', () => {
-    const root = document.querySelector<HTMLElement>('[data-lifeos]');
-    if (!root) return;
-    const reveals = Array.from(root.querySelectorAll<HTMLElement>('[data-reveal]'));
-    if ('IntersectionObserver' in window) {
-      root.setAttribute('data-anim', '');
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-      }, { threshold: 0.25 });
-      reveals.forEach((el) => io.observe(el));
-      observers.push(io);
-    } else {
-      reveals.forEach((el) => el.classList.add('in'));
-    }
-    const pill = root.querySelector<HTMLElement>('.lo-pill');
-    const cta = root.querySelector<HTMLElement>('.hero-cta');
-    const start = document.getElementById('start');
-    if (pill && 'IntersectionObserver' in window) {
-      const seen = new Map<Element, boolean>();
-      const io2 = new IntersectionObserver((entries) => {
-        entries.forEach((e) => seen.set(e.target, e.isIntersecting));
-        pill.hidden = Array.from(seen.values()).some(Boolean);
-      });
-      [cta, start, document.querySelector('footer')].forEach((el) => { if (el) io2.observe(el); });
-      observers.push(io2);
-    }
-  });
-</script>
-
 <style is:global>
-  .lo[data-mode="beginner"] [data-show]:not([data-show~="beginner"]),
-  .lo[data-mode="normal"] [data-show]:not([data-show~="normal"]),
-  .lo[data-mode="technical"] [data-show]:not([data-show~="technical"]) { display: none !important; }
-  .lo:not([data-js]) [data-needs-js] { display: none !important; }
-  .lo [id] { scroll-margin-top: 4.5rem; }
-  .lo-pill[hidden] { display: none !important; }
-  @keyframes lo-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-  @keyframes lo-drop { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: none; } }
-  @keyframes lo-flip { from { transform: scaleX(-1); } to { transform: scaleX(1); } }
-  @keyframes lo-ping { from { opacity: 0.6; transform: scale(1); } to { opacity: 0; transform: scale(1.6); } }
-  @keyframes lo-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-  @media (prefers-reduced-motion: reduce) { html:has(.lo) { scroll-behavior: auto; } }
-  @media (max-width: 899px) { html:has(.lo) { scroll-padding-bottom: calc(5rem + env(safe-area-inset-bottom)); } }
+  /* One screen per idea. Proximity snap only: a slide taller than the viewport still scrolls freely. */
+  html:has(.lo-slides) { scroll-padding-top: 3.5rem; }
+  @media (min-height: 640px) {
+    html:has(.lo-slides) { scroll-snap-type: y proximity; }
+    .lo-slides .slide { scroll-snap-align: start; }
+  }
+  @media (max-width: 899px) { html:has(.lo-slides) { scroll-padding-bottom: calc(5rem + env(safe-area-inset-bottom)); } }
 </style>
 
 <style>
-  .lo { padding-bottom: 5rem; }
   .lo-skip { position: absolute; left: 1rem; top: -100%; z-index: 200; background: var(--sg57-accent); color: var(--sg57-text-on-accent); padding: 0.6rem 1rem; border-radius: var(--sg57-radius-md); }
   .lo-skip:focus { top: 4rem; width: auto; height: auto; clip: auto; clip-path: none; overflow: visible; }
 
-  .hero { padding: 2.5rem 1.5rem 2rem; }
-  .hero-grid { display: grid; gap: 2rem; }
-  .eyebrow { display: inline-block; font-family: var(--sg57-font-display); font-weight: 600; letter-spacing: 0.18em; font-size: 0.85rem; color: var(--sg57-accent); margin-bottom: 0.9rem; }
-  .headline { font-family: var(--sg57-font-display); font-weight: 700; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.1; color: var(--sg57-text-bright); margin: 0 0 1rem; }
-  .headline-accent { color: var(--sg57-accent); }
-  .sub-stack { display: grid; }
-  .sub-stack > .lede { grid-area: 1 / 1; }
-  .lede { max-width: 56ch; font-size: 1.15rem; line-height: 1.55; color: var(--sg57-text); margin: 0 0 1.25rem; }
-  .hero-cta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.1rem; }
-  .mode-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; }
-  .lo-safe { display: inline-flex; align-items: center; min-height: 44px; color: var(--sg57-accent); font-family: var(--sg57-font-display); font-weight: 600; letter-spacing: 0.04em; text-decoration: none; }
-  .lo-safe:hover { text-decoration: underline; }
-  .spec { font-family: var(--sg57-font-mono); font-size: 0.85rem; color: var(--sg57-text-dim); line-height: 1.5; margin: 0.9rem 0 0; max-width: 72ch; }
-  .hero-phone { align-self: center; }
-
-  .section { padding: 2rem 1.5rem; }
-  .h2 { font-family: var(--sg57-font-display); font-weight: 600; font-size: clamp(1.4rem, 3vw, 1.8rem); color: var(--sg57-text-bright); margin: 0 0 1rem; }
-  .cap { max-width: 68ch; line-height: 1.55; color: var(--sg57-text); margin: 1rem 0 0; }
-  .cap a, .best a, .fine a, .tech a { color: var(--sg57-accent); }
-  .best { margin: 1.25rem 0 0; line-height: 1.55; color: var(--sg57-text); max-width: 68ch; }
+  .slide { position: relative; min-height: calc(100vh - 3.5rem); display: flex; align-items: center; padding: 2.5rem 1.25rem; }
+  @supports (height: 100svh) { .slide { min-height: calc(100svh - 3.5rem); } }
+  .slide-last { min-height: 0; padding-bottom: 4rem; }
+  .slide-alt::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(70% 60% at 50% 50%, var(--sg57-accent-glow), transparent 70%); opacity: 0.6; }
+  .slide-inner { position: relative; width: 100%; max-width: 820px; margin: 0 auto; display: grid; gap: 2.25rem; justify-items: center; text-align: center; }
+  .slide-inner-wide { max-width: 1000px; }
+  #start .slide-inner { gap: 1.5rem; }
+  .slide-copy { max-width: 680px; }
+  .slide-copy .line { max-width: 52ch; margin-left: auto; margin-right: auto; }
+  .h2 { font-family: var(--sg57-font-display); font-weight: 700; font-size: clamp(2rem, 5.5vw, 3.4rem); line-height: 1.05; color: var(--sg57-text-bright); margin: 0 0 1rem; letter-spacing: -0.01em; }
+  .h2-loud { font-size: clamp(2.4rem, 7vw, 4.4rem); }
+  .line-stack { display: grid; }
+  .line-stack > .line { grid-area: 1 / 1; }
+  .line { font-size: clamp(1.05rem, 2.2vw, 1.3rem); line-height: 1.5; color: var(--sg57-text); margin: 0; }
+  .line + .line { margin-top: 0.75rem; }
+  .line-quiet { color: var(--sg57-text-dim); font-size: clamp(0.98rem, 1.9vw, 1.1rem); }
+  .line-strong { color: var(--sg57-text-bright); font-weight: 600; }
   .best strong { color: var(--sg57-text-bright); }
 
-  .callout { margin-top: 1.25rem; background: var(--sg57-glass-bg); backdrop-filter: blur(var(--sg57-glass-blur)); border: 1px solid var(--sg57-glass-border); border-left: 3px solid var(--sg57-accent); border-radius: var(--sg57-radius-lg); box-shadow: var(--sg57-glass-shadow); padding: 1.1rem 1.3rem 1.2rem; }
-  .callout-heading { font-family: var(--sg57-font-display); font-weight: 600; font-size: 1.15rem; margin: 0 0 0.6rem; color: var(--sg57-text-bright); }
-  .callout-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
-  .callout-list li { display: grid; grid-template-columns: 20px 1fr; gap: 0.6rem; align-items: start; line-height: 1.5; color: var(--sg57-text); }
-  .callout-list strong { color: var(--sg57-text-bright); }
+  .hero-text { display: grid; justify-items: center; max-width: 720px; }
+  .eyebrow { display: inline-block; font-family: var(--sg57-font-display); font-weight: 600; letter-spacing: 0.18em; font-size: 0.85rem; color: var(--sg57-accent); margin-bottom: 0.9rem; }
+  .headline { font-family: var(--sg57-font-display); font-weight: 700; font-size: clamp(2.3rem, 6.5vw, 4rem); line-height: 1.05; color: var(--sg57-text-bright); margin: 0 0 1.1rem; letter-spacing: -0.01em; }
+  .headline-accent { color: var(--sg57-accent); }
+  .hero-text .line { max-width: 52ch; }
+  .hero-text .line-stack { margin-top: 0.75rem; }
+  .hero-cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin: 1.6rem 0 1rem; }
+  .mode-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.75rem 1.25rem; }
+  .lo-safe { display: inline-flex; align-items: center; min-height: 44px; color: var(--sg57-accent); font-family: var(--sg57-font-display); font-weight: 600; letter-spacing: 0.04em; text-decoration: none; }
+  .lo-safe:hover { text-decoration: underline; }
+
+  .callout { width: 100%; max-width: 640px; text-align: left; background: var(--sg57-glass-bg); backdrop-filter: blur(var(--sg57-glass-blur)); border: 1px solid var(--sg57-glass-border); border-left: 3px solid var(--sg57-accent); border-radius: var(--sg57-radius-lg); box-shadow: var(--sg57-glass-shadow); padding: 1rem 1.2rem 1.1rem; }
+  .facts { list-style: none; margin: 0 0 0.9rem; padding: 0; display: grid; gap: 0.55rem; }
+  .facts li { display: grid; grid-template-columns: 20px 1fr; gap: 0.6rem; align-items: start; line-height: 1.5; color: var(--sg57-text); font-size: 0.98rem; }
+  .facts strong { color: var(--sg57-text-bright); }
   .ci { width: 20px; height: 20px; color: var(--sg57-accent); margin-top: 0.15rem; }
   .ci svg { width: 20px; height: 20px; }
-  .trust-link { display: flex; align-items: center; min-height: 44px; margin: 0.6rem 0 0.2rem; color: var(--sg57-accent); font-family: var(--sg57-font-display); font-weight: 600; letter-spacing: 0.03em; text-decoration: none; }
-  .trust-link:hover { text-decoration: underline; }
-  .copy-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; margin-top: 0.5rem; }
-  .check { margin: 0.6rem 0 0; color: var(--sg57-text-dim); font-size: 0.95rem; line-height: 1.5; }
-  .check code { font-family: var(--sg57-font-mono); color: var(--sg57-text); }
-  .copy-status { min-height: 1.4rem; margin: 0.4rem 0 0; color: var(--sg57-accent); font-family: var(--sg57-font-display); letter-spacing: 0.03em; }
+  .after { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem 1.5rem; margin: 0; }
+  .after a { display: inline-flex; align-items: center; min-height: 44px; color: var(--sg57-accent); font-family: var(--sg57-font-display); font-weight: 600; letter-spacing: 0.03em; text-decoration: none; }
+  .after a:hover { text-decoration: underline; }
 
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.3rem; min-height: 44px; padding: 0.6rem 1.1rem; border-radius: var(--sg57-radius-md); font-family: var(--sg57-font-display); font-weight: 600; font-size: 1.05rem; letter-spacing: 0.04em; text-decoration: none; cursor: pointer; border: 1px solid var(--sg57-accent); }
-  .btn:active { transform: scale(0.98); }
-  .btn:focus-visible { outline: none; box-shadow: var(--sg57-focus-ring); }
-  .btn-primary { background: var(--sg57-accent); color: var(--sg57-text-on-accent); }
-  .btn-primary:hover { background: var(--sg57-accent-hover); }
-  .btn-ghost { background: transparent; color: var(--sg57-accent); }
-  .btn-ghost:hover { background: var(--sg57-accent-glow); }
-  .btn-small { font-size: 0.95rem; padding: 0.45rem 0.9rem; background: var(--sg57-accent); color: var(--sg57-text-on-accent); }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.9rem; width: 100%; }
+  .card { display: flex; flex-direction: column; gap: 0.35rem; padding: 1.1rem 1.2rem; border-radius: var(--sg57-radius-lg); background: var(--sg57-glass-bg); border: 1px solid var(--sg57-glass-border); text-decoration: none; color: inherit; text-align: left; }
+  .card:hover { border-color: var(--sg57-accent); }
+  .card:focus-visible { outline: 2px solid transparent; box-shadow: var(--sg57-focus-ring); }
+  .card strong { font-family: var(--sg57-font-display); font-weight: 700; font-size: 1.15rem; color: var(--sg57-text-bright); }
+  .card span { color: var(--sg57-text-dim); font-size: 0.95rem; line-height: 1.45; }
+  .fine-block { margin-top: 0.5rem; }
+  .fine-block .fine { margin-left: auto; margin-right: auto; }
 
-  .dd { margin-top: 1rem; border: 1px solid var(--sg57-glass-border); border-radius: var(--sg57-radius-lg); background: var(--sg57-glass-bg); }
-  .dd > summary { list-style: none; display: flex; align-items: center; gap: 0.6rem; min-height: 48px; padding: 0.6rem 1rem; cursor: pointer; font-family: var(--sg57-font-display); font-weight: 600; color: var(--sg57-text-bright); }
-  .dd > summary::-webkit-details-marker { display: none; }
-  .dd > summary::before { content: ""; width: 8px; height: 8px; border-right: 2px solid var(--sg57-accent); border-bottom: 2px solid var(--sg57-accent); transform: rotate(-45deg); flex: none; }
-  .dd[open] > summary::before { transform: rotate(45deg); }
-  .dd > summary:focus-visible { outline: none; box-shadow: var(--sg57-focus-ring); border-radius: var(--sg57-radius-lg); }
-  .dd > :not(summary) { padding: 0 1rem 1rem; }
-  .dd .cap { margin-top: 0.75rem; }
-  .more p { margin: 0.6rem 0 0.4rem; line-height: 1.5; color: var(--sg57-text); }
-  .more strong { color: var(--sg57-text-bright); }
-  .area-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.6rem; margin-top: 0.4rem; }
-  .area-btn { width: 100%; }
-  .plain { margin: 0.6rem 0 0; padding-left: 1.2rem; line-height: 1.55; color: var(--sg57-text); }
-  .plain li + li { margin-top: 0.35rem; }
-  .plain strong { color: var(--sg57-text-bright); }
-  .table-wrap { overflow-x: auto; margin-top: 1rem; }
-  .tiers, .sums { width: 100%; border-collapse: collapse; }
-  .tiers th, .tiers td, .sums td { text-align: left; vertical-align: top; padding: 0.7rem 0.8rem; border-bottom: 1px solid var(--sg57-border-subtle); line-height: 1.5; color: var(--sg57-text); }
-  .tiers th { font-family: var(--sg57-font-display); letter-spacing: 0.06em; color: var(--sg57-text-dim); font-weight: 600; }
-  .sums code { font-family: var(--sg57-font-mono); font-size: 0.8rem; }
-
-  .words { list-style: none; margin: 1.1rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
-  .words li { display: inline-flex; align-items: baseline; gap: 0.45rem; }
-  .words strong { font-family: var(--sg57-font-display); font-size: 1.15rem; letter-spacing: 0.06em; color: var(--sg57-accent); line-height: 1.1; }
-  .words span { color: var(--sg57-text-dim); font-size: 0.95rem; line-height: 1.2; }
-  .open-link { color: var(--sg57-accent); font-family: var(--sg57-font-display); font-size: 0.95rem; letter-spacing: 0.03em; margin-left: 0.5rem; }
-  .area-cell { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; }
-
-  .curious { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; }
-  .curious .cap { margin: 0; }
-  .tech { display: grid; grid-template-columns: max-content 1fr; gap: 0.6rem 1.25rem; margin: 0; }
-  .tech dt { font-family: var(--sg57-font-display); font-weight: 600; color: var(--sg57-text-bright); }
-  .tech dd { margin: 0; line-height: 1.55; color: var(--sg57-text); }
-  .tech code { font-family: var(--sg57-font-mono); }
-  #internals-h:focus { outline: none; }
-  #internals-h:focus-visible { box-shadow: var(--sg57-focus-ring); border-radius: var(--sg57-radius-sm); }
-
-  .pills { display: flex; flex-wrap: wrap; gap: 0.6rem; }
-  .pill-link { display: inline-flex; align-items: center; min-height: 44px; padding: 0.5rem 1rem; border-radius: var(--sg57-radius-full); border: 1px solid var(--sg57-glass-border); background: var(--sg57-glass-bg); color: var(--sg57-accent); font-family: var(--sg57-font-display); font-weight: 600; letter-spacing: 0.03em; text-decoration: none; }
-  .pill-link:hover { border-color: var(--sg57-accent); }
-
-  .fine p { color: var(--sg57-text-dim); line-height: 1.6; max-width: 80ch; margin: 0 0 0.6rem; }
-  .fine code { font-family: var(--sg57-font-mono); color: var(--sg57-text); }
-
+  .dots { display: none; }
   .lo-pill { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(1rem + env(safe-area-inset-bottom)); z-index: 90; display: inline-flex; align-items: center; min-height: 44px; padding: 0.6rem 1.2rem; border-radius: var(--sg57-radius-full); background: var(--sg57-accent); color: var(--sg57-text-on-accent); font-family: var(--sg57-font-display); font-weight: 700; letter-spacing: 0.04em; text-decoration: none; box-shadow: var(--sg57-glass-shadow); }
+  .lo-pill[hidden] { display: none !important; }
 
   @media (max-width: 899px) {
-    .hero { padding-left: 0; padding-right: 0; }
+    .slide { padding-bottom: 5rem; }
   }
   @media (min-width: 900px) {
-    .hero { padding-top: 5rem; }
-    .hero-grid { grid-template-columns: 1.1fr 0.9fr; align-items: center; }
     .lo-pill { left: auto; right: calc(1.5rem + 44px + 0.75rem); transform: none; }
-    .lo { padding-bottom: 2rem; }
-  }
-  @media (max-width: 720px) {
-    .tech { grid-template-columns: 1fr; gap: 0.2rem 0; }
-    .tech dd { margin-bottom: 0.6rem; }
+    .dots { display: block; position: fixed; right: 0.6rem; top: 50%; transform: translateY(-50%); z-index: 80; }
+    .dots ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+    .dots a { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; }
+    .dots a::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--sg57-text-dim); opacity: 0.6; }
+    .dots a:hover::before { opacity: 1; }
+    .dots a[aria-current="true"]::before { background: var(--sg57-accent); opacity: 1; transform: scale(1.35); box-shadow: 0 0 10px var(--sg57-accent); }
+    .dots a:focus-visible { outline: 2px solid transparent; box-shadow: var(--sg57-focus-ring); }
   }
   @media (prefers-reduced-motion: no-preference) {
-    .btn, .pill-link, .dd > summary::before, .trust-link { transition: background 0.2s var(--sg57-ease-out), color 0.2s var(--sg57-ease-out), transform 0.15s var(--sg57-ease-out), border-color 0.2s ease; }
+    .dots a::before { transition: transform 0.2s var(--sg57-ease-out), background 0.2s ease, opacity 0.2s ease; }
+    .card { transition: border-color 0.2s ease; }
+    :global(.lo[data-anim]) .slide-copy { opacity: 0; }
+    :global(.lo[data-anim]) .slide-copy.in { animation: lo-rise 0.7s var(--sg57-ease-snap, cubic-bezier(0.4, 0, 0.2, 1)) both; }
   }
 </style>

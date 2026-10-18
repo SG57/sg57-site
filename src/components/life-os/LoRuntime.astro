@@ -1,0 +1,114 @@
+---
+/**
+ * Client behavior shared by the Life OS pages: copy buttons, reveal-on-scroll, the sticky pill, and the
+ * slide dots. Every piece degrades to nothing: without JS, copy buttons (all carry data-needs-js) are
+ * hidden and "Open the text" links remain; without IntersectionObserver, content is simply visible.
+ */
+---
+
+<script>
+  // Copy buttons: prefetch the bundle texts so the clipboard write happens inside the click gesture
+  // (Safari requires that). Fallback: a real link to the text, never a claim that a tab opened.
+  document.addEventListener('astro:page-load', () => {
+    const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>('button.copy-btn[data-copy-src]'));
+    if (!buttons.length) return;
+    const cache = new Map<string, string>();
+    const srcs = Array.from(new Set(buttons.map((b) => b.dataset.copySrc!)));
+    srcs.forEach((src) => {
+      fetch(src, { cache: 'no-cache' }).then((r) => (r.ok ? r.text() : Promise.reject(r.status))).then((t) => cache.set(src, t)).catch(() => {});
+    });
+
+    function status(btn: HTMLButtonElement, text: string) {
+      const section = btn.closest('section') || document;
+      const el = section.querySelector<HTMLElement>('[data-copy-status]');
+      if (el) el.textContent = text;
+    }
+
+    buttons.forEach((btn) => {
+      const label = btn.dataset.copyLabel || btn.textContent || 'Copy';
+      btn.addEventListener('click', () => {
+        const src = btn.dataset.copySrc!;
+        const text = cache.get(src);
+        const done = () => {
+          btn.textContent = 'Copied';
+          status(btn, 'Copied. Now paste it into your assistant and send.');
+          window.setTimeout(() => { btn.textContent = label; }, 2500);
+        };
+        const fallback = () => {
+          // Never claim it opened: browsers block window.open once the tap has ended. Offer a real link instead.
+          const section = btn.closest('section') || document;
+          const el = section.querySelector<HTMLElement>('[data-copy-status]');
+          if (el) {
+            const a = document.createElement('a');
+            a.href = src; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'Open the text';
+            el.replaceChildren("Copy didn't work here. Open the text, select all of it, and copy: ", a);
+          }
+        };
+        try {
+          if (text !== undefined && navigator.clipboard?.writeText) {
+            navigator.clipboard.writeText(text).then(done, fallback);
+          } else if (navigator.clipboard && 'write' in navigator.clipboard && typeof ClipboardItem !== 'undefined') {
+            const blob = fetch(src).then((r) => r.blob());
+            navigator.clipboard.write([new ClipboardItem({ 'text/plain': blob })]).then(done, fallback);
+          } else {
+            fallback();
+          }
+        } catch {
+          fallback();
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  // Reveal-on-scroll, the sticky pill, and the slide dots. Start states exist only once data-anim is set
+  // here, so a failed module never leaves content invisible.
+  let observers: IntersectionObserver[] = [];
+  document.addEventListener('astro:before-swap', () => { observers.forEach((o) => o.disconnect()); observers = []; });
+  document.addEventListener('astro:page-load', () => {
+    const root = document.querySelector<HTMLElement>('[data-lifeos]');
+    if (!root) return;
+    const reveals = Array.from(root.querySelectorAll<HTMLElement>('[data-reveal]'));
+    if ('IntersectionObserver' in window) {
+      root.setAttribute('data-anim', '');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.25 });
+      reveals.forEach((el) => io.observe(el));
+      observers.push(io);
+    } else {
+      reveals.forEach((el) => el.classList.add('in'));
+    }
+
+    const pill = root.querySelector<HTMLElement>('.lo-pill');
+    const cta = root.querySelector<HTMLElement>('.hero-cta');
+    const start = document.getElementById('start');
+    if (pill && 'IntersectionObserver' in window) {
+      const seen = new Map<Element, boolean>();
+      const io2 = new IntersectionObserver((entries) => {
+        entries.forEach((e) => seen.set(e.target, e.isIntersecting));
+        pill.hidden = Array.from(seen.values()).some(Boolean);
+      });
+      [cta, start, document.querySelector('footer')].forEach((el) => { if (el) io2.observe(el); });
+      observers.push(io2);
+    }
+
+    const dots = Array.from(root.querySelectorAll<HTMLAnchorElement>('[data-dot]'));
+    const slides = Array.from(root.querySelectorAll<HTMLElement>('.slide[id]'));
+    if (dots.length && slides.length && 'IntersectionObserver' in window) {
+      // A slide is "current" when it crosses the middle band of the viewport, so tall slides still count.
+      const io3 = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          dots.forEach((d) => {
+            if (d.dataset.dot === e.target.id) d.setAttribute('aria-current', 'true');
+            else d.removeAttribute('aria-current');
+          });
+        });
+      }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+      slides.forEach((s) => io3.observe(s));
+      observers.push(io3);
+    }
+  });
+</script>

@@ -1,34 +1,41 @@
 ---
-/** Three steps as a filmstrip: open your AI app, copy the message below, paste it and answer. */
+/**
+ * Three steps as a filmstrip. Defaults to the setup steps (open your AI app, copy, paste); pass `steps`
+ * for another trio. Each step: an icon path, a label, an optional sub-line, and whether it is the accent step.
+ */
+interface Step { d: string; label: string; sub?: string; accent?: boolean }
+interface Props { steps?: Step[]; label?: string }
+const DEFAULT: Step[] = [
+  { d: 'M9 2h6a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM12 18h.01', label: 'Open your AI app' },
+  { d: 'M8 4h8a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zM9 2h6v4H9z', label: 'Copy the message below' },
+  { d: 'M4 5h16v11H9l-5 4zM9 10l2 2 4-4', label: 'Paste it. Answer questions.', accent: true },
+];
+const { steps = DEFAULT, label = 'The three steps' } = Astro.props;
 ---
 
-<ol class="film" data-reveal aria-label="The three steps">
-  <li>
-    <span class="f-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><circle cx="12" cy="18" r="1"/></svg></span>
-    <span class="f-num">1</span>
-    <span class="f-text">Open your AI app</span>
-  </li>
-  <li>
-    <span class="f-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="17" rx="2"/><rect x="9" y="2" width="6" height="4" rx="1"/></svg></span>
-    <span class="f-num">2</span>
-    <span class="f-text">Copy the message below</span>
-  </li>
-  <li>
-    <span class="f-icon f-icon-accent" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4zM9 10l2 2 4-4"/></svg></span>
-    <span class="f-num">3</span>
-    <span class="f-text">Paste it. Answer questions.</span>
-  </li>
+<ol class="film" data-reveal aria-label={label}>
+  {steps.map((s, i) => (
+    <li>
+      <span class:list={['f-icon', { 'f-icon-accent': s.accent }]} aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d={s.d}/></svg>
+      </span>
+      <span class="f-num" aria-hidden="true">{i + 1}</span>
+      <span class="f-text">{s.label}</span>
+      {s.sub && <span class="f-sub">{s.sub}</span>}
+    </li>
+  ))}
 </ol>
 
 <style>
-  .film { list-style: none; margin: 0; padding: 0; position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+  .film { list-style: none; margin: 0; padding: 0; position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; width: 100%; max-width: 760px; }
   .film::before { content: ""; position: absolute; top: 28px; left: 16%; right: 16%; height: 2px; background: var(--sg57-border); transform-origin: left; }
   .film li { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.35rem; }
   .f-icon { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: var(--sg57-surface); border: 2px solid var(--sg57-text-dim); color: var(--sg57-text); }
   .f-icon svg { width: 28px; height: 28px; }
   .f-icon-accent { border-color: var(--sg57-accent); color: var(--sg57-accent); }
   .f-num { font-family: var(--sg57-font-display); font-weight: 700; font-size: 0.8rem; color: var(--sg57-accent); letter-spacing: 0.1em; }
-  .f-text { font-family: var(--sg57-font-display); font-weight: 600; font-size: 1rem; color: var(--sg57-text-bright); line-height: 1.25; }
+  .f-text { font-family: var(--sg57-font-display); font-weight: 600; font-size: 1.05rem; color: var(--sg57-text-bright); line-height: 1.25; }
+  .f-sub { color: var(--sg57-text-dim); font-size: 0.92rem; line-height: 1.3; }
   @media (prefers-reduced-motion: no-preference) {
     :global(.lo[data-anim]) .film::before { transform: scaleX(0); }
     :global(.lo[data-anim]) .film.in::before { animation: lo-draw 0.6s var(--sg57-ease-snap, cubic-bezier(0.4, 0, 0.2, 1)) both; }

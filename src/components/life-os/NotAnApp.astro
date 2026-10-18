@@ -1,0 +1,50 @@
+---
+/** Four chips: three things you never do (struck through as they appear) and the one thing you do. */
+const no = [
+  { label: 'Download', d: 'M12 3v12M7 10l5 5 5-5M4 21h16' },
+  { label: 'Sign up', d: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M19 8v6M22 11h-6' },
+  { label: 'Pay', d: 'M3 6h18a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1zM2 10h20M6 15h4' },
+];
+---
+
+<ul class="naa" data-reveal aria-label="Nothing to download, sign up for, or pay. One paste.">
+  {no.map((n) => (
+    <li class="naa-no">
+      <span class="naa-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d={n.d}/></svg>
+      </span>
+      <span class="naa-label"><span class="naa-word">{n.label}</span><span class="naa-strike" aria-hidden="true"></span></span>
+      <span class="sr-only">: no</span>
+    </li>
+  ))}
+  <li class="naa-yes">
+    <span class="naa-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zM9 2h6v4H9zM9 13l2 2 4-4"/></svg>
+    </span>
+    <span class="naa-label"><span class="naa-word">Paste</span></span>
+    <span class="sr-only">: yes</span>
+  </li>
+</ul>
+
+<style>
+  .naa { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; width: 100%; max-width: 640px; }
+  .naa li { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; padding: 1.1rem 0.75rem; border-radius: var(--sg57-radius-lg); background: var(--sg57-glass-bg); border: 1px solid var(--sg57-glass-border); }
+  .naa-icon { width: 48px; height: 48px; display: grid; place-items: center; color: var(--sg57-text-dim); }
+  .naa-icon svg { width: 30px; height: 30px; }
+  .naa-label { position: relative; display: inline-block; font-family: var(--sg57-font-display); font-weight: 700; font-size: 1.25rem; letter-spacing: 0.04em; color: var(--sg57-text-dim); }
+  .naa-strike { position: absolute; left: -4px; right: -4px; top: 50%; height: 3px; background: var(--sg57-text); transform-origin: left; border-radius: 2px; }
+  .naa-yes { border: 2px solid var(--sg57-accent); background: var(--sg57-accent-glow); box-shadow: 0 0 40px var(--sg57-accent-glow); }
+  .naa-yes .naa-icon, .naa-yes .naa-label { color: var(--sg57-accent); }
+  @media (min-width: 640px) { .naa { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 760px; } }
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.lo[data-anim]) .naa li { opacity: 0; }
+    :global(.lo[data-anim]) .naa.in li { animation: lo-rise 0.7s var(--sg57-ease-snap, cubic-bezier(0.4, 0, 0.2, 1)) both; }
+    :global(.lo[data-anim]) .naa.in li:nth-child(2) { animation-delay: 0.12s; }
+    :global(.lo[data-anim]) .naa.in li:nth-child(3) { animation-delay: 0.24s; }
+    :global(.lo[data-anim]) .naa.in li:nth-child(4) { animation-delay: 0.6s; }
+    :global(.lo[data-anim]) .naa-strike { transform: scaleX(0); }
+    :global(.lo[data-anim]) .naa.in .naa-strike { animation: lo-draw 0.4s var(--sg57-ease-snap, cubic-bezier(0.4, 0, 0.2, 1)) 0.9s both; }
+    :global(.lo[data-anim]) .naa.in li:nth-child(2) .naa-strike { animation-delay: 1.05s; }
+    :global(.lo[data-anim]) .naa.in li:nth-child(3) .naa-strike { animation-delay: 1.2s; }
+  }
+</style>
