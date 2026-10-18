@@ -1,0 +1,432 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const fingerprintLine = 'Life OS 2.0.0 · kit fingerprint 2bbba5906a9d';
+---
+
+<Base
+  title="Life OS — Back Office for Your Life | SG57 Labs"
+  description="A set of instructions for the AI assistant you already use. Paste one message, answer questions for twenty minutes, get one short note a week. Works with any assistant."
+  accentColor="#8FBF9F"
+  accentHover="#A3D1B1"
+  accentMuted="#6F9D80"
+  accentGlow="rgba(143, 191, 159, 0.15)"
+  jsonLd={{
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Life OS',
+    description: 'A set of instructions for the AI assistant you already use. No app to install, no new account.',
+    applicationCategory: 'LifestyleApplication',
+    operatingSystem: 'Any (text paste into an existing AI assistant)',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Organization', name: 'SG57 Labs', url: 'https://sg57.dev' },
+  }}
+>
+  <!-- §1 HERO — compact, informational, not cinematic (same convention as /text-easy/setup) -->
+  <section class="lifeos-hero">
+    <div class="container bloom">
+      <span class="hero-eyebrow">SG57 LABS &middot; FREE &middot; ASSISTANT-AGNOSTIC</span>
+      <h1 class="hero-headline">Life OS</h1>
+      <p class="hero-tagline">You're the CEO of your life. This is your back office.</p>
+      <div class="hero-badges">
+        <span class="hero-badge">No app to install</span>
+        <span class="hero-badge-sep" aria-hidden="true">&middot;</span>
+        <span class="hero-badge">No new account</span>
+        <span class="hero-badge-sep" aria-hidden="true">&middot;</span>
+        <span class="hero-badge">Works with the assistant you already use</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- §2 STATUS — honest, not a launch claim -->
+  <section class="status container">
+    <div class="status-card">
+      <span class="status-dot" aria-hidden="true"></span>
+      <p class="status-text">
+        <strong>Dogfood in progress.</strong> I'm running version {''}
+        <code>2.0.0</code> on my own setup right now, the same kit linked below.
+        Follow along here and on the blog; the public, publish-ready copy ships
+        once the dogfood period and its release checks pass.
+      </p>
+    </div>
+  </section>
+
+  <!-- §3 WHAT IT IS -->
+  <section class="context container">
+    <div class="duotone-card">
+      <div class="duotone-left">
+        <div class="duotone-icon" aria-hidden="true">
+          <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="12" y="10" width="32" height="36" rx="3" stroke-width="1.5"/>
+            <path d="M18 20h20M18 28h20M18 36h12" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <h2 class="duotone-heading">What it is</h2>
+      </div>
+      <div class="duotone-right">
+        <p class="duotone-body">
+          Life OS is a set of instructions for the AI assistant you already use &mdash;
+          Meta Muse, ChatGPT, Claude, Gemini, Grok, or anything else that can hold a
+          conversation. You paste one message. Your assistant asks you questions for
+          about twenty minutes, handles one thing on the spot, and from then on you get
+          one short note a week. You never keep a list; your assistant holds the details
+          and shows them any time you ask.
+        </p>
+        <p class="duotone-body">
+          I use Muse because that's what I already run day to day, but nothing here is
+          built around Muse specifically. Any assistant that can follow written rules
+          can run the kit; the <a href="/life-os/trust">trust page</a> lists what changes
+          by tier (chat-only, memory, or memory plus connections).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- §4 THE ONE RULE / THREE WORDS -->
+  <section class="rules container">
+    <h2 class="section-label">The short version</h2>
+    <div class="rules-grid">
+      <div class="rule-card">
+        <h3 class="rule-title">The one rule</h3>
+        <p class="rule-body">Never type a password, an account number, or a card number into any assistant. Life OS never asks for them.</p>
+      </div>
+      <div class="rule-card">
+        <h3 class="rule-title">Three words</h3>
+        <p class="rule-body"><strong>quieter</strong> &mdash; fewer messages. <strong>louder</strong> &mdash; more messages. <strong>stop</strong> &mdash; everything it does on its own stops, right now.</p>
+      </div>
+      <div class="rule-card">
+        <h3 class="rule-title">What it never does</h3>
+        <p class="rule-body">It never pays or moves money. It never sends, books, shares, or deletes anything without reading it back to you and hearing yes. It never decides your legal, medical, tax, or money questions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- §5 READ FIRST -->
+  <section class="before container">
+    <h2 class="section-label">Before you decide</h2>
+    <div class="before-grid">
+      <a class="before-card" href="/life-os/start">
+        <span class="before-card-kicker">Start here</span>
+        <span class="before-card-title">The one page you need to read</span>
+        <span class="before-card-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+      <a class="before-card" href="/life-os/trust">
+        <span class="before-card-kicker">Read this before you paste anything</span>
+        <span class="before-card-title">Trust: what it sees, how to turn it off</span>
+        <span class="before-card-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+      <a class="before-card" href="/life-os/example">
+        <span class="before-card-kicker">See it in action</span>
+        <span class="before-card-title">A fictional example: Maya's first week</span>
+        <span class="before-card-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+      <a class="before-card" href="/life-os/changelog">
+        <span class="before-card-kicker">What changed</span>
+        <span class="before-card-title">Changelog</span>
+        <span class="before-card-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- §6 FINGERPRINT / FOOTER NOTE -->
+  <section class="fingerprint container">
+    <p class="fingerprint-text">
+      Get your copy only from this page: <a href="/life-os/PASTE-SETUP.txt">PASTE-SETUP.txt</a>.
+      A copy from anywhere else may have been changed, and you could not tell.
+      <code>{fingerprintLine}</code>. Full bundle list and hashes in
+      <a href="/life-os/FINGERPRINTS.txt">FINGERPRINTS.txt</a>.
+    </p>
+    <p class="fingerprint-text">
+      Life OS is free and comes as-is. It is not legal, medical, tax, or financial
+      advice. Questions: <a href="mailto:support@sg57.dev">support@sg57.dev</a>.
+    </p>
+  </section>
+</Base>
+
+<style>
+  .lifeos-hero {
+    position: relative;
+    z-index: 1;
+    padding: 7rem 0 3rem;
+    text-align: center;
+  }
+
+  .hero-eyebrow {
+    display: inline-block;
+    font-family: var(--sg57-font-mono);
+    font-size: 0.8125rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sg57-accent);
+    margin-bottom: 1rem;
+  }
+
+  .hero-headline {
+    font-family: var(--sg57-font-display);
+    font-weight: 700;
+    font-size: clamp(2.5rem, 7vw, 4rem);
+    letter-spacing: 0.03em;
+    color: var(--sg57-text-bright);
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-tagline {
+    font-family: var(--sg57-font-display);
+    font-size: 1.25rem;
+    color: var(--sg57-text-dim);
+    max-width: 44ch;
+    margin: 0 auto 1.5rem;
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--sg57-font-mono);
+    font-size: 0.875rem;
+    color: var(--sg57-text-muted);
+  }
+
+  .hero-badge-sep {
+    color: var(--sg57-border);
+  }
+
+  .status {
+    position: relative;
+    z-index: 1;
+    padding-bottom: 2rem;
+  }
+
+  .status-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    background: var(--sg57-surface);
+    border: 1px solid var(--sg57-border);
+    border-radius: var(--sg57-radius-md);
+    padding: 1.25rem 1.5rem;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .status-dot {
+    flex-shrink: 0;
+    width: 10px;
+    height: 10px;
+    margin-top: 0.4rem;
+    border-radius: 50%;
+    background: var(--sg57-accent);
+    box-shadow: 0 0 0 4px var(--sg57-accent-glow, rgba(152, 142, 213, 0.15));
+  }
+
+  .status-text {
+    font-family: var(--sg57-font-display);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--sg57-text-dim);
+  }
+
+  .status-text strong {
+    color: var(--sg57-text-bright);
+  }
+
+  .context {
+    position: relative;
+    z-index: 1;
+    padding: 2rem 0;
+  }
+
+  .duotone-card {
+    display: grid;
+    grid-template-columns: minmax(180px, 280px) 1fr;
+    gap: 2rem;
+    background: var(--sg57-surface);
+    border: 1px solid var(--sg57-border);
+    border-radius: var(--sg57-radius-md);
+    padding: 2.5rem;
+  }
+
+  .duotone-left {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .duotone-icon {
+    width: 56px;
+    height: 56px;
+    color: var(--sg57-accent);
+  }
+
+  .duotone-heading {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1.375rem;
+    color: var(--sg57-text-bright);
+  }
+
+  .duotone-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .duotone-body {
+    font-family: var(--sg57-font-display);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--sg57-text-dim);
+  }
+
+  .duotone-body a {
+    color: var(--sg57-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .duotone-body a:hover {
+    color: var(--sg57-accent-hover);
+  }
+
+  .rules {
+    position: relative;
+    z-index: 1;
+    padding: 2.5rem 0;
+  }
+
+  .section-label {
+    font-family: var(--sg57-font-mono);
+    font-size: 0.8125rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sg57-accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .rule-card {
+    background: var(--sg57-surface);
+    border: 1px solid var(--sg57-border);
+    border-radius: var(--sg57-radius-md);
+    padding: 1.5rem;
+  }
+
+  .rule-title {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    color: var(--sg57-text-bright);
+    margin-bottom: 0.6rem;
+  }
+
+  .rule-body {
+    font-family: var(--sg57-font-display);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--sg57-text-dim);
+  }
+
+  .rule-body strong {
+    color: var(--sg57-accent);
+    font-weight: 600;
+  }
+
+  .before {
+    position: relative;
+    z-index: 1;
+    padding: 2.5rem 0 3.5rem;
+  }
+
+  .before-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .before-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    position: relative;
+    background: var(--sg57-surface);
+    border: 1px solid var(--sg57-border);
+    border-radius: var(--sg57-radius-md);
+    padding: 1.5rem;
+    text-decoration: none;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .before-card:hover {
+    border-color: var(--sg57-accent-muted);
+    box-shadow: var(--sg57-shadow-glow);
+    transform: translateY(-2px);
+  }
+
+  .before-card-kicker {
+    font-family: var(--sg57-font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sg57-text-muted);
+  }
+
+  .before-card-title {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1.0625rem;
+    color: var(--sg57-text-bright);
+    padding-right: 1.5rem;
+  }
+
+  .before-card-arrow {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.25rem;
+    color: var(--sg57-accent);
+  }
+
+  .fingerprint {
+    position: relative;
+    z-index: 1;
+    padding: 2rem 0 5rem;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .fingerprint-text {
+    font-family: var(--sg57-font-display);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--sg57-text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .fingerprint-text a {
+    color: var(--sg57-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .fingerprint-text code {
+    font-family: var(--sg57-font-mono);
+    font-size: 0.875em;
+    color: var(--sg57-text);
+    background: var(--sg57-elevated);
+    padding: 0.1em 0.4em;
+    border-radius: 3px;
+  }
+
+  @media (max-width: 720px) {
+    .duotone-card {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

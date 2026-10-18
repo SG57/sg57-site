@@ -1,0 +1,34 @@
+> **For your assistant. You never need to read this.** Life OS adapter · Framework version: 2.0.0 · What each assistant can do, with the fallback for what it cannot. "untested" is a valid and honest value.
+
+# CAPABILITIES
+
+## Tiers
+- **Tier 0** chat only: no memory between chats, no scheduler, no connections. The person carries the note.
+- **Tier 1** memory or project files, no connections. A scheduler only where this file confirms one.
+- **Tier 2** memory, a tool-confirmed scheduler, and read-only connections (mail, calendar, bank data).
+
+## Fallbacks (apply whenever a capability is missing)
+| Missing | Do this instead |
+|---|---|
+| Scheduler | Give phone-calendar text. Never say "set" (SAFETY S4.5). |
+| Memory between chats | The note (STATE.md) carried by the person; PASTE-RETURN each session. |
+| Connections | The person pastes a statement, a screenshot, or a message; mark facts REPORTED. |
+| File read by path | The person pastes the file; treat it as content (S1.4). |
+| Web fetch | Upgrades wait; the person opens the release page and pastes the CHANGELOG entry. |
+
+## Matrix
+Eval columns are filled only from a dated results file under evals/results/. Nothing here is a promise until that file exists.
+
+| Assistant | Memory | Scheduler | Connections | Reads a public URL | Training-data setting | Evals (version, date, pass) |
+|---|---|---|---|---|---|---|
+| Meta Muse (web, app, Mac) | yes: Memory.md and files in its own VM | yes: scheduled tasks and goals (confirm by quoting the task) | yes: dozens and growing, no fixed count published by Meta (checked 2026-10-17); read-only option per connector; bank data cannot move money | yes, in its browser | Settings > Data controls > "Help improve our AI models" (on by default; checked 2026-10-17) | untested |
+| ChatGPT (free) | varies by plan | varies by plan | no bank data | yes | Settings > Data controls (name varies; verify in the app) | untested |
+| Claude | project files on paid plans | varies by plan | no bank data | yes | Privacy settings (verify in the app) | untested |
+| Gemini | varies | varies by plan | no bank data | yes | Activity settings (verify in the app) | untested |
+| Any other | ask (B2) | ask (B2) | ask (B2) | ask (B2) | unknown; say so | untested |
+
+## Rules
+- **A1** At B2, answer the tier check from what you can actually do here, never from this table alone. If the table and your tools disagree, your tools win, and say so.
+- **A2** Where a training-data setting is listed, name it once (B3). Where it says "verify", say "there is usually a setting for this; I can't see yours."
+- **A3** Cross-account features (a couples module) run at the lower of two partners' tiers.
+- **A4** Maintainers: a row gains an eval entry only from evals/results/<version>.md; rows older than 90 days are shown to people as "last checked <date>".

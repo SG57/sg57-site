@@ -1,0 +1,96 @@
+---
+import { readFileSync } from 'node:fs';
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('lifeos');
+  return pages.map((page) => ({ params: { page: page.id }, props: { page } }));
+}
+
+const { page } = Astro.props;
+const { Content } = await render(page);
+const version = readFileSync(new URL('../../../public/life-os/VERSION', import.meta.url), 'utf-8').trim();
+---
+
+<Base
+  title={`${page.data.title} — Life OS | SG57 Labs`}
+  description={page.data.description}
+  accentColor="#8FBF9F"
+  accentHover="#A3D1B1"
+  accentMuted="#6F9D80"
+  accentGlow="rgba(143, 191, 159, 0.15)"
+>
+  <article class="doc container">
+    <p class="crumbs"><a href="/life-os">Life OS</a> <span aria-hidden="true">/</span> {page.data.title}</p>
+    <h1 class="doc-title">{page.data.title}</h1>
+    <p class="doc-meta">Version {version}. This page is a copy of <code>{page.data.source}</code> from the Life OS kit; the kit is the source of truth.</p>
+    <div class="prose">
+      <Content />
+    </div>
+    <p class="back"><a href="/life-os">&larr; Back to Life OS</a></p>
+  </article>
+</Base>
+
+<style>
+  .doc { padding: 7rem 1.5rem 3rem; max-width: 820px; }
+  .crumbs { font-family: var(--sg57-font-display); letter-spacing: 0.06em; color: var(--sg57-text-dim); margin: 0 0 0.75rem; }
+  .crumbs a { color: var(--sg57-accent); text-decoration: none; }
+  .doc-title {
+    font-family: var(--sg57-font-display);
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    line-height: 1.15;
+    color: var(--sg57-text-bright);
+    margin: 0 0 0.75rem;
+  }
+  .doc-meta { color: var(--sg57-text-dim); margin: 0 0 2rem; line-height: 1.5; }
+  .doc-meta code { font-family: var(--sg57-font-mono); font-size: 0.95em; }
+  .back { margin-top: 2.5rem; }
+  .back a { color: var(--sg57-accent); text-decoration: none; font-family: var(--sg57-font-display); letter-spacing: 0.04em; }
+
+  .prose :global(h2) {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--sg57-text-bright);
+    margin: 2rem 0 0.75rem;
+  }
+  .prose :global(h3) {
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--sg57-text-bright);
+    margin: 1.5rem 0 0.5rem;
+  }
+  .prose :global(p), .prose :global(li) { line-height: 1.65; color: var(--sg57-text); }
+  .prose :global(ul), .prose :global(ol) { padding-left: 1.3rem; }
+  .prose :global(li + li) { margin-top: 0.3rem; }
+  .prose :global(strong) { color: var(--sg57-text-bright); }
+  .prose :global(a) { color: var(--sg57-accent); }
+  .prose :global(blockquote) {
+    margin: 1rem 0;
+    padding: 0.75rem 1rem;
+    border-left: 3px solid var(--sg57-accent);
+    background: var(--sg57-glass-bg);
+    border-radius: var(--sg57-radius-md);
+    color: var(--sg57-text-dim);
+  }
+  .prose :global(table) { width: 100%; border-collapse: collapse; margin: 1rem 0; display: block; overflow-x: auto; }
+  .prose :global(th), .prose :global(td) { text-align: left; vertical-align: top; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--sg57-border-subtle); line-height: 1.5; }
+  .prose :global(th) { font-family: var(--sg57-font-display); letter-spacing: 0.05em; color: var(--sg57-text-dim); }
+  .prose :global(pre) {
+    background: var(--sg57-glass-bg-dense);
+    border: 1px solid var(--sg57-glass-border);
+    border-radius: var(--sg57-radius-md);
+    padding: 1rem;
+    overflow-x: auto;
+    font-family: var(--sg57-font-mono);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  .prose :global(code) { font-family: var(--sg57-font-mono); font-size: 0.95em; }
+  .prose :global(hr) { border: 0; border-top: 1px solid var(--sg57-border-subtle); margin: 2rem 0; }
+
+  @media (max-width: 720px) { .doc { padding-top: 5.5rem; } }
+</style>

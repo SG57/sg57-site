@@ -90,6 +90,15 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
           </div>
         </a>
 
+        <a href="/life-os" class="product-card product-card--life-os">
+          <div class="product-card-bg product-card-bg--life-os"></div>
+          <div class="product-card-scrim product-card-scrim--life-os"></div>
+          <div class="product-card-content">
+            <p class="product-tagline">A back office for your life, run by the assistant you already use.</p>
+            <span class="product-cta">Learn More →</span>
+          </div>
+        </a>
+
       </div>
     </div>
   </section>
@@ -370,7 +379,7 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
 
   .product-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.25rem;
   }
 
@@ -403,6 +412,11 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
   .product-card--text-easy:hover {
     box-shadow: 0 8px 40px rgba(0, 255, 136, 0.2);
     border-color: rgba(0, 255, 136, 0.35);
+  }
+
+  .product-card--life-os:hover {
+    box-shadow: 0 8px 40px rgba(143, 191, 159, 0.2);
+    border-color: rgba(143, 191, 159, 0.35);
   }
 
   .product-card:active {
@@ -457,6 +471,22 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
       rgba(4, 10, 6, 0.94) 0%,
       rgba(4, 10, 6, 0.58) 45%,
       rgba(4, 10, 6, 0.18) 100%
+    );
+  }
+
+  /* Life OS has no banner image yet: a quiet sage field stands in for it */
+  .product-card-bg--life-os {
+    background: radial-gradient(ellipse at 30% 20%, rgba(143, 191, 159, 0.35), transparent 55%),
+                radial-gradient(ellipse at 80% 90%, rgba(111, 157, 128, 0.3), transparent 50%),
+                #0b1210;
+  }
+
+  .product-card-scrim--life-os {
+    background: linear-gradient(
+      to top,
+      rgba(6, 10, 8, 0.92) 0%,
+      rgba(6, 10, 8, 0.5) 45%,
+      rgba(6, 10, 8, 0.12) 100%
     );
   }
 
@@ -515,9 +545,11 @@ import ProofOfWork from '../components/shared/ProofOfWork.astro';
   .product-card--clide .product-cta { color: var(--sg57-clide-accent); }
   .product-card--siftr .product-cta { color: var(--sg57-siftr-accent); }
   .product-card--text-easy .product-cta { color: var(--sg57-text-easy-accent); }
+  .product-card--life-os .product-cta { color: var(--sg57-lifeos-accent); }
 
   .product-card--clide:hover .product-cta { color: var(--sg57-clide-accent-hover); }
   .product-card--siftr:hover .product-cta { color: var(--sg57-siftr-accent-hover); }
+  .product-card--life-os:hover .product-cta { color: var(--sg57-lifeos-accent-hover); }
   .product-card--text-easy:hover .product-cta { color: var(--sg57-text-easy-accent-hover); }
 
   /* ════════════════════════════════════════════════════

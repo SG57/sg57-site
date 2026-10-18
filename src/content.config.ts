@@ -17,4 +17,15 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { blog };
+/** Life OS human pages, synced from the kit by its tools/publish-site.py. Never edit these copies by hand. */
+const lifeos = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/lifeos' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    /** Path of the source file inside the Life OS kit */
+    source: z.string(),
+  }),
+});
+
+export const collections = { blog, lifeos };

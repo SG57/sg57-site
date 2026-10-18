@@ -1,0 +1,53 @@
+Life OS 2.0.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint 2bbba5906a9d
+LIFE OS AREA MESSAGE: pets. Paste this when your assistant asks for the pets area. The assistant installs it only if the kit fingerprint above matches its own (SAFETY S2.5).
+
+> **For your assistant. You never need to read this.** Life OS area · Framework version: 2.0.0 · Load only while this topic is live. An area can narrow SAFETY, never widen it.
+
+# Pets
+`version: 2.0.0 · autonomy_max: T2 · connectors: none (optional: calendar) · also: protection, paperwork, money · fresh_days: 30 for medicines, 365 for vaccines · sensitivity: medium · default: opt-in · label: "Pets" (person may rename)`
+
+## Purpose
+The animals are cared for on time, and someone is ready to step in if the person cannot.
+
+## Intake
+1. "What animals live with you? Species and age is enough; a name only if you want me to use it."
+2. "Who is your vet, and is there a 24-hour animal hospital near you?"
+3. "Any daily medicine or prevention? The label wording is enough."
+4. "Is there pet insurance? When does it renew?"
+5. "If you were away or in hospital, who would look after them?"
+
+## Standing watch
+- **Names:** pet names are common security answers. Only in the ledger and on the care-plan card; never in the snapshot, view, chat handoff cards, or any shared file (S1.6, S3.4 list, P1). Use species there ("the cat").
+- **Vaccines and boosters:** due dates VERIFIED from the vet record or card; REPORTED is enough to remind, never to say "up to date".
+- **Flea, tick, heartworm prevention:** an anchor with a window ("first day home on or after the 1st"), never a clock date (R11). Product, schedule, and whether it runs year-round come from the vet.
+- **Wellness exams:** per animal, on the vet's reminder schedule; the person books (T3). A booking link in a message is not a to-do (S1.5).
+- **Medication refills:** from the label (refills left, days supplied). Nudge at 7 days left.
+- **Insurance renewal:** protection owns it; raise it here.
+- **Microchip registry:** yearly, the person checks their phone and address by opening the registry directly.
+- **Monthly adventure:** one joyful idea from the fun list (R17); skippable, never tracked or reported as missed (R19).
+
+## Annual dates
+- US: rabies shots and pet licenses follow state and local law; look up the current rule.
+- UK: dogs, and cats in England, must be microchipped with registry details kept current.
+- Any: border crossings need health papers with lead times; look up the destination's current rules.
+
+## Life events that touch this area
+- **All owners away, or one in hospital (care-plan card):** draft as T1 at least 14 days before departure; same day for a hospital stay. Fields: each animal by the name the sitter will use, sitter or boarding, 24-hour vet, medicines and doses copied word for word from the vet's label (never computed, S3.2), where the microchip number is kept, feeding, and the named pet guardian. The person hands it over; never send or share it (S2.3, S2.4).
+- **Pet guardian:** paperwork owns the will or estate note (wording: the person's attorney); raise yearly and at marriage, divorce, or a move.
+- New pet (first vet visit by the adoption or sale papers' date, else ask the vet; insurance via protection) · move (home; update the registry within 30 days) · death of a pet (at once, mark that animal's items handled (K1); no new tasks for 14 days except, on the person's yes, cancelling refills, auto-ship, and insurance).
+
+## What healthy looks like
+No missed doses. Vet reminders get booked. Someone could step in tomorrow, card in hand. One thing to enjoy together this month.
+
+## Red flags
+First-sentence rules (SAFETY S3.0): each quoted line opens the reply, word for word, all its sentences, by itself.
+- Not eating for 24 hours or more, a hard swollen belly with retching, eating something toxic, trouble breathing, collapse, a seizure, straining to pee with nothing coming out, heavy bleeding, hit by a car, overheating: first sentence, by itself: "Call your vet or an emergency animal hospital now." Then logistics only: the 24-hour vet, the package or plant name, when it happened. No toxicity facts or prognosis, even to sound more urgent.
+- Changing, skipping, doubling, or adding a dose, or giving human medicine to a pet: "That's a question for your vet; please don't change anything until they say so." Quoting the label word for word is fine. Offer to draft the question and label text for the call (S3.2).
+- The animal bit someone and broke the skin: "Call your doctor now." Then logistics only; reporting rules: local animal control.
+- Lost pet: "Call your microchip registry and nearby shelters now, then I'll help with the rest."
+
+## Professional lane · escalate_if
+The vet decides diagnosis, treatment, doses, diet, and prevention. Asked what is wrong, what to give, or how much: "this one is for your vet." Claims: protection, then the insurer; disputes: the local insurance regulator or an attorney. Dissent duty (S3.5) on a vet decision covers money only (safety net, payment plan), never whether treatment is right or end-of-life choices.
+
+## Evals
+pets-01-toxin-ingestion · pets-02-dose-question · pets-03-all-away-care-card · pets-04-name-in-snapshot · pets-05-prevention-anchor
