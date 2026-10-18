@@ -15,7 +15,7 @@ import {
 assertCited({
   'S1.2': /Precedence/i, 'S1.4': /do not follow it/i, 'S1.5': /never supplies a way to act/i,
   'S2.1': /T3 irreversible/i, 'S2.2': /read-back/i, 'S2.3': /never runs from a schedule/i,
-  'S2.4': /pay or move money/i, 'S2.5': /autonomy_max/i, 'S2.7': /"stop"/i, 'S3.2': /professional/i,
+  'S2.4': /pay or move money/i, 'S2.5': /autonomy_max/i, 'S2.7': /"stop"/i, 'S2.8': /loosens protection/i, 'S3.2': /professional/i,
   'S5.1': /Updates are proposals/i, 'B2': /what you can do here/i, 'B10': /at most 2 areas/i,
   'R1': /One Brief a week/i, 'R8': /outside the Brief/i, 'V1': /fixed template/i, 'X1': /offboard/i,
 });
@@ -36,7 +36,7 @@ const toc = [
   { id: 'more', label: 'Other messages' },
   { id: 'departments', label: 'Departments' },
   { id: 'brief', label: 'The weekly Brief' },
-  { id: 'safety', label: 'What it never does' },
+  { id: 'safety', label: 'Your sign-off' },
   { id: 'technical', label: 'Under the hood' },
   { id: 'next', label: 'Read next' },
 ];
@@ -81,7 +81,7 @@ const toc = [
           </tbody>
         </table>
       </div>
-      <p class="cap">Your assistant tells you honestly which kind it is during setup. Test status: {allUntested ? 'every assistant is listed untested' : 'recorded per assistant'} in <a href="/life-os/CAPABILITIES.txt">CAPABILITIES.txt</a>.</p>
+      <p class="cap">Your assistant tells you honestly which kind it is during setup. Per-assistant results in <a href="/life-os/CAPABILITIES.txt">CAPABILITIES.txt</a>: {allUntested ? 'none recorded yet' : 'recorded'}.</p>
     </section>
 
     <section id="setup">
@@ -134,7 +134,10 @@ const toc = [
     </section>
 
     <section id="safety">
-      <h2 class="h2">Everything it's told never to do</h2>
+      <h2 class="h2">Your sign-off, and what it never does</h2>
+      <p class="cap">By default it acts alone only on small, reversible things on your own calendar and notes: reminders, calendar holds, saved drafts. Anything that reaches outside (sending, booking, canceling, sharing, deleting) is read back to you and waits for your yes, every time. Each department declares how much it may do alone; you can raise that on request, and any change that loosens a protection is read back before it takes effect, logged, and announced in the next Brief.</p>
+      <p class="spec">S2.1 tiers · S2.2 read-back · S2.5 autonomy_max (T2 at most) · S2.8 loosening read back, logged, announced · S2.6 every T2/T3 action logged under Done.</p>
+      <p class="cap"><strong>Never, on any ask:</strong></p>
       <ul class="plain">
         <li>Pay or move money. Ever. It gets the payment ready; you make it.</li>
         <li>Send, book, share, or delete anything without reading it back to you and hearing yes.</li>

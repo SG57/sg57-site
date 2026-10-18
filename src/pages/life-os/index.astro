@@ -14,7 +14,7 @@ import { version, fingerprint, pasteKB, isRC, allUntested, assertCited, assertRe
 // Every rule id this page cites, with a phrase its definition must still contain. The build fails on drift.
 assertCited({
   'S2.1': /T3 irreversible/i, 'S2.2': /read-back/i, 'S2.3': /never runs from a schedule/i, 'S2.4': /pay or move money/i,
-  'S2.5': /autonomy_max/i, 'S2.7': /"stop"/i, 'S3.2': /professional/i, 'B2': /what you can do here/i,
+  'S2.5': /autonomy_max/i, 'S2.7': /"stop"/i, 'S2.8': /loosens protection/i, 'S3.2': /professional/i, 'B2': /what you can do here/i,
   'B10': /at most 2 areas/i, 'R1': /One Brief a week/i,
 });
 assertRecommended(['Meta Muse', 'Grok Bot']);
@@ -27,7 +27,7 @@ const SLIDES = [
   { id: 'why', label: 'Why now' },
   { id: 'not-an-app', label: 'Not an app' },
   { id: 'how', label: 'How it works' },
-  { id: 'safe', label: 'What it never does' },
+  { id: 'safe', label: 'Your sign-off' },
   { id: 'start', label: 'Set it up' },
   { id: 'more', label: 'Details' },
 ];
@@ -40,7 +40,7 @@ const howSteps = [
 
 <Base
   title="Life OS: Enjoy adulthood. Let your AI do the adulting | SG57 Labs"
-  description="Life OS is not an app. It's a job description you paste into the AI you already use, so it runs the boring parts of your life and messages you first. Free. Test version."
+  description="Life OS is not an app. It's a job description you paste into the AI you already use, so it runs the boring parts of your life and messages you first. Free for everyone."
   accentColor="#8FBF9F"
   accentHover="#A3D1B1"
   accentMuted="#6F9D80"
@@ -81,7 +81,7 @@ r.setAttribute('data-mode',m||'beginner');})();
   <section class="slide hero" id="top">
     <div class="slide-inner">
       <div class="hero-text">
-        <span class="eyebrow" data-show="beginner normal">LIFE OS · FREE FOR EVERYONE · {isRC ? 'TEST VERSION' : 'VERSION ' + version}</span>
+        <span class="eyebrow" data-show="beginner normal">LIFE OS · FREE FOR EVERYONE · {isRC ? 'EARLY VERSION' : 'VERSION ' + version}</span>
         <span class="eyebrow" data-show="technical">LIFE OS {version}{isRC ? ' · RELEASE CANDIDATE' : ''}</span>
         <h1 class="headline">Enjoy adulthood.<br /><span class="headline-accent">Let your AI do the adulting.</span></h1>
         <p class="line">AI apps can now remember you and reach out on their own.</p>
@@ -89,7 +89,7 @@ r.setAttribute('data-mode',m||'beginner');})();
           <p class="line line-strong" data-show="beginner">Life OS isn't an app. It's a message you paste in that gives your AI one job: the boring parts of your life.</p>
           <p class="line line-strong" data-show="normal technical">Life OS isn't an app. It's one message you paste into the AI you already use: twenty minutes of questions, then one short Brief a week, and it messages you first when something needs you.</p>
         </div>
-        <p class="line line-quiet">Made by one person, given to everyone. Nothing to buy, now or later.</p>
+        <p class="line line-quiet">Made by one person who runs his own life on it, given to everyone. Nothing to buy, now or later.</p>
         <div class="hero-cta">
           <a class="btn btn-primary" href="#copy">Set it up · 20 min</a>
           <a class="btn btn-ghost" href="#company">Show me <span aria-hidden="true">↓</span></a>
@@ -109,8 +109,8 @@ r.setAttribute('data-mode',m||'beginner');})();
       <div class="slide-copy" data-reveal>
         <h2 class="h2">Your life becomes a company. You're the CEO.</h2>
         <div class="line-stack">
-          <p class="line" data-show="beginner">Every chore gets a department. Departments talk to each other. You get one short Brief a week.</p>
-          <p class="line" data-show="normal technical">Each department has goals, deadlines, and a plan, and they share facts. You read one Brief and answer three questions at most.</p>
+          <p class="line" data-show="beginner">Every chore gets a department. They share what they know. Nothing big happens without the CEO's sign-off.</p>
+          <p class="line" data-show="normal technical">Each department has goals, deadlines, and a plan, and they share facts, so advice from one accounts for the others. You read one Brief a week and sign off on anything that reaches outside.</p>
         </div>
         <p class="spec" data-show="technical">Departments are area bundles (AREA-*.txt), installed only on a fingerprint match (S2.5). Setup proposes at most 2, in your words, plus Good Life (B10).</p>
       </div>
@@ -183,12 +183,12 @@ r.setAttribute('data-mode',m||'beginner');})();
   <section class="slide" id="safe">
     <div class="slide-inner slide-inner-wide">
       <div class="slide-copy" data-reveal>
-        <h2 class="h2">It never pays, sends, or deletes without you.</h2>
+        <h2 class="h2">Nothing happens without the CEO's sign-off.</h2>
         <div class="line-stack">
-          <p class="line" data-show="beginner">Say "stop" and it stops. These are instructions it follows, not hard locks{isRC ? ', and they are untested on a real assistant so far' : ''}. <a href="/life-os/trust">Honest limits</a>.</p>
-          <p class="line" data-show="normal technical">Say "quieter", "louder", or "stop" at any time. These are instructions it follows, not hard locks{isRC ? ', and no test has run on a real assistant yet' : ''}. <a href="/life-os/trust">The trust page explains</a> what that means.</p>
+          <p class="line" data-show="beginner">Book the dentist? Cancel a plan? It gets it ready and waits for your yes. Paying stays with you, always. <a href="/life-os/trust">What that means in practice</a>.</p>
+          <p class="line" data-show="normal technical">On its own it does only small, reversible things: reminders and calendar holds. Sending, booking, canceling, sharing, and deleting wait for your yes each time. You can raise what it does alone, department by department; every loosening is read back to you first. <a href="/life-os/trust">The trust page</a> explains what that can and can't guarantee.</p>
         </div>
-        <p class="spec" data-show="technical">S2.4 never-list · S2.7 "stop" pauses every scheduled job and quotes the tool's confirmation · S3.2 professionals, not advice.</p>
+        <p class="spec" data-show="technical">S2.1 T2 reversible, on your own things · S2.2 read-back in its own turn · S2.4 never-list (pay or move money stays with you) · S2.5 autonomy_max per area · S2.8 loosening read back, logged, announced · S2.7 "stop" pauses every scheduled job.</p>
       </div>
       <NeverTiles />
     </div>
@@ -199,7 +199,7 @@ r.setAttribute('data-mode',m||'beginner');})();
     <div class="slide-inner">
       <div class="slide-copy" data-reveal>
         <h2 class="h2">Free, for everyone. One paste.</h2>
-        <p class="line best">We recommend <strong>Meta Muse</strong> (free to start) or <strong>Grok Bot</strong> (paid). Any assistant works; setup tells you what yours can do.<span data-show="technical"> Test status: {allUntested ? 'every assistant untested' : 'per assistant'} in <a href="/life-os/CAPABILITIES.txt">CAPABILITIES.txt</a>.</span></p>
+        <p class="line best">We recommend <strong>Meta Muse</strong> (free to start) or <strong>Grok Bot</strong> (paid). Any assistant works; setup tells you what yours can do.<span data-show="technical"> Per-assistant results in <a href="/life-os/CAPABILITIES.txt">CAPABILITIES.txt</a>: {allUntested ? 'none recorded yet' : 'recorded'}.</span></p>
         <p class="line">Muse is made by Meta. By default it learns from your chats; you can turn that off in its settings. <a href="/life-os/trust">What else to know</a>.</p>
       </div>
       <div class="callout" id="copy">
@@ -209,15 +209,15 @@ r.setAttribute('data-mode',m||'beginner');})();
             <span>
               {isRC
                 ? <>
-                    <span data-show="beginner"><strong>Brand new.</strong> Its safety checks haven't run on a real assistant yet; the maker is trying it on his own life first.</span>
-                    <span data-show="normal technical"><strong>Test version.</strong> {version} is a release candidate: tests written, not yet run on a real assistant. The maker is trying it on himself first.</span>
+                    <span data-show="beginner"><strong>Built and used by the maker.</strong> He runs his own life on it. Formal test results for this version come next.</span>
+                    <span data-show="normal technical"><strong>Version {version}, release candidate.</strong> The maker runs it daily; the written test suite hasn't been run and published yet. <a href="/life-os/trust">Trust page</a>.</span>
                   </>
-                : <><strong>Tested?</strong> Results for version {version} are on the trust page. The maker uses it on his own life.</>}
+                : <><strong>Built and used by the maker.</strong> Results for version {version} are on the trust page.</>}
             </span>
           </li>
           <li>
             <span class="ci" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M10 10h3a2 2 0 0 1 0 4h-3"/></svg></span>
-            <span><strong>Never pays or moves money.</strong> No bank or email login needed.</span>
+            <span><strong>Paying stays with you.</strong> It never pays or moves money. No bank or email login needed.</span>
           </li>
           <li>
             <span class="ci" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
@@ -250,7 +250,7 @@ r.setAttribute('data-mode',m||'beginner');})();
         <a class="card" href="/life-os/details"><strong>How it works, in depth</strong><span>Assistants, setup, departments, every rule.</span></a>
         <a class="card" href="/life-os/trust"><strong>Is it safe?</strong><span>Honest limits, in two minutes.</span></a>
         <a class="card" href="/life-os/example"><strong>A full example</strong><span>Maya's setup, fictional, start to finish.</span></a>
-        <a class="card" href="/blog/introducing-life-os"><strong>Why I built this</strong><span>From the maker.</span></a>
+        <a class="card" href="/blog/introducing-life-os"><strong>Why I built this</strong><span>From the maker, who runs his own life on it.</span></a>
       </div>
       <div class="fine-block">
         <p class="fine">Free for everyone, as-is, under <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener">CC BY 4.0</a>: use it, copy it, change it. Not legal, medical, tax, or financial advice. Built for the US first.</p>

@@ -1,15 +1,14 @@
 ---
-/** The three things it never does, as tiles with a struck-through icon, plus the three control words. */
-interface Props { technical?: boolean }
+/** Three tiles: what stays yours, what waits for your yes, and what it hands to a professional. Rule ids in technical mode. */
 ---
 
-<ul class="never" data-reveal aria-label="What it never does">
+<ul class="never" data-reveal aria-label="What stays yours and what waits for your sign-off">
   <li>
     <span class="nv-icon" aria-hidden="true">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M10 10h3a2 2 0 0 1 0 4h-3"/></svg>
       <span class="nv-strike-wrap"><span class="nv-strike"></span></span>
     </span>
-    <span class="nv-text">Never pays or moves money.</span>
+    <span class="nv-text"><strong>Paying or moving money:</strong> only you, ever. It has it ready to the last tap.</span>
     <code class="nv-id" data-show="technical">S2.4</code>
   </li>
   <li>
@@ -17,7 +16,7 @@ interface Props { technical?: boolean }
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-8-8 18-2-8z"/></svg>
       <span class="nv-strike-wrap"><span class="nv-strike"></span></span>
     </span>
-    <span class="nv-text">Never sends, books, shares, or deletes without reading it back and hearing your yes.</span>
+    <span class="nv-text"><strong>Sending, booking, canceling, deleting:</strong> only after it reads it back and you say yes.</span>
     <code class="nv-id" data-show="technical">S2.1 T3 · S2.2</code>
   </li>
   <li>
@@ -25,19 +24,20 @@ interface Props { technical?: boolean }
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4l6 6M12 6l6 6M13 9l-8 8M4 20h8"/></svg>
       <span class="nv-strike-wrap"><span class="nv-strike"></span></span>
     </span>
-    <span class="nv-text">Never decides legal, medical, tax, or money questions. It names who does.</span>
+    <span class="nv-text"><strong>Legal, medical, tax, or money decisions:</strong> it names the professional who makes them.</span>
     <code class="nv-id" data-show="technical">S3.2</code>
   </li>
 </ul>
 
 <style>
-  .never { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.9rem; }
-  .never li { display: flex; flex-direction: column; gap: 0.6rem; padding: 1.1rem 1.2rem; border-radius: var(--sg57-radius-lg); background: var(--sg57-glass-bg); border: 1px solid var(--sg57-glass-border); }
+  .never { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.9rem; width: 100%; }
+  .never li { display: flex; flex-direction: column; gap: 0.6rem; padding: 1.1rem 1.2rem; border-radius: var(--sg57-radius-lg); background: var(--sg57-glass-bg); border: 1px solid var(--sg57-glass-border); text-align: left; }
   .nv-icon { position: relative; width: 44px; height: 44px; color: var(--sg57-text); }
   .nv-icon svg { width: 32px; height: 32px; margin: 6px; }
   .nv-strike-wrap { position: absolute; left: 0; top: 21px; width: 44px; height: 2px; transform: rotate(-35deg); transform-origin: center; }
   .nv-strike { display: block; width: 100%; height: 100%; background: var(--sg57-accent); transform-origin: left; }
   .nv-text { color: var(--sg57-text); line-height: 1.45; }
+  .nv-text strong { color: var(--sg57-text-bright); font-family: var(--sg57-font-display); letter-spacing: 0.02em; }
   .nv-id { font-family: var(--sg57-font-mono); font-size: 0.8rem; color: var(--sg57-accent); }
   @media (max-width: 720px) { .never { grid-template-columns: 1fr; } }
   @media (prefers-reduced-motion: no-preference) {
