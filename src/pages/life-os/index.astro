@@ -22,13 +22,13 @@ assertStartSays([/Meta Muse\*\*: free to start/i, /Grok Bot\*\*[^\n]*\bpaid\b/i]
 
 const SLIDES = [
   { id: 'top', label: 'Start' },
-  { id: 'why', label: 'Why now' },
-  { id: 'get', label: 'What you get' },
-  { id: 'not-an-app', label: 'Not an app' },
   { id: 'company', label: 'Your life as a company' },
+  { id: 'get', label: 'What you get' },
+  { id: 'why', label: 'Why now' },
+  { id: 'not-an-app', label: 'Not an app' },
   { id: 'how', label: 'How it works' },
   { id: 'safe', label: 'What it never does' },
-  { id: 'start', label: 'Try it' },
+  { id: 'start', label: 'Set it up' },
   { id: 'more', label: 'Details' },
 ];
 const howSteps = [
@@ -81,7 +81,7 @@ r.setAttribute('data-mode',m||'beginner');})();
   <section class="slide hero" id="top">
     <div class="slide-inner">
       <div class="hero-text">
-        <span class="eyebrow" data-show="beginner normal">LIFE OS · FREE · {isRC ? 'TEST VERSION' : 'VERSION ' + version}</span>
+        <span class="eyebrow" data-show="beginner normal">LIFE OS · FREE FOR EVERYONE · {isRC ? 'TEST VERSION' : 'VERSION ' + version}</span>
         <span class="eyebrow" data-show="technical">LIFE OS {version}{isRC ? ' · RELEASE CANDIDATE' : ''}</span>
         <h1 class="headline">Enjoy adulthood.<br /><span class="headline-accent">Let your AI do the adulting.</span></h1>
         <p class="line">AI apps can now remember you and reach out on their own.</p>
@@ -89,9 +89,10 @@ r.setAttribute('data-mode',m||'beginner');})();
           <p class="line line-strong" data-show="beginner">Life OS isn't an app. It's a message you paste in that gives your AI one job: the boring parts of your life.</p>
           <p class="line line-strong" data-show="normal technical">Life OS isn't an app. It's one message you paste into the AI you already use: twenty minutes of questions, then one short Brief a week, and it messages you first when something needs you.</p>
         </div>
+        <p class="line line-quiet">Made by one person, given to everyone. Nothing to buy, now or later.</p>
         <div class="hero-cta">
-          <a class="btn btn-primary" href="#copy">Try it · 20 min</a>
-          <a class="btn btn-ghost" href="#why">Show me <span aria-hidden="true">↓</span></a>
+          <a class="btn btn-primary" href="#copy">Set it up · 20 min</a>
+          <a class="btn btn-ghost" href="#company">Show me <span aria-hidden="true">↓</span></a>
         </div>
         <div class="mode-row">
           <ModeSwitch />
@@ -102,18 +103,18 @@ r.setAttribute('data-mode',m||'beginner');})();
     </div>
   </section>
 
-  <!-- 2 · Why now -->
-  <section class="slide slide-alt" id="why">
-    <div class="slide-inner">
+  <!-- 2 · Company -->
+  <section class="slide slide-alt" id="company">
+    <div class="slide-inner slide-inner-wide">
       <div class="slide-copy" data-reveal>
-        <h2 class="h2">AI stopped waiting to be asked.</h2>
+        <h2 class="h2">Your life becomes a company. You're the CEO.</h2>
         <div class="line-stack">
-          <p class="line" data-show="beginner">That last part is new. It's what makes Life OS possible.</p>
-          <p class="line" data-show="normal technical">Mainstream assistants now have memory, read-only connections to calendar and mail, and scheduled tasks. Life OS turns those into a back office with one weekly report.</p>
+          <p class="line" data-show="beginner">Every chore gets a department. Departments talk to each other. You get one short Brief a week.</p>
+          <p class="line" data-show="normal technical">Each department has goals, deadlines, and a plan, and they share facts. You read one Brief and answer three questions at most.</p>
         </div>
-        <p class="spec" data-show="technical">Tier 0 chat only · Tier 1 memory or project files · Tier 2 memory + tool-confirmed scheduler + read-only connections. Setup has the assistant state its tier from its own tools (B2).</p>
+        <p class="spec" data-show="technical">Departments are area bundles (AREA-*.txt), installed only on a fingerprint match (S2.5). Setup proposes at most 2, in your words, plus Good Life (B10).</p>
       </div>
-      <ThenNow />
+      <DiagramCompany compact />
     </div>
   </section>
 
@@ -134,36 +135,37 @@ r.setAttribute('data-mode',m||'beginner');})();
     </div>
   </section>
 
-  <!-- 4 · Not an app -->
+  <!-- 4 · Why now -->
+  <section class="slide slide-alt" id="why">
+    <div class="slide-inner">
+      <div class="slide-copy" data-reveal>
+        <h2 class="h2">AI stopped waiting to be asked.</h2>
+        <div class="line-stack">
+          <p class="line" data-show="beginner">That last part is new. It's what makes Life OS possible.</p>
+          <p class="line" data-show="normal technical">Mainstream assistants now have memory, read-only connections to calendar and mail, and scheduled tasks. Life OS turns those into a back office with one weekly report.</p>
+        </div>
+        <p class="spec" data-show="technical">Tier 0 chat only · Tier 1 memory or project files · Tier 2 memory + tool-confirmed scheduler + read-only connections. Setup has the assistant state its tier from its own tools (B2).</p>
+      </div>
+      <ThenNow />
+    </div>
+  </section>
+
+  <!-- 5 · Not an app -->
   <section class="slide" id="not-an-app">
     <div class="slide-inner">
       <div class="slide-copy" data-reveal>
         <h2 class="h2 h2-loud">Life OS is <span class="headline-accent">not</span> an app.</h2>
         <p class="line">Nothing to download. No account. It's a job description you paste into the AI you already have.</p>
         <p class="line line-strong">"Life OS" is just the name for a set of instructions. Your AI follows them.</p>
+        <p class="line line-quiet">Nothing is for sale here. It's plain text you can read, free to use, copy, and change.</p>
         <p class="spec" data-show="technical">Plain text: SAFETY + CRISIS + BOOTSTRAP in one {pasteKB} KB paste, five kernel files, six optional area bundles. No code runs on your device.</p>
       </div>
       <NotAnApp />
     </div>
   </section>
 
-  <!-- 4 · Company -->
-  <section class="slide slide-alt" id="company">
-    <div class="slide-inner slide-inner-wide">
-      <div class="slide-copy" data-reveal>
-        <h2 class="h2">Your life becomes a company. You're the CEO.</h2>
-        <div class="line-stack">
-          <p class="line" data-show="beginner">Every chore gets a department. Departments talk to each other. You get one short Brief a week.</p>
-          <p class="line" data-show="normal technical">Each department has goals, deadlines, and a plan, and they share facts. You read one Brief and answer three questions at most.</p>
-        </div>
-        <p class="spec" data-show="technical">Departments are area bundles (AREA-*.txt), installed only on a fingerprint match (S2.5). Setup proposes at most 2, in your words, plus Good Life (B10).</p>
-      </div>
-      <DiagramCompany compact />
-    </div>
-  </section>
-
-  <!-- 5 · How it works -->
-  <section class="slide" id="how">
+  <!-- 6 · How it works -->
+  <section class="slide slide-alt" id="how">
     <div class="slide-inner">
       <div class="slide-copy" data-reveal>
         <h2 class="h2">Like a tax accountant, for all of it.</h2>
@@ -177,8 +179,8 @@ r.setAttribute('data-mode',m||'beginner');})();
     </div>
   </section>
 
-  <!-- 6 · Never -->
-  <section class="slide slide-alt" id="safe">
+  <!-- 7 · Never -->
+  <section class="slide" id="safe">
     <div class="slide-inner slide-inner-wide">
       <div class="slide-copy" data-reveal>
         <h2 class="h2">It never pays, sends, or deletes without you.</h2>
@@ -192,12 +194,12 @@ r.setAttribute('data-mode',m||'beginner');})();
     </div>
   </section>
 
-  <!-- 7 · Try it -->
+  <!-- 8 · Try it -->
   <section class="slide" id="start">
     <div class="slide-inner">
       <div class="slide-copy" data-reveal>
-        <h2 class="h2">Free. One paste. 20 minutes.</h2>
-        <p class="line best">Best with <strong>Meta Muse</strong> (free to start) or <strong>Grok Bot</strong> (paid). Others work; setup tells you what yours can do.<span data-show="technical"> Test status: {allUntested ? 'every assistant untested' : 'per assistant'} in <a href="/life-os/CAPABILITIES.txt">CAPABILITIES.txt</a>.</span></p>
+        <h2 class="h2">Free, for everyone. One paste.</h2>
+        <p class="line best">We recommend <strong>Meta Muse</strong> (free to start) or <strong>Grok Bot</strong> (paid). Any assistant works; setup tells you what yours can do.<span data-show="technical"> Test status: {allUntested ? 'every assistant untested' : 'per assistant'} in <a href="/life-os/CAPABILITIES.txt">CAPABILITIES.txt</a>.</span></p>
         <p class="line">Muse is made by Meta. By default it learns from your chats; you can turn that off in its settings. <a href="/life-os/trust">What else to know</a>.</p>
       </div>
       <div class="callout" id="copy">
@@ -237,7 +239,7 @@ r.setAttribute('data-mode',m||'beginner');})();
     </div>
   </section>
 
-  <!-- 8 · More -->
+  <!-- 9 · More -->
   <section class="slide slide-alt slide-last" id="more">
     <div class="slide-inner">
       <div class="slide-copy" data-reveal>
@@ -251,23 +253,30 @@ r.setAttribute('data-mode',m||'beginner');})();
         <a class="card" href="/blog/introducing-life-os"><strong>Why I built this</strong><span>From the maker.</span></a>
       </div>
       <div class="fine-block">
-        <p class="fine">Free, as-is. Not legal, medical, tax, or financial advice. Built for the US first.</p>
+        <p class="fine">Free for everyone, as-is, under <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener">CC BY 4.0</a>: use it, copy it, change it. Not legal, medical, tax, or financial advice. Built for the US first.</p>
         <p class="fine">Version {version} · <span data-show="normal technical">kit fingerprint <code>{fingerprint}</code> · <a href="/life-os/FINGERPRINTS.txt">checksums</a> · </span><a href="/life-os/LICENSE.txt">License</a> · <a href="mailto:support@sg57.dev">support@sg57.dev</a> · Made by SG57 Labs</p>
       </div>
     </div>
   </section>
 
-  <a class="lo-pill" href="#copy" hidden data-needs-js>Try it · 20 min</a>
+  <a class="lo-pill" href="#copy" hidden data-needs-js>Set it up · free</a>
 </div>
 <LoRuntime />
 </Base>
 
 <style is:global>
-  /* One screen per idea. Proximity snap only: a slide taller than the viewport still scrolls freely. */
+  /* One screen per idea. Phones: proximity snap, because tall slides there must keep scrolling freely.
+     Desktop (every slide fits): mandatory snap, one slide per wheel tick, and the footer is its own stop so
+     Terms and Privacy stay reachable. */
   html:has(.lo-slides) { scroll-padding-top: 3.5rem; }
   @media (min-height: 640px) {
     html:has(.lo-slides) { scroll-snap-type: y proximity; }
     .lo-slides .slide { scroll-snap-align: start; }
+    html:has(.lo-slides) footer { scroll-snap-align: end; }
+  }
+  @media (min-width: 900px) and (min-height: 640px) {
+    html:has(.lo-slides) { scroll-snap-type: y mandatory; }
+    .lo-slides .slide { scroll-snap-stop: always; }
   }
   @media (max-width: 899px) { html:has(.lo-slides) { scroll-padding-bottom: calc(5rem + env(safe-area-inset-bottom)); } }
 </style>
