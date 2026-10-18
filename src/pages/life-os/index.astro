@@ -36,7 +36,7 @@ const areas = [
 
 <Base
   title={`Life OS: ${HEADLINE.replace(/\.$/, '')} | SG57 Labs`}
-  description="Paste one message into the AI assistant you already use. Twenty minutes later it runs your life's back office, with one short Brief a week. Free. Release candidate."
+  description="Paste one message into the AI assistant you already use. Twenty minutes later it runs your life's back office, with one short Brief a week. Free. Test version."
   accentColor="#8FBF9F"
   accentHover="#A3D1B1"
   accentMuted="#6F9D80"
@@ -77,7 +77,7 @@ r.setAttribute('data-mode',m||'beginner');})();
         </div>
         <div class="hero-cta">
           <a class="btn btn-primary" href="#copy">Try it · 20 min <span aria-hidden="true">↓</span></a>
-          <a class="btn btn-ghost" href="#why">How is this possible?</a>
+          <a class="btn btn-ghost" href="#why">Why now?</a>
         </div>
         <div class="mode-row">
           <ModeSwitch />
@@ -87,7 +87,7 @@ r.setAttribute('data-mode',m||'beginner');})();
       </div>
       <div class="hero-phone">
         <BriefPhone>
-          <span data-show="beginner normal">Example. Setup also has you add a phone reminder, in case your app can't message first.</span>
+          <span data-show="beginner normal">Example. If your app can't message first, a phone reminder does.</span>
           <span data-show="technical">Example. Format per RHYTHM R1: 250 words or fewer; Done, Needs you (at most 3, each with a default), Something good; "On my side" appears only when something broke. Tier 2 sends it on a schedule; tiers 0 and 1 rely on a phone-calendar reminder.</span>
         </BriefPhone>
       </div>
@@ -98,7 +98,7 @@ r.setAttribute('data-mode',m||'beginner');})();
   <section class="section container" id="start">
     <h2 class="h2">Try it. 20 minutes. Just copy and paste.</h2>
     <Filmstrip />
-    <p class="best">Best with <strong>Meta Muse</strong> (free) or <strong>Grok Bot</strong> (paid). Others work too, with fewer features.<span data-show="beginner"> No AI app yet? Meta Muse is free to start.</span><span data-show="technical"> Test status: {allUntested ? 'every assistant untested' : 'per assistant'} in <a href="/life-os/CAPABILITIES.txt">CAPABILITIES.txt</a>.</span></p>
+    <p class="best">Best with <strong>Meta Muse</strong> (free to start) or <strong>Grok Bot</strong> (paid). Using ChatGPT or another? It works; setup tells you what yours can do.<span data-show="beginner normal"> Muse is from Meta and keeps notes about you; <a href="/life-os/trust">the trust page explains</a>.</span><span data-show="technical"> Test status: {allUntested ? 'every assistant untested' : 'per assistant'} in <a href="/life-os/CAPABILITIES.txt">CAPABILITIES.txt</a>.</span></p>
 
     <div class="callout" id="copy">
       <h3 class="callout-heading">Before you start</h3>
@@ -107,18 +107,21 @@ r.setAttribute('data-mode',m||'beginner');})();
           <span class="ci" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg></span>
           <span>
             {isRC
-              ? <><strong>Test version.</strong> {version} is a release candidate: tests written, not yet run on a real assistant. The maker is trying it on himself first.</>
+              ? <>
+                  <span data-show="beginner"><strong>Brand new.</strong> Its safety checks haven't run on a real assistant yet; the maker is trying it on his own life first.</span>
+                  <span data-show="normal technical"><strong>Test version.</strong> {version} is a release candidate: tests written, not yet run on a real assistant. The maker is trying it on himself first.</span>
+                </>
               : <><strong>Tested?</strong> Results for version {version} are on the trust page. The maker uses it on his own life.</>}
             <span data-show="technical"> Results recorded for {version}: {noResultsYet ? 'none yet' : 'see the trust page'}.</span>
           </span>
         </li>
         <li>
-          <span class="ci" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><circle cx="12" cy="18" r="1"/></svg></span>
-          <span><strong>Set it up yourself,</strong> on your own device. No bank or email connection needed.</span>
+          <span class="ci" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M10 10h3a2 2 0 0 1 0 4h-3"/></svg></span>
+          <span><strong>Never pays or moves money.</strong> No bank or email login needed. Set it up yourself, on your own device.</span>
         </li>
         <li>
           <span class="ci" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
-          <span><strong>Copy it only from this page.</strong> Never type a password or card number into any assistant.</span>
+          <span><strong>Copy only from this page.</strong> Never type a password or card number into any assistant.</span>
         </li>
       </ul>
       <a class="trust-link" href="/life-os/trust">Is it safe? Read the trust page (2 min) <span aria-hidden="true">→</span></a>
@@ -140,13 +143,16 @@ r.setAttribute('data-mode',m||'beginner');})();
       <section aria-label="More messages" class="more">
         <p>Copy only what your assistant asks for.</p>
         <p><strong>No memory between chats?</strong> Paste this, then your note, each time.</p>
-        <button class="btn btn-small copy-btn" type="button" data-copy-src="/life-os/PASTE-RETURN.txt" data-copy-label="Copy the return message">Copy the return message</button>
+        <p class="copy-row"><button class="btn btn-small copy-btn" type="button" data-copy-src="/life-os/PASTE-RETURN.txt" data-copy-label="Copy the return message">Copy the return message</button> <a class="open-link" href="/life-os/PASTE-RETURN.txt" target="_blank" rel="noopener">Open the text</a></p>
         <p><strong>Has memory or projects?</strong> Save this once in its settings when it asks.</p>
-        <button class="btn btn-small copy-btn" type="button" data-copy-src="/life-os/PASTE-RESIDENT.txt" data-copy-label="Copy the resident rules">Copy the resident rules</button>
+        <p class="copy-row"><button class="btn btn-small copy-btn" type="button" data-copy-src="/life-os/PASTE-RESIDENT.txt" data-copy-label="Copy the resident rules">Copy the resident rules</button> <a class="open-link" href="/life-os/PASTE-RESIDENT.txt" target="_blank" rel="noopener">Open the text</a></p>
         <p><strong>Asked for an area?</strong></p>
         <div class="area-grid">
           {areas.map((a) => (
-            <button class="btn btn-ghost copy-btn area-btn" type="button" data-copy-src={`/life-os/AREA-${a.id}.txt`} data-copy-label={`Copy ${a.label}`}>{a.label}</button>
+            <div class="area-cell">
+              <button class="btn btn-ghost copy-btn area-btn" type="button" data-copy-src={`/life-os/AREA-${a.id}.txt`} data-copy-label={`Copy ${a.label}`}>{a.label}</button>
+              <a class="open-link" href={`/life-os/AREA-${a.id}.txt`} target="_blank" rel="noopener">Open the text</a>
+            </div>
           ))}
         </div>
         <p class="copy-status" aria-live="polite" data-copy-status></p>
@@ -162,7 +168,7 @@ r.setAttribute('data-mode',m||'beginner');})();
     <p class="cap" data-show="normal technical">Today's assistants combine memory, read-only connections (calendar, mail, bank data) and scheduled tasks. Life OS turns that into a back office with one weekly report.</p>
     <p class="spec" data-show="technical">Tier 0 chat only · Tier 1 memory or project files · Tier 2 memory + tool-confirmed scheduler + read-only connections. Setup has the assistant state its tier from its own tools (B2); missing pieces fall back to your phone calendar and a note you keep.</p>
     <details class="dd">
-      <summary>Which assistants can do this?</summary>
+      <summary>Using a different assistant? See what changes.</summary>
       <RecommendCards />
       <div class="table-wrap">
         <table class="tiers">
@@ -278,7 +284,7 @@ r.setAttribute('data-mode',m||'beginner');})();
   <section class="section container fine" id="fine">
     <p data-show="beginner">Free, as-is. Not legal, medical, tax, or financial advice. Built for the US first; elsewhere, check local laws and help lines.</p>
     <p data-show="normal technical">Free, as-is. Not legal, medical, tax, or financial advice. Built for the US first; elsewhere, dates, laws, and help lines need your local versions.</p>
-    <p>Version {version} · kit fingerprint <code>{fingerprint}</code> · <a href="/life-os/FINGERPRINTS.txt">checksums</a> · <a href="/life-os/LICENSE.txt">License</a> · <a href="mailto:support@sg57.dev">support@sg57.dev</a> · Made by SG57 Labs</p>
+    <p>Version {version} · <span data-show="normal technical">kit fingerprint <code>{fingerprint}</code> · <a href="/life-os/FINGERPRINTS.txt">checksums</a> · </span><a href="/life-os/LICENSE.txt">License</a> · <a href="mailto:support@sg57.dev">support@sg57.dev</a> · Made by SG57 Labs</p>
     <details class="dd" data-show="technical">
       <summary>Checksums (sha256)</summary>
       <div class="table-wrap"><table class="sums"><tbody>{checksums.map((c) => (<tr><td>{c.file}</td><td><code>{c.sha}</code></td></tr>))}</tbody></table></div>
@@ -318,8 +324,14 @@ r.setAttribute('data-mode',m||'beginner');})();
           window.setTimeout(() => { btn.textContent = label; }, 2500);
         };
         const fallback = () => {
-          status(btn, 'Your browser would not copy it. The text opened in a new tab: select all of it and copy.');
-          window.open(src, '_blank', 'noopener');
+          // Never claim it opened: browsers block window.open once the tap has ended. Offer a real link instead.
+          const section = btn.closest('section') || document;
+          const el = section.querySelector<HTMLElement>('[data-copy-status]');
+          if (el) {
+            const a = document.createElement('a');
+            a.href = src; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'Open the text';
+            el.replaceChildren("Copy didn't work here. Open the text, select all of it, and copy: ", a);
+          }
         };
         try {
           if (text !== undefined && navigator.clipboard?.writeText) {
@@ -366,7 +378,7 @@ r.setAttribute('data-mode',m||'beginner');})();
         entries.forEach((e) => seen.set(e.target, e.isIntersecting));
         pill.hidden = Array.from(seen.values()).some(Boolean);
       });
-      [cta, start].forEach((el) => { if (el) io2.observe(el); });
+      [cta, start, document.querySelector('footer')].forEach((el) => { if (el) io2.observe(el); });
       observers.push(io2);
     }
   });
@@ -378,14 +390,14 @@ r.setAttribute('data-mode',m||'beginner');})();
   .lo[data-mode="technical"] [data-show]:not([data-show~="technical"]) { display: none !important; }
   .lo:not([data-js]) [data-needs-js] { display: none !important; }
   .lo [id] { scroll-margin-top: 4.5rem; }
-  .lo-pill[hidden] { display: none; }
+  .lo-pill[hidden] { display: none !important; }
   @keyframes lo-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
   @keyframes lo-drop { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: none; } }
   @keyframes lo-flip { from { transform: scaleX(-1); } to { transform: scaleX(1); } }
   @keyframes lo-ping { from { opacity: 0.6; transform: scale(1); } to { opacity: 0; transform: scale(1.6); } }
   @keyframes lo-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
   @media (prefers-reduced-motion: reduce) { html:has(.lo) { scroll-behavior: auto; } }
-  @media (max-width: 899px) { html:has(.lo) { scroll-padding-bottom: 5rem; } }
+  @media (max-width: 899px) { html:has(.lo) { scroll-padding-bottom: calc(5rem + env(safe-area-inset-bottom)); } }
 </style>
 
 <style>
@@ -459,10 +471,12 @@ r.setAttribute('data-mode',m||'beginner');})();
   .tiers th { font-family: var(--sg57-font-display); letter-spacing: 0.06em; color: var(--sg57-text-dim); font-weight: 600; }
   .sums code { font-family: var(--sg57-font-mono); font-size: 0.8rem; }
 
-  .words { list-style: none; margin: 1.1rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem; }
-  .words li { display: inline-flex; flex-direction: column; min-height: 44px; justify-content: center; padding: 0.45rem 1rem; border-radius: var(--sg57-radius-full); border: 1px solid var(--sg57-accent-muted); background: var(--sg57-glass-bg); }
-  .words strong { font-family: var(--sg57-font-display); letter-spacing: 0.06em; color: var(--sg57-accent); line-height: 1.1; }
-  .words span { color: var(--sg57-text-dim); font-size: 0.85rem; line-height: 1.2; }
+  .words { list-style: none; margin: 1.1rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+  .words li { display: inline-flex; align-items: baseline; gap: 0.45rem; }
+  .words strong { font-family: var(--sg57-font-display); font-size: 1.15rem; letter-spacing: 0.06em; color: var(--sg57-accent); line-height: 1.1; }
+  .words span { color: var(--sg57-text-dim); font-size: 0.95rem; line-height: 1.2; }
+  .open-link { color: var(--sg57-accent); font-family: var(--sg57-font-display); font-size: 0.95rem; letter-spacing: 0.03em; margin-left: 0.5rem; }
+  .area-cell { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; }
 
   .curious { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; }
   .curious .cap { margin: 0; }
@@ -482,10 +496,13 @@ r.setAttribute('data-mode',m||'beginner');})();
 
   .lo-pill { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(1rem + env(safe-area-inset-bottom)); z-index: 90; display: inline-flex; align-items: center; min-height: 44px; padding: 0.6rem 1.2rem; border-radius: var(--sg57-radius-full); background: var(--sg57-accent); color: var(--sg57-text-on-accent); font-family: var(--sg57-font-display); font-weight: 700; letter-spacing: 0.04em; text-decoration: none; box-shadow: var(--sg57-glass-shadow); }
 
+  @media (max-width: 899px) {
+    .hero { padding-left: 0; padding-right: 0; }
+  }
   @media (min-width: 900px) {
     .hero { padding-top: 5rem; }
     .hero-grid { grid-template-columns: 1.1fr 0.9fr; align-items: center; }
-    .lo-pill { left: auto; right: 1.5rem; transform: none; }
+    .lo-pill { left: auto; right: calc(1.5rem + 44px + 0.75rem); transform: none; }
     .lo { padding-bottom: 2rem; }
   }
   @media (max-width: 720px) {
