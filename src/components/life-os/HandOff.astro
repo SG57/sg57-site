@@ -1,0 +1,47 @@
+---
+/**
+ * "Things you didn't know you could hand off": six concrete examples. Four are what the kit's departments
+ * do today (Money, Protection, Paperwork); two are marked in development and must stay marked until the
+ * kit ships them. Facts mirror kit/areas/*.md and the fictional example as of 2026-10-18.
+ */
+const items = [
+  { dept: 'Money', text: "Bills due in the next 14 days, and whether they're covered." },
+  { dept: 'Money', text: 'A quarterly sweep of recurring charges: keep, cancel, or downgrade.' },
+  { dept: 'Money', text: 'A monthly net-worth snapshot, retirement included, from accounts you connect read-only.' },
+  { dept: 'Protection', text: "Benefits window closes in 9 days: here's what to compare." },
+  { dept: 'Money', text: "A charge you don't recognize, flagged the day it lands.", soon: true },
+  { dept: 'Career', text: 'Your pay over time, and what the market pays for your job.', soon: true },
+];
+---
+
+<ul class="ho" data-reveal aria-label="Things you can hand off">
+  {items.map((it) => (
+    <li class:list={['ho-item', { 'ho-soon': it.soon }]}>
+      <span class="ho-dept">{it.dept}{it.soon && <span class="ho-tag"> · in development</span>}</span>
+      <span class="ho-text">{it.text}</span>
+    </li>
+  ))}
+</ul>
+
+<style>
+  /* Explicit columns, not auto-fit: auto-fit plus a max-width makes Chrome size the grid at three columns
+     for its minimum width, which overflowed a 390px phone. */
+  .ho { list-style: none; margin: 0; padding: 0; width: 100%; max-width: 980px; min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.7rem; }
+  @media (min-width: 640px) { .ho { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 900px) { .ho { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .ho-item { display: flex; flex-direction: column; gap: 0.2rem; padding: 0.65rem 0.9rem; border-radius: var(--sg57-radius-lg); background: var(--sg57-glass-bg); border: 1px solid var(--sg57-glass-border); text-align: left; }
+  .ho-dept { font-family: var(--sg57-font-display); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sg57-accent); }
+  .ho-tag { color: var(--sg57-text-dim); font-weight: 600; }
+  .ho-text { color: var(--sg57-text); line-height: 1.45; font-size: 0.98rem; }
+  .ho-soon { border-style: dashed; border-color: var(--sg57-accent-muted); }
+  .ho-soon .ho-text { color: var(--sg57-text-dim); }
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.lo[data-anim]) .ho-item { opacity: 0; }
+    :global(.lo[data-anim]) .ho.in .ho-item { animation: lo-rise 0.6s var(--sg57-ease-snap, cubic-bezier(0.4, 0, 0.2, 1)) both; }
+    :global(.lo[data-anim]) .ho.in .ho-item:nth-child(2) { animation-delay: 0.1s; }
+    :global(.lo[data-anim]) .ho.in .ho-item:nth-child(3) { animation-delay: 0.2s; }
+    :global(.lo[data-anim]) .ho.in .ho-item:nth-child(4) { animation-delay: 0.3s; }
+    :global(.lo[data-anim]) .ho.in .ho-item:nth-child(5) { animation-delay: 0.4s; }
+    :global(.lo[data-anim]) .ho.in .ho-item:nth-child(6) { animation-delay: 0.5s; }
+  }
+</style>

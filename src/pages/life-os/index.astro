@@ -9,6 +9,7 @@ import NotAnApp from '../../components/life-os/NotAnApp.astro';
 import DiagramCompany from '../../components/life-os/DiagramCompany.astro';
 import Filmstrip from '../../components/life-os/Filmstrip.astro';
 import NeverTiles from '../../components/life-os/NeverTiles.astro';
+import HandOff from '../../components/life-os/HandOff.astro';
 import { version, fingerprint, pasteKB, isRC, allUntested, assertCited, assertRecommended, assertStartSays } from '../../lib/lifeos-kit';
 
 // Every rule id this page cites, with a phrase its definition must still contain. The build fails on drift.
@@ -26,15 +27,15 @@ const SLIDES = [
   { id: 'why', label: 'Why now' },
   { id: 'engine', label: 'How it works' },
   { id: 'not-an-app', label: 'Not an app' },
-  { id: 'how', label: 'Set up, approve, relax' },
+  { id: 'how', label: 'Paste, connect, relax' },
   { id: 'safe', label: 'Your sign-off' },
   { id: 'start', label: 'Set it up' },
   { id: 'more', label: 'Details' },
 ];
 const howSteps = [
-  { d: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7v5l3 2', label: 'Set up', sub: '20 minutes, once' },
-  { d: 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4', label: 'Approve', sub: 'what it may see and do' },
-  { d: 'M4 5h16v11H9l-5 4z', label: 'Relax', sub: 'it messages you first', accent: true },
+  { d: 'M8 4h8a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zM9 2h6v4H9z', label: 'Paste', sub: 'about 20 minutes, once' },
+  { d: 'M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1', label: 'Connect', sub: 'read-only: bank, cards, calendar, mail. Optional.' },
+  { d: 'M4 5h16v11H9l-5 4z', label: 'Relax', sub: 'it reaches out when something needs you', accent: true },
 ];
 ---
 
@@ -166,14 +167,16 @@ r.setAttribute('data-mode',m||'beginner');})();
   <section class="slide slide-alt" id="how">
     <div class="slide-inner">
       <div class="slide-copy" data-reveal>
-        <h2 class="h2">Like a tax accountant, for all of it.</h2>
+        <h2 class="h2">Like a tax accountant. For everything. Free.</h2>
         <div class="line-stack">
-          <p class="line" data-show="beginner">Set it up once. Approve what it may see. It does the rest and reaches out when it needs you.</p>
-          <p class="line" data-show="normal technical">It drafts; you send. It prepares the payment; you pay. Reminders and calendar holds are the only things it does alone.</p>
+          <p class="line" data-show="beginner">Don't know how? Paste the message and the AI fills every gap. Connect what you want watched, read-only, or just tell it things. Then it does things you didn't know you could hand off.</p>
+          <p class="line" data-show="normal technical">Connections are optional and read-only; Muse reads bank data through Plaid and cannot move money. Each one unlocks more: balances synced daily, renewal dates from mail, holds on your calendar. It drafts; you send. It prepares the payment; you pay.</p>
         </div>
-        <p class="spec" data-show="technical">Action tiers (S2.1): T0 read · T1 draft · T2 reversible, on your own things · T3 send, book, cancel, share, delete. T3 needs a live read-back and your yes (S2.2), never from a schedule or from content (S2.3).</p>
+        <p class="spec" data-show="technical">Action tiers (S2.1): T0 read · T1 draft · T2 reversible, on your own things · T3 send, book, cancel, share, delete. T3 needs a live read-back and your yes (S2.2), never from a schedule or from content (S2.3). Money area: fresh_days 1 for balances, 30 for recurring charges.</p>
       </div>
-      <Filmstrip steps={howSteps} label="Set up, approve, relax" />
+      <Filmstrip steps={howSteps} label="Paste, connect, relax" />
+      <HandOff />
+      <p class="line line-quiet">So much is possible. You just have to try it.</p>
     </div>
   </section>
 
@@ -215,7 +218,7 @@ r.setAttribute('data-mode',m||'beginner');})();
           </li>
           <li>
             <span class="ci" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M10 10h3a2 2 0 0 1 0 4h-3"/></svg></span>
-            <span><strong>Paying stays with you.</strong> It never pays or moves money. No bank or email login needed.</span>
+            <span><strong>Paying stays with you.</strong> It never pays or moves money. No bank or email login needed to start.</span>
           </li>
           <li>
             <span class="ci" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
@@ -288,11 +291,15 @@ r.setAttribute('data-mode',m||'beginner');})();
   .slide-last { min-height: 0; padding-bottom: 4rem; }
   .slide-alt::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(70% 60% at 50% 50%, var(--sg57-accent-glow), transparent 70%); opacity: 0.6; }
   .slide-inner { position: relative; width: 100%; max-width: 820px; margin: 0 auto; display: grid; gap: 2.25rem; justify-items: center; text-align: center; }
+  .slide-inner > * { min-width: 0; }
   .slide-inner-wide { max-width: 1000px; }
   .slide-inner-xwide { max-width: 1140px; }
   .slide-inner-xwide .slide-copy { max-width: 760px; }
   .slide-inner-xwide .slide-copy .line { max-width: 64ch; }
   #start .slide-inner { gap: 1.5rem; }
+  #how .slide-inner { gap: 1.25rem; max-width: 1000px; }
+  #how .slide-copy { max-width: 760px; }
+  #how .slide-copy .line { max-width: 64ch; }
   .slide-copy { max-width: 680px; }
   .slide-copy .line { max-width: 52ch; margin-left: auto; margin-right: auto; }
   .h2 { font-family: var(--sg57-font-display); font-weight: 700; font-size: clamp(2rem, 5.5vw, 3.4rem); line-height: 1.05; color: var(--sg57-text-bright); margin: 0 0 1rem; letter-spacing: -0.01em; }
