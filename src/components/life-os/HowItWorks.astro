@@ -1,0 +1,121 @@
+---
+/**
+ * "It's not magic" in three frames: an AI at its own always-on computer doing things for you, Life OS as the
+ * job description sitting on top of it (your departments), and your phone getting the message. The screen
+ * lines type in, then the Life OS layer lands, then the Brief arrives. Motion only once revealed and only
+ * under prefers-reduced-motion: no-preference; without JS every frame is simply visible.
+ */
+import BriefPhone from './BriefPhone.astro';
+const lines = [
+  'Reading your calendar…',
+  'Drafting a text to the landlord…',
+  'Reminder set: car payment, Thursday.',
+  'Dentist booking ready. Waiting for your yes.',
+];
+const depts = ['Money', 'Health', 'Home', 'Pets'];
+---
+
+<div class="hiw" data-reveal>
+  <figure class="hiw-col">
+    <div class="pc" aria-hidden="true">
+      <div class="pc-bar">
+        <span class="pc-on"></span>
+        <span class="pc-title">your AI's own computer · on all day</span>
+      </div>
+      <div class="pc-screen">
+        <span class="pc-bot">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="3"/><circle cx="9" cy="13" r="1.3" fill="currentColor"/><circle cx="15" cy="13" r="1.3" fill="currentColor"/><path d="M12 3v4M8 19v2M16 19v2"/></svg>
+        </span>
+        <ol class="pc-lines">
+          {lines.map((l) => <li>{l}</li>)}
+        </ol>
+      </div>
+    </div>
+    <figcaption><span class="hiw-num">1</span> An AI with a computer of its own, on all day, doing things the way you would at a PC.</figcaption>
+  </figure>
+
+  <span class="hiw-arrow" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+  </span>
+
+  <figure class="hiw-col">
+    <div class="os" aria-hidden="true">
+      <div class="os-plate">
+        <span class="os-name">LIFE OS</span>
+        <span class="os-sub">the job description it follows</span>
+      </div>
+      <ul class="os-depts">
+        {depts.map((d) => <li>{d}</li>)}
+        <li class="os-more">+ more</li>
+      </ul>
+    </div>
+    <figcaption><span class="hiw-num">2</span> Life OS gives it the job: run your life's departments, and reach out when something needs you.</figcaption>
+  </figure>
+
+  <span class="hiw-arrow" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+  </span>
+
+  <div class="hiw-col hiw-you">
+    <BriefPhone><span class="hiw-num">3</span> You. One message, and your yes.</BriefPhone>
+  </div>
+</div>
+
+<style>
+  .hiw { display: grid; gap: 0.75rem; align-items: center; justify-items: center; width: 100%; }
+  .hiw-col { margin: 0; width: 100%; max-width: 340px; display: flex; flex-direction: column; gap: 0.75rem; }
+  .hiw figcaption, .hiw-you :global(figcaption) { text-align: center; color: var(--sg57-text-dim); font-size: 0.95rem; line-height: 1.5; }
+  .hiw-num { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--sg57-accent); color: var(--sg57-text-on-accent); font-family: var(--sg57-font-display); font-weight: 700; font-size: 0.8rem; margin-right: 0.3rem; vertical-align: -3px; }
+  .hiw-arrow { color: var(--sg57-accent); display: grid; place-items: center; transform: rotate(90deg); }
+
+  .pc { width: 100%; border-radius: 14px; background: var(--sg57-glass-bg-dense); border: 1px solid var(--sg57-glass-border); box-shadow: var(--sg57-glass-shadow); overflow: hidden; }
+  .pc-bar { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--sg57-border-subtle); }
+  .pc-on { position: relative; width: 10px; height: 10px; border-radius: 50%; background: var(--sg57-accent); box-shadow: 0 0 10px var(--sg57-accent); }
+  .pc-title { font-family: var(--sg57-font-display); font-size: 0.8rem; letter-spacing: 0.06em; color: var(--sg57-text-dim); }
+  .pc-screen { position: relative; padding: 0.9rem 0.9rem 0.9rem 3rem; min-height: 150px; background: var(--sg57-surface); text-align: left; }
+  .pc-bot { position: absolute; left: 0.75rem; top: 0.9rem; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--sg57-accent-glow); color: var(--sg57-accent); border: 1px solid var(--sg57-accent-muted); }
+  .pc-lines { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; font-family: var(--sg57-font-mono); font-size: 0.85rem; line-height: 1.4; color: var(--sg57-text); }
+  .pc-lines li::before { content: "› "; color: var(--sg57-accent); }
+  .pc-lines li:last-child { color: var(--sg57-text-bright); }
+  .pc-lines li:last-child::after { content: ""; display: inline-block; width: 7px; height: 1em; margin-left: 3px; vertical-align: -2px; background: var(--sg57-accent); }
+
+  .os { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+  .os-plate { width: 100%; padding: 0.9rem 1rem; border-radius: 14px; border: 2px solid var(--sg57-accent); background: var(--sg57-accent-glow); box-shadow: 0 0 40px var(--sg57-accent-glow); display: flex; flex-direction: column; align-items: center; gap: 0.15rem; }
+  .os-name { font-family: var(--sg57-font-display); font-weight: 700; font-size: 1.4rem; letter-spacing: 0.2em; color: var(--sg57-text-bright); }
+  .os-sub { font-family: var(--sg57-font-display); font-size: 0.85rem; letter-spacing: 0.04em; color: var(--sg57-text-dim); }
+  .os-depts { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem; }
+  .os-depts li { font-family: var(--sg57-font-display); font-weight: 600; font-size: 0.9rem; padding: 0.3rem 0.7rem; border-radius: var(--sg57-radius-full); border: 1px solid var(--sg57-accent-muted); background: var(--sg57-glass-bg); color: var(--sg57-text); }
+  .os-more { color: var(--sg57-text-dim); border-style: dashed; }
+
+  @media (min-width: 900px) {
+    .hiw { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr); gap: 0.5rem; }
+    .hiw-arrow { transform: none; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.lo[data-anim]) .pc-lines li, :global(.lo[data-anim]) .os-plate, :global(.lo[data-anim]) .os-depts li, :global(.lo[data-anim]) .hiw-arrow { opacity: 0; }
+    :global(.lo[data-anim]) .hiw.in .pc-lines li { animation: lo-rise 0.45s var(--sg57-ease-snap, cubic-bezier(0.4, 0, 0.2, 1)) both; }
+    :global(.lo[data-anim]) .hiw.in .pc-lines li:nth-child(1) { animation-delay: 0.3s; }
+    :global(.lo[data-anim]) .hiw.in .pc-lines li:nth-child(2) { animation-delay: 1.0s; }
+    :global(.lo[data-anim]) .hiw.in .pc-lines li:nth-child(3) { animation-delay: 1.7s; }
+    :global(.lo[data-anim]) .hiw.in .pc-lines li:nth-child(4) { animation-delay: 2.4s; }
+    :global(.lo[data-anim]) .hiw.in .pc-lines li:last-child::after { animation: hiw-blink 1s steps(1) infinite 2.9s; }
+    :global(.lo[data-anim]) .hiw.in .hiw-arrow { animation: lo-rise 0.5s var(--sg57-ease-snap, cubic-bezier(0.4, 0, 0.2, 1)) both; }
+    :global(.lo[data-anim]) .hiw.in .hiw-arrow:nth-of-type(1) { animation-delay: 2.9s; }
+    :global(.lo[data-anim]) .hiw.in .os-plate { animation: lo-drop 0.6s var(--sg57-ease-snap, cubic-bezier(0.4, 0, 0.2, 1)) 3.2s both; }
+    :global(.lo[data-anim]) .hiw.in .os-depts li { animation: lo-rise 0.5s var(--sg57-ease-snap, cubic-bezier(0.4, 0, 0.2, 1)) both; }
+    :global(.lo[data-anim]) .hiw.in .os-depts li:nth-child(1) { animation-delay: 3.7s; }
+    :global(.lo[data-anim]) .hiw.in .os-depts li:nth-child(2) { animation-delay: 3.85s; }
+    :global(.lo[data-anim]) .hiw.in .os-depts li:nth-child(3) { animation-delay: 4.0s; }
+    :global(.lo[data-anim]) .hiw.in .os-depts li:nth-child(4) { animation-delay: 4.15s; }
+    :global(.lo[data-anim]) .hiw.in .os-depts li:nth-child(5) { animation-delay: 4.3s; }
+    :global(.lo[data-anim]) .hiw.in .hiw-arrow:nth-of-type(2) { animation-delay: 4.5s; }
+    .pc-on::after { content: ""; position: absolute; inset: -3px; border-radius: 50%; border: 2px solid var(--sg57-accent); animation: lo-ping 1.6s ease-out infinite; }
+    /* The Brief arrives after the computer has worked and Life OS has landed. */
+    :global(.lo[data-anim]) .hiw-you :global(.phone.in .notif) { animation-delay: 4.8s; }
+    :global(.lo[data-anim]) .hiw-you :global(.phone.in .b-part:nth-of-type(1)) { animation-delay: 5.4s; }
+    :global(.lo[data-anim]) .hiw-you :global(.phone.in .b-part:nth-of-type(2)) { animation-delay: 5.8s; }
+    :global(.lo[data-anim]) .hiw-you :global(.phone.in .b-part:nth-of-type(3)) { animation-delay: 6.2s; }
+  }
+  @keyframes hiw-blink { 50% { opacity: 0; } }
+</style>

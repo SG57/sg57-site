@@ -3,7 +3,7 @@ import Base from '../../layouts/Base.astro';
 import LoStyles from '../../components/life-os/LoStyles.astro';
 import LoRuntime from '../../components/life-os/LoRuntime.astro';
 import ModeSwitch from '../../components/life-os/ModeSwitch.astro';
-import BriefPhone from '../../components/life-os/BriefPhone.astro';
+import HowItWorks from '../../components/life-os/HowItWorks.astro';
 import ThenNow from '../../components/life-os/ThenNow.astro';
 import NotAnApp from '../../components/life-os/NotAnApp.astro';
 import DiagramCompany from '../../components/life-os/DiagramCompany.astro';
@@ -23,10 +23,10 @@ assertStartSays([/Meta Muse\*\*: free to start/i, /Grok Bot\*\*[^\n]*\bpaid\b/i]
 const SLIDES = [
   { id: 'top', label: 'Start' },
   { id: 'company', label: 'Your life as a company' },
-  { id: 'get', label: 'What you get' },
   { id: 'why', label: 'Why now' },
+  { id: 'engine', label: 'How it works' },
   { id: 'not-an-app', label: 'Not an app' },
-  { id: 'how', label: 'How it works' },
+  { id: 'how', label: 'Set up, approve, relax' },
   { id: 'safe', label: 'Your sign-off' },
   { id: 'start', label: 'Set it up' },
   { id: 'more', label: 'Details' },
@@ -118,25 +118,8 @@ r.setAttribute('data-mode',m||'beginner');})();
     </div>
   </section>
 
-  <!-- 3 · What you get -->
-  <section class="slide" id="get">
-    <div class="slide-inner">
-      <div class="slide-copy" data-reveal>
-        <h2 class="h2">One short Brief a week.</h2>
-        <div class="line-stack">
-          <p class="line" data-show="beginner">Sunday night. Three things at most, one tap each. Don't reply, and they wait for next week.</p>
-          <p class="line" data-show="normal technical">Done, Needs you (three at most, each with a default if you do nothing), Something good. If your app can't message first, a phone reminder does.</p>
-        </div>
-        <p class="spec" data-show="technical">RHYTHM R1: 250 words or fewer; "On my side" appears only when something broke. Tier 2 sends it on a schedule; tiers 0 and 1 rely on a phone-calendar reminder.</p>
-      </div>
-      <BriefPhone>
-        <span>Example, with made-up details.</span>
-      </BriefPhone>
-    </div>
-  </section>
-
-  <!-- 4 · Why now -->
-  <section class="slide slide-alt" id="why">
+  <!-- 3 · Why now -->
+  <section class="slide" id="why">
     <div class="slide-inner">
       <div class="slide-copy" data-reveal>
         <h2 class="h2">AI stopped waiting to be asked.</h2>
@@ -147,6 +130,21 @@ r.setAttribute('data-mode',m||'beginner');})();
         <p class="spec" data-show="technical">Tier 0 chat only · Tier 1 memory or project files · Tier 2 memory + tool-confirmed scheduler + read-only connections. Setup has the assistant state its tier from its own tools (B2).</p>
       </div>
       <ThenNow />
+    </div>
+  </section>
+
+  <!-- 4 · Engine -->
+  <section class="slide slide-alt" id="engine">
+    <div class="slide-inner slide-inner-xwide">
+      <div class="slide-copy" data-reveal>
+        <h2 class="h2">It's not magic.</h2>
+        <div class="line-stack">
+          <p class="line" data-show="beginner">Apps like Muse give an AI a computer of its own, on all day, doing things the way you would at a PC. Life OS gives that AI the job: run the machinery of your life, and reach out when something's done or needs your yes.</p>
+          <p class="line" data-show="normal technical">Muse and Grok Bot add memory, read-only connections, a scheduler, and a computer that stays on. Life OS is the job description on top: each department is a set of instructions it follows, and the Brief is how it reports to you, once a week by default, more if you say "louder".</p>
+        </div>
+        <p class="spec" data-show="technical">Tier 2 assistants: memory + tool-confirmed scheduler + read-only connections. Departments are AREA-*.txt bundles installed on a fingerprint match (S2.5); the Brief follows RHYTHM R1; actions above T2 wait for your yes (S2.1, S2.2).</p>
+      </div>
+      <HowItWorks />
     </div>
   </section>
 
@@ -164,7 +162,7 @@ r.setAttribute('data-mode',m||'beginner');})();
     </div>
   </section>
 
-  <!-- 6 · How it works -->
+  <!-- 6 · Accountant -->
   <section class="slide slide-alt" id="how">
     <div class="slide-inner">
       <div class="slide-copy" data-reveal>
@@ -291,6 +289,9 @@ r.setAttribute('data-mode',m||'beginner');})();
   .slide-alt::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(70% 60% at 50% 50%, var(--sg57-accent-glow), transparent 70%); opacity: 0.6; }
   .slide-inner { position: relative; width: 100%; max-width: 820px; margin: 0 auto; display: grid; gap: 2.25rem; justify-items: center; text-align: center; }
   .slide-inner-wide { max-width: 1000px; }
+  .slide-inner-xwide { max-width: 1140px; }
+  .slide-inner-xwide .slide-copy { max-width: 760px; }
+  .slide-inner-xwide .slide-copy .line { max-width: 64ch; }
   #start .slide-inner { gap: 1.5rem; }
   .slide-copy { max-width: 680px; }
   .slide-copy .line { max-width: 52ch; margin-left: auto; margin-right: auto; }
