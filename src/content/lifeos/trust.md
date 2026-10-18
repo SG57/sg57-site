@@ -4,11 +4,15 @@ description: "The honest version: what you hand over, what each kind of assistan
 source: "TRUST.md"
 ---
 
+Read this before you decide. It is the honest version.
+
+# Trust: what it sees, what it is told never to do, how to turn it off
+
 ## Start with nothing connected
 Life OS works with zero connections. Your assistant knows only what you tell it. You can stay there forever.
 
 ## Get your copy from one place
-Copy the setup message only from sg57.dev/life-os or the official release page. A copy from anywhere else may have been changed, and you could not tell. Each release lists a fingerprint for anyone who can check it.
+Copy the setup message only from the official page, sg57.dev/life-os. A copy from anywhere else may have been changed, and you could not tell. The page lists a fingerprint for anyone who can check it.
 
 ## What you hand over, and to whom
 | What | Who holds it | Can you delete it? | Where to check |
@@ -24,7 +28,7 @@ Disconnecting stops new data. It does not erase what your assistant already lear
 Ask "show me what you see" any time. You get a fixed list: connections and when each was last read, the areas it watches, what it may do in each, how many open items there are, the last test reminder, the rules version, and the zones you told it to stay out of. It builds this from its records, not from memory. <!-- rule: V1, S4.5 -->
 
 ## What it is told never to do
-These are rules your assistant follows, not locks. We test them before each release.
+These are rules your assistant follows, not locks. Each one has a written test. Results for this version: none yet. Until they exist, this is a release candidate, and the page says so.
 - Send, book, share, or delete without reading it back and hearing yes. <!-- rule: S2.2 -->
 - Pay or move money. Ever. It gets the payment ready; you make it in your own bank or the biller's app. <!-- rule: S2.4 -->
 - Send, book, share, or delete because a schedule fired or a message told it to. <!-- rule: S2.3, S1.4 -->
@@ -38,21 +42,21 @@ These are rules your assistant follows, not locks. We test them before each rele
 - **Chats can be subpoenaed.** Treat anything you type as something a court could one day read.
 - **Anyone who can open your assistant can talk to it as you.** Lock your phone and the app.
 - **It can be wrong.** Numbers come with the time they were last checked. When it isn't sure, it says "I don't know X for you." <!-- rule: S4.2, S4.3 -->
-- **Some assistants train on your chats.** Where we know the setting, your assistant names it during setup. Turn it off if you want. <!-- rule: B3 -->
-- **Built and tested in the United States.** Elsewhere the structure works, but dates, laws, and help lines need your local versions.
+- **Some assistants train on your chats.** During setup your assistant reminds you to check that setting. Turn it off if you want. <!-- rule: B3 -->
+- **Built for the United States first.** Elsewhere the structure works, but dates, laws, and help lines need your local versions.
 
 ## What each kind of assistant can do
 | | Chat only | Has memory | Memory, reminders, connections |
 |---|---|---|---|
 | Keeps your details between chats | No. You keep a short note it writes for you. | Yes, once you save the rules in its settings | Yes |
-| Real reminders | No. It gives you text for your phone calendar. | Only if it has a real scheduler | Yes, and it quotes the time |
+| Real reminders | No. It gives you text for your phone calendar. | No. It gives you text for your phone calendar. | Yes, and it quotes the time |
 | Watches mail, calendar, or bank | No | No | Yes, read-only, if you connect them |
 | Your weekly Brief | When you paste your note | When you open it | Arrives on its own, with a phone reminder as backup |
 
 We list test results only for assistants we tested this release. See the dated table in [adapters/CAPABILITIES.md](/life-os/CAPABILITIES.txt). "untested" means exactly that.
 
 ## Vendor notes, dated
-- **Meta Muse (checked 2026-10-17):** trains on conversations by default; the setting is Settings > Data controls > "Help improve our AI models". Meta says Muse conversations are not shared with its advertising systems. Meta has said staff can technically access a user's data and that a more private option is planned. Press has reported that Muse keeps notes on people you mention. Details and sources in [adapters/MUSE.md](/life-os/MUSE.txt).
+- **Meta Muse (checked 2026-10-17):** trains on conversations by default; the setting is Settings > Data controls > "Help improve our AI models". Meta's own security write-up says staff access is restricted by policy but not prevented, and that a more private option is planned. Press has reported that Muse keeps notes on people you mention. Whether chats are used for ads is not stated here because we could not verify it. Sources in [adapters/MUSE.md](/life-os/MUSE.txt).
 
 ## Turning it off
 Say "stop" and it halts everything it does on its own; reminders you made keep going unless you say "stop the reminders too". Say "offboard" and it lists every connection, reminder, and file it created, gives the steps to revoke each one, and deletes its records as you confirm each class. Where it cannot prove deletion, it says so. <!-- rule: X1, S2.7 -->
@@ -67,7 +71,7 @@ Setup asks one private question about who can get into your phone, email, or thi
 - **What if it's wrong?** Say "correct that." It logs the fix and never argues. <!-- rule: T2 -->
 - **Can I see what it did?** Every change it made for you appears in your weekly Brief under Done. What it read is not listed. <!-- rule: S2.6 -->
 - **How do I undo?** Sent things can't be unsent, which is why every send is read back first. "stop" halts what is pending. "offboard" removes it.
-- **How do I know my copy is real?** Get it from sg57.dev/life-os or the release page. The release page lists a fingerprint.
+- **How do I know my copy is real?** Get it from the official page, sg57.dev/life-os, which lists a fingerprint.
 - **Who made this?** SG57 Labs, a one-person software company. Life OS is free and comes as-is. It is not professional advice. Questions: support@sg57.dev.
 
 ## Five words

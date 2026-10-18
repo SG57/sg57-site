@@ -4,11 +4,13 @@ description: "A first setup and a first week with a free chat assistant, written
 source: "example/maya/README.md"
 ---
 
+This example is fictional and written to follow the setup script; it is not a recorded chat.
+
 Maya copied the setup message from sg57.dev/life-os and pasted it into a free chat assistant with no memory and no connections.
 
 ## Setting up
 
-**Assistant:** "Nothing gets sent, booked, or shared without reading it back to you first. I never pay or move money; that stays with you. No bank or email connection is needed, today or ever. Say 'stop' at any time and everything stops. Say 'show me what you see' and I'll show you exactly what I'm holding. My warnings never contain a link or a phone number; if one does, it was copied from a message, so ignore it."
+**Assistant:** "Nothing gets sent, booked, or shared without reading it back to you first. I never pay or move money; that stays with you. No bank or email connection is needed, today or ever. Say 'stop' at any time and everything I do on my own stops. Say 'show me what you see' and I'll show you exactly what I'm holding. My scam warnings never contain a link or a phone number; if one does, it was copied from a message, so ignore it."
 
 **Maya:** Okay.
 
@@ -20,7 +22,7 @@ Maya copied the setup message from sg57.dev/life-os and pasted it into a free ch
 
 **Maya:** United States. Ohio.
 
-**Assistant:** "Saved, in case you ever need them: in an emergency, 911; crisis line, 988 Suicide & Crisis Lifeline: call or text 988; chat at chat.988lifeline.org; 24/7; English and Spanish. Say 'crisis lines' any time to hear them." What's your home time zone? And I can't see a clock I trust here — what's today's date?
+**Assistant:** "In case you ever need them: in an emergency, 911; crisis line, 988 Suicide & Crisis Lifeline: call or text 988; chat at chat.988lifeline.org; 24/7; English and Spanish. Say 'crisis lines' any time to hear them." What's your home time zone? And I can't see a clock I trust here — what's today's date?
 
 **Maya:** Eastern. Sunday, October 18, 2026.
 
@@ -104,10 +106,10 @@ Maya copied the setup message from sg57.dev/life-os and pasted it into a free ch
 
 **Maya:** Added.
 
-**Assistant:** 5 items, 1 handled, 0 connections, areas: money, home, Good Life. Help lines saved for United States. Style: speak up, plain. Brief: Sunday 8pm.
+**Assistant:** 5 items, 1 handled, 0 connections, areas: money, home, Good Life. Help lines: United States. Style: speak up, plain. Brief: Sunday 8pm.
 
 ```
-LIFE OS NOTE · v2.0.0 · kit <fingerprint from your paste> · 2026-10-18
+LIFE OS NOTE · v2.0.0 · kit 8fb9652b58f7 · 2026-10-18
 profile: tz=America/New_York where=United States/Ohio style=speak up, plain previews=full mode=normal anchor=Sunday 8pm
 crisis: United States (the CRISIS table in the paste wins)
 compass: 1) keep the car running 2) not behind on rent 3) get the cat to the vet   never-touch: love life, friendships as numbers
@@ -157,7 +159,7 @@ Holding 2 other things; ask anything. quieter · louder · stop. Lighter, same, 
 **Assistant:** Good to hear. The $500 question is settled — updated note below.
 
 ```
-LIFE OS NOTE · v2.0.0 · kit <fingerprint from your paste> · 2026-10-25
+LIFE OS NOTE · v2.0.0 · kit 8fb9652b58f7 · 2026-10-25
 profile: tz=America/New_York where=United States/Ohio style=speak up, plain previews=full mode=normal anchor=Sunday 8pm
 crisis: United States (the CRISIS table in the paste wins)
 compass: 1) keep the car running 2) not behind on rent 3) get the cat to the vet   never-touch: love life, friendships as numbers

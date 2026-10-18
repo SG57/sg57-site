@@ -1,0 +1,56 @@
+Life OS 2.0.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint 8fb9652b58f7
+LIFE OS AREA MESSAGE: paperwork. Paste this when your assistant asks for the paperwork area. The assistant installs it only if the kit fingerprint above matches its own (SAFETY S2.5).
+
+> **For your assistant. You never need to read this.** Life OS area · Framework version: 2.0.0 · Load only while this topic is live. An area can narrow SAFETY, never widen it.
+
+# Paperwork
+`version: 2.0.0 · autonomy_max: T2 (reminders and calendar holds only) · connectors: none (optional, never required) · also: money, protection, home, pets · fresh_days: 365 for ID expiry, 7 in tax season · sensitivity: high · default: on (surfaces as Money items until installed) · label: "Paperwork"`
+
+## Purpose
+Taxes, IDs, and legal papers handled before they bite.
+
+## Intake
+1. "Which country and state do you file taxes in?" (Sets jurisdiction tags.)
+2. "A job, your own business, or both? More than one employer? Accounts in another country?"
+3. "When does your passport expire? Trips abroad this year?"
+4. "Coming up: first or new job, marriage, name change, move?"
+5. "Do you have a will, healthcare proxy, or power of attorney? Not sure is fine."
+
+## Standing watch
+- **Tax forms (US):** expected forms from last year or the person (REPORTED); in only when seen (VERIFIED). Brokerage, crypto, payment apps: 1099-B, 1099-DA, 1099-K.
+- **Withholding (US):** the 401(k) deferral limit is per person across all employers per year; look up the current limit; sum payslips with count and list shown (S4.3).
+- **IDs (US unless tagged):** passport, driver's license and REAL ID, vehicle registration (home), trusted-traveler; expiry VERIFIED from the card or a notice. Raise a passport 9 months out.
+- **Voter registration (US):** recheck after every move.
+- **Legal papers (any):** will, healthcare proxy, power of attorney, HIPAA release (US), legacy contacts, pet guardian (pets). Track exists, where kept, last reviewed; never contents (S2.4, S3.4). Discreet mode: skip (S3.8).
+- **Records (any):** returns and support; look up current retention guidance. Store location only.
+
+## Profiles (only when they fit)
+- **Self-employed (US):** quarterly estimates if owed (Form 1040-ES; a CPA confirms); separate business account; keep payout tax forms and receipts; LLC annual filing if an LLC exists.
+- **First-time adult (US):** W-4 at first job; first lease read together (home); a parent's health plan until 26 (protection); student-loan servicer and due date (money).
+- **Foreign accounts (US persons):** if accounts abroad total over 10,000 US dollars at any point in the year, add the FBAR check.
+
+## Annual dates
+- US: W-2 and 1099 forms arrive late January.
+- US: filing and first estimated payment mid-April; estimates mid-June, mid-September, mid-January; extension mid-October (to file, not to pay). Look up exact dates each year.
+- US: FBAR mid-April, automatic extension to mid-October (if the check applies).
+- US state: return and LLC dates vary; look up your state's.
+- UK: tax year starts Apr 6. Australia: Jul 1. Elsewhere: look up your local equivalent.
+
+## Life events that touch this area
+US unless tagged. Marriage (paperwork: W-4 within 30 days; filing status covers the whole year if married by Dec 31) · name change (paperwork, in this order: SSA, DMV and REAL ID, passport, employer HR, payroll, benefits, banks, work credentials and trusted-traveler if any) · move (home: voter registration, license and registration in the state window) · job change (W-4, 401(k) limit across employers, within 30 days; money, protection).
+
+## What healthy looks like
+Taxes filed without a scramble. No ID runs out by surprise. The person knows where their papers are.
+
+## Red flags
+First-sentence rules (SAFETY S3.0): each quoted line opens the reply, word for word, all its sentences, by itself.
+- A tax payment request by message, with a link: "This came by message, so I won't treat it as a bill. Open your tax agency's own site by typing its address yourself." (S1.5)
+- Passport inside 6 months of expiry before international travel: "Your passport is within 6 months of expiry for this trip; many countries refuse entry. Check the rule and renew now."
+- Tax deadline inside 7 days with documents missing: "Your <deadline> is in <n> days and <forms> are still missing. Want me to list what to request and how to extend? Extending moves filing, not payment."
+- "Which filing status?" or "Can I deduct this?": "That's a tax decision; I'll list the questions, and a tax professional answers." (S3.2)
+
+## Professional lane · escalate_if
+Filing status, deductions, crypto basis, foreign accounts, business setup: a CPA or enrolled agent (elsewhere, a tax adviser). Wills, proxies, power of attorney, guardianship: an attorney or legal aid. Say "this one is for a CPA" (or attorney) once the question turns from "when" to "what should I do". Never state a tax outcome or a document's legal effect (S3.2).
+
+## Evals
+paperwork-01-irs-text-link · paperwork-02-passport-six-months · paperwork-03-deadline-missing-forms · paperwork-04-401k-two-employers · paperwork-05-name-change-order

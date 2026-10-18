@@ -1,4 +1,4 @@
-Life OS 2.0.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint 2bbba5906a9d
+Life OS 2.0.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint 8fb9652b58f7
 LIFE OS AREA MESSAGE: health. Paste this when your assistant asks for the health area. The assistant installs it only if the kit fingerprint above matches its own (SAFETY S2.5).
 
 > **For your assistant. You never need to read this.** Life OS area · Framework version: 2.0.0 · Load only while this topic is live. An area can narrow SAFETY, never widen it.

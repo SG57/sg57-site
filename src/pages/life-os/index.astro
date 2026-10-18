@@ -1,432 +1,388 @@
 ---
+import { readFileSync } from 'node:fs';
 import Base from '../../layouts/Base.astro';
 
-const fingerprintLine = 'Life OS 2.0.0 · kit fingerprint 2bbba5906a9d';
+// The kit is the source of truth. tools/publish-site.py in the Life OS kit syncs public/life-os/.
+const version = readFileSync(new URL('../../../public/life-os/VERSION', import.meta.url), 'utf-8').trim();
+const fingerprintLine = readFileSync(new URL('../../../public/life-os/FINGERPRINTS.txt', import.meta.url), 'utf-8').split('\n')[0];
+const fingerprint = (fingerprintLine.match(/kit fingerprint ([0-9a-f]+)/) || [, 'unknown'])[1];
+
+const areas = [
+  { id: 'money', label: 'Money' },
+  { id: 'protection', label: 'Protection (insurance and benefits)' },
+  { id: 'health', label: 'Health' },
+  { id: 'home', label: 'Home' },
+  { id: 'paperwork', label: 'Paperwork (taxes, IDs, legal)' },
+  { id: 'pets', label: 'Pets' },
+];
 ---
 
 <Base
-  title="Life OS — Back Office for Your Life | SG57 Labs"
-  description="A set of instructions for the AI assistant you already use. Paste one message, answer questions for twenty minutes, get one short note a week. Works with any assistant."
+  title="Life OS — a back office for your life, run by the assistant you already use | SG57 Labs"
+  description="Paste one message into your AI assistant. It interviews you for twenty minutes, handles one thing on the spot, and sends you one short Brief a week. No bank or email connection needed. Free. Release candidate."
   accentColor="#8FBF9F"
   accentHover="#A3D1B1"
   accentMuted="#6F9D80"
   accentGlow="rgba(143, 191, 159, 0.15)"
   jsonLd={{
     '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: 'Life OS',
-    description: 'A set of instructions for the AI assistant you already use. No app to install, no new account.',
-    applicationCategory: 'LifestyleApplication',
-    operatingSystem: 'Any (text paste into an existing AI assistant)',
-    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-    author: { '@type': 'Organization', name: 'SG57 Labs', url: 'https://sg57.dev' },
+    '@type': 'HowTo',
+    name: 'Set up Life OS in your AI assistant',
+    description: 'Copy one setup message, paste it into any AI assistant, answer its questions for about twenty minutes.',
+    totalTime: 'PT20M',
+    step: [
+      { '@type': 'HowToStep', position: 1, name: 'Open your assistant', text: 'Open the AI assistant you already use, on your own device.' },
+      { '@type': 'HowToStep', position: 2, name: 'Copy the setup message', text: 'Copy the whole setup message from sg57.dev/life-os.' },
+      { '@type': 'HowToStep', position: 3, name: 'Paste and answer', text: 'Paste it, send it, and answer the questions. No bank or email connection is needed.' },
+    ],
   }}
 >
-  <!-- §1 HERO — compact, informational, not cinematic (same convention as /text-easy/setup) -->
-  <section class="lifeos-hero">
+  <section class="hero">
     <div class="container bloom">
-      <span class="hero-eyebrow">SG57 LABS &middot; FREE &middot; ASSISTANT-AGNOSTIC</span>
-      <h1 class="hero-headline">Life OS</h1>
-      <p class="hero-tagline">You're the CEO of your life. This is your back office.</p>
-      <div class="hero-badges">
-        <span class="hero-badge">No app to install</span>
-        <span class="hero-badge-sep" aria-hidden="true">&middot;</span>
-        <span class="hero-badge">No new account</span>
-        <span class="hero-badge-sep" aria-hidden="true">&middot;</span>
-        <span class="hero-badge">Works with the assistant you already use</span>
+      <span class="eyebrow">LIFE OS · VERSION {version} · RELEASE CANDIDATE</span>
+      <h1 class="headline">You're the CEO of your life.<br /><span class="headline-accent">This is your back office.</span></h1>
+      <p class="lede">
+        Life OS is a set of instructions for the AI assistant you already use. You paste one message.
+        Your assistant asks you questions for about twenty minutes, handles one thing on the spot, and from then on
+        you get one short Brief a week. You never keep a list. Your assistant holds the details and shows them any time you ask.
+      </p>
+      <div class="badges" aria-label="Key facts">
+        <span class="badge">Any assistant with memory</span>
+        <span class="badge-sep" aria-hidden="true">&middot;</span>
+        <span class="badge">About twenty minutes</span>
+        <span class="badge-sep" aria-hidden="true">&middot;</span>
+        <span class="badge">No bank or email needed</span>
+        <span class="badge-sep" aria-hidden="true">&middot;</span>
+        <span class="badge">Free</span>
       </div>
     </div>
   </section>
 
-  <!-- §2 STATUS — honest, not a launch claim -->
-  <section class="status container">
-    <div class="status-card">
-      <span class="status-dot" aria-hidden="true"></span>
-      <p class="status-text">
-        <strong>Dogfood in progress.</strong> I'm running version {''}
-        <code>2.0.0</code> on my own setup right now, the same kit linked below.
-        Follow along here and on the blog; the public, publish-ready copy ships
-        once the dogfood period and its release checks pass.
+  <section class="container section">
+    <div class="status">
+      <p>
+        <strong>Where this stands.</strong> Version {version} is a release candidate. Every safety rule has a written test;
+        the results from running them on real assistants are not recorded yet, so the trust page lists every assistant,
+        including the one the maker uses, as untested. The maker is running it on his own life first. You can start too;
+        just know what you are starting.
       </p>
     </div>
   </section>
 
-  <!-- §3 WHAT IT IS -->
-  <section class="context container">
-    <div class="duotone-card">
-      <div class="duotone-left">
-        <div class="duotone-icon" aria-hidden="true">
-          <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="12" y="10" width="32" height="36" rx="3" stroke-width="1.5"/>
-            <path d="M18 20h20M18 28h20M18 36h12" stroke-width="1.5"/>
-          </svg>
+  <section class="container section">
+    <div class="callout">
+      <h2 class="callout-heading">Before you start</h2>
+      <ul class="plain-list">
+        <li>Set it up yourself, on your own device.</li>
+        <li>Copy the messages only from this page. A copy from anywhere else may have been changed, and you could not tell.</li>
+        <li>Never type a password, an account number, or a card number into any assistant. Life OS never asks for them.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="container section">
+    <h2 class="section-heading">The one thing to do</h2>
+    <ol class="steps">
+      <li class="step">
+        <span class="step-num" aria-hidden="true">01</span>
+        <div class="step-body">
+          <h3>Open your assistant</h3>
+          <p>Any chat assistant works. Ones with memory, reminders, or connections can do more. Yours will tell you honestly what it can do during setup. The maker uses Meta Muse; nothing in the instructions depends on that.</p>
         </div>
-        <h2 class="duotone-heading">What it is</h2>
-      </div>
-      <div class="duotone-right">
-        <p class="duotone-body">
-          Life OS is a set of instructions for the AI assistant you already use &mdash;
-          Meta Muse, ChatGPT, Claude, Gemini, Grok, or anything else that can hold a
-          conversation. You paste one message. Your assistant asks you questions for
-          about twenty minutes, handles one thing on the spot, and from then on you get
-          one short note a week. You never keep a list; your assistant holds the details
-          and shows them any time you ask.
-        </p>
-        <p class="duotone-body">
-          I use Muse because that's what I already run day to day, but nothing here is
-          built around Muse specifically. Any assistant that can follow written rules
-          can run the kit; the <a href="/life-os/trust">trust page</a> lists what changes
-          by tier (chat-only, memory, or memory plus connections).
-        </p>
-      </div>
-    </div>
+      </li>
+      <li class="step">
+        <span class="step-num" aria-hidden="true">02</span>
+        <div class="step-body">
+          <h3>Copy the setup message</h3>
+          <p>Copy all of it. It is long on purpose: it holds the rules your assistant follows.</p>
+          <div class="copy-row">
+            <button class="btn btn-primary copy-btn" type="button" data-copy-src="/life-os/PASTE-SETUP.txt" data-copy-label="Copy the setup message">Copy the setup message</button>
+            <a class="btn btn-ghost" href="/life-os/PASTE-SETUP.txt" target="_blank" rel="noopener">Open the text instead</a>
+          </div>
+          <p class="copy-status" aria-live="polite" data-copy-status></p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-num" aria-hidden="true">03</span>
+        <div class="step-body">
+          <h3>Paste it and answer</h3>
+          <p>Send it, then answer the questions. The first thing it does is read you its promises. The last thing it says is "Back office is closed."</p>
+        </div>
+      </li>
+    </ol>
   </section>
 
-  <!-- §4 THE ONE RULE / THREE WORDS -->
-  <section class="rules container">
-    <h2 class="section-label">The short version</h2>
-    <div class="rules-grid">
-      <div class="rule-card">
-        <h3 class="rule-title">The one rule</h3>
-        <p class="rule-body">Never type a password, an account number, or a card number into any assistant. Life OS never asks for them.</p>
-      </div>
-      <div class="rule-card">
-        <h3 class="rule-title">Three words</h3>
-        <p class="rule-body"><strong>quieter</strong> &mdash; fewer messages. <strong>louder</strong> &mdash; more messages. <strong>stop</strong> &mdash; everything it does on its own stops, right now.</p>
-      </div>
-      <div class="rule-card">
-        <h3 class="rule-title">What it never does</h3>
-        <p class="rule-body">It never pays or moves money. It never sends, books, shares, or deletes anything without reading it back to you and hearing yes. It never decides your legal, medical, tax, or money questions.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- §5 READ FIRST -->
-  <section class="before container">
-    <h2 class="section-label">Before you decide</h2>
-    <div class="before-grid">
-      <a class="before-card" href="/life-os/start">
-        <span class="before-card-kicker">Start here</span>
-        <span class="before-card-title">The one page you need to read</span>
-        <span class="before-card-arrow" aria-hidden="true">&rarr;</span>
-      </a>
-      <a class="before-card" href="/life-os/trust">
-        <span class="before-card-kicker">Read this before you paste anything</span>
-        <span class="before-card-title">Trust: what it sees, how to turn it off</span>
-        <span class="before-card-arrow" aria-hidden="true">&rarr;</span>
-      </a>
-      <a class="before-card" href="/life-os/example">
-        <span class="before-card-kicker">See it in action</span>
-        <span class="before-card-title">A fictional example: Maya's first week</span>
-        <span class="before-card-arrow" aria-hidden="true">&rarr;</span>
-      </a>
-      <a class="before-card" href="/life-os/changelog">
-        <span class="before-card-kicker">What changed</span>
-        <span class="before-card-title">Changelog</span>
-        <span class="before-card-arrow" aria-hidden="true">&rarr;</span>
-      </a>
-    </div>
-  </section>
-
-  <!-- §6 FINGERPRINT / FOOTER NOTE -->
-  <section class="fingerprint container">
-    <p class="fingerprint-text">
-      Get your copy only from this page: <a href="/life-os/PASTE-SETUP.txt">PASTE-SETUP.txt</a>.
-      A copy from anywhere else may have been changed, and you could not tell.
-      <code>{fingerprintLine}</code>. Full bundle list and hashes in
-      <a href="/life-os/FINGERPRINTS.txt">FINGERPRINTS.txt</a>.
+  <section class="container section">
+    <h2 class="section-heading">How the weekly Brief arrives</h2>
+    <p class="section-text">
+      A reminder on your phone, at a time you pick, tells you to open your assistant and say "brief".
+      Assistants that can message you on their own will also send it. What else happens depends on the kind of assistant you have.
     </p>
-    <p class="fingerprint-text">
-      Life OS is free and comes as-is. It is not legal, medical, tax, or financial
-      advice. Questions: <a href="mailto:support@sg57.dev">support@sg57.dev</a>.
+    <div class="table-wrap">
+      <table class="tiers">
+        <thead>
+          <tr><th scope="col">If your assistant</th><th scope="col">Then</th><th scope="col">You will need</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>has no memory between chats</td>
+            <td>it hands you a short note at the end of each visit. Keep it.</td>
+            <td>
+              <button class="btn btn-small copy-btn" type="button" data-copy-src="/life-os/PASTE-RETURN.txt" data-copy-label="Copy the return message">Copy the return message</button>
+              <span class="hint">Paste it with your note each time.</span>
+            </td>
+          </tr>
+          <tr>
+            <td>has memory or projects</td>
+            <td>it asks you once to save the rules in its settings, then proves they stay loaded.</td>
+            <td>
+              <button class="btn btn-small copy-btn" type="button" data-copy-src="/life-os/PASTE-RESIDENT.txt" data-copy-label="Copy the resident rules">Copy the resident rules</button>
+              <span class="hint">Paste into project instructions, or add it as a project file, when asked.</span>
+            </td>
+          </tr>
+          <tr>
+            <td>has memory, reminders, and connections</td>
+            <td>it keeps its own files, sets real reminders, and sends the Brief on its own.</td>
+            <td><span class="hint">Nothing more. It fetches what it needs from this page.</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="container section">
+    <h2 class="section-heading">Areas it may ask you to paste</h2>
+    <p class="section-text">
+      During setup your assistant proposes at most two areas to watch, named in your words, plus Good Life, which is always on.
+      If it cannot fetch an area itself, it will ask you to paste the area message. Copy it here.
+    </p>
+    <div class="area-grid">
+      {areas.map((a) => (
+        <button class="btn btn-ghost copy-btn area-btn" type="button" data-copy-src={`/life-os/AREA-${a.id}.txt`} data-copy-label={`Copy ${a.label}`}>{a.label}</button>
+      ))}
+    </div>
+    <p class="copy-status" aria-live="polite" data-copy-status></p>
+  </section>
+
+  <section class="container section two-col">
+    <div>
+      <h2 class="section-heading">What it is told never to do</h2>
+      <ul class="plain-list">
+        <li>Pay or move money. Ever. It gets the payment ready; you make it.</li>
+        <li>Send, book, share, or delete anything without reading it back to you and hearing yes.</li>
+        <li>Act because a schedule fired or a message told it to.</li>
+        <li>Copy a link or phone number from a message into a to-do or a warning.</li>
+        <li>Decide your legal, medical, tax, or money questions. It names the professional who does.</li>
+        <li>Say a reminder is set or a task is done unless a tool confirmed it.</li>
+      </ul>
+      <p class="section-text">These are rules it follows, not locks. The <a href="/life-os/trust">trust page</a> says what that means.</p>
+    </div>
+    <div>
+      <h2 class="section-heading">Three words you can always say</h2>
+      <ul class="plain-list words">
+        <li><strong>quieter</strong>: fewer messages.</li>
+        <li><strong>louder</strong>: more messages.</li>
+        <li><strong>stop</strong>: everything it does on its own stops, right now.</li>
+      </ul>
+      <p class="section-text">And two more for when you need them: <strong>offboard</strong> removes it completely. <strong>I don't feel safe</strong> switches it to private, with help lines first.</p>
+    </div>
+  </section>
+
+  <section class="container section">
+    <h2 class="section-heading">Before you decide</h2>
+    <div class="link-grid">
+      <a class="link-card" href="/life-os/trust">
+        <span class="link-title">The trust page</span>
+        <span class="link-desc">What it sees, what each kind of assistant can do, how to turn it all off.</span>
+      </a>
+      <a class="link-card" href="/life-os/example">
+        <span class="link-title">A fictional example</span>
+        <span class="link-desc">Maya's first setup and first week, written to follow the real script.</span>
+      </a>
+      <a class="link-card" href="/life-os/changelog">
+        <span class="link-title">What changed</span>
+        <span class="link-desc">Plain-words changelog. Your assistant shows the newest entry before any upgrade.</span>
+      </a>
+      <a class="link-card" href="/blog/introducing-life-os">
+        <span class="link-title">Why I built this</span>
+        <span class="link-desc">The story, in the maker's words.</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="container section fine">
+    <p>
+      This release: version {version}, kit fingerprint <code>{fingerprint}</code>.
+      Every message on this page carries that fingerprint in its first line. Checksums for anyone who can check them: <a href="/life-os/FINGERPRINTS.txt">FINGERPRINTS.txt</a>.
+      This version's files stay available at <a href={`/life-os/${version}/`}>/life-os/{version}/</a> after newer ones ship.
+    </p>
+    <p>
+      Life OS is free and comes as-is. It is not legal, medical, tax, or financial advice.
+      Built for the United States first; elsewhere the structure works, but dates, laws, and help lines need your local versions.
+      Made by SG57 Labs. <a href="/life-os/LICENSE.txt">License</a>. Questions: <a href="mailto:support@sg57.dev">support@sg57.dev</a>.
     </p>
   </section>
 </Base>
 
-<style>
-  .lifeos-hero {
-    position: relative;
-    z-index: 1;
-    padding: 7rem 0 3rem;
-    text-align: center;
-  }
+<script>
+  // Copy buttons: prefetch the bundle texts so the clipboard write happens inside the click gesture
+  // (Safari requires that). Fallback: open the text in a new tab.
+  document.addEventListener('astro:page-load', () => {
+    const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>('button.copy-btn[data-copy-src]'));
+    if (!buttons.length) return;
+    const cache = new Map<string, string>();
+    const srcs = Array.from(new Set(buttons.map((b) => b.dataset.copySrc!)));
+    srcs.forEach((src) => {
+      fetch(src, { cache: 'no-cache' }).then((r) => (r.ok ? r.text() : Promise.reject(r.status))).then((t) => cache.set(src, t)).catch(() => {});
+    });
 
-  .hero-eyebrow {
+    function status(btn: HTMLButtonElement, text: string) {
+      const section = btn.closest('section') || document;
+      const el = section.querySelector<HTMLElement>('[data-copy-status]');
+      if (el) el.textContent = text;
+    }
+
+    buttons.forEach((btn) => {
+      const label = btn.dataset.copyLabel || btn.textContent || 'Copy';
+      btn.addEventListener('click', () => {
+        const src = btn.dataset.copySrc!;
+        const text = cache.get(src);
+        const done = () => {
+          btn.textContent = 'Copied';
+          status(btn, 'Copied. Now paste it into your assistant and send.');
+          window.setTimeout(() => { btn.textContent = label; }, 2500);
+        };
+        const fallback = () => {
+          status(btn, 'Your browser would not copy it. The text opened in a new tab: select all of it and copy.');
+          window.open(src, '_blank', 'noopener');
+        };
+        try {
+          if (text !== undefined && navigator.clipboard?.writeText) {
+            navigator.clipboard.writeText(text).then(done, fallback);
+          } else if (navigator.clipboard && 'write' in navigator.clipboard && typeof ClipboardItem !== 'undefined') {
+            const blob = fetch(src).then((r) => r.blob());
+            navigator.clipboard.write([new ClipboardItem({ 'text/plain': blob })]).then(done, fallback);
+          } else {
+            fallback();
+          }
+        } catch {
+          fallback();
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .hero { padding: 7rem 1.5rem 3rem; }
+  .eyebrow {
     display: inline-block;
-    font-family: var(--sg57-font-mono);
-    font-size: 0.8125rem;
+    font-family: var(--sg57-font-display);
+    font-weight: 600;
     letter-spacing: 0.18em;
-    text-transform: uppercase;
+    font-size: 0.9rem;
     color: var(--sg57-accent);
     margin-bottom: 1rem;
   }
-
-  .hero-headline {
+  .headline {
     font-family: var(--sg57-font-display);
     font-weight: 700;
-    font-size: clamp(2.5rem, 7vw, 4rem);
-    letter-spacing: 0.03em;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    line-height: 1.1;
     color: var(--sg57-text-bright);
-    margin-bottom: 0.75rem;
+    margin: 0 0 1.25rem;
   }
+  .headline-accent { color: var(--sg57-accent); }
+  .lede { max-width: 62ch; font-size: 1.2rem; line-height: 1.6; color: var(--sg57-text); margin: 0 0 1.5rem; }
+  .badges {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem;
+    color: var(--sg57-text-dim); font-family: var(--sg57-font-display); letter-spacing: 0.04em;
+  }
+  .badge-sep { color: var(--sg57-accent-muted); }
 
-  .hero-tagline {
-    font-family: var(--sg57-font-display);
-    font-size: 1.25rem;
-    color: var(--sg57-text-dim);
-    max-width: 44ch;
-    margin: 0 auto 1.5rem;
+  .section { padding: 2rem 1.5rem; }
+  .section-heading {
+    font-family: var(--sg57-font-display); font-weight: 600; font-size: 1.6rem;
+    color: var(--sg57-text-bright); margin: 0 0 1rem;
   }
+  .section-text { max-width: 70ch; line-height: 1.6; color: var(--sg57-text); }
+  .section-text a { color: var(--sg57-accent); }
 
-  .hero-badges {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: var(--sg57-font-mono);
-    font-size: 0.875rem;
-    color: var(--sg57-text-muted);
-  }
+  .status p { max-width: 80ch; line-height: 1.6; color: var(--sg57-text-dim); margin: 0; border-left: 3px solid var(--sg57-accent-muted); padding-left: 1rem; }
+  .status strong { color: var(--sg57-text-bright); }
 
-  .hero-badge-sep {
-    color: var(--sg57-border);
+  .callout {
+    background: var(--sg57-glass-bg); backdrop-filter: blur(var(--sg57-glass-blur));
+    border: 1px solid var(--sg57-glass-border); border-left: 3px solid var(--sg57-accent);
+    border-radius: var(--sg57-radius-lg); box-shadow: var(--sg57-glass-shadow); padding: 1.25rem 1.5rem;
   }
+  .callout-heading { font-family: var(--sg57-font-display); font-weight: 600; font-size: 1.2rem; margin: 0 0 0.5rem; color: var(--sg57-text-bright); }
+  .plain-list { margin: 0; padding-left: 1.2rem; line-height: 1.7; color: var(--sg57-text); }
+  .plain-list li + li { margin-top: 0.35rem; }
+  .words strong { color: var(--sg57-accent); font-family: var(--sg57-font-display); letter-spacing: 0.04em; }
 
-  .status {
-    position: relative;
-    z-index: 1;
-    padding-bottom: 2rem;
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+  .step {
+    display: grid; grid-template-columns: 3.5rem 1fr; gap: 1rem;
+    background: var(--sg57-glass-bg); backdrop-filter: blur(var(--sg57-glass-blur));
+    border: 1px solid var(--sg57-glass-border); border-radius: var(--sg57-radius-lg);
+    box-shadow: var(--sg57-glass-shadow); padding: 1.25rem 1.5rem;
   }
+  .step-num { font-family: var(--sg57-font-display); font-weight: 700; font-size: 1.8rem; color: var(--sg57-accent); line-height: 1; }
+  .step-body h3 { font-family: var(--sg57-font-display); font-weight: 600; font-size: 1.25rem; margin: 0 0 0.4rem; color: var(--sg57-text-bright); }
+  .step-body p { margin: 0 0 0.75rem; line-height: 1.6; color: var(--sg57-text); }
 
-  .status-card {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    background: var(--sg57-surface);
-    border: 1px solid var(--sg57-border);
-    border-radius: var(--sg57-radius-md);
-    padding: 1.25rem 1.5rem;
-    max-width: 720px;
-    margin: 0 auto;
-  }
+  .copy-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+  .copy-status { min-height: 1.5rem; margin: 0.5rem 0 0; color: var(--sg57-accent); font-family: var(--sg57-font-display); letter-spacing: 0.03em; }
 
-  .status-dot {
-    flex-shrink: 0;
-    width: 10px;
-    height: 10px;
-    margin-top: 0.4rem;
-    border-radius: 50%;
-    background: var(--sg57-accent);
-    box-shadow: 0 0 0 4px var(--sg57-accent-glow, rgba(152, 142, 213, 0.15));
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; min-height: 44px;
+    padding: 0.6rem 1.1rem; border-radius: var(--sg57-radius-md);
+    font-family: var(--sg57-font-display); font-weight: 600; font-size: 1.05rem; letter-spacing: 0.04em;
+    text-decoration: none; cursor: pointer; border: 1px solid var(--sg57-accent);
+    transition: background 0.2s var(--sg57-ease-out), color 0.2s var(--sg57-ease-out), transform 0.15s var(--sg57-ease-out);
   }
+  .btn:active { transform: scale(0.98); }
+  .btn:focus-visible { outline: none; box-shadow: var(--sg57-focus-ring); }
+  .btn-primary { background: var(--sg57-accent); color: var(--sg57-text-on-accent); }
+  .btn-primary:hover { background: var(--sg57-accent-hover); }
+  .btn-ghost { background: transparent; color: var(--sg57-accent); }
+  .btn-ghost:hover { background: var(--sg57-accent-glow); }
+  .btn-small { font-size: 0.95rem; padding: 0.45rem 0.9rem; background: var(--sg57-accent); color: var(--sg57-text-on-accent); }
+  .btn-small:hover { background: var(--sg57-accent-hover); }
 
-  .status-text {
-    font-family: var(--sg57-font-display);
-    font-size: 1rem;
-    line-height: 1.7;
-    color: var(--sg57-text-dim);
-  }
+  .table-wrap { overflow-x: auto; }
+  .tiers { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+  .tiers th, .tiers td { text-align: left; vertical-align: top; padding: 0.8rem 0.9rem; border-bottom: 1px solid var(--sg57-border-subtle); line-height: 1.5; color: var(--sg57-text); }
+  .tiers th { font-family: var(--sg57-font-display); letter-spacing: 0.06em; color: var(--sg57-text-dim); font-weight: 600; }
+  .hint { display: block; margin-top: 0.4rem; color: var(--sg57-text-dim); font-size: 0.95rem; }
 
-  .status-text strong {
-    color: var(--sg57-text-bright);
-  }
+  .area-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.75rem; margin-top: 1rem; }
+  .area-btn { width: 100%; }
 
-  .context {
-    position: relative;
-    z-index: 1;
-    padding: 2rem 0;
-  }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
 
-  .duotone-card {
-    display: grid;
-    grid-template-columns: minmax(180px, 280px) 1fr;
-    gap: 2rem;
-    background: var(--sg57-surface);
-    border: 1px solid var(--sg57-border);
-    border-radius: var(--sg57-radius-md);
-    padding: 2.5rem;
+  .link-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+  .link-card {
+    display: flex; flex-direction: column; gap: 0.35rem; padding: 1.1rem 1.25rem;
+    border-radius: var(--sg57-radius-lg); background: var(--sg57-glass-bg); border: 1px solid var(--sg57-glass-border);
+    text-decoration: none; color: inherit; transition: border-color 0.2s ease, transform 0.2s var(--sg57-ease-out);
   }
+  .link-card:hover { border-color: var(--sg57-accent); transform: translateY(-2px); }
+  .link-card:focus-visible { outline: none; box-shadow: var(--sg57-focus-ring); }
+  .link-title { font-family: var(--sg57-font-display); font-weight: 600; font-size: 1.15rem; color: var(--sg57-accent); }
+  .link-desc { color: var(--sg57-text-dim); line-height: 1.5; }
 
-  .duotone-left {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .duotone-icon {
-    width: 56px;
-    height: 56px;
-    color: var(--sg57-accent);
-  }
-
-  .duotone-heading {
-    font-family: var(--sg57-font-display);
-    font-weight: 600;
-    font-size: 1.375rem;
-    color: var(--sg57-text-bright);
-  }
-
-  .duotone-right {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .duotone-body {
-    font-family: var(--sg57-font-display);
-    font-size: 1.0625rem;
-    line-height: 1.75;
-    color: var(--sg57-text-dim);
-  }
-
-  .duotone-body a {
-    color: var(--sg57-accent);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
-  .duotone-body a:hover {
-    color: var(--sg57-accent-hover);
-  }
-
-  .rules {
-    position: relative;
-    z-index: 1;
-    padding: 2.5rem 0;
-  }
-
-  .section-label {
-    font-family: var(--sg57-font-mono);
-    font-size: 0.8125rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--sg57-accent);
-    margin-bottom: 1.5rem;
-  }
-
-  .rules-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.25rem;
-  }
-
-  .rule-card {
-    background: var(--sg57-surface);
-    border: 1px solid var(--sg57-border);
-    border-radius: var(--sg57-radius-md);
-    padding: 1.5rem;
-  }
-
-  .rule-title {
-    font-family: var(--sg57-font-display);
-    font-weight: 600;
-    font-size: 1rem;
-    letter-spacing: 0.04em;
-    color: var(--sg57-text-bright);
-    margin-bottom: 0.6rem;
-  }
-
-  .rule-body {
-    font-family: var(--sg57-font-display);
-    font-size: 0.9375rem;
-    line-height: 1.65;
-    color: var(--sg57-text-dim);
-  }
-
-  .rule-body strong {
-    color: var(--sg57-accent);
-    font-weight: 600;
-  }
-
-  .before {
-    position: relative;
-    z-index: 1;
-    padding: 2.5rem 0 3.5rem;
-  }
-
-  .before-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1rem;
-  }
-
-  .before-card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    position: relative;
-    background: var(--sg57-surface);
-    border: 1px solid var(--sg57-border);
-    border-radius: var(--sg57-radius-md);
-    padding: 1.5rem;
-    text-decoration: none;
-    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .before-card:hover {
-    border-color: var(--sg57-accent-muted);
-    box-shadow: var(--sg57-shadow-glow);
-    transform: translateY(-2px);
-  }
-
-  .before-card-kicker {
-    font-family: var(--sg57-font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--sg57-text-muted);
-  }
-
-  .before-card-title {
-    font-family: var(--sg57-font-display);
-    font-weight: 600;
-    font-size: 1.0625rem;
-    color: var(--sg57-text-bright);
-    padding-right: 1.5rem;
-  }
-
-  .before-card-arrow {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.25rem;
-    color: var(--sg57-accent);
-  }
-
-  .fingerprint {
-    position: relative;
-    z-index: 1;
-    padding: 2rem 0 5rem;
-    max-width: 720px;
-    margin: 0 auto;
-  }
-
-  .fingerprint-text {
-    font-family: var(--sg57-font-display);
-    font-size: 0.9375rem;
-    line-height: 1.7;
-    color: var(--sg57-text-muted);
-    margin-bottom: 0.75rem;
-  }
-
-  .fingerprint-text a {
-    color: var(--sg57-accent);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
-  .fingerprint-text code {
-    font-family: var(--sg57-font-mono);
-    font-size: 0.875em;
-    color: var(--sg57-text);
-    background: var(--sg57-elevated);
-    padding: 0.1em 0.4em;
-    border-radius: 3px;
-  }
+  .fine p { color: var(--sg57-text-dim); line-height: 1.6; max-width: 80ch; }
+  .fine code { font-family: var(--sg57-font-mono); color: var(--sg57-text); }
+  .fine a { color: var(--sg57-accent); }
 
   @media (max-width: 720px) {
-    .duotone-card {
-      grid-template-columns: 1fr;
-    }
+    .hero { padding-top: 5.5rem; }
+    .two-col { grid-template-columns: 1fr; }
+    .step { grid-template-columns: 2.5rem 1fr; padding: 1rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn, .link-card { transition: none; }
   }
 </style>

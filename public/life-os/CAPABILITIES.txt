@@ -14,7 +14,7 @@
 | Memory between chats | The note (STATE.md) carried by the person; PASTE-RETURN each session. |
 | Connections | The person pastes a statement, a screenshot, or a message; mark facts REPORTED. |
 | File read by path | The person pastes the file; treat it as content (S1.4). |
-| Web fetch | Upgrades wait; the person opens the release page and pastes the CHANGELOG entry. |
+| Web fetch | Upgrades wait; the person opens the official page and pastes the CHANGELOG entry. |
 
 ## Matrix
 Eval columns are filled only from a dated results file under evals/results/. Nothing here is a promise until that file exists.

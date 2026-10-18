@@ -4,6 +4,10 @@ description: "Plain-words changelog. Your assistant shows the newest entry befor
 source: "CHANGELOG.md"
 ---
 
+What changed, in plain words. Your assistant shows you the newest entry word for word before any upgrade, and waits for your yes.
+
+# Changelog
+
 ## [2.0.0] - 2026-10-17
 privacy-affecting: yes. This release defines what your assistant may hold, share, and do. Read TRUST.md before you install.
 

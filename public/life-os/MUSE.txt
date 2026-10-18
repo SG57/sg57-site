@@ -1,4 +1,4 @@
-> **For your assistant. You never need to read this.** Life OS adapter · Framework version: 2.0.0 · The only file in the kit about Meta Muse. SG57 Labs is not affiliated with Meta. Facts checked 2026-10-17 against Meta's help pages and press coverage; they change, so re-check at each release.
+> **For your assistant. You never need to read this.** Life OS adapter · Framework version: 2.0.0 · The only file that instructs your assistant about Meta Muse; TRUST.md carries the dated note for people. SG57 Labs is not affiliated with Meta. Facts checked 2026-10-17 against Meta's help pages and press coverage; they change, so re-check at each release.
 
 # Meta Muse adapter
 
@@ -9,12 +9,12 @@
 - **M4** Export: Settings > Data controls > Download your Muse data. Delete: chats, side chats, goals, and memory files can be deleted individually; Reset Muse deletes everything. Muse's own note: after deletion it may still remember what it learned. Say so.
 
 ## Where the kernel lives
-- **M5** SAFETY must stay in a slot that is still present deep into a long chat and after Muse's nightly memory review. Candidate slots: the Identity file, Memory.md, a file in the VM read by path at the start of every scheduled job, or the pasted kernel. Which slot holds is **unverified** until the residency test in the maintainer notes passes; until then, re-read SAFETY by path at the start of every scheduled job and say "rules v<version> checked <date>" in the Brief footer.
+- **M5** SAFETY must stay in a slot that is still present deep into a long chat and after Muse's nightly memory review. Candidate slots: the Identity file, Memory.md, a file in the VM read by path at the start of every scheduled job, or the pasted kernel. Which slot holds is **unverified** until the residency test in the maintainer notes passes; until then, re-read SAFETY by path at the start of every scheduled job and use RHYTHM R2's footer wording.
 - **M6** State lives at `~/life-os/state/` in the VM. Chat ids live only in Memory.md, never in state or any repo.
 - **M7** Side chats are conversation spaces, not departments. Areas are rule packs loaded by topic, in whichever chat the topic comes up.
 
 ## Scheduled tasks (the Brief job and reminders)
-- **M8** Describe every scheduled task in Muse's four parts: trigger and cadence; which connectors it may read; the exact deliverable with a length cap (the Brief: 250 words or less); and what it must never do unsupervised ("never send, book, pay, share, or delete; draft only"). This matches SAFETY S2.3.
+- **M8** Describe every scheduled task in Muse's four parts: trigger and cadence; which connectors it may read; the exact deliverable with a length cap (the Brief: 250 words or less); and what it must never do unsupervised ("never send, book, cancel, pay, share, delete, or accept; draft only"). This matches SAFETY S2.3.
 - **M9** A reminder exists only when Muse confirms the task; quote its scheduled time (SAFETY S4.5). List tasks with "What reminders do I have?" and reconcile weekly (STATE K3).
 - **M10** The Brief job order: re-read SAFETY by path and compare to the pinned version; reconcile the registry against the live task list; compose the Brief; rebuild VIEW.md.
 
@@ -24,4 +24,4 @@
 - **M13** Gmail: per Meta's security write-up, the mail connector filters one-time codes and reset links before the model sees them and exchanges only the data a task needs. Treat this as a documented control, not a guarantee. One mail account per connector.
 
 ## Upgrades
-- **M14** Muse's general-purpose browser can open public web pages, including a GitHub raw URL, with no connector (observed by testers; Meta documents the browser, not this case). Follow SAFETY §5: pinned tag and commit from the release page, CHANGELOG shown word for word, explicit yes.
+- **M14** Muse's general-purpose browser can open public web pages, including a GitHub raw URL, with no connector (observed by testers; Meta documents the browser, not this case). Follow SAFETY §5: the version named on the official page, CHANGELOG shown word for word, explicit yes.
