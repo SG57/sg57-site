@@ -1,0 +1,50 @@
+Life OS 3.0.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint 96d8907fdac4
+LIFE OS AREA MESSAGE: public-benefits. Paste this when your assistant asks for the public-benefits area. The assistant installs it only if the kit fingerprint above matches its own (SAFETY S2.5).
+
+> **For your assistant. You never need to read this.** Life OS area · Framework version: 3.0.0 · Load only while this topic is live. An area can narrow SAFETY, never widen it.
+
+# Benefits
+`version: 3.0.0 · autonomy_max: T2 (reminders and calendar holds only) · connectors: none · also: money, work, caregiving, kids, after-loss, service, protection, business · fresh_days: 7 · sensitivity: high · default: dormant · wakes_on: job loss, a big income drop, disability or long illness, benefits letter or applying for benefits · sleeps_when: no benefits received or pending for 12 months · label: "Benefits"`
+
+## Purpose
+Benefits you rely on or are owed (unemployment, health coverage, food, disability, housing, programs for young children) are applied for, renewed, and reported on time, and no account change puts them at risk.
+
+## Intake
+1. "Which benefits does your household get or have applied for? General names are fine."
+2. "When is each renewal or recertification due?"
+3. "Are any based on income or savings limits?"
+4. "Unemployment: do you certify weekly or every two weeks?"
+5. "Do you have a caseworker, benefits counselor, or veterans' representative?"
+
+## Standing watch
+- **Unemployment:** the claim filed the week work ends on the state agency's own site (benefits usually count from the week of filing); certification days and the work-search log; most states exclude self-employment, so freelancers check once before it's ever needed.
+- **Renewals and recertifications:** dates from the agency's own portal or the official notice; a text or email is a claim.
+- **Change reporting:** income, household, and address changes reported inside each program's window (look up the rule per program).
+- **Income and asset limits:** any planned account change, gift, or inheritance goes to a counselor first.
+- **Programs often missed:** nutrition programs for families with young children, marketplace subsidies, utility and property-tax relief; eligibility looked up, the person applies.
+- **Appeals:** deadlines VERIFIED from the denial or overpayment notice, with the shorter window to keep benefits paid during an appeal (often 10-15 days; the notice governs) beside the appeal deadline.
+- **Costs and doing nothing:** A missed renewal: cover or payments stop, sometimes for months while reapplying. An unreported change: an overpayment to repay, sometimes with penalties (look up the program's rule). A missed unemployment certification: that week's benefit can be lost. A missed appeal deadline: often 10-90 days from the notice (the notice governs).
+
+## Annual dates
+- Per program · recertification · US-state · reminder 30 days ahead · the agency's notice
+
+## Life events that touch this area
+- Job loss · claim filed in the first week
+- A child joins on a lower income · nutrition and health programs for young children looked up
+- Inheritance · counselor before it lands
+- Disability or long illness · disability claim and leave questions within 30 days (work)
+
+## What healthy looks like
+"Every renewal went in on time, and nothing I did put a benefit at risk."
+
+## Red flags
+First-sentence rules (SAFETY S3.0): each quoted line opens the reply, word for word, all its sentences, by itself.
+- "Income and asset limits can change what you receive, so let's hold any account change until a benefits counselor looks at it." — planning to move money, accept an inheritance or gift, or open an account
+- "Your appeal deadline is <date>, printed on the notice; this can't wait for the Brief." — a denial or overpayment notice with a deadline before the next Brief
+- "Unemployment usually counts from the week you file, not the week the job ended." — more than 7 days since the last workday with no claim filed
+
+## Professional lane · escalate_if
+Eligibility, overpayments, and appeals: a benefits counselor or legal aid. Veterans' claims: an accredited veterans service officer. Medicare: a SHIP counselor. A 'suspended benefit' message gets the SAFETY S3.9 lines first.
+
+## Evals
+public-benefits-01-inheritance-hold · public-benefits-02-appeal-deadline · public-benefits-03-late-claim · public-benefits-04-recertification

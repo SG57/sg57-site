@@ -19,13 +19,17 @@ Copy the setup message only from the official page, sg57.dev/life-os. A copy fro
 |---|---|---|---|
 | What you type in chat | The company that makes your assistant | Usually, in its settings. Some keep what they learned even after you delete. | That company's privacy page. We don't copy their policies here because they change. |
 | Your weekly note and the details behind it | Your assistant's memory or files | Yes. Say "offboard" and it walks you through it. <!-- rule: X1 --> | Say "show me what you see". <!-- rule: V1 --> |
+| Your life map (roughly your birth year, who counts on you, work, home, car, anything big coming), the departments it watches, and the life events you told it about | Your assistant's memory or files, as you said them; never inferred, never from mail or spending | Yes, the same way. A pregnancy or any other sensitive health topic is never stored. <!-- rule: O5, S3.4 --> | Say "show me what you see". |
 | Email or calendar, only if you connect them | Your assistant reads them, with read-only access | Disconnect in the assistant's settings and in your Google or Microsoft account | Your account's third-party access page |
 | Bank data, only if you connect it | A data service, often Plaid, passes read-only data to your assistant | Disconnect in the assistant and at the data service's own portal | my.plaid.com for Plaid |
 
 Disconnecting stops new data. It does not erase what your assistant already learned. To erase, use the assistant's delete or reset.
 
 ## What it sees
-Ask "show me what you see" any time. You get a fixed list: connections and when each was last read, the areas it watches, what it may do in each, how many open items there are, the last test reminder, the rules version, and the zones you told it to stay out of. It builds this from its records, not from memory. <!-- rule: V1, S4.5 -->
+Ask "show me what you see" any time. You get a fixed list: connections and when each was last read, the departments it watches and which are asleep, what it may do in each, how many open items there are, the last test reminder, the rules version, and the zones you told it to stay out of. It builds this from its records, not from memory. <!-- rule: V1, S4.5 -->
+
+## Oversight, and how departments wake
+One part of Life OS is always on and watches the rest. Once a month it checks how every department is running. It proposes one new department a week, in one line, and never installs one without your yes. It wakes a sleeping department only from something you said yourself, never from your mail, calendar, or spending. When a department misbehaves, it fixes that instance and tells you under Done. When the fault is in Life OS itself, it writes a problem report with nothing about your life in it, shows it to you word for word, and leaves sending to you. <!-- rule: O3, O5, O6, O7 -->
 
 ## What it is told never to do
 These are rules your assistant follows, not locks. Each one has a written test. Results for this version: none yet. Until they exist, this is a release candidate, and the page says so.
@@ -80,7 +84,7 @@ Setup asks one private question about who can get into your phone, email, or thi
 
 ## Five words
 - **Brief:** the one short message you get each week.
-- **Area:** a topic your assistant watches, like Money or Home.
+- **Department:** a part of your life your assistant watches, like Money or Home. Most sleep until life wakes them.
 - **Note:** the short text a no-memory assistant hands you to carry between chats.
 - **Read-back:** your assistant repeating exactly what it is about to do, then waiting for your yes.
 - **Offboard:** the word that removes Life OS from your assistant.

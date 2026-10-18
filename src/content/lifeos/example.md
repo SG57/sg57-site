@@ -62,7 +62,7 @@ Maya copied the setup message from sg57.dev/life-os and pasted it into a free ch
 
 **Maya:** Those two.
 
-**Assistant:** Please paste the area message for money from https://sg57.dev/life-os.
+**Assistant:** Please paste the department message for money from https://sg57.dev/life-os.
 
 **Maya:** *(pastes it)*
 
@@ -76,7 +76,7 @@ Maya copied the setup message from sg57.dev/life-os and pasted it into a free ch
 
 *(The assistant asks the other three money questions as written. To "If a surprise cost $500 this week, is that covered?" Maya says, "I don't know.")*
 
-**Assistant:** Please paste the area message for home from https://sg57.dev/life-os.
+**Assistant:** Please paste the department message for home from https://sg57.dev/life-os.
 
 **Maya:** *(pastes it)*
 
@@ -106,14 +106,14 @@ Maya copied the setup message from sg57.dev/life-os and pasted it into a free ch
 
 **Maya:** Added.
 
-**Assistant:** 5 items, 1 handled, 0 connections, areas: money, home, Good Life. Help lines: United States. Style: speak up, plain. Brief: Sunday 8pm.
+**Assistant:** 5 items, 1 handled, 0 connections, departments: money, home, Good Life, Oversight; 32 more asleep until life needs them. Next week I'll suggest insurance and benefits. Help lines: United States. Style: speak up, plain. Brief: Sunday 8pm.
 
 ```
-LIFE OS NOTE · v2.0.0 · kit 8fb9652b58f7 · 2026-10-18
+LIFE OS NOTE · v3.0.0 · kit 96d8907fdac4 · 2026-10-18
 profile: tz=America/New_York where=United States/Ohio style=speak up, plain previews=full mode=normal anchor=Sunday 8pm
 crisis: United States (the CRISIS table in the paste wins)
 compass: 1) keep the car running 2) not behind on rent 3) get the cat to the vet   never-touch: love life, friendships as numbers
-areas: money v2.0.0, home v2.0.0, good-life
+departments: money v3.0.0, home v3.0.0, good-life, oversight · asleep: 32
 loops (12 or fewer):
 - [1] faucet leak · due — · REPORTED · src you · wait on landlord's reply
 - [2] car payment, $214 · due 2026-10-22 · REPORTED · src you · pay before Thursday
@@ -152,18 +152,18 @@ Maya pastes the return message, then her note.
 **Something good**
 Nothing fun is on my list for the next two weeks yet. Want to pick one thing to look forward to?
 
-Holding 2 other things; ask anything. quieter · louder · stop. Lighter, same, or heavier? · next Brief Sunday, 2026-11-01 · rules v2.0.0 (from your paste) · Back office is closed.
+Holding 2 other things; ask anything. quieter · louder · stop. Lighter, same, or heavier? · next Brief Sunday, 2026-11-01 · rules v3.0.0 (from your paste) · Back office is closed.
 
 **Maya:** Car payment went through fine. And yes, $500's covered — I checked.
 
 **Assistant:** Good to hear. The $500 question is settled — updated note below.
 
 ```
-LIFE OS NOTE · v2.0.0 · kit 8fb9652b58f7 · 2026-10-25
+LIFE OS NOTE · v3.0.0 · kit 96d8907fdac4 · 2026-10-25
 profile: tz=America/New_York where=United States/Ohio style=speak up, plain previews=full mode=normal anchor=Sunday 8pm
 crisis: United States (the CRISIS table in the paste wins)
 compass: 1) keep the car running 2) not behind on rent 3) get the cat to the vet   never-touch: love life, friendships as numbers
-areas: money v2.0.0, home v2.0.0, good-life
+departments: money v3.0.0, home v3.0.0, good-life, oversight · asleep: 32
 loops (12 or fewer):
 - [1] faucet leak · due — · REPORTED · src you · wait on landlord's reply
 - [3] the cat's vet visit · due — · REPORTED · src you · call the clinic, or say go

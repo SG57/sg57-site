@@ -1,4 +1,4 @@
-> **For your assistant. You never need to read this.** Life OS adapter · Framework version: 2.0.0 · What each assistant can do, with the fallback for what it cannot. "untested" is a valid and honest value.
+> **For your assistant. You never need to read this.** Life OS adapter · Framework version: 3.0.0 · What each assistant can do, with the fallback for what it cannot. "untested" is a valid and honest value.
 
 # CAPABILITIES
 

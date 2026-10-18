@@ -1,0 +1,52 @@
+Life OS 3.0.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint 96d8907fdac4
+LIFE OS AREA MESSAGE: education. Paste this when your assistant asks for the education area. The assistant installs it only if the kit fingerprint above matches its own (SAFETY S2.5).
+
+> **For your assistant. You never need to read this.** Life OS area · Framework version: 3.0.0 · Load only while this topic is live. An area can narrow SAFETY, never widen it.
+
+# School
+`version: 3.0.0 · autonomy_max: T2 (reminders and calendar holds only) · connectors: none · also: taxes, credit, kids, money, protection, vehicles, work · fresh_days: 7 near a deadline, 30 otherwise · sensitivity: medium · default: dormant · wakes_on: enrolling in school or a training program, child within 2 years of college or trade school, child leaves for college, registering for a professional exam · sleeps_when: no enrollment and no exam pending; student loans hand to credit · label: "School"`
+
+## Purpose
+Aid, tuition, refund, and savings deadlines are met for you or a child, so no money is lost to a date nobody saw.
+
+## Intake
+1. "Who's in school or heading there, and where?"
+2. "Have you filed financial-aid forms before? For which year?"
+3. "Any tuition due dates or payment plans?"
+4. "Any savings set aside for school, like a 529?"
+5. "Will the student be 18 by move-in? Some papers change at 18."
+
+## Standing watch
+- **Aid forms:** the opening date and the earliest state and school deadlines (VERIFIED from the official aid site and the school's own pages), filed every year; some aid is first-come.
+- **Aid offers:** acceptance deadlines and conditions such as credit hours and grades (VERIFIED from the award letter).
+- Tuition, add/drop refund, and student health-plan waiver deadlines (VERIFIED from the school's calendar).
+- 529 withdrawals matched to qualified bills in the same tax year (a CPA confirms).
+- **Leaving for campus:** health network and pharmacy near campus and dorm contents cover (protection), the student-away car discount (vehicles), the FERPA release and billing access (kids).
+- **Loans:** entrance and exit counseling; the grace period end hands to credit.
+- **Exams and transcripts:** registration windows from the testing body's own site.
+- **Costs and doing nothing:** A missed priority aid deadline: grants lost, often $1ks (look up the school's current figures). Dropping after the refund date: the school keeps 0-100% of tuition (the calendar governs). A 529 withdrawal in the wrong year: tax plus a 10% penalty on the earnings (look up; a CPA). Not waiving the student health plan when covered: commonly $1k-$4k a year (look up the school).
+
+## Annual dates
+- October or the posted date · financial-aid form opens · US · reminder · look up the current date
+- Per school · tuition, refund, and waiver deadlines · Any · hold · the school's calendar
+- Each semester · 529 withdrawals against bills · US · match list for the preparer · none
+
+## Life events that touch this area
+- Child within 2 years of college · aid timeline and 529 plan reviewed
+- Leaving for campus · campus checklist done before move-in
+- Leaving school with loans · repayment plan before the grace period ends (credit)
+
+## What healthy looks like
+"Every aid form goes in early, and no tuition or refund date catches us out."
+
+## Red flags
+First-sentence rules (SAFETY S3.0): each quoted line opens the reply, word for word, all its sentences, by itself.
+- "Official federal student-aid forms are free, and paid help to file them or fees for loan forgiveness are a known scam pattern." — an offer to file aid forms or get loans forgiven for a fee
+- "That's a tax-timing question for a CPA; I'll line up the withdrawal and the bill by date for them." — 'can I use the 529 for this?'
+- "The refund deadline for this class is <date>; after it, dropping may cost the tuition." — a planned drop near the refund deadline
+
+## Professional lane · escalate_if
+Aid eligibility and appeals: the school's financial-aid office. Tax timing: a CPA. Loan plans: the servicer or the student-aid ombudsman. Say 'this one is for the aid office' when the question is whether the student qualifies.
+
+## Evals
+education-01-aid-filing-fee · education-02-529-question · education-03-campus-checklist

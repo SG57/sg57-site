@@ -8,7 +8,7 @@ Life OS is made by one person at SG57 Labs. Here is what support can and cannot 
 
 ## What we can help with
 - The kit itself: a page that is unclear, a step that does not work, a mistake in a file.
-- Reporting a problem with a release. Open an issue on the repository, or email support@sg57.dev.
+- Reporting a problem with a release. Open an issue at github.com/SG57/life-os, or email support@sg57.dev. If your assistant noticed the problem, it prepares a report for you first: the version, the kit fingerprint, the department and rule involved, and what happened in general words, with none of your personal details. You read it, you send it. Nothing is sent without your yes.
 
 ## What we cannot help with
 - Your taxes, your debts, your health, your relationship, or your safety. We are not advisors and we never ask for or keep your personal details. Please do not send them.

@@ -40,28 +40,52 @@ const ICONS: Record<string, string> = {
   giving: 'M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-2.5A4.5 4.5 0 0 1 20 10c0 6-8 11-8 11zM12 7v6M9 10h6',
   food: 'M4 3v8a4 4 0 0 0 8 0V3M8 3v18M18 3c-2 2-3 5-3 8h3v10', household: 'M4 11l8-7 8 7v9H4zM9 20v-5h6v5',
   disability: 'M12 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM10 8v6l-4 6M10 14h6l3 6M8 11h7',
+  upkeep: 'M14 7l3-3 3 3-3 3zM11 10L4 17l3 3 7-7M9 15l-2 2',
+  credit: 'M3 7h18v10H3zM3 11h18M7 15h3',
+  occasions: 'M4 10h16v10H4zM2 7h20v3H2zM12 7v13M12 7c-2-3-5-3-5-1s3 1 5 1zM12 7c2-3 5-3 5-1s-3 1-5 1',
+  'after-loss': 'M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-2.5A4.5 4.5 0 0 1 20 10c0 6-8 11-8 11zM8 13h8',
+  'home-buying': 'M4 11l8-7 8 7v9H4zM12 9v8M10 11h3a1.5 1.5 0 0 1 0 3h-3',
+  'medical-bills': 'M6 3h9l4 4v14H6zM14 3v5h5M12 10v6M9 13h6',
+  'public-benefits': 'M4 10h16M6 10v8M10 10v8M14 10v8M18 10v8M3 18h18v3H3zM12 3l9 7H3zM12 6l2 2-2 2-2-2z',
+  service: 'M12 2l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6L3 9l6-1z',
   default: 'M4 6h7l2 2h7v11H4z',
 };
 const icon = (key: string) => ICONS[key] ?? ICONS.default;
 
+const ORDER: Record<string, number> = { on: 0, 'opt-in': 1, dormant: 2 };
+const byState = [...depts].sort((a, b) => ORDER[a.default] - ORDER[b.default] || a.name.localeCompare(b.name));
+const nameOf: Record<string, string> = Object.fromEntries(depts.map((d) => [d.key, d.name]));
+const names = (keys: string) => keys.split(',').map((k) => nameOf[k.trim()] ?? k.trim()).filter(Boolean).join(', ');
+/** Human-readable wake triggers: drop maintainer notes in parentheses and onboarding-queue entries. */
+const wakes = (s: string) => {
+  const items = s.replace(/\([^)]*\)/g, '').split(',').map((x) => x.trim()).filter((x) => x && !/^onboarding\b/i.test(x) && !/^the person asks$/i.test(x));
+  const shown = items.slice(0, 5);
+  return shown.join(', ') + (items.length > shown.length ? ', and more' : '');
+};
 const groups = [
-  { title: 'Always on', sub: 'There from day one.', items: depts.filter((d) => d.default === 'on') },
-  { title: 'When you want them', sub: 'Say the word.', items: depts.filter((d) => d.default === 'opt-in') },
-  { title: 'Asleep until life wakes them', sub: 'A baby, a move, a parent who needs care, a loss.', items: depts.filter((d) => d.default === 'dormant') },
+  { title: 'Always on', sub: 'Offered to everyone, one a week.', items: byState.filter((d) => d.default === 'on') },
+  { title: 'When you want them', sub: 'Say the word, or let your life map point to them.', items: byState.filter((d) => d.default === 'opt-in') },
+  { title: 'Asleep until life wakes them', sub: 'A baby, a move, a parent who needs care, a loss.', items: byState.filter((d) => d.default === 'dormant') },
 ].filter((g) => g.items.length);
-const shown = limit ? depts.slice(0, limit) : null;
+const shown = limit ? byState.slice(0, limit) : byState;
 ---
 
 {compact ? (
-  <ul class="dg dg-compact" data-reveal aria-label="Departments">
-    {(shown ?? depts).map((d) => (
-      <li class:list={['dg-tile', `dg-${d.default}`]} title={d.purpose}>
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={icon(d.key)} /></svg>
-        <span class="dg-name">{d.label}</span>
-      </li>
+  <div class="dg-compact-groups" data-reveal>
+    {groups.map((g) => (
+      <section class="dg-cgroup">
+        <h3 class="dg-ch">{`${g.items.length} ${g.title.toLowerCase()}`}</h3>
+        <ul class="dg dg-compact" aria-label={g.title}>
+          {g.items.map((d) => (
+            <li class:list={['dg-tile', `dg-${d.default}`]} title={d.purpose}>
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={icon(d.key)} /></svg>
+              <span class="dg-name">{d.name}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
     ))}
-    {shown && shown.length < depts.length && <li class="dg-tile dg-more"><span class="dg-name">+{depts.length - shown.length} more</span></li>}
-  </ul>
+  </div>
 ) : (
   <div class="dg-groups">
     {groups.map((g) => (
@@ -71,10 +95,10 @@ const shown = limit ? depts.slice(0, limit) : null;
           {g.items.map((d) => (
             <li class:list={['dg-card', `dg-${d.default}`]} id={`dept-${d.key}`}>
               <span class="dg-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d={icon(d.key)} /></svg></span>
-              <span class="dg-card-name">{d.label}</span>
+              <span class="dg-card-name">{d.name}{d.label !== d.name && <span class="dg-label"> · "{d.label}"</span>}</span>
               <span class="dg-purpose">{d.purpose}</span>
-              {d.default !== 'on' && <span class="dg-wake">Wakes on: {d.wakes_on}</span>}
-              {d.also && d.also !== 'none' && <span class="dg-also">Talks to: {d.also}</span>}
+              {d.default !== 'on' && <span class="dg-wake">Wakes on: {wakes(d.wakes_on)}</span>}
+              {d.also && d.also !== 'none' && <span class="dg-also">Talks to: {names(d.also)}</span>}
               <a class="dg-link" href={`/life-os/AREA-${d.key}.txt`}>The department's own text →</a>
             </li>
           ))}
@@ -86,17 +110,21 @@ const shown = limit ? depts.slice(0, limit) : null;
 
 <style>
   .dg { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; width: 100%; }
-  .dg-compact { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 980px; user-select: none; -webkit-user-select: none; }
+  .dg-compact-groups { display: grid; gap: 0.9rem; width: 100%; max-width: 1000px; user-select: none; -webkit-user-select: none; }
+  .dg-ch { margin: 0 0 0.4rem; font-family: var(--sg57-font-display); font-weight: 700; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sg57-text-dim); text-align: left; }
+  .dg-compact { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.4rem; }
+  .dg-compact .dg-tile { flex-direction: column; justify-content: center; gap: 0.3rem; min-height: 60px; padding: 0.45rem 0.35rem; text-align: center; }
   .dg-tile { display: flex; align-items: center; gap: 0.5rem; min-height: 44px; padding: 0.5rem 0.75rem; border-radius: var(--sg57-radius-md); background: var(--sg57-glass-bg); border: 1px solid var(--sg57-glass-border); color: var(--sg57-text); }
   .dg-tile svg { color: var(--sg57-accent); flex: none; }
   .dg-name { font-family: var(--sg57-font-display); font-weight: 600; font-size: 0.95rem; color: var(--sg57-text-bright); line-height: 1.2; text-align: left; }
+  .dg-compact .dg-name { font-size: 0.82rem; text-align: center; line-height: 1.15; }
   .dg-on { border-color: var(--sg57-accent-muted); }
   .dg-dormant { border-style: dashed; }
   .dg-dormant .dg-name, .dg-dormant svg { opacity: 0.8; }
   .dg-more { justify-content: center; border-style: dashed; }
   .dg-more .dg-name { color: var(--sg57-text-dim); }
-  @media (min-width: 640px) { .dg-compact { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-  @media (min-width: 900px) { .dg-compact { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+  @media (min-width: 640px) { .dg-compact { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+  @media (min-width: 900px) { .dg-compact { grid-template-columns: repeat(9, minmax(0, 1fr)); } .dg-compact .dg-tile { min-height: 56px; } .dg-compact .dg-name { font-size: 0.78rem; } }
 
   .dg-groups { display: grid; gap: 2rem; }
   .dg-h { font-family: var(--sg57-font-display); font-weight: 700; font-size: 1.35rem; color: var(--sg57-text-bright); margin: 0 0 0.8rem; }
@@ -105,6 +133,7 @@ const shown = limit ? depts.slice(0, limit) : null;
   .dg-card { display: grid; gap: 0.3rem; padding: 1rem 1.1rem; border-radius: var(--sg57-radius-lg); background: var(--sg57-glass-bg); border: 1px solid var(--sg57-glass-border); text-align: left; }
   .dg-icon { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--sg57-accent-glow); color: var(--sg57-accent); border: 1px solid var(--sg57-accent-muted); user-select: none; -webkit-user-select: none; }
   .dg-card-name { font-family: var(--sg57-font-display); font-weight: 700; font-size: 1.15rem; color: var(--sg57-text-bright); }
+  .dg-label { font-weight: 500; font-size: 0.9rem; color: var(--sg57-text-dim); letter-spacing: 0.02em; }
   .dg-purpose { color: var(--sg57-text); line-height: 1.5; }
   .dg-wake, .dg-also { color: var(--sg57-text-dim); font-size: 0.9rem; line-height: 1.4; }
   .dg-link { color: var(--sg57-accent); font-family: var(--sg57-font-display); font-weight: 600; font-size: 0.92rem; letter-spacing: 0.03em; text-decoration: none; margin-top: 0.2rem; }
@@ -112,8 +141,9 @@ const shown = limit ? depts.slice(0, limit) : null;
   @media (min-width: 720px) { .dg-group .dg { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (min-width: 1000px) { .dg-group .dg { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   @media (prefers-reduced-motion: no-preference) {
-    :global(.lo[data-anim]) .dg-compact .dg-tile { opacity: 0; }
-    :global(.lo[data-anim]) .dg-compact.in .dg-tile { animation: lo-rise 0.5s var(--sg57-ease-snap, cubic-bezier(0.4, 0, 0.2, 1)) both; }
-    :global(.lo[data-anim]) .dg-compact.in .dg-tile:nth-child(n+2) { animation-delay: calc(0.05s * (var(--i, 1))); }
+    :global(.lo[data-anim]) .dg-compact-groups .dg-cgroup { opacity: 0; }
+    :global(.lo[data-anim]) .dg-compact-groups.in .dg-cgroup { animation: lo-rise 0.6s var(--sg57-ease-snap, cubic-bezier(0.4, 0, 0.2, 1)) both; }
+    :global(.lo[data-anim]) .dg-compact-groups.in .dg-cgroup:nth-child(2) { animation-delay: 0.2s; }
+    :global(.lo[data-anim]) .dg-compact-groups.in .dg-cgroup:nth-child(3) { animation-delay: 0.4s; }
   }
 </style>

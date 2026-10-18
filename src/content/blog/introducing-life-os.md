@@ -1,6 +1,6 @@
 ---
 title: "Life OS: an assistant that messages you first"
-description: "AI assistants can now remember you and reach out on their own. Life OS gives yours a job: your life's back office. One message to paste, twenty minutes, then one short Brief a week."
+description: "AI assistants can now remember you and reach out on their own. Life OS gives yours a job: your life's back office. One message to paste, ten minutes, then one short Brief a week."
 date: 2026-10-17
 tags: ["life-os", "announcement", "ai-tools", "productivity"]
 author: Cord Rehn
@@ -20,15 +20,16 @@ AI chat used to answer and forget. The newest assistants remember you, can check
 
 A free set of instructions you paste into the AI app you already use. I use Meta Muse. Grok Bot is the other one I recommend; others work with fewer features.
 
-- **Twenty minutes** of plain questions. It handles one thing on the spot.
+- **Ten minutes** of plain questions. It handles one thing on the spot.
+- **A department for every part of adult life**, 34 in all. Most sleep until life wakes them: Kids when a child arrives, Caregiving when a parent needs you, Moving when you sign a lease. Oversight watches them all and proposes one a week, with your yes.
 - **One short Brief a week**: what got done, at most three things that need you, one thing to look forward to.
 - **You never keep a list.**
 
 It never pays or moves money, never sends anything without reading it back and hearing your yes, and never decides legal, medical, tax, or money questions.
 
-## Honest status
+## Where it stands
 
-Version 2.0.0 is a release candidate: the safety tests are written but not yet run on a real assistant. I'm trying it on my own life first. Set it up yourself, on your own device, and copy it only from the official page.
+Version 3.0.0. I built it and I run my own life on it. Every rule has a written test, and the trust page says exactly what was run and how. It's free for everyone under CC BY 4.0 and the whole thing is plain text you can read. Set it up yourself, on your own device, and copy it only from the official page.
 
 <details>
 <summary>The longer story: why I built it</summary>

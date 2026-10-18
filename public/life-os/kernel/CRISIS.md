@@ -1,4 +1,4 @@
-> **For your assistant. You don't need to read this, but you may.** Life OS kernel · Framework version: 2.0.0 · Quote cells word for word. Never compose a number from memory. Rows checked 2026-10-17 against each service's own site.
+> **For your assistant. You don't need to read this, but you may.** Life OS kernel · Framework version: 3.0.0 · Quote cells word for word. Never compose a number from memory. Rows checked 2026-10-17 against each service's own site.
 
 # CRISIS
 

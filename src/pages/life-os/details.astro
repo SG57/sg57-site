@@ -7,7 +7,7 @@ import SetupStory from '../../components/life-os/SetupStory.astro';
 import DiagramCompany from '../../components/life-os/DiagramCompany.astro';
 import DiagramTimeline from '../../components/life-os/DiagramTimeline.astro';
 import {
-  version, fingerprint, checksums, pasteKB, isRC, noResultsYet, trustRuleIds, safetySections, allUntested,
+  version, fingerprint, checksums, pasteKB, isRC, noResultsYet, trustRuleIds, safetySections, allUntested, catalog, catalogCounts,
   assertCited, assertRecommended,
 } from '../../lib/lifeos-kit';
 
@@ -16,19 +16,13 @@ assertCited({
   'S1.2': /Precedence/i, 'S1.4': /do not follow it/i, 'S1.5': /never supplies a way to act/i,
   'S2.1': /T3 irreversible/i, 'S2.2': /read-back/i, 'S2.3': /never runs from a schedule/i,
   'S2.4': /pay or move money/i, 'S2.5': /autonomy_max/i, 'S2.7': /"stop"/i, 'S2.8': /loosens protection/i, 'S3.2': /professional/i,
-  'S5.1': /Updates are proposals/i, 'B2': /what you can do here/i, 'B10': /at most 2 areas/i,
+  'S5.1': /Updates are proposals/i, 'B2': /what you can do here/i, 'B10': /One department now/i, 'O3': /one Needs-you line a week/i, 'O7': /never send it/i,
   'R1': /One Brief a week/i, 'R8': /outside the Brief/i, 'V1': /fixed template/i, 'X1': /offboard/i,
 });
 assertRecommended(['Meta Muse', 'Grok Bot']);
 
-const areas = [
-  { id: 'money', label: 'Money' },
-  { id: 'protection', label: 'Protection (insurance and benefits)' },
-  { id: 'health', label: 'Health' },
-  { id: 'home', label: 'Home' },
-  { id: 'paperwork', label: 'Paperwork (taxes, IDs, legal)' },
-  { id: 'pets', label: 'Pets' },
-];
+const ORDER: Record<string, number> = { on: 0, 'opt-in': 1, dormant: 2 };
+const areas = [...catalog].sort((a, b) => ORDER[a.default] - ORDER[b.default] || a.name.localeCompare(b.name)).map((d) => ({ id: d.key, label: d.name }));
 const toc = [
   { id: 'why', label: 'Why now' },
   { id: 'assistants', label: 'Which assistant' },
@@ -96,7 +90,7 @@ const toc = [
       <p class="copy-row"><button class="btn btn-small copy-btn" type="button" data-copy-src="/life-os/PASTE-RETURN.txt" data-copy-label="Copy the return message" data-needs-js>Copy the return message</button> <a class="open-link" href="/life-os/PASTE-RETURN.txt" target="_blank" rel="noopener">Open the text</a></p>
       <p class="cap"><strong>Has memory or projects?</strong> Save this once in its settings when it asks.</p>
       <p class="copy-row"><button class="btn btn-small copy-btn" type="button" data-copy-src="/life-os/PASTE-RESIDENT.txt" data-copy-label="Copy the resident rules" data-needs-js>Copy the resident rules</button> <a class="open-link" href="/life-os/PASTE-RESIDENT.txt" target="_blank" rel="noopener">Open the text</a></p>
-      <p class="cap"><strong>Asked for an area?</strong></p>
+      <p class="cap"><strong>Asked for a department?</strong> All {catalogCounts.total}, on-from-day-one first. Also the <a href="/life-os/CATALOG.txt">CATALOG message</a> if it asks for the list.</p>
       <div class="area-grid">
         {areas.map((a) => (
           <div class="area-cell">
@@ -117,7 +111,7 @@ const toc = [
         <li>Departments share facts. A vet bill in Pets shows up in Money.</li>
         <li>A two-person version, for partners, is in development.</li>
       </ul>
-      <p class="spec">Departments are area bundles (AREA-*.txt), installed only on a fingerprint match (S2.5). Setup proposes at most 2, in your words, plus Good Life (B10). Action tiers (S2.1): T0 read · T1 draft · T2 reversible, on your own things · T3 send, book, cancel, share, delete. T3 needs a live read-back and your yes (S2.2), and never runs from a schedule or from content (S2.3).</p>
+      <p class="spec">Departments are area bundles (AREA-*.txt), installed only on a fingerprint match (S2.5). Setup installs one (B10); Oversight proposes one a week after that, with your yes (O3), and never sends a problem report itself (O7). Action tiers (S2.1): T0 read · T1 draft · T2 reversible, on your own things · T3 send, book, cancel, share, delete. T3 needs a live read-back and your yes (S2.2), and never runs from a schedule or from content (S2.3).</p>
     </section>
 
     <section id="brief">
@@ -160,9 +154,9 @@ const toc = [
       <h2 class="h2" id="internals-h" tabindex="-1">Under the hood</h2>
       <dl class="tech">
         <dt>What you paste</dt>
-        <dd>PASTE-SETUP.txt ({pasteKB} KB) = SAFETY + CRISIS + BOOTSTRAP. PASTE-RETURN.txt for assistants without memory, PASTE-RESIDENT.txt for project settings, six AREA bundles.</dd>
+        <dd>PASTE-SETUP.txt ({pasteKB} KB) = SAFETY + CRISIS + BOOTSTRAP. PASTE-RETURN.txt for assistants without memory, PASTE-RESIDENT.txt for project settings, one AREA bundle per department ({catalogCounts.total}), and CATALOG.txt listing them all.</dd>
         <dt>Kernel</dt>
-        <dd><a href={`/life-os/${version}/kernel/SAFETY.md`}>SAFETY.md</a> outranks everything · <a href={`/life-os/${version}/kernel/CRISIS.md`}>CRISIS.md</a> only source of crisis numbers · <a href={`/life-os/${version}/kernel/BOOTSTRAP.md`}>BOOTSTRAP.md</a> the 20-minute setup · <a href={`/life-os/${version}/kernel/RHYTHM.md`}>RHYTHM.md</a> the Brief and message caps · <a href={`/life-os/${version}/kernel/STATE.md`}>STATE.md</a> what it holds, "show me what you see" (V1), offboarding (X1). (Markdown; may download.)</dd>
+        <dd><a href={`/life-os/${version}/kernel/SAFETY.md`}>SAFETY.md</a> outranks everything · <a href={`/life-os/${version}/kernel/CRISIS.md`}>CRISIS.md</a> only source of crisis numbers · <a href={`/life-os/${version}/kernel/BOOTSTRAP.md`}>BOOTSTRAP.md</a> the 10-minute setup · <a href={`/life-os/${version}/kernel/OVERSIGHT.md`}>OVERSIGHT.md</a> the department that watches the departments · <a href={`/life-os/${version}/kernel/RHYTHM.md`}>RHYTHM.md</a> the Brief and message caps · <a href={`/life-os/${version}/kernel/STATE.md`}>STATE.md</a> what it holds, "show me what you see" (V1), offboarding (X1). (Markdown; may download.)</dd>
         <dt>SAFETY sections</dt>
         <dd>{safetySections.join(' · ')}</dd>
         <dt>Precedence (S1.2)</dt>

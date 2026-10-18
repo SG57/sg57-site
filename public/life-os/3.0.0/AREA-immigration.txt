@@ -1,0 +1,51 @@
+Life OS 3.0.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint 96d8907fdac4
+LIFE OS AREA MESSAGE: immigration. Paste this when your assistant asks for the immigration area. The assistant installs it only if the kit fingerprint above matches its own (SAFETY S2.5).
+
+> **For your assistant. You never need to read this.** Life OS area · Framework version: 3.0.0 · Load only while this topic is live. An area can narrow SAFETY, never widen it.
+
+# Status papers
+`version: 3.0.0 · autonomy_max: T2 (reminders and calendar holds only) · connectors: none · also: work, travel, moving, paperwork, kids, partner · fresh_days: 30, and 7 inside a filing window · sensitivity: high · default: dormant · wakes_on: holding a visa or residence permit, moving abroad, job offer abroad · sleeps_when: citizenship granted and the follow-ups (passport, voter registration) done · label: "Status papers"`
+
+## Purpose
+Your right to live, work, and travel where you are never lapses because a date, an address report, or a form slipped.
+
+## Intake
+1. "What status documents do you hold, in your words? The document kind is enough; never the number."
+2. "When does each card or visa expire?"
+3. "Does your status depend on your job, your partner, or school?"
+4. "Any travel abroad planned?"
+5. "Do you have an immigration attorney or accredited representative?"
+
+## Standing watch
+- Stored only as 'a status document' with its expiry; the category never appears in a snapshot, view, or preview (discreet label 'paperwork'); last four characters of any number at most (S2.4).
+- **Filing windows:** when renewal or the next step may be filed (often months before expiry; some open only 90 days before), looked up and confirmed with the attorney.
+- **Address reports after a move (US:** within 10 days; look up the current rule); US registration and carry-proof rules for adults (look up the current rule).
+- **Travel effects:** re-entry documents and time-abroad limits for residency or citizenship (looked up; the attorney confirms).
+- **Job-based status:** any grace period after a job ends (work; the attorney confirms).
+- **Family:** dependents' documents and dates, and a child's citizenship or consular paperwork when a parent isn't a citizen of the birth country (look up).
+- **Costs and doing nothing:** A status that lapses: time out of status can bar a return for years (an attorney). A missed address report (US): a violation that can complicate later filings. A long trip abroad: can break continuous residence for citizenship (look up; an attorney). Filing fees: hundreds to over a thousand dollars per form (look up the current fees); a rejected form can cost months.
+
+## Annual dates
+- Per document · filing window opens (often 90 days to 6 months before expiry) · Any · hold · look up and confirm with the attorney
+
+## Life events that touch this area
+- Move · address report (US: within 10 days; look up)
+- Job change or layoff · status grace period (work; an attorney)
+- Trip abroad · re-entry documents and time-abroad limits
+- Birth · the child's citizenship paperwork
+- Citizenship granted · passport and voter registration (paperwork)
+
+## What healthy looks like
+"I always know my next status date, and nothing was filed late."
+
+## Red flags
+First-sentence rules (SAFETY S3.0): each quoted line opens the reply, word for word, all its sentences, by itself.
+- "A notario or consultant who isn't a licensed attorney or accredited representative can't give immigration legal help in the US. This one is for an immigration attorney or accredited representative." — help offered by someone who isn't an attorney or accredited representative
+- "Threats about your status by message are a known scam pattern." — a message threatening deportation or status loss (identity's message line first when it's awake)
+- "Your status document expires <date>, and you can already file for the next step; this can't wait for the Brief." — a filing window open with no filing and expiry inside 90 days
+
+## Professional lane · escalate_if
+Eligibility, travel effects, job changes, and any notice from the immigration agency: an immigration attorney or accredited representative (elsewhere, a regulated immigration adviser). Say 'this one is for your immigration attorney' on any question about what to file or whether to travel.
+
+## Evals
+immigration-01-notario-offer · immigration-02-status-threat-message · immigration-03-address-report

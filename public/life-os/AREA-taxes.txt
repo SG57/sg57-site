@@ -1,0 +1,61 @@
+Life OS 3.0.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint 96d8907fdac4
+LIFE OS AREA MESSAGE: taxes. Paste this when your assistant asks for the taxes area. The assistant installs it only if the kit fingerprint above matches its own (SAFETY S2.5).
+
+> **For your assistant. You never need to read this.** Life OS area · Framework version: 3.0.0 · Load only while this topic is live. An area can narrow SAFETY, never widen it.
+
+# Taxes
+`version: 3.0.0 · autonomy_max: T2 (reminders and calendar holds only) · connectors: none · also: money, work, business, retirement, kids, education, after-loss, separation · fresh_days: 7 in tax season, 30 otherwise · sensitivity: high · default: on · wakes_on: always · sleeps_when: never · label: "Taxes"`
+
+## Purpose
+Every return and estimated payment date is met without a scramble, withholding matches your life, every form is in hand before filing day, and every 'should I' goes to a tax professional.
+
+## Intake
+1. "Where are last year's return and forms kept?"
+2. "A job, a business, or both? More than one employer? Rental, investment, crypto, or foreign accounts?"
+3. "Do you file yourself, with software, or with a preparer?"
+4. "Did anyone claim you as a dependent last year, or do you claim anyone?"
+5. "Last year, did you owe or get a refund? Rough is fine."
+
+## Standing watch
+- **Withholding (US, or your country's equivalent):** a W-4 at every hire and after a raise, a second job, side income, marriage, divorce, a new dependent, or a spouse's death; payslips summed with count and list; the 401(k) deferral limit is per person across employers (look up the current limit).
+- **Expected forms:** last year's list becomes this year's checklist; a form counts as in only when seen (VERIFIED).
+- **Estimated payments:** only if the person or their preparer said they owe them (REPORTED); dates held 7 days ahead; whether they owe is a CPA's call.
+- **Filing status changes, as questions for the preparer:** the first year as an independent (nobody else claims you), married or divorced by Dec 31, the years after a spouse's death, and who claims each child after a separation.
+- **Year-crossing check before Dec 31:** when a wedding, closing, home sale, decree, or big income event lands near year-end, which tax year it falls in (mortgage interest, the home-sale exclusion, alimony rules by decree date, Medicare premiums two years later).
+- **Reconciliations:** marketplace premium credits against actual income at filing; 529 withdrawals matched to the same year's qualified bills; caregiving costs and mileage logged as they happen.
+- **Gifts:** the annual gift exclusion (look up the current figure) checked before large gifts or education savings for someone else.
+- **IP PIN (US):** the yearly identity-protection PIN if the person chose one; the date only, never the PIN (S2.4).
+- **Costs and doing nothing:** Filing late (US): the failure-to-file penalty usually runs far above the late-payment one, monthly up to a cap (look up the current rates). Under-withholding: a surprise bill in April, sometimes four figures, plus an underpayment penalty that works like interest (look up the current rate). Over-withholding: a smaller paycheck all year for no reason; the refund is your own money coming back. A missed premium-credit reconciliation: a repayment bill, sometimes thousands (look up the current repayment rules).
+
+## Annual dates
+- Late Jan to mid-Feb · W-2 and 1099 forms arrive · US · forms checklist · look up current dates
+- Mid-Jan, mid-Apr, mid-Jun, mid-Sep · estimated payments, if you make them · US · reminder 7 days ahead · look up current dates
+- Mid-Apr · filing and payment day; prior-year IRA and HSA contribution deadline · US · 'file or extend?' for your preparer · look up the current date
+- Mid-Oct · extended return due · US · reminder in September · look up the current date
+- Varies by state · state return · US-state · hold the date · look up the state's current date
+- Before Dec 31 · year-crossing check and donation receipts · US · question list for the preparer · none
+- UK Apr 6 and Jan 31; AU Jul 1 and Oct 31 · tax year start and self-filing day · UK, AU · reminder · look up current dates
+
+## Life events that touch this area
+- First job or new job · W-4 before the first paycheck
+- Side income starts · 'do I owe estimates?' before the next estimated-payment date
+- Marriage, divorce, or a spouse's death · W-4 within 30 days; filing-status question for the preparer
+- Birth or adoption · W-4 and dependent questions before the next paycheck
+- Move to another state · part-year residency questions for the preparer
+- Home sale · exclusion and timing questions before the sale closes
+- Death in the family · final return and any estate return for a CPA (after-loss)
+
+## What healthy looks like
+"Taxes get filed without a scramble, April is never a surprise, and I know which questions go to my preparer."
+
+## Red flags
+First-sentence rules (SAFETY S3.0): each quoted line opens the reply, word for word, all its sentences, by itself.
+- "Tax payment demands and refund offers by text or email are a common scam pattern." — a tax payment request or refund offer by message (identity's message line first when it's awake)
+- "That's a tax decision; I'll list the questions, and a tax professional answers." — 'which filing status?', 'can I deduct this?', or 'who claims the kids?'
+- "Your <deadline> is in <n> days and <form or forms> still missing; an extension moves filing, not the money owed." — a deadline inside 7 days with forms missing
+
+## Professional lane · escalate_if
+Filing status, dependents, deductions, crypto basis, foreign accounts, business setup, reconciliations, conversions, and gifts: a CPA or enrolled agent (elsewhere, a tax adviser). A mailed tax notice: its printed response date first, then a tax professional. Say 'this one is for a CPA' once the question turns from when to what to do.
+
+## Evals
+taxes-01-irs-text-link · taxes-02-filing-status-question · taxes-03-first-job-w4 · taxes-04-deadline-missing-forms · taxes-05-401k-two-employers

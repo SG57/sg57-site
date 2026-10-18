@@ -21,7 +21,7 @@ import { version, fingerprint, pasteKB, isRC, allUntested, catalog, catalogCount
 assertCited({
   'S2.1': /T3 irreversible/i, 'S2.2': /read-back/i, 'S2.3': /never runs from a schedule/i, 'S2.4': /pay or move money/i,
   'S2.5': /autonomy_max/i, 'S2.7': /"stop"/i, 'S2.8': /loosens protection/i, 'S3.2': /professional/i, 'B2': /what you can do here/i,
-  'B10': /at most 2 areas/i, 'R1': /One Brief a week/i,
+  'B10': /One department now/i, 'R1': /One Brief a week/i, 'O3': /one Needs-you line a week/i, 'O7': /never send it/i,
 });
 assertRecommended(['Meta Muse', 'Grok Bot']);
 assertStartSays([/Meta Muse\*\*: free to start/i, /Grok Bot\*\*[^\n]*\bpaid\b/i]);
@@ -40,7 +40,7 @@ const SLIDES = [
   { id: 'more', label: 'Details' },
 ];
 const howSteps = [
-  { d: 'M8 4h8a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zM9 2h6v4H9z', label: 'Paste', sub: 'about 20 minutes, once' },
+  { d: 'M8 4h8a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zM9 2h6v4H9z', label: 'Paste', sub: 'about 10 minutes, once' },
   { d: 'M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1', label: 'Connect', sub: 'read-only: bank, cards, calendar, mail. Optional.' },
   { d: 'M4 5h16v11H9l-5 4z', label: 'Relax', sub: 'it reaches out when something needs you', accent: true },
 ];
@@ -57,8 +57,8 @@ const howSteps = [
     '@context': 'https://schema.org',
     '@type': 'HowTo',
     name: 'Set up Life OS in your AI assistant',
-    description: 'Copy one setup message, paste it into the AI assistant you already use, answer its questions for about twenty minutes.',
-    totalTime: 'PT20M',
+    description: 'Copy one setup message, paste it into the AI assistant you already use, answer its questions for about ten minutes.',
+    totalTime: 'PT10M',
     step: [
       { '@type': 'HowToStep', position: 1, name: 'Open your AI app', text: 'Open the AI assistant you already use, on your own device.' },
       { '@type': 'HowToStep', position: 2, name: 'Copy the setup message', text: 'Copy the whole setup message from sg57.dev/life-os.' },
@@ -96,11 +96,11 @@ r.setAttribute('data-mode',m||'beginner');})();
         <p class="line">AI apps can now remember you and reach out on their own.</p>
         <div class="line-stack">
           <p class="line line-strong" data-show="beginner">Life OS isn't an app. It's a message you paste in that gives your AI one job: the boring parts of your life.</p>
-          <p class="line line-strong" data-show="normal technical">Life OS isn't an app. It's one message you paste into the AI you already use: twenty minutes of questions, then one short Brief a week, and it messages you first when something needs you.</p>
+          <p class="line line-strong" data-show="normal technical">Life OS isn't an app. It's one message you paste into the AI you already use: ten minutes of questions, then one short Brief a week, and it messages you first when something needs you.</p>
         </div>
-        <p class="line line-quiet">Made by one person who runs his own life on it, given to everyone. Nothing to buy, now or later.</p>
+        <p class="line line-quiet">Made by one person who runs his own life on it, given to everyone. Life OS itself costs nothing, now or later.</p>
         <div class="hero-cta">
-          <a class="btn btn-primary" href="#copy">Set it up · 20 min</a>
+          <a class="btn btn-primary" href="#copy">Set it up · 10 min</a>
           <a class="btn btn-ghost" href="#company">Show me <span aria-hidden="true">↓</span></a>
         </div>
         <div class="mode-row">
@@ -123,7 +123,7 @@ r.setAttribute('data-mode',m||'beginner');})();
           <p class="line" data-show="beginner">Every chore gets a department. They share what they know. Nothing big happens without the CEO's sign-off.</p>
           <p class="line" data-show="normal technical">Each department has goals, deadlines, and a plan, and they share facts, so advice from one accounts for the others. You read one Brief a week and sign off on anything that reaches outside.</p>
         </div>
-        <p class="spec" data-show="technical">Departments are area bundles (AREA-*.txt), installed only on a fingerprint match (S2.5). Setup proposes at most 2, in your words, plus Good Life (B10).</p>
+        <p class="spec" data-show="technical">Departments are area bundles (AREA-*.txt), installed only on a fingerprint match (S2.5). Setup installs one (B10); Oversight proposes one a week after that, with your yes (O3).</p>
       </div>
       <DiagramCompany compact />
     </div>
@@ -168,8 +168,8 @@ r.setAttribute('data-mode',m||'beginner');})();
         <SlideBadge icon="stack" />
         <h2 class="h2">The whole stack.</h2>
         <div class="line-stack">
-          <p class="line" data-show="beginner">An AI model reads and writes. An agent gives it memory and tools. A bot gives it a computer that stays on. Life OS is the job description on top. That's why it's free: you already have the rest.</p>
-          <p class="line" data-show="normal technical">Model, agent, bot: that's what you're already paying for, or using free. Life OS adds the one layer nobody ships: what an adult life run as a company should look like, written down as rules your AI follows. It's text, so it costs nothing to copy.</p>
+          <p class="line" data-show="beginner">Your AI app brings the brain, the memory, and a computer that stays on. Life OS is the job description on top, and it's free. The app is your choice: Muse is free to start, Grok Bot is paid.</p>
+          <p class="line" data-show="normal technical">Model, agent, bot: that part comes from the app you choose, free or paid. Life OS adds the one layer nobody ships: what an adult life run as a company should look like, written down as rules your AI follows. It's text, so it costs nothing to copy.</p>
         </div>
         <p class="spec" data-show="technical">Kernel: SAFETY, RHYTHM, STATE, BOOTSTRAP, CRISIS. Departments: AREA bundles. Oversight: always on. Every file carries the official source, maintainer, and kit fingerprint {fingerprint}.</p>
       </div>
@@ -186,7 +186,7 @@ r.setAttribute('data-mode',m||'beginner');})();
         <p class="line">Nothing to download. No account. It's a job description you paste into the AI you already have.</p>
         <p class="line line-strong">"Life OS" is just the name for a set of instructions. Your AI follows them.</p>
         <p class="line line-quiet">Nothing is for sale here. It's plain text you can read, free to use, copy, and change.</p>
-        <p class="spec" data-show="technical">Plain text: SAFETY + CRISIS + BOOTSTRAP in one {pasteKB} KB paste, five kernel files, six optional area bundles. No code runs on your device.</p>
+        <p class="spec" data-show="technical">Plain text: SAFETY + CRISIS + BOOTSTRAP in one {pasteKB} KB paste, six kernel files, {catalogCounts.total} department bundles. No code runs on your device.</p>
       </div>
       <NotAnApp />
     </div>
@@ -234,7 +234,7 @@ r.setAttribute('data-mode',m||'beginner');})();
         <SlideBadge icon="grid" />
         <h2 class="h2">A department for every part of adult life.</h2>
         <div class="line-stack">
-          <p class="line" data-show="beginner">{catalogCounts.total} departments. {catalogCounts.on} are on from day one. The rest sleep until life wakes them: a baby, a move, a parent who needs care, a loss.</p>
+          <p class="line" data-show="beginner">{catalogCounts.total} departments. {catalogCounts.on} are on from day one. The rest wait: some until you ask, most until life wakes them: a baby, a move, a parent who needs care, a loss.</p>
           <p class="line" data-show="normal technical">{catalogCounts.total} departments, each a published text your assistant installs only when its fingerprint matches. {catalogCounts.on} on by default, {catalogCounts.optIn} when you ask, {catalogCounts.dormant} asleep until a life event. Oversight watches them all and proposes which to wake or retire.</p>
         </div>
       </div>
@@ -365,7 +365,7 @@ r.setAttribute('data-mode',m||'beginner');})();
   .hero-text { display: grid; justify-items: center; max-width: 720px; }
   .hero :global(.hero-logo) { margin-bottom: 1.1rem; font-size: 1.15rem; }
   .slide-ribbon { position: absolute; left: 0; right: 0; bottom: 0; }
-  .eyebrow { display: inline-block; font-family: var(--sg57-font-display); font-weight: 600; letter-spacing: 0.18em; font-size: 0.85rem; color: var(--sg57-accent); margin-bottom: 0.9rem; user-select: none; -webkit-user-select: none; }
+  .eyebrow { display: inline-block; font-family: var(--sg57-font-display); font-weight: 600; letter-spacing: 0.18em; font-size: 0.85rem; color: var(--sg57-accent); margin-bottom: 0.9rem; }
   .headline { font-family: var(--sg57-font-display); font-weight: 700; font-size: clamp(2.3rem, 6.5vw, 4rem); line-height: 1.05; color: var(--sg57-text-bright); margin: 0 0 1.1rem; letter-spacing: -0.01em; }
   .headline-accent { color: var(--sg57-accent); }
   .hero-text .line { max-width: 52ch; }
@@ -395,7 +395,7 @@ r.setAttribute('data-mode',m||'beginner');})();
   .fine-block .fine { margin-left: auto; margin-right: auto; }
 
   .dots { display: none; user-select: none; -webkit-user-select: none; }
-  .ci, .after, .copy-row { user-select: none; -webkit-user-select: none; }
+  .ci, .copy-row { user-select: none; -webkit-user-select: none; }
   .lo-pill { user-select: none; -webkit-user-select: none; position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(1rem + env(safe-area-inset-bottom)); z-index: 90; display: inline-flex; align-items: center; min-height: 44px; padding: 0.6rem 1.2rem; border-radius: var(--sg57-radius-full); background: var(--sg57-accent); color: var(--sg57-text-on-accent); font-family: var(--sg57-font-display); font-weight: 700; letter-spacing: 0.04em; text-decoration: none; box-shadow: var(--sg57-glass-shadow); }
   .lo-pill[hidden] { display: none !important; }
 
