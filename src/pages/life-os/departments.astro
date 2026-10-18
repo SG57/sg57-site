@@ -1,0 +1,49 @@
+---
+import Base from '../../layouts/Base.astro';
+import LoStyles from '../../components/life-os/LoStyles.astro';
+import LoRuntime from '../../components/life-os/LoRuntime.astro';
+import DeptGrid from '../../components/life-os/DeptGrid.astro';
+import LogoMark from '../../components/life-os/LogoMark.astro';
+import { version, fingerprint, catalog, catalogCounts } from '../../lib/lifeos-kit';
+---
+
+<Base
+  title="Every Life OS department | SG57 Labs"
+  description={`${catalogCounts.total} departments for every part of adult life. Most sleep until a life event wakes them. Each one knows what to watch, what to ask, and when a professional takes over.`}
+  accentColor="#8FBF9F"
+  accentHover="#A3D1B1"
+  accentMuted="#6F9D80"
+  accentGlow="rgba(143, 191, 159, 0.15)"
+>
+<LoStyles />
+<div class="lo lo-doc" data-lifeos data-mode="technical" data-mode-fixed>
+<script is:inline data-astro-rerun>(function(){var r=document.querySelector('[data-lifeos]');if(r)r.setAttribute('data-js','');})();</script>
+  <article class="doc">
+    <p class="crumbs"><a href="/life-os">Life OS</a> <span aria-hidden="true">/</span> Departments</p>
+    <div class="head">
+      <LogoMark size={56} />
+      <h1 class="doc-title">Every department.</h1>
+    </div>
+    <p class="lede">{catalogCounts.total} departments for the whole of adult life. {catalogCounts.on} are on from day one. The rest sleep until life wakes them, or until you ask. Each one knows what to watch, what to ask you, what things cost on the low and high end, what happens if nothing is done, and the exact moment a professional takes over. Two more live in the kernel and are always on: <strong>Good Life</strong> (one thing to look forward to, every week) and <strong>Oversight</strong> (watches every department, wakes and retires them, and reports a bug in Life OS itself to the maker, with your yes).</p>
+    <p class="cap">Version {version} · kit fingerprint <code>{fingerprint}</code> · every department's text is published as its own message; your assistant installs it only when the fingerprint matches.</p>
+    <DeptGrid depts={catalog} />
+    <p class="back"><a href="/life-os">&larr; Back to the short page</a> · <a href="/life-os/details">In detail</a></p>
+  </article>
+</div>
+<LoRuntime />
+</Base>
+
+<style>
+  .doc { padding: 6.5rem 1.5rem 3rem; max-width: 1100px; margin: 0 auto; }
+  .crumbs { font-family: var(--sg57-font-display); letter-spacing: 0.06em; color: var(--sg57-text-dim); margin: 0 0 0.75rem; }
+  .crumbs a, .back a, .lede a { color: var(--sg57-accent); text-decoration: none; }
+  .head { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+  .doc-title { font-family: var(--sg57-font-display); font-weight: 700; font-size: clamp(1.9rem, 4.5vw, 2.8rem); line-height: 1.1; color: var(--sg57-text-bright); margin: 0; }
+  .lede { color: var(--sg57-text); line-height: 1.6; margin: 0.5rem 0 0.75rem; max-width: 80ch; }
+  .lede strong { color: var(--sg57-text-bright); }
+  .cap { margin: 0 0 1.75rem; }
+  .cap code { font-family: var(--sg57-font-mono); }
+  .back { margin-top: 2rem; }
+  .back a { font-family: var(--sg57-font-display); letter-spacing: 0.04em; }
+  @media (max-width: 720px) { .doc { padding-top: 5.5rem; } }
+</style>

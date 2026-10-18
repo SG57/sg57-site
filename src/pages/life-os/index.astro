@@ -14,7 +14,8 @@ import LogoMark from '../../components/life-os/LogoMark.astro';
 import SlideBadge from '../../components/life-os/SlideBadge.astro';
 import StackDiagram from '../../components/life-os/StackDiagram.astro';
 import Ribbon from '../../components/life-os/Ribbon.astro';
-import { version, fingerprint, pasteKB, isRC, allUntested, assertCited, assertRecommended, assertStartSays } from '../../lib/lifeos-kit';
+import DeptGrid from '../../components/life-os/DeptGrid.astro';
+import { version, fingerprint, pasteKB, isRC, allUntested, catalog, catalogCounts, assertCited, assertRecommended, assertStartSays } from '../../lib/lifeos-kit';
 
 // Every rule id this page cites, with a phrase its definition must still contain. The build fails on drift.
 assertCited({
@@ -34,6 +35,7 @@ const SLIDES = [
   { id: 'not-an-app', label: 'Not an app' },
   { id: 'how', label: 'Paste, connect, relax' },
   { id: 'safe', label: 'Your sign-off' },
+  { id: 'depts', label: 'Every department' },
   { id: 'start', label: 'Set it up' },
   { id: 'more', label: 'Details' },
 ];
@@ -223,6 +225,22 @@ r.setAttribute('data-mode',m||'beginner');})();
       <NeverTiles />
     </div>
     <div class="slide-ribbon"><Ribbon words={['Your yes, every time', 'Paying stays with you', 'Say stop, it stops', 'Read back before anything leaves', 'Rules, written down']} /></div>
+  </section>
+
+  <!-- 9 · Departments -->
+  <section class="slide slide-alt" id="depts">
+    <div class="slide-inner slide-inner-wide">
+      <div class="slide-copy" data-reveal>
+        <SlideBadge icon="grid" />
+        <h2 class="h2">A department for every part of adult life.</h2>
+        <div class="line-stack">
+          <p class="line" data-show="beginner">{catalogCounts.total} departments. {catalogCounts.on} are on from day one. The rest sleep until life wakes them: a baby, a move, a parent who needs care, a loss.</p>
+          <p class="line" data-show="normal technical">{catalogCounts.total} departments, each a published text your assistant installs only when its fingerprint matches. {catalogCounts.on} on by default, {catalogCounts.optIn} when you ask, {catalogCounts.dormant} asleep until a life event. Oversight watches them all and proposes which to wake or retire.</p>
+        </div>
+      </div>
+      <DeptGrid depts={catalog} compact />
+      <p class="after"><a href="/life-os/departments">See every department <span aria-hidden="true">→</span></a></p>
+    </div>
   </section>
 
   <!-- 8 · Try it -->

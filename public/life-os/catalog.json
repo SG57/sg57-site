@@ -1,0 +1,84 @@
+{
+ "version": "2.0.0",
+ "fingerprint": "8fb9652b58f7",
+ "departments": [
+  {
+   "key": "health",
+   "name": "Health",
+   "label": "Health",
+   "purpose": "Due care gets booked, refills never run out, insurer deadlines never slip; the body stays with their doctor.",
+   "default": "on",
+   "wakes_on": "always",
+   "sleeps_when": "never",
+   "also": "protection, money, paperwork",
+   "sensitivity": "high",
+   "connectors": "none (optional: read-only calendar, pharmacy notices)",
+   "autonomy_max": "T2"
+  },
+  {
+   "key": "home",
+   "name": "Home",
+   "label": "Home",
+   "purpose": "The place they live now stays safe and unsurprising: no surprise lease renewal, no dead alarm, no forgotten repair. A \"next home\" search is a separate project, not this area.",
+   "default": "on",
+   "wakes_on": "always",
+   "sleeps_when": "never",
+   "also": "money, protection, paperwork",
+   "sensitivity": "medium",
+   "connectors": "none (optional, never required)",
+   "autonomy_max": "T2"
+  },
+  {
+   "key": "money",
+   "name": "Money",
+   "label": "Money",
+   "purpose": "Bills land on time, nothing surprises them, and spare money goes where they decided, not where the loudest deadline points.",
+   "default": "on",
+   "wakes_on": "always",
+   "sleeps_when": "never",
+   "also": "protection, paperwork, home",
+   "sensitivity": "high",
+   "connectors": "none (optional: read-only bank data)",
+   "autonomy_max": "T2 (reminders and calendar holds only)"
+  },
+  {
+   "key": "paperwork",
+   "name": "Paperwork",
+   "label": "Paperwork",
+   "purpose": "Taxes, IDs, and legal papers handled before they bite.",
+   "default": "on",
+   "wakes_on": "always",
+   "sleeps_when": "never",
+   "also": "money, protection, home, pets",
+   "sensitivity": "high",
+   "connectors": "none (optional, never required)",
+   "autonomy_max": "T2 (reminders and calendar holds only)"
+  },
+  {
+   "key": "pets",
+   "name": "Pets",
+   "label": "Pets",
+   "purpose": "The animals are cared for on time, and someone is ready to step in if the person cannot.",
+   "default": "opt-in",
+   "wakes_on": "always",
+   "sleeps_when": "never",
+   "also": "protection, paperwork, money",
+   "sensitivity": "medium",
+   "connectors": "none (optional: calendar)",
+   "autonomy_max": "T2"
+  },
+  {
+   "key": "protection",
+   "name": "Protection",
+   "label": "Insurance & benefits",
+   "purpose": "No coverage gaps, no window closes unseen; every account names who the person wants.",
+   "default": "on",
+   "wakes_on": "always",
+   "sleeps_when": "never",
+   "also": "money, health, paperwork, pets, home",
+   "sensitivity": "high",
+   "connectors": "none (optional, never required)",
+   "autonomy_max": "T2"
+  }
+ ]
+}

@@ -26,6 +26,20 @@ export const checksums = fpLines
 
 export const pasteKB = Math.round(statSync(P('PASTE-SETUP.txt')).size / 1024);
 
+/** One department, as build-paste.py reads it from the area file's header line. */
+export interface Dept {
+  key: string; name: string; label: string; purpose: string;
+  default: 'on' | 'opt-in' | 'dormant'; wakes_on: string; sleeps_when: string; also: string;
+  sensitivity: string; connectors: string; autonomy_max: string;
+}
+export const catalog: Dept[] = JSON.parse(read(P('catalog.json'))).departments;
+export const catalogCounts = {
+  total: catalog.length,
+  on: catalog.filter((d) => d.default === 'on').length,
+  optIn: catalog.filter((d) => d.default === 'opt-in').length,
+  dormant: catalog.filter((d) => d.default === 'dormant').length,
+};
+
 const start = read(C('start.md'));
 const trust = read(C('trust.md'));
 export const isRC = /release candidate/i.test(start) || /release candidate/i.test(trust);

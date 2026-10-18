@@ -1,0 +1,11 @@
+Life OS 2.0.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint 8fb9652b58f7
+LIFE OS CATALOG. Every department in this kit, one line each: key · what people call it · what it takes off your mind · default (on, opt-in, or dormant until a life event) · wakes on · also touches. Install one only from its own AREA message at kit fingerprint 8fb9652b58f7 (SAFETY S2.5). Good Life and Oversight live in the kernel.
+
+- health · "Health" · Due care gets booked, refills never run out, insurer deadlines never slip; the body stays with their doctor. · default: on · wakes on: always · also: protection, money, paperwork
+- home · "Home" · The place they live now stays safe and unsurprising: no surprise lease renewal, no dead alarm, no forgotten repair. A "next home" search is a separate project, not this area. · default: on · wakes on: always · also: money, protection, paperwork
+- money · "Money" · Bills land on time, nothing surprises them, and spare money goes where they decided, not where the loudest deadline points. · default: on · wakes on: always · also: protection, paperwork, home
+- paperwork · "Paperwork" · Taxes, IDs, and legal papers handled before they bite. · default: on · wakes on: always · also: money, protection, home, pets
+- pets · "Pets" · The animals are cared for on time, and someone is ready to step in if the person cannot. · default: opt-in · wakes on: always · also: protection, paperwork, money
+- protection · "Insurance & benefits" · No coverage gaps, no window closes unseen; every account names who the person wants. · default: on · wakes on: always · also: money, health, paperwork, pets, home
+
+END LIFE OS CATALOG
