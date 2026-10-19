@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-labelledby="t d">
+  <title id="t">Departments wake when life does</title>
+  <desc id="d">A line of adult life from the early twenties to the eighties. Nine departments are on from the first weeks. Others wake on events: Work at a first job, Us when moving in together, Buying a home, Kids when a child arrives, Caregiving when a parent needs care, Retirement near the end of work, Later life after seventy, After a loss when someone dies. Oversight watches them all and asks before waking any.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#12151a"/><stop offset="1" stop-color="#0a0c10"/></linearGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6F9D80"/><stop offset="1" stop-color="#8FBF9F"/></linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <g font-family="Rajdhani, system-ui, sans-serif">
+    <text x="600" y="64" text-anchor="middle" font-size="30" font-weight="700" fill="#ffffff">Most departments sleep until life wakes them</text>
+    <text x="600" y="94" text-anchor="middle" font-size="17" fill="#9aa2ac">Oversight proposes one in a single line, and never wakes one without your yes.</text>
+
+    <rect x="100" y="150" width="1000" height="56" rx="12" fill="rgba(143,191,159,0.10)" stroke="#6F9D80"/>
+    <text x="120" y="173" font-size="14" fill="#8FBF9F" letter-spacing="2">ON FROM THE FIRST WEEKS, ONE A WEEK</text>
+    <text x="120" y="196" font-size="17" fill="#e6e9ee">Money · Insurance &amp; benefits · Health · Home · Upkeep &amp; safety · Papers &amp; IDs · Taxes · Identity &amp; scams · Will &amp; wishes</text>
+
+    <line x1="100" y1="420" x2="1100" y2="420" stroke="url(#line)" stroke-width="4" stroke-linecap="round"/>
+    <g font-size="14" fill="#9aa2ac" text-anchor="middle">
+      <text x="120" y="455">20s</text><text x="340" y="455">30s</text><text x="560" y="455">40s</text><text x="780" y="455">60s</text><text x="1000" y="455">80s</text>
+    </g>
+    <g text-anchor="middle">
+      <g transform="translate(140,420)"><circle r="9" fill="#0a0c10" stroke="#8FBF9F" stroke-width="3"/><line y1="-14" y2="-70" stroke="#6F9D80" stroke-width="2"/><rect x="-62" y="-118" width="124" height="48" rx="10" fill="#12151a" stroke="rgba(255,255,255,0.14)"/><text y="-96" font-size="16" font-weight="700" fill="#ffffff">Work</text><text y="-78" font-size="13" fill="#9aa2ac">first job</text></g>
+      <g transform="translate(300,420)"><circle r="9" fill="#0a0c10" stroke="#8FBF9F" stroke-width="3"/><line y1="14" y2="70" stroke="#6F9D80" stroke-width="2"/><rect x="-66" y="70" width="132" height="48" rx="10" fill="#12151a" stroke="rgba(255,255,255,0.14)"/><text y="92" font-size="16" font-weight="700" fill="#ffffff">Us</text><text y="110" font-size="13" fill="#9aa2ac">moving in together</text></g>
+      <g transform="translate(430,420)"><circle r="9" fill="#0a0c10" stroke="#8FBF9F" stroke-width="3"/><line y1="-14" y2="-70" stroke="#6F9D80" stroke-width="2"/><rect x="-80" y="-118" width="160" height="48" rx="10" fill="#12151a" stroke="rgba(255,255,255,0.14)"/><text y="-96" font-size="16" font-weight="700" fill="#ffffff">Buying a home</text><text y="-78" font-size="13" fill="#9aa2ac">shopping for one</text></g>
+      <g transform="translate(540,420)"><circle r="9" fill="#0a0c10" stroke="#8FBF9F" stroke-width="3"/><line y1="14" y2="70" stroke="#6F9D80" stroke-width="2"/><rect x="-66" y="70" width="132" height="48" rx="10" fill="#12151a" stroke="rgba(255,255,255,0.14)"/><text y="92" font-size="16" font-weight="700" fill="#ffffff">Kids</text><text y="110" font-size="13" fill="#9aa2ac">a child arrives</text></g>
+      <g transform="translate(660,420)"><circle r="9" fill="#0a0c10" stroke="#8FBF9F" stroke-width="3"/><line y1="-14" y2="-70" stroke="#6F9D80" stroke-width="2"/><rect x="-80" y="-118" width="160" height="48" rx="10" fill="#12151a" stroke="rgba(255,255,255,0.14)"/><text y="-96" font-size="16" font-weight="700" fill="#ffffff">Caregiving</text><text y="-78" font-size="13" fill="#9aa2ac">a parent needs care</text></g>
+      <g transform="translate(790,420)"><circle r="9" fill="#0a0c10" stroke="#8FBF9F" stroke-width="3"/><line y1="14" y2="70" stroke="#6F9D80" stroke-width="2"/><rect x="-70" y="70" width="140" height="48" rx="10" fill="#12151a" stroke="rgba(255,255,255,0.14)"/><text y="92" font-size="16" font-weight="700" fill="#ffffff">Retirement</text><text y="110" font-size="13" fill="#9aa2ac">within ten years</text></g>
+      <g transform="translate(920,420)"><circle r="9" fill="#0a0c10" stroke="#8FBF9F" stroke-width="3"/><line y1="-14" y2="-70" stroke="#6F9D80" stroke-width="2"/><rect x="-66" y="-118" width="132" height="48" rx="10" fill="#12151a" stroke="rgba(255,255,255,0.14)"/><text y="-96" font-size="16" font-weight="700" fill="#ffffff">Later life</text><text y="-78" font-size="13" fill="#9aa2ac">turning 70</text></g>
+      <g transform="translate(1050,420)"><circle r="9" fill="#0a0c10" stroke="#8FBF9F" stroke-width="3"/><line y1="14" y2="70" stroke="#6F9D80" stroke-width="2"/><rect x="-66" y="70" width="132" height="48" rx="10" fill="#12151a" stroke="rgba(255,255,255,0.14)"/><text y="92" font-size="16" font-weight="700" fill="#ffffff">After a loss</text><text y="110" font-size="13" fill="#9aa2ac">someone dies</text></g>
+    </g>
+    <text x="600" y="600" text-anchor="middle" font-size="16" fill="#9aa2ac">Plus Moving, Trips, Legal papers, Medical bills, Benefits, School, Separation, Status papers, Military &amp; veterans, Extra support, each on its own event.</text>
+    <text x="600" y="632" text-anchor="middle" font-size="16" fill="#8FBF9F">A sleeping department costs you nothing. Woken, it brings its five questions and its watch list.</text>
+  </g>
+</svg>
