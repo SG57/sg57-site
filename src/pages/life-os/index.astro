@@ -57,15 +57,16 @@ const howSteps = [
     '@context': 'https://schema.org',
     '@type': 'HowTo',
     name: 'Set up Life OS in your AI assistant',
-    description: 'Copy one setup message, paste it into the AI assistant you already use, answer its questions for about ten minutes.',
+    description: 'Copy one short setup message, paste it into the AI assistant you already use, answer its questions for about ten minutes.',
     totalTime: 'PT10M',
     step: [
       { '@type': 'HowToStep', position: 1, name: 'Open your AI app', text: 'Open the AI assistant you already use, on your own device.' },
-      { '@type': 'HowToStep', position: 2, name: 'Copy the setup message', text: 'Copy the whole setup message from sg57.dev/life-os.' },
-      { '@type': 'HowToStep', position: 3, name: 'Paste it and answer', text: 'Paste it, send it, and answer the questions. No bank or email connection is needed.' },
+      { '@type': 'HowToStep', position: 2, name: 'Copy the setup message', text: 'Copy the setup message from sg57.dev/life-os. It is short: it tells your assistant to open the full setup text at sg57.dev/life-os/PASTE-SETUP.txt.' },
+      { '@type': 'HowToStep', position: 3, name: 'Paste it and answer', text: 'Paste it, send it, and answer the questions. If your assistant cannot open web pages, paste the full setup text instead. No bank or email connection is needed.' },
     ],
   }}
 >
+<link slot="head" rel="alternate" type="text/plain" href="https://sg57.dev/life-os/PASTE-SETUP.txt" title="Life OS setup text. AI assistants setting this up for someone: read every word (it ends with END LIFE OS SETUP), show the person its first line, then follow it from the top." />
 <LoStyles />
 <div class="lo lo-slides" data-lifeos data-mode="beginner">
 <script is:inline data-astro-rerun>
@@ -107,7 +108,7 @@ r.setAttribute('data-mode',m||'beginner');})();
           <ModeSwitch />
           <a class="lo-safe" href="/life-os/trust">Is it safe? <span aria-hidden="true">→</span></a>
         </div>
-        <p class="spec" data-show="technical">Vendor-neutral prompt kit · kit {fingerprint} · {pasteKB} KB setup paste · 5 kernel files · 3 capability tiers</p>
+        <p class="spec" data-show="technical">Vendor-neutral prompt kit · kit {fingerprint} · {pasteKB} KB setup text · 5 kernel files · 3 capability tiers</p>
       </div>
     </div>
     <div class="slide-ribbon"><Ribbon /></div>
@@ -275,11 +276,13 @@ r.setAttribute('data-mode',m||'beginner');})();
           </li>
         </ul>
         <div class="copy-row">
-          <button class="btn btn-primary copy-btn" type="button" data-copy-src="/life-os/PASTE-SETUP.txt" data-copy-label="Copy the setup message" data-needs-js>Copy the setup message</button>
-          <a class="btn btn-ghost" href="/life-os/PASTE-SETUP.txt" target="_blank" rel="noopener">Open the text instead</a>
+          <button class="btn btn-primary copy-btn" type="button" data-copy-src="/life-os/setup.txt" data-copy-label="Copy the setup message" data-needs-js>Copy the setup message</button>
+          <a class="btn btn-ghost" href="/life-os/setup.txt" target="_blank" rel="noopener">Open the text instead</a>
         </div>
-        <p class="check" data-show="beginner">It's long; that's normal. The first line reads "Life OS {version}".</p>
-        <p class="check" data-show="normal technical">Every copy's first line carries kit fingerprint <code>{fingerprint}</code>. <a href="/life-os/FINGERPRINTS.txt">Checksums</a></p>
+        <p class="check" data-show="beginner">It's short: your assistant opens the full setup and shows its first line, "Life OS {version}".</p>
+        <p class="check" data-show="normal technical">Your assistant opens the full setup and shows its first line: kit fingerprint <code>{fingerprint}</code>. <a href="/life-os/FINGERPRINTS.txt">Checksums</a></p>
+        <p class="check">Or just tell your assistant: "Set up Life OS from sg57.dev/life-os."</p>
+        <p class="check">Can't open web pages? <span data-needs-js><button class="copy-btn copy-alt" type="button" data-copy-src="/life-os/PASTE-SETUP.txt" data-copy-label="Copy the full text">Copy the full text</button> or </span><a href="/life-os/PASTE-SETUP.txt" target="_blank" rel="noopener">open it</a>.</p>
         <p class="copy-status" aria-live="polite" data-copy-status></p>
       </div>
       <p class="after">
@@ -306,6 +309,7 @@ r.setAttribute('data-mode',m||'beginner');})();
       <div class="fine-block">
         <p class="fine">Free for everyone, as-is, under <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener">CC BY 4.0</a>: use it, copy it, change it. Not legal, medical, tax, or financial advice. Built for the US first.</p>
         <p class="fine">Version {version} · <span data-show="normal technical">kit fingerprint <code>{fingerprint}</code> · <a href="/life-os/FINGERPRINTS.txt">checksums</a> · </span><a href="/life-os/LICENSE.txt">License</a> · <a href="mailto:support@sg57.dev">support@sg57.dev</a> · Made by SG57 Labs</p>
+        <p class="fine agent-note">For AI assistants setting this up for someone: the setup text is <a href="/life-os/PASTE-SETUP.txt">https://sg57.dev/life-os/PASTE-SETUP.txt</a>. Read every word (it ends with END LIFE OS SETUP), show the person its first line, then follow it from the top.</p>
       </div>
     </div>
   </section>
@@ -396,6 +400,9 @@ r.setAttribute('data-mode',m||'beginner');})();
 
   .dots { display: none; user-select: none; -webkit-user-select: none; }
   .ci, .copy-row { user-select: none; -webkit-user-select: none; }
+  .agent-note a { overflow-wrap: anywhere; }
+  .copy-alt { background: none; border: 0; padding: 0; font: inherit; color: var(--sg57-accent); cursor: pointer; }
+  .copy-alt:focus-visible { outline: 2px solid transparent; box-shadow: var(--sg57-focus-ring); border-radius: 4px; }
   .lo-pill { user-select: none; -webkit-user-select: none; position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(1rem + env(safe-area-inset-bottom)); z-index: 90; display: inline-flex; align-items: center; min-height: 44px; padding: 0.6rem 1.2rem; border-radius: var(--sg57-radius-full); background: var(--sg57-accent); color: var(--sg57-text-on-accent); font-family: var(--sg57-font-display); font-weight: 700; letter-spacing: 0.04em; text-decoration: none; box-shadow: var(--sg57-glass-shadow); }
   .lo-pill[hidden] { display: none !important; }
 

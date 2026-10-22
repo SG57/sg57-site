@@ -42,6 +42,13 @@ export const catalogCounts = {
 
 const start = read(C('start.md'));
 const trust = read(C('trust.md'));
+
+/** The versionless setup message people copy. The kit README is its only source; the page and /life-os/setup.txt read it here. */
+const promptMatch = start.replace(/\r\n/g, '\n').match(/<!-- setup-prompt -->\s*```[a-z]*\n([\s\S]*?)\n```/);
+if (!promptMatch || !promptMatch[1].includes('PASTE-SETUP.txt') || !promptMatch[1].includes('END LIFE OS SETUP')) {
+  throw new Error('Kit start.md lost its setup message (the fenced block after <!-- setup-prompt -->, naming PASTE-SETUP.txt and END LIFE OS SETUP). Fix README.md in the kit and re-run publish-site.py.');
+}
+export const setupPrompt = promptMatch[1];
 export const isRC = /release candidate/i.test(start) || /release candidate/i.test(trust);
 export const noResultsYet = /Results for this version: none yet/i.test(trust);
 export const trustRuleIds = [

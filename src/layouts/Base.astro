@@ -106,6 +106,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
     <!-- Client-side routing with View Transitions -->
     <ClientRouter />
+    <slot name="head" />
   </head>
   <body>
     <!-- Skip to main content link — first focusable element for keyboard users -->

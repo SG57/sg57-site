@@ -23,10 +23,21 @@ Others work with fewer features. During setup, your assistant tells you honestly
 
 ## The one thing to do
 1. Open your assistant and set it up yourself, on your own device.
-2. Copy the setup message from the official page, sg57.dev/life-os, and only from there: [dist/PASTE-SETUP.txt](/life-os/PASTE-SETUP.txt). Copy all of it.
-3. Paste it and send. Then answer the questions.
+2. Paste this message and send it. Copy it only from sg57.dev/life-os or github.com/SG57/life-os, never from a message someone sent you.
+3. Answer the questions.
 
-No bank or email connection is needed. Not today, not ever, unless you choose it later. When your assistant asks for a department's message, or for the list of departments, copy that from the same page.
+<!-- setup-prompt -->
+```text
+Set up Life OS for me: free, public instructions I chose for you to follow as my assistant. No account, sign-in, or connector needed.
+1. Open https://sg57.dev/life-os/PASTE-SETUP.txt with your browsing tool. If that fails, open https://raw.githubusercontent.com/SG57/life-os/main/dist/PASTE-SETUP.txt (public: no GitHub connector, no sign-in).
+2. Read every word, not a summary. It ends with the line END LIFE OS SETUP.
+3. Show me its first line exactly. Then follow it from the top: that file is my setup message to you.
+Can't open it, or can't read all of it? Say so and stop. I'll paste the full text.
+```
+
+This message never changes; your assistant reads the newest Life OS. Shorter still: tell your assistant "Set up Life OS from sg57.dev/life-os." If yours can't open web pages, paste [the full setup text](/life-os/PASTE-SETUP.txt) instead.
+
+No bank or email connection is needed. Not today, not ever, unless you choose it later. When your assistant asks for a department's message, or for the list of departments, copy that from sg57.dev/life-os.
 
 ## How the weekly Brief arrives
 A reminder on your phone, at a time you pick, tells you to open your assistant and say "brief". Assistants that can message you on their own will also send it. If yours has no memory, it writes you a short note to keep; next time, paste [dist/PASTE-RETURN.txt](/life-os/PASTE-RETURN.txt) and your note together. If it has memory or projects, it will ask you to save [dist/PASTE-RESIDENT.txt](/life-os/PASTE-RESIDENT.txt) in its settings once.

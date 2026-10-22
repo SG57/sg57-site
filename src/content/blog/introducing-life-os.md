@@ -99,7 +99,7 @@ Three words always work: **quieter**, **louder**, **stop**. "I don't feel safe" 
 ## Setup, about ten minutes
 
 1. Open the AI app you already use, on your own device. We recommend Meta Muse (free to start) or Grok Bot (paid). Others work with fewer features, and setup tells you honestly what yours can do.
-2. Copy the setup message from the official page, [sg57.dev/life-os](/life-os), and only from there. It's long; that's normal.
+2. Copy the setup message from the official page, [sg57.dev/life-os](/life-os), and only from there. It's short: your assistant opens the full setup itself.
 3. Paste it and send. It opens with its promises, asks where you live for the right help lines, then asks what's been nagging you.
 4. It handles one thing on the spot, to the last tap, and installs one department.
 5. From then on: one Brief a week, and one new department proposed a week, five questions each.
