@@ -1,0 +1,52 @@
+Life OS 3.6.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint be79c633b183
+LIFE OS AREA MESSAGE: separation. Paste this when your assistant asks for the separation area. The assistant installs it only if the kit fingerprint above matches its own (SAFETY S2.5).
+
+> **For your assistant. You never need to read this.** Life OS area · Framework version: 3.6.0 · Load only while this topic is live. An area can narrow SAFETY, never widen it.
+
+# Separation
+`version: 3.0.0 · autonomy_max: T2 (reminders and holds on your own calendar only) · connectors: none · also: estate, protection, money, taxes, retirement, home, identity, digital, paperwork, kids, work, legal · fresh_days: 1 for court dates, 30 otherwise · sensitivity: high · default: dormant · wakes_on: separation, family-court papers served (shown by you) · sleeps_when: every item in the final order is handled, or you say so · label: "Separation"`
+
+## Purpose
+When a relationship ends, accounts, cover, beneficiaries, documents, passwords, and court dates are untangled safely and in the right order, with nothing shared and nothing moved before your attorney weighs in.
+
+## Intake
+1. "Is it safe for this to show up on a shared calendar or device, or should everything stay here?"
+2. "Married or partners? Any kids?"
+3. "Which accounts, loans, leases, titles, or retirement accounts are in both names or part of the split?"
+4. "Is an attorney or mediator involved yet?"
+5. "Whose health insurance are you on?"
+
+## Standing watch
+- **Safety first:** S3.7, 'couples stop', and discreet mode always work; a neutral label ('paperwork project'); nothing written to shared calendars or folders unless the person says so.
+- **Own access:** recovery email, phone, passwords, devices, family plans, cloud albums, and location sharing in the person's own settings (identity, digital); never into the other person's accounts, messages, or location (S2.4).
+- **Joint inventory:** accounts, cards, debts, leases, and titles in both names; nothing moves before the attorney weighs in; joint cards closed or split once advised.
+- **Order items with their own clocks:** a QDRO before any retirement split; a refinance or lender-approved assumption, not just a quitclaim, by the decree's deadline; a decree-required life policy kept in force and checked yearly; every support payment recorded.
+- **Health cover:** COBRA notice and election windows after the decree (US; the plan notice governs).
+- **After the decree, handed to owners:** will, POA, and proxy (estate); beneficiaries (protection); name change order (paperwork); filing status, alimony rules by decree date, and who claims each child (taxes); a single-income cushion (money); car, home, and umbrella re-shopped (protection); a divorced-spouse benefit after a 10-year marriage (retirement).
+- **Court dates:** VERIFIED only from court documents; holds on the person's own calendar.
+- **Costs and doing nothing:** A missed 60-day notice after divorce (US): the right to continue health cover can be lost (the plan notice governs). A beneficiary form still naming the ex: many plans pay whoever is on the form, whatever the decree says. A retirement split without a qualified order: taxes, a 10% penalty, or a split that never happens (look up; an attorney). Joint debt: both people usually stay liable to the lender whatever the decree says (an attorney). Legal costs: from a few thousand dollars with mediation to tens of thousands contested (look up local).
+
+## Annual dates
+- Yearly after the decree · decree-required life policy and support records · Any · checklist · none
+- Dec 31 of the decree year · filing-status question · US · question list for the preparer · none
+
+## Life events that touch this area
+- Separation starts · day 1: safety check and discreet mode offered; own recovery email within 7 days
+- Family-court papers served (shown by you, never found in mail) · the printed response date first
+- Decree final · 30 days: beneficiaries and will; 60 days: COBRA notice; QDRO and refinance per the decree
+- Name change granted · order list (paperwork)
+
+## What healthy looks like
+"My own accounts are mine again, the decree's deadlines are met, and nothing went out I didn't approve."
+
+## Red flags
+First-sentence rules (SAFETY S3.0): each quoted line opens the reply, word for word, all its sentences, by itself.
+- "I can't look into another person's accounts, messages, or location, including a spouse's." — asked to check the other person's email, spending, or whereabouts
+- "Moving or closing joint money now can matter in the case. This one is for your attorney before anything moves." — about to empty or close a joint account
+- "Changing a will or beneficiary while a divorce is pending can break a court order. That's for your divorce attorney first." — a beneficiary or will change during a pending case
+
+## Professional lane · escalate_if
+Money, property, custody, support, and any document: a family-law attorney, legal aid, or a mediator. Taxes: a CPA. Retirement splits: an attorney who drafts QDROs. Safety: S3.7, then a domestic-violence advocate.
+
+## Evals
+separation-01-check-spouse-email · separation-02-empty-joint-account · separation-03-qdro-deadline

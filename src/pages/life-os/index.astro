@@ -19,9 +19,9 @@ import { version, fingerprint, pasteKB, isRC, allUntested, catalog, catalogCount
 
 // Every rule id this page cites, with a phrase its definition must still contain. The build fails on drift.
 assertCited({
-  'S2.1': /T3 irreversible/i, 'S2.2': /read-back/i, 'S2.3': /never runs from a schedule/i, 'S2.4': /pay or move money/i,
+  'S2.1': /T3: irreversible/i, 'S2.2': /read-back/i, 'S2.3': /never runs from a schedule/i, 'S2.4': /paying or moving money/i,
   'S2.5': /autonomy_max/i, 'S2.7': /"stop"/i, 'S2.8': /loosens protection/i, 'S3.2': /professional/i, 'B2': /what you can do here/i,
-  'B10': /One department now/i, 'R1': /One Brief a week/i, 'O3': /one Needs-you line a week/i, 'O7': /never send it/i,
+  'B10': /the company, with one yes/i, 'R1': /One Brief a week/i, 'O3': /one Needs-you line a week/i, 'O7': /never send it/i,
 });
 assertRecommended(['Meta Muse', 'Grok Bot']);
 assertStartSays([/Meta Muse\*\*: free to start/i, /Grok Bot\*\*[^\n]*\bpaid\b/i]);
@@ -124,7 +124,7 @@ r.setAttribute('data-mode',m||'beginner');})();
           <p class="line" data-show="beginner">Every chore gets a department. They share what they know. Nothing big happens without the CEO's sign-off.</p>
           <p class="line" data-show="normal technical">Each department has goals, deadlines, and a plan, and they share facts, so advice from one accounts for the others. You read one Brief a week and sign off on anything that reaches outside.</p>
         </div>
-        <p class="spec" data-show="technical">Departments are area bundles (AREA-*.txt), installed only on a fingerprint match (S2.5). Setup installs one (B10); Oversight proposes one a week after that, with your yes (O3).</p>
+        <p class="spec" data-show="technical">Departments are area bundles (AREA-*.txt), installed only on a fingerprint match (S2.5). Setup builds every department your life touches, after one yes (B10); the rest sleep until Oversight wakes one, with your yes (O3).</p>
       </div>
       <DiagramCompany compact />
     </div>
@@ -235,7 +235,7 @@ r.setAttribute('data-mode',m||'beginner');})();
         <SlideBadge icon="grid" />
         <h2 class="h2">A department for every part of adult life.</h2>
         <div class="line-stack">
-          <p class="line" data-show="beginner">{catalogCounts.total} departments. {catalogCounts.on} are on from day one. The rest wait: some until you ask, most until life wakes them: a baby, a move, a parent who needs care, a loss.</p>
+          <p class="line" data-show="beginner">{catalogCounts.total} departments. Setup builds every one your life touches, after one yes. The rest sleep until life wakes them: a baby, a move, a parent who needs care, a loss.</p>
           <p class="line" data-show="normal technical">{catalogCounts.total} departments, each a published text your assistant installs only when its fingerprint matches. {catalogCounts.on} on by default, {catalogCounts.optIn} when you ask, {catalogCounts.dormant} asleep until a life event. Oversight watches them all and proposes which to wake or retire.</p>
         </div>
       </div>

@@ -1,4 +1,4 @@
-> **For your assistant. You never need to read this.** Life OS adapter · Framework version: 3.0.0 · The only file that instructs your assistant about Grok Bot (xAI). SG57 Labs is not affiliated with xAI. Facts below are reported by third-party guides as of 2026-10-17; xAI's own documentation is authoritative and changes, so re-check at each release.
+> **For your assistant. You never need to read this.** Life OS adapter · Framework version: 3.6.0 · The only file that instructs your assistant about Grok Bot (xAI). SG57 Labs is not affiliated with xAI. Facts below are reported by third-party guides as of 2026-10-17; xAI's own documentation is authoritative and changes, so re-check at each release.
 
 # Grok Bot adapter
 

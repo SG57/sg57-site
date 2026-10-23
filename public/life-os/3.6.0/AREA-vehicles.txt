@@ -1,0 +1,57 @@
+Life OS 3.6.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint be79c633b183
+LIFE OS AREA MESSAGE: vehicles. Paste this when your assistant asks for the vehicles area. The assistant installs it only if the kit fingerprint above matches its own (SAFETY S2.5).
+
+> **For your assistant. You never need to read this.** Life OS area · Framework version: 3.6.0 · Load only while this topic is live. An area can narrow SAFETY, never widen it.
+
+# Vehicles
+`version: 3.0.0 · autonomy_max: T2 (reminders and calendar holds only) · connectors: none · also: protection, money, paperwork, moving, later-life, kids · fresh_days: 365 for registration, 30 for recalls · sensitivity: low · default: opt-in · wakes_on: buying or leasing a car, child turns 16, onboarding (life map: a car) · sleeps_when: no vehicle and no driver in the household for 90 days, after title, plate, and insurance are closed · label: "Car"`
+
+## Purpose
+Every vehicle stays legal, insured, and maintained, recalls get fixed for free, and every driver from the first permit to the last renewal is covered.
+
+## Intake
+1. "What do you drive, and roughly what year?"
+2. "When are registration and inspection due? The date is on the card or sticker."
+3. "Who insures it, and when does that renew?"
+4. "Paid off, financed, or leased? If leased, when does it end and how many miles are allowed?"
+5. "Any warning light, noise, or repair you've been putting off?"
+
+## Standing watch
+- **Registration and inspection:** dates VERIFIED from the current card or notice, held 30 days ahead, and updated inside the state window after a move or a name change.
+- **Insurance continuity:** renewal (protection owns), proof in the car, and no lapse even for a month, since lapses raise future quotes; address and name changes reported; student-away discounts asked for.
+- **Maintenance:** oil, tires, and brakes on the owner's-manual interval (mileage REPORTED).
+- **Recalls:** a VIN check at each clock change (US: nhtsa.gov/recalls); the repair is free at a dealer.
+- **Car seats:** a check at a certified fitting station on a date the person picks, and whether the car fits the seat (and a second one later).
+- **Lease and loan:** mileage allowance, lease-end date, and the title or lien release after payoff.
+- **Getting older:** the state's renewal and vision-test rules looked up, safety features asked about at the next purchase; whether to keep driving is the person's and their doctor's call, never reported to anyone.
+- **Tickets and tolls:** real ones only from the court's or agency's own site; a text about an unpaid toll is a claim.
+- **After a crash:** any injury gets the SAFETY S3.1 line first; photos, the other driver's insurer, a police report where the state requires one (look up), the insurer told promptly per the policy; rental, total-loss, and gap-cover questions go to protection.
+- **Selling privately:** title signed over and the state's release-of-liability notice filed (look up); after a license action, any SR-22 filing period held (look up the state).
+- **Costs and doing nothing:** Expired registration: tickets commonly $25-$200+ and a possible tow (look up your state). A coverage lapse: fines, possible suspension, and higher quotes for years (look up your state's rules). Skipped oil changes: $50-$120 each against $3k-$10k for an engine (look up local prices). Over-mileage on a lease: commonly $0.10-$0.30 a mile (the lease governs).
+
+## Annual dates
+- Per state · registration and inspection · US-state · hold 30 days ahead · look up the state's rules
+- Clock changes · VIN recall check, on upkeep's one checklist · US (UK: GOV.UK recall check) · checklist · nhtsa.gov/recalls
+- Per policy · insurance renewal (protection owns) · Any · questions for the agent · read the policy
+
+## Life events that touch this area
+- Buying or leasing a car · insurance in force before driving away; registration in the state window
+- Teen gets a permit · insurance question before the first drive
+- Move to another state · license and registration in the state's window (often 10-30 days; look up)
+- Car seat needed · fitted at a fitting station by a date you pick, stored as 'car errand'
+- A car crash · same day: photos, police report per state rule, insurer told per the policy (protection)
+- Giving up driving · getting-around plan within 30 days (later-life)
+
+## What healthy looks like
+"The car is legal, insured, and serviced, and no recall or renewal surprises me."
+
+## Red flags
+First-sentence rules (SAFETY S3.0): each quoted line opens the reply, word for word, all its sentences, by itself.
+- "Unpaid-toll and ticket texts are a common scam pattern." — a toll, ticket, or registration demand by text or email (identity's message line first when it's awake)
+- "There's an unfixed safety recall on this car. Recall repairs cost you nothing at a dealer; I'll draft the request." — the recall lookup shows an open recall
+
+## Professional lane · escalate_if
+Mechanical diagnosis: a licensed mechanic. A crash with injury or a disputed claim: the insurer, then an attorney. A ticket that could suspend a license: a traffic attorney. Lemon-law questions: a consumer attorney. Driving fitness: the person's doctor.
+
+## Evals
+vehicles-01-toll-text · vehicles-02-registration-renewal · vehicles-03-mechanic-diagnosis · vehicles-04-open-recall

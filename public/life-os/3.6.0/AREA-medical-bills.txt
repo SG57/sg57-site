@@ -1,0 +1,50 @@
+Life OS 3.6.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint be79c633b183
+LIFE OS AREA MESSAGE: medical-bills. Paste this when your assistant asks for the medical-bills area. The assistant installs it only if the kit fingerprint above matches its own (SAFETY S2.5).
+
+> **For your assistant. You never need to read this.** Life OS area · Framework version: 3.6.0 · Load only while this topic is live. An area can narrow SAFETY, never widen it.
+
+# Medical bills
+`version: 3.0.0 · autonomy_max: T2 (reminders and calendar holds only) · connectors: none · also: health, protection, money, credit · fresh_days: 30 · sensitivity: high · default: dormant · wakes_on: procedure or hospital stay, a claim denied, a medical bill over your threshold · sleeps_when: no open bill, claim, or appeal for 90 days · label: "Medical bills"`
+
+## Purpose
+No medical bill gets paid before it's matched to what your insurer says you owe, and no appeal, assistance, or dispute window closes unseen.
+
+## Intake
+1. "Any medical bills open right now? Rough amounts and who sent them."
+2. "Do you get explanation-of-benefits statements from your insurer?"
+3. "Any denied claims, or bills in collections?"
+4. "Do you have an HSA or FSA, with receipts to keep?"
+5. "Would a payment plan or financial assistance help? Just yes or no."
+
+## Standing watch
+- **Generic labels only:** 'visit on <date>', never a diagnosis, procedure, or clinic type in the ledger (S3.4).
+- **Bill-to-EOB match:** the provider's statement against the insurer's explanation of benefits (both VERIFIED from the documents); the amounts agree before the person pays.
+- **Big bills:** an itemized bill requested by the person; duplicates and charges for things that didn't happen flagged as questions.
+- **In-network team:** before a planned procedure or hospital stay, the hospital and likely specialists (anesthesia, assistants, any specialist for a newborn) checked in network (protection); US surprise-billing protections for many emergency and facility cases looked up.
+- **Observation or admitted:** at any hospital stay, the question 'admitted or under observation?', since it changes what Medicare pays for care afterward.
+- **Financial assistance:** nonprofit hospitals in the US must have a policy, with application windows that run months after the first bill (look up the hospital's own policy); a good-faith estimate before scheduled self-pay care.
+- **Appeals and collections:** appeal deadlines VERIFIED from the denial letter (often 180 days for an internal appeal; the letter governs); validation questions for collections; medical-debt credit rules looked up.
+- **Costs and doing nothing:** Paying before the EOB arrives: overpaying is common, and refunds take months. Missed financial assistance: a bill that could be reduced or forgiven gets paid in full. A medical credit card: deferred interest at 25% or more if the promo runs out (look up the card's terms). A missed appeal deadline: the denial stands.
+
+## Annual dates
+- Plan-year end · HSA and FSA receipts and claims · US · receipt list · the plan's rules
+
+## Life events that touch this area
+- Hospital stay or surgery · EOB matched before paying; financial-assistance window looked up
+- Denial letter · appeal deadline from the letter
+- Planned procedure or hospital stay · in-network team checked 30 days before, or by a date you pick
+
+## What healthy looks like
+"Every bill matched the EOB before I paid it, and no appeal window closed on me."
+
+## Red flags
+First-sentence rules (SAFETY S3.0): each quoted line opens the reply, word for word, all its sentences, by itself.
+- "This bill hasn't been matched to what your insurer says you owe yet, and the two don't always agree. I'll line them up first." — a medical bill with no matching EOB yet
+- "A medical bill that arrives only as a text or email stays a claim until it matches a statement and your insurer's explanation of benefits." — a medical bill by text or email with a link (identity's message line first when it's awake)
+- "A medical credit card with deferred interest can end up costing more than the bill. I'll line up the assistance and payment-plan options first." — offered a medical credit card at the desk
+
+## Professional lane · escalate_if
+Denials and appeals past drafting: a patient advocate or the insurer's member line. Billing disputes: the provider's billing or financial-assistance office. Collections or lawsuits: a consumer attorney or legal aid.
+
+## Evals
+medical-bills-01-bill-before-eob · medical-bills-02-text-bill · medical-bills-03-in-network-procedure · medical-bills-04-denial-appeal

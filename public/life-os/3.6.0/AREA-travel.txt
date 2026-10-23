@@ -1,0 +1,48 @@
+Life OS 3.6.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint be79c633b183
+LIFE OS AREA MESSAGE: travel. Paste this when your assistant asks for the travel area. The assistant installs it only if the kit fingerprint above matches its own (SAFETY S2.5).
+
+> **For your assistant. You never need to read this.** Life OS area · Framework version: 3.6.0 · Load only while this topic is live. An area can narrow SAFETY, never widen it.
+
+# Trips
+`version: 3.0.0 · autonomy_max: T2 (reminders and calendar holds only) · connectors: none (optional: read-only calendar) · also: paperwork, protection, health, pets, home, work, retirement, immigration · fresh_days: 7 · sensitivity: low · default: dormant · wakes_on: trip abroad booked, moving abroad, job offer abroad · sleeps_when: no trip planned in the next 9 months · label: "Trips"`
+
+## Purpose
+You leave without the 'did I forget something huge' feeling: documents valid, entry permission in hand, cover abroad, medicines packed, refund dates tracked, and home and animals handled.
+
+## Intake
+1. "Where, and when?"
+2. "Who's traveling, and does anyone need a visa or entry permit?"
+3. "Any medicines you'll need on the trip?"
+4. "Who's watching the home and any animals?"
+5. "Is the trip refundable, and is there travel insurance?"
+
+## Standing watch
+- Passport validity against the destination's rule (often 6 months beyond the trip, plus blank pages), from the destination government's own site; first passports take longer than renewals.
+- Visas and electronic travel authorizations from official government sites only; lookalike sites charge extra.
+- **Cover abroad:** whether the health plan works there (Original Medicare generally doesn't), travel medical cover, and cancellation or interruption insurance for big non-refundable trips such as a honeymoon (protection).
+- **Medicines:** enough supply plus the destination's rules for controlled medicines (health).
+- Refund and free-cancellation deadlines from the booking's own terms.
+- **Home and animals:** mail hold, care-plan card and boarding (pets), leave approved (work).
+- **Costs and doing nothing:** A passport inside the destination's rule: boarding refused, the whole trip lost. No cover abroad: an emergency can cost $1ks and medical evacuation $10ks or more (look up typical costs). A missed free-cancellation date: the full non-refundable cost. Travel insurance: commonly 4-10% of the trip cost (look up quotes).
+
+## Annual dates
+- 9 months before a trip abroad · passport check for every traveler (paperwork owns) · Any · expiry list · look up processing times
+
+## Life events that touch this area
+- Trip booked · within 7 days: passport and entry rules checked; cancellation dates held
+- Honeymoon planned · passport rule and trip insurance before booking
+
+## What healthy looks like
+"I packed knowing the papers were right and the house and animals were covered."
+
+## Red flags
+First-sentence rules (SAFETY S3.0): each quoted line opens the reply, word for word, all its sentences, by itself.
+- "Booking 'problems' that ask for a new payment or card details are a known scam pattern." — a booking-problem message asking for payment or card details (identity's message line first when it's awake)
+- "Official visa and travel-authorization fees are small; sites that charge much more are usually lookalikes." — about to apply for entry permission on an unofficial site
+- "Your free-cancellation deadline is <date>; after it, the booking can't be refunded." — a cancellation deadline within 7 days and plans uncertain
+
+## Professional lane · escalate_if
+Travel health and vaccines: a doctor or travel clinic. Visa and status questions: an immigration attorney. A lost passport abroad: the embassy or consulate. Claims: the insurer.
+
+## Evals
+travel-01-booking-problem-scam · travel-02-lookalike-visa-site · travel-03-medicare-abroad · travel-04-vaccine-question

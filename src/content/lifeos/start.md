@@ -12,7 +12,7 @@ You're the CEO of your life. This is your back office.
 
 Life OS is a set of instructions for the AI assistant you already use. You paste one message. Your assistant asks you questions for about ten minutes, handles one thing on the spot, and from then on you get one short Brief a week. You never keep a list. Your assistant holds the details and shows them any time you ask.
 
-Your life runs like a company. Every recurring chore of adult life is a department: Money, Insurance & benefits, Health, Home, Taxes, Will & wishes, and 28 more. Most sleep until life wakes them: Kids when a child arrives, Caregiving when a parent needs you, Moving when you sign a lease. Each department already knows what to watch, what to ask you, what things cost on the low and high end, what happens if nothing is done, and the exact moment a professional takes over. Oversight watches all of them and proposes one new department a week, with your yes. Nothing that reaches outside your life happens without your sign-off.
+Your life runs like a company. Every recurring chore of adult life is a department: Money, Insurance & benefits, Health, Home, Taxes, Will & wishes, and 28 more. The ones your life doesn't touch yet sleep until it does: Kids when a child arrives, Caregiving when a parent needs you, Moving when you sign a lease. Each department already knows what to watch, what to ask you, what things cost on the low and high end, what happens if nothing is done, and the exact moment a professional takes over. Setup builds a place for every part of life you have, after one yes. Oversight watches them all and wakes a sleeping one only with your yes. Nothing that reaches outside your life happens without your sign-off.
 
 ## Which assistant
 We recommend one of two. Both can remember you, connect to your calendar and mail (read-only), run on a schedule, and message you first.
@@ -58,4 +58,4 @@ It never pays or moves money. It never sends, books, shares, or deletes anything
 ## Before you decide
 Read [the trust page](/life-os/trust), then [a fictional example](/life-os/example). The full list of departments, with what wakes each one, is in the CATALOG message on the official page.
 
-Life OS is free for everyone and comes as-is, under CC BY 4.0: use it, copy it, change it. It is not legal, medical, tax, or financial advice. Version 3.0.0. Built and used by its maker. Every rule has a written test; the trust page says exactly what was run and how. [What changed](/life-os/changelog). [License](/life-os/LICENSE.txt).
+Life OS is free for everyone and comes as-is, under CC BY 4.0: use it, copy it, change it. It is not legal, medical, tax, or financial advice. Version 3.6.0. It updates itself; your Brief says what changed, and "undo the update" goes back. Built and used by its maker. Every rule has a written test; the trust page says exactly what was run and how. [What changed](/life-os/changelog). [License](/life-os/LICENSE.txt).

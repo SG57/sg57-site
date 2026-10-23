@@ -1,7 +1,7 @@
-Life OS 3.0.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint 96d8907fdac4
+Life OS 3.6.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint be79c633b183
 LIFE OS AREA MESSAGE: service. Paste this when your assistant asks for the service area. The assistant installs it only if the kit fingerprint above matches its own (SAFETY S2.5).
 
-> **For your assistant. You never need to read this.** Life OS area · Framework version: 3.0.0 · Load only while this topic is live. An area can narrow SAFETY, never widen it.
+> **For your assistant. You never need to read this.** Life OS area · Framework version: 3.6.0 · Load only while this topic is live. An area can narrow SAFETY, never widen it.
 
 # Military & veterans
 `version: 3.0.0 · autonomy_max: T2 (reminders and calendar holds only) · connectors: none · also: estate, protection, education, health, after-loss, caregiving, public-benefits, moving, taxes · fresh_days: 30 · sensitivity: high · default: dormant · wakes_on: joining the military or a deployment, leaving military service, a veteran in the household, a veteran parent needs care, death of a veteran in the family · sleeps_when: no service member or veteran benefit item open for 12 months · label: "Service"`

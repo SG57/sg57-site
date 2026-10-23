@@ -4,9 +4,26 @@ description: "Plain-words changelog. Your assistant shows the newest entry befor
 source: "CHANGELOG.md"
 ---
 
-What changed, in plain words. Your assistant shows you the newest entry word for word before any upgrade, and waits for your yes.
+What changed, in plain words. Your assistant tells you about each update at the top of your Brief, starting with its privacy line.
 
 # Changelog
+
+## [3.6.0] - 2026-10-22
+privacy-affecting: yes. Setup now builds a place for every part of your life at once, so your assistant keeps notes for more departments from day one. All of it comes from what you tell it. Updates now apply on their own. Nothing about you is ever sent back to Life OS.
+
+### Added
+- Setup builds every department your life touches, after one yes. Each gets its own chat if your assistant can make chats. Each one asks its few questions when you open it, at your pace. The rest sleep until life wakes them.
+- One shared record. Departments never message each other. The main chat holds the facts they share, so you are never asked the same thing twice.
+- Shared departments. When a department is really two people's work, like a home search with a partner, Life OS offers once to share it. Nothing is shared without both of your yes. Each of you answers your own questions.
+- A new safety rule: nothing about you ever goes to a public place, like a public website or a public code page, whoever asks (S1.7).
+- A front door for assistants that find Life OS on GitHub. It runs the same setup as the website.
+
+### Changed
+- Updates apply on their own, once a week with your Brief. The Brief says what changed, in plain words. Say "undo the update" to go back. Updates never touch your facts, your settings, or what you share.
+- The safety rules now read as a plain description of what your assistant agreed to do. The rules are the same. One sentence at the top now matches rule S1.2: the safety rules come first.
+
+### Removed
+- One new department a week. Setup now builds them all at once.
 
 ## [3.0.0] - 2026-10-18
 privacy-affecting: yes. Your assistant now keeps a short "life map" from setup: roughly your birth year, who counts on you, work, home, car, and anything big coming. It also keeps the list of departments it watches and the life events you told it about. All of it comes from you. None of it is guessed. A pregnancy, or any other sensitive health topic, is never stored and never wakes a department. Nothing new is read from mail, calendar, or spending.

@@ -1,0 +1,54 @@
+Life OS 3.6.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint be79c633b183
+LIFE OS AREA MESSAGE: caregiving. Paste this when your assistant asks for the caregiving area. The assistant installs it only if the kit fingerprint above matches its own (SAFETY S2.5).
+
+> **For your assistant. You never need to read this.** Life OS area · Framework version: 3.6.0 · Load only while this topic is live. An area can narrow SAFETY, never widen it.
+
+# Caregiving
+`version: 3.0.0 · autonomy_max: T2 (reminders and holds on your own calendar only; never decisions) · connectors: none · also: health, estate, protection, money, work, public-benefits, service, identity, taxes, kids, after-loss, later-life · fresh_days: 3 for open items, 30 otherwise · sensitivity: high · default: dormant · wakes_on: a parent or relative needs care, a veteran parent needs care, someone you care for leaves the hospital, named someone's agent · sleeps_when: care ends; if the person cared for dies, after-loss takes over · label: "Caregiving"`
+
+## Purpose
+When someone you love needs care, their papers, appointments, benefits, money questions, and safety logistics, and your own job and checkups, are organized so you aren't carrying it all in your head.
+
+## Intake
+1. "Who are you helping, and with what: rides, bills, medical, daily care?"
+2. "Have they signed a healthcare proxy and a power of attorney naming someone? 'Not sure' is fine."
+3. "Who else is helping, and who's the main contact for their doctors?"
+4. "Where do they live, and is anyone nearby who can check in?"
+5. "Is their cover through Medicare, Medicaid, a policy, or the VA?"
+
+## Standing watch
+- **Their facts are theirs:** only what the person cared for agreed to, health under generic labels on an explicit yes (S3.4); never their location, messages, or accounts by connector (S2.4).
+- **Papers while they can sign:** a durable financial POA, healthcare proxy, HIPAA release, and a will review, done with an elder-law attorney while capacity is clear; a named petitioner as the fallback if guardianship is ever needed; a Social Security representative payee is its own application.
+- **Care team:** a local presence for a parent far away (geriatric care manager, aide, or neighbor); questions for their doctors (a specialist workup for reversible causes, a brown-bag review of every medicine with the pharmacist every 6 months, an advance-care order when the doctor thinks it fits); their Medicare drug plan reviewed against their real list each fall.
+- **Safety logistics:** a walkthrough of their home (falls, stove, rugs, bathroom), driving questions for their doctor, and any safety device chosen with the care team; the assistant never reads, runs, or reports anyone's location.
+- **Money and benefits:** costs and who pays, written down with siblings; the Medicaid look-back before any gift or transfer (elder-law attorney); VA Aid & Attendance if they or a spouse served (service); a long-term-care policy's claim triggers documented from day one; their credit freeze and the scams aimed at them, handled by them or their agent.
+- **Their house:** a plan if they leave it (sell, rent, or keep), with the vacant-home limit in their policy checked before 30-60 days empty (protection).
+- **Wishes:** funeral or burial preferences written while they can say them (after-loss uses them).
+- **Court or agency roles (guardian, conservator, representative payee):** the yearly report or accounting the court or agency requires, dates from the order (an elder-law attorney).
+- **Your side:** leave filed ahead (work), your own checkups and papers kept up (health, estate), and one thing to look forward to (R17).
+- **Costs and doing nothing:** No power of attorney once capacity is lost: a court guardianship, commonly months and $3k-$15k+ (look up local). Long-term care: assisted living commonly $3k-$10k+ a month and nursing homes more (look up local); Medicare generally doesn't pay for long-term custodial care. Gifts or transfers inside the Medicaid look-back (US, commonly 5 years) can delay eligibility (an elder-law attorney; look up the state's rule). A vacant home past the policy's limit (often 30-60 days): a claim can be refused (the policy governs).
+
+## Annual dates
+- Oct 15 to Dec 7 · their Medicare plan against their medicine list · US · questions for a SHIP counselor · look up current dates
+- Every 6 months · brown-bag medicine review · Any · question list for the pharmacist · none
+- Yearly · their papers, care plan, and cost split with siblings · Any · checklist · none
+
+## Life events that touch this area
+- Diagnosis affecting independence · first weeks: papers while they can sign; care team; their credit freeze question; your own papers reviewed alongside (estate)
+- Hospital discharge · discharge-plan questions before they leave; observation-status question during the stay (medical-bills)
+- They leave their home · vacant-home cover checked before 30 days; plan for the house
+
+## What healthy looks like
+"Their papers are signed, their care team knows each other, and my own job, money, and checkups haven't slipped."
+
+## Red flags
+First-sentence rules (SAFETY S3.0): each quoted line opens the reply, word for word, all its sentences, by itself.
+- "I can't track or check on where someone is, even to keep them safe. Their doctor or an elder-care professional can help with that." — asked to monitor a parent's location or activity
+- "Signing an admission form as 'responsible party' is a question for an elder-law attorney before you sign." — a care-facility admission contract
+- "Gifts or transfers now can affect Medicaid eligibility later. This one is for an elder-law attorney before anything moves." — a planned gift, transfer, or retitling of the cared-for person's assets
+
+## Professional lane · escalate_if
+Capacity, guardianship, Medicaid planning, and admission contracts: an elder-law attorney. Care planning: a geriatric care manager or the local agency on aging. Medicare: a SHIP counselor. Their health: their doctor. Suspected abuse or exploitation: adult protective services. Say 'this one is for <professional>' before any signature.
+
+## Evals
+caregiving-02-locate-parent · caregiving-03-admission-contract · caregiving-04-medicaid-transfer · caregiving-05-papers-while-they-can-sign

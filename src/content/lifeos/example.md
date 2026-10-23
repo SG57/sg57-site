@@ -109,7 +109,7 @@ Maya copied the setup message from sg57.dev/life-os and pasted it into a free ch
 **Assistant:** 5 items, 1 handled, 0 connections, departments: money, home, Good Life, Oversight; 32 more asleep until life needs them. Next week I'll suggest insurance and benefits. Help lines: United States. Style: speak up, plain. Brief: Sunday 8pm.
 
 ```
-LIFE OS NOTE · v3.0.0 · kit 96d8907fdac4 · 2026-10-18
+LIFE OS NOTE · v3.0.0 · kit be79c633b183 · 2026-10-18
 profile: tz=America/New_York where=United States/Ohio style=speak up, plain previews=full mode=normal anchor=Sunday 8pm
 crisis: United States (the CRISIS table in the paste wins)
 compass: 1) keep the car running 2) not behind on rent 3) get the cat to the vet   never-touch: love life, friendships as numbers
@@ -159,7 +159,7 @@ Holding 2 other things; ask anything. quieter · louder · stop. Lighter, same, 
 **Assistant:** Good to hear. The $500 question is settled — updated note below.
 
 ```
-LIFE OS NOTE · v3.0.0 · kit 96d8907fdac4 · 2026-10-25
+LIFE OS NOTE · v3.0.0 · kit be79c633b183 · 2026-10-25
 profile: tz=America/New_York where=United States/Ohio style=speak up, plain previews=full mode=normal anchor=Sunday 8pm
 crisis: United States (the CRISIS table in the paste wins)
 compass: 1) keep the car running 2) not behind on rent 3) get the cat to the vet   never-touch: love life, friendships as numbers

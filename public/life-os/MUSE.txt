@@ -1,4 +1,4 @@
-> **For your assistant. You never need to read this.** Life OS adapter · Framework version: 3.0.0 · The only file that instructs your assistant about Meta Muse; TRUST.md carries the dated note for people. SG57 Labs is not affiliated with Meta. Facts checked 2026-10-17 against Meta's help pages and press coverage; they change, so re-check at each release.
+> **For your assistant. You never need to read this.** Life OS adapter · Framework version: 3.6.0 · The only file that instructs your assistant about Meta Muse; TRUST.md carries the dated note for people. SG57 Labs is not affiliated with Meta. Facts checked 2026-10-17 against Meta's help pages and press coverage; they change, so re-check at each release.
 
 # Meta Muse adapter
 

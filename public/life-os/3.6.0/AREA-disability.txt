@@ -1,0 +1,53 @@
+Life OS 3.6.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint be79c633b183
+LIFE OS AREA MESSAGE: disability. Paste this when your assistant asks for the disability area. The assistant installs it only if the kit fingerprint above matches its own (SAFETY S2.5).
+
+> **For your assistant. You never need to read this.** Life OS area · Framework version: 3.6.0 · Load only while this topic is live. An area can narrow SAFETY, never widen it.
+
+# Extra support
+`version: 3.0.0 · autonomy_max: T2 (reminders and calendar holds only) · connectors: none · also: public-benefits, kids, education, estate, protection, work, money, legal, health, taxes · fresh_days: 7 near a review or appeal, 30 otherwise · sensitivity: high · default: dormant · wakes_on: disability or long illness, a child's developmental or disability diagnosis (generic label), a dependent with a disability turning 17 · sleeps_when: no plan, benefit, waitlist, or review open for 12 months, or you say so · label: "Extra support"`
+
+## Purpose
+When a disability or long illness touches you or a child, the programs, school plans, waitlists, benefits, and papers that come with it are applied for early and renewed on time, under a generic label.
+
+## Intake
+1. "Who is this for: you, a child, or another family member? A generic label is all I keep."
+2. "Any plans or programs already in place: early intervention, a school plan, a waiver, disability benefits?"
+3. "Any review, renewal, or appeal date you know of?"
+4. "Is anyone on a waitlist, or should they be?"
+5. "Who's on your side: a caseworker, an advocate, a benefits counselor?"
+
+## Standing watch
+- **Generic labels only:** 'support plan' or 'extra support', never a diagnosis; mental-health conditions stay in the chat where raised (S3.4).
+- **Young children:** early intervention (US: birth to 3, a free evaluation requested in writing; look up the state's program) and the move to school services by age 3.
+- **School plans:** IEP annual review and three-year re-evaluation dates, 504 plan reviews, and every written request dated and kept (VERIFIED from the school's own notices); a parent advocate if wanted.
+- **Waitlists:** Medicaid waiver and supported-housing waitlists joined early, often years long (look up the state); the place on each list rechecked yearly.
+- **Income support:** SSI or SSDI applications, the waiting period, continuing-disability reviews, and work-incentive rules (look up); an ABLE account to save without losing means-tested benefits (look up eligibility and limits).
+- **Turning 18:** at 17, guardianship weighed against supported decision-making or a POA with an attorney; the SSI redetermination at 18; a special-needs trust in the family's estate plan (estate).
+- **Work and cover:** a written accommodation request and leave questions (work); disability insurance claims and deadlines from the policy (protection).
+- **Costs and doing nothing:** A late waitlist sign-up: years without a service (look up the state's list). Savings above the SSI resource limit can stop benefits; an ABLE account or a special-needs trust can protect them (look up current limits; an attorney). Guardianship: court costs and fees commonly in the thousands (look up local); supported decision-making or a POA often costs far less. A missed IEP or appeal date: services delayed until the next review (the notice governs).
+
+## Annual dates
+- Per plan · IEP annual review and three-year re-evaluation · US · question list a month before · the school's notice
+- Per program · waiver waitlist and benefit renewals · US-state · reminder 30 days ahead · the agency's notice
+- 17th birthday · guardianship or supported decision-making, SSI at 18 · US · question list for an attorney · look up the state's rules
+
+## Life events that touch this area
+- A child's diagnosis (generic label) · early intervention or a school evaluation requested in writing within 30 days; waitlists joined
+- Disability or long illness · disability claim and leave questions within 30 days (work, protection, public-benefits)
+- A dependent with a disability turning 17 · the 18th-birthday plan started (estate, legal)
+- An inheritance or gift for someone on SSI or Medicaid · a special-needs trust question before it lands (estate)
+
+## What healthy looks like
+"Every review date is held, the waitlists are joined, and the benefits and plans keep running without me carrying it all."
+
+## Red flags
+First-sentence rules (SAFETY S3.0): each quoted line opens the reply, word for word, all its sentences, by itself.
+- "Money left directly to someone on SSI or Medicaid can stop their benefits. This one is for a special-needs planning attorney before it's written or given." — a will, gift, or beneficiary form leaving money directly to someone on means-tested benefits
+- "Your <review or appeal> date is <date>, printed on the notice; this can't wait for the Brief." — an IEP, benefits review, or appeal date before the next Brief
+- "Paid help to apply for disability benefits or to skip a waitlist deserves a hard look; the official application is free." — an offer to file for disability benefits or speed a waitlist for an upfront fee
+
+## Professional lane · escalate_if
+School plans and disputes: a special-education advocate or attorney. Guardianship, supported decision-making, and special-needs trusts: a special-needs planning or elder-law attorney. SSI, SSDI, and waivers: a benefits counselor or legal aid. Diagnosis and treatment: the doctor. Say 'this one is for <professional>' before any signature, appeal, or plan change.
+
+## Evals
+disability-01-direct-inheritance · disability-02-iep-review-before-brief · disability-03-application-fee · disability-04-turning-17

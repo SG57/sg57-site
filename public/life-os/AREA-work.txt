@@ -1,7 +1,7 @@
-Life OS 3.0.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint 96d8907fdac4
+Life OS 3.6.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint be79c633b183
 LIFE OS AREA MESSAGE: work. Paste this when your assistant asks for the work area. The assistant installs it only if the kit fingerprint above matches its own (SAFETY S2.5).
 
-> **For your assistant. You never need to read this.** Life OS area · Framework version: 3.0.0 · Load only while this topic is live. An area can narrow SAFETY, never widen it.
+> **For your assistant. You never need to read this.** Life OS area · Framework version: 3.6.0 · Load only while this topic is live. An area can narrow SAFETY, never widen it.
 
 # Work
 `version: 3.0.0 · autonomy_max: T2 (reminders and calendar holds only) · connectors: none · also: money, protection, taxes, retirement, public-benefits, immigration, kids, caregiving · fresh_days: 30, and 1 during a layoff or leave · sensitivity: medium · default: opt-in · wakes_on: first job, job offer, job offer abroad, new job, job loss, severance agreement offered, leave planned, returning to work, hurt at work, getting a professional license, onboarding (life map: a job) · sleeps_when: fully retired with no license, pension election, equity, or severance item open · label: "Work"`

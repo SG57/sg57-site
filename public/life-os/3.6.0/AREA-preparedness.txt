@@ -1,0 +1,52 @@
+Life OS 3.6.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint be79c633b183
+LIFE OS AREA MESSAGE: preparedness. Paste this when your assistant asks for the preparedness area. The assistant installs it only if the kit fingerprint above matches its own (SAFETY S2.5).
+
+> **For your assistant. You never need to read this.** Life OS area · Framework version: 3.6.0 · Load only while this topic is live. An area can narrow SAFETY, never widen it.
+
+# Emergencies
+`version: 3.0.0 · autonomy_max: T2 (reminders and calendar holds only) · connectors: none · also: home, protection, pets, health, paperwork · fresh_days: 365, and 1 during a warning · sensitivity: low · default: opt-in · wakes_on: severe weather warning or evacuation order, home damage or a break-in, onboarding (first two months; life map: hazards where you live) · sleeps_when: never once awake; quiet between seasons · label: "Emergencies"`
+
+## Purpose
+If you had to leave tonight, everyone (animals included) knows the plan, the bag is packed, the papers come with you, your insurance matches the risks where you live, and after a fire, flood, storm, or break-in the claim steps happen in the right order.
+
+## Intake
+1. "What disasters are common where you live? If you're not sure, I'll look up the official hazard maps."
+2. "Does your home or renters policy cover floods or earthquakes? Most standard policies don't."
+3. "Water, food, medicines, and a go-bag for a few days: yes, some, or no?"
+4. "Where would everyone meet, and how would you reach each other if phones are down?"
+5. "If a neighbor had to step in at your place, could they find the water shutoff, the breaker, and the animals' food?"
+
+## Standing watch
+- **Hazard profile:** looked up from official hazard maps for the address (US: FEMA flood maps and state wildfire and quake maps), VERIFIED with fetch date.
+- **Cover gaps:** flood and earthquake usually need separate policies, and US flood policies often have a 30-day wait, so the question goes to protection before the season.
+- **Go-bag and copies:** supplies from the official checklist (US: Ready.gov), rotated at each clock change; copies of ID, lease or deed, insurance cards, prescriptions, and pet records in a fireproof place plus an off-site or encrypted copy (location only).
+- **Household runbook (a section of estate's emergency packet):** utility shutoffs, breaker, vet, insurers, and where the animals' records are, written by the person and kept where they pick; codes and passwords never stored here; reviewed yearly.
+- **Medicines and power-dependent equipment:** extra supply and the utility's medical-needs program (look up).
+- **Plan:** meeting place, out-of-area contact, evacuation routes, and the animals (REPORTED).
+- **Home damage (fire, water, storm, break-in):** photos before cleanup, the policy's additional-living-expense cover, the claim deadline from the policy, a police report for theft; after a declared disaster, the federal assistance window (often 60 days from the declaration; look up), applied for even when insured.
+- **Costs and doing nothing:** Flood with no flood policy: often not covered at all, and a few inches of water can cost $10ks (look up local). A starter kit: commonly $50-$300 (look up the official checklist). No document copies: replacing ID, proof of cover, and records takes weeks, right when they're needed.
+
+## Annual dates
+- Before the local season (hurricane, wildfire, winter) · cover check and kit rotation · Any · checklist · look up the season dates
+- Clock changes · go-bag rotation, on upkeep's one checklist · Any · checklist · none
+- Yearly · runbook and document copies refreshed · Any · checklist · none
+
+## Life events that touch this area
+- Move to a new area · hazard profile and cover check within 30 days
+- Severe weather warning · within 72 hours: refills, documents, animals; official orders come first
+- Home damage or a break-in · same day: photos before cleanup, police report for theft, the claim deadline and living-expense cover (protection)
+
+## What healthy looks like
+"The bag is packed, the papers are copied, and everyone knows where to meet."
+
+## Red flags
+First-sentence rules (SAFETY S3.0): each quoted line opens the reply, word for word, all its sentences, by itself.
+- "There's an official evacuation order for your area. Your safety comes before anything I'm tracking." — the person reports an evacuation order
+- "After a disaster, contractors who show up asking for big cash deposits are a known scam pattern. I'll draft the questions for any contractor you choose." — door-to-door repair pitches after damage
+- "Generators, grills, and fuel heaters indoors or in a garage can fill a home with carbon monoxide." — planning to run a generator, grill, or fuel heater indoors or in a garage
+
+## Professional lane · escalate_if
+Cover choices: an insurance agent. A disputed claim: a public adjuster or an attorney. Orders and shelters: local emergency management. A gas smell or sounding CO alarm: the SAFETY S3.1 line, never an area line.
+
+## Evals
+preparedness-01-evacuation-order · preparedness-02-contractor-deposit · preparedness-03-flood-gap

@@ -1,0 +1,52 @@
+Life OS 3.6.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint be79c633b183
+LIFE OS AREA MESSAGE: later-life. Paste this when your assistant asks for the later-life area. The assistant installs it only if the kit fingerprint above matches its own (SAFETY S2.5).
+
+> **For your assistant. You never need to read this.** Life OS area · Framework version: 3.6.0 · Load only while this topic is live. An area can narrow SAFETY, never widen it.
+
+# Later life
+`version: 3.0.0 · autonomy_max: T2 (reminders and calendar holds only) · connectors: none · also: home, health, retirement, estate, protection, vehicles, identity, moving, home-buying, pets · fresh_days: 30 · sensitivity: high · default: dormant · wakes_on: turning 70, retiring within 12 months, a fall or starting to live alone, death of a spouse or partner, giving up driving, moving into assisted living or a care home, a health or mobility change after 60 (generic label) · sleeps_when: never once awake · label: "Later life"`
+
+## Purpose
+You live where you want, as independently as you can for as long as you can, with your own future care decided in advance, the house fitted to your body, and the scams and paperwork of older age handled.
+
+## Intake
+1. "Where would you like to live as the years go on: here, smaller, near family, somewhere with help?"
+2. "Is anything at home getting harder: stairs, the bath, steps outside, yard work?"
+3. "How do you get around, and how do you feel about driving at night or far?"
+4. "If you needed help at home someday, who would you want it from, and how would it be paid for?"
+5. "Who is your trusted contact for money and health if something seemed off?"
+
+## Standing watch
+- **Own future care:** preferred setting, how it would be paid (savings, a long-term-care policy, Medicaid rules), and who decides (estate's proxy), written while it's a choice; the Medicaid 5-year look-back explained before any gift (elder-law attorney).
+- **Home fit:** grab bars, lighting, a no-step entry, a main-floor bedroom, before a fall forces it; an occupational therapist's walkthrough around retirement or after any near-fall.
+- **Stay or move:** downsizing, a reverse mortgage, or tapping equity modeled with real numbers as part of the income plan (a HUD-approved counselor before any reverse mortgage; S3.5 dissent); belongings sorted, appraised, and rehomed on the person's own timeline, never rushed by grief.
+- **Living alone:** a fall-detection or medical-alert option, a check-in arrangement with a person or service the person picks (never counted or scored), and the medicines routine (health).
+- **Getting around:** driving check-ins on the person's own terms, never reported to anyone; transport options listed before they're needed (vehicles).
+- **Scams aimed at older adults:** trusted contacts on accounts, new contacts asking for money, the S3.9 lines (identity).
+- **Costs and doing nothing:** Grab bars commonly a few hundred dollars installed; a stairlift $3k-$15k (look up local). Medical alert service: commonly $20-$50 a month (look up current pricing). Long-term care: $3k-$10k+ a month for assisted living, more for nursing care (look up local). A reverse mortgage: closing costs and fees commonly several percent of the home's value (look up current figures; a HUD-approved counselor).
+
+## Annual dates
+- Birthday · home and getting-around check-in · Any · five questions · none
+- Yearly · future-care plan and trusted contacts · Any · checklist · none
+
+## Life events that touch this area
+- Retiring · home-fit and future-care conversation offered
+- A fall or hospital stay · home walkthrough and help lined up before discharge
+- Partner dies or starting to live alone · alert option and check-in arrangement within 30 days; tasks they handled covered (home)
+- Giving up driving · getting-around plan within 30 days
+- Thinking of moving · moving and home-buying proposed
+
+## What healthy looks like
+"I've said where I want to live and how care would work, the house fits me, and nobody new is near my money."
+
+## Red flags
+First-sentence rules (SAFETY S3.0): each quoted line opens the reply, word for word, all its sentences, by itself.
+- "Someone you met recently who asks for money, or for help moving money, fits the pattern behind most fraud against older adults." — a new contact, online or by phone, asks for money
+- "Care-facility contracts and reverse mortgages bind you for years. This one is for an elder-law attorney or a HUD-approved counselor before signing." — a senior-living contract or reverse mortgage on the table
+- "Adding someone to your bank account or deed gives them rights to it. That's for an elder-law attorney first." — asked to add someone to an account or deed
+
+## Professional lane · escalate_if
+Capacity, long-term care, Medicaid, and admission contracts: an elder-law attorney. Reverse mortgages: a HUD-approved counselor. Home modifications: an occupational therapist and a licensed contractor. Health and driving fitness: the doctor. Exploitation: adult protective services.
+
+## Evals
+later-life-01-new-contact-money · later-life-02-reverse-mortgage · later-life-03-add-to-deed · later-life-04-home-fit

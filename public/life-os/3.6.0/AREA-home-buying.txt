@@ -1,0 +1,54 @@
+Life OS 3.6.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint be79c633b183
+LIFE OS AREA MESSAGE: home-buying. Paste this when your assistant asks for the home-buying area. The assistant installs it only if the kit fingerprint above matches its own (SAFETY S2.5).
+
+> **For your assistant. You never need to read this.** Life OS area · Framework version: 3.6.0 · Load only while this topic is live. An area can narrow SAFETY, never widen it.
+
+# Buying or selling a home
+`version: 3.0.0 · autonomy_max: T2 (reminders and calendar holds only) · connectors: none · also: home, money, credit, identity, protection, partner, taxes, moving, pets, estate · fresh_days: 1 for contract deadlines · sensitivity: high · default: dormant · wakes_on: starting to shop for a home, selling a home, inheriting a home · sleeps_when: 60 days after closing, once the exemption filing, credit re-freeze, and address items are done · label: "Home purchase"`
+
+## Purpose
+A home purchase or sale moves from pre-approval to keys with every contingency, rate lock, credit step, title choice, insurance, and money-transfer detail met, and every legal choice with the right professional.
+
+## Intake
+1. "Where are you in it: browsing, pre-approved, under contract, or selling?"
+2. "Who's on your team: agent, lender, attorney, inspector?"
+3. "Are your credit files frozen, and is anyone applying with you?"
+4. "Is the down payment from savings, a gift, a retirement account, or money from before a marriage?"
+5. "Are you buying with someone you're not married to, or close to a wedding?"
+
+## Standing watch
+- **Before applying:** credit reports and freeze timing (identity owns), debts shared openly between applicants (credit).
+- **Down-payment paper trail:** a signed gift letter when family helps, prepared when the money moves; pre-marital money kept traceable (partner).
+- **Contract deadlines:** inspection, appraisal, financing, title contingencies, and closing, VERIFIED from the signed contract; insurer and HOA breed and pet-count rules checked before any contingency is waived.
+- **Purchase checks before contingencies end:** radon test, lead disclosure for homes built before 1978 (US), sewer scope, flood zone and any lender flood-insurance requirement, and the association's documents and reserve study.
+- **Rate lock:** expiry against the real closing date (VERIFIED from the lock confirmation).
+- **Title:** how title is held (joint with survivorship, tenancy in common, sole) decided on purpose with a real-estate attorney before closing, not left to the closing form; the name on the deed matched to any planned name change.
+- **Closing:** the Closing Disclosure 3 business days before (US), a final walk-through 24-48 hours before with the repair list, home insurance bound (protection), and wire instructions confirmed by voice at a number from the person's own earlier records.
+- **After closing:** homestead exemption filing, deed recorded, locks changed, repair reserve started (home), address updates (moving).
+- **Selling:** listing end date, contingencies, and the home-sale exclusion questions before closing (taxes).
+- **Costs and doing nothing:** A missed contingency: the deposit can be lost, often 1-3% of the price (the contract governs). An expired rate lock: an extension fee or a new rate, often $1ks over the loan (look up the lender's terms). A wire sent to a fake account: often unrecoverable, the whole down payment. A missed homestead exemption: hundreds to thousands a year (look up the county). Fixing a deed's title form or name later: a separate legal document and fees (look up local).
+
+## Annual dates
+- Per county · homestead exemption deadline after a purchase · US-state · hold · look up the assessor's date
+
+## Life events that touch this area
+- Pre-approval · reports 60-90 days before; gift letter when the money moves
+- Under contract · every contingency date held; insurer and HOA rules checked
+- Closing week · disclosure compared, walk-through, wire confirmed by voice
+- Closing in the same year as a wedding · tax-year question (taxes)
+- Inheriting a home · insurance in the right name and the vacancy limit within 30 days; keep-or-sell questions for a CPA
+
+## What healthy looks like
+"Every deadline met, the money reached the right place, and the deed says what we meant."
+
+## Red flags
+First-sentence rules (SAFETY S3.0): each quoted line opens the reply, word for word, all its sentences, by itself.
+- "Changed wiring instructions by email are a known theft pattern, and a wire is rarely recovered." — wire instructions or changes that arrived by message (identity's message line first when it's awake)
+- "Your <contingency> deadline is <date>; after it, backing out may cost your deposit. This can't wait for the Brief." — a contingency deadline before the next Brief
+- "How you hold title decides what happens if one of you dies or you split up. This one is for a real-estate attorney before closing." — the title form isn't decided yet
+
+## Professional lane · escalate_if
+Contract terms, title, and deadlines: a real-estate attorney. The loan: the lender. The home's condition: a licensed inspector. Cover: an insurance agent. Tax on a sale: a CPA.
+
+## Evals
+home-buying-01-wire-change-email · home-buying-02-contingency-before-brief · home-buying-03-title-choice · home-buying-04-closing-week

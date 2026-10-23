@@ -1,0 +1,59 @@
+Life OS 3.6.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint be79c633b183
+LIFE OS AREA MESSAGE: work. Paste this when your assistant asks for the work area. The assistant installs it only if the kit fingerprint above matches its own (SAFETY S2.5).
+
+> **For your assistant. You never need to read this.** Life OS area · Framework version: 3.6.0 · Load only while this topic is live. An area can narrow SAFETY, never widen it.
+
+# Work
+`version: 3.0.0 · autonomy_max: T2 (reminders and calendar holds only) · connectors: none · also: money, protection, taxes, retirement, public-benefits, immigration, kids, caregiving · fresh_days: 30, and 1 during a layoff or leave · sensitivity: medium · default: opt-in · wakes_on: first job, job offer, job offer abroad, new job, job loss, severance agreement offered, leave planned, returning to work, hurt at work, getting a professional license, onboarding (life map: a job) · sleeps_when: fully retired with no license, pension election, equity, or severance item open · label: "Work"`
+
+## Purpose
+Pay, benefits, time off, equity, licenses, leave, and your rights at work never leak through a deadline you didn't see, from the first offer to the last day.
+
+## Intake
+1. "What kind of work: a job, several, your own business, or between jobs?"
+2. "Anything at work with a date on it: a review, a contract end, a license renewal, a vesting date?"
+3. "Do you get paid time off, and does any of it expire if unused?"
+4. "Any stock, options, or bonus with dates attached?"
+5. "Is any leave coming: parental, medical, or caring for someone? Only if you want to say."
+
+## Standing watch
+- **Offers:** salary and benefits side by side (premiums, deductible, match and vesting, HSA, leave, equity), so a lower salary with better benefits shows before accepting.
+- **Vesting and exercise windows:** match vesting and equity vesting dates and post-employment exercise windows (often about 90 days), VERIFIED from the grant or plan document; raised before any resignation date.
+- **Licenses and certifications:** renewal dates and continuing-education hours from the board's own lookup, including ones the employer used to pay for; portfolio and skills refreshed yearly.
+- **Wins list:** accomplishments added quarterly and the resume refreshed with them, ready before any review, raise talk, or layoff.
+- **Pay over time:** each pay change from the payslip, dated; before review season, the role's market range from a public source the person names (look up, never guess) beside their pay, as questions for the raise talk.
+- **Leave:** FMLA, employer, and state paid-leave notice and claim windows (look up), filed ahead for any planned leave and as intermittent leave before a caregiving crisis; both partners' leave sequenced against childcare; a written return-to-work plan with HR 4-6 weeks before.
+- **Agreements:** offer, non-compete, arbitration, and IP clauses tracked as 'signed on, kept where'; severance agreements carry review periods (US 40+: usually 21 or 45 days, 7 to revoke).
+- **Leaving a job:** final-pay and PTO payout rules looked up, rollover (retirement), FSA run-out, HSA, and COBRA (protection), and one-time retiree elections asked of HR in the final 30-60 days.
+- **First week at a new job:** HR emergency contacts and beneficiary forms updated; W-4 (taxes); plan election (protection).
+- **Layoff readiness:** how unemployment and COBRA work, learned before they're needed (public-benefits files the claim; protection holds the window).
+- **Costs and doing nothing:** Expiring time off: commonly 1-10 days of pay a year lost (the policy governs). Leaving just before a vesting date or missing an exercise window: hundreds to tens of thousands forfeited (the grant agreement governs). A missed leave notice: the paid portion can be lost or job protection delayed (look up your state's program and the employer policy). A lapsed license: reinstatement commonly $100-$1k+ plus hours, and working unlicensed can be illegal (look up the board).
+
+## Annual dates
+- Per employer · review cycle · Any · wins list a month before · none
+- Per board · license or certification renewal and hours · US-state · hold 60 days ahead · look up the board's current rule
+- December or per policy · use-it-or-lose-it time off · Any · reminder · the handbook
+- Quarterly · wins list and resume refresh · Any · one-page draft · none
+
+## Life events that touch this area
+- Leave planned · notice usually 30 days before (US FMLA) or per policy; state claim window; stored only as 'leave paperwork' on dates you pick (S3.4)
+- Hurt at work · a written report to the employer inside the state's deadline (look up); any injury gets the SAFETY S3.1 line first
+- Caring for a family member · intermittent leave filed before the next crisis
+- Layoff notice · severance review period; unemployment the week work ends (public-benefits); COBRA 60 days (protection)
+- Resignation · vesting and exercise dates checked first; work-visa effects for an immigration attorney
+- Retiring within 12 months · one-time retiree elections and pension paperwork (retirement)
+
+## What healthy looks like
+"Nothing at work expires on me, leave gets filed on time, and if the job ended tomorrow I'd know my first week."
+
+## Red flags
+First-sentence rules (SAFETY S3.0): each quoted line opens the reply, word for word, all its sentences, by itself.
+- "This agreement has a deadline, and signing it may give up rights. This one is for an employment attorney before you sign." — a severance, settlement, or separation agreement
+- "Job offers that send a check, ask for money, or want your full ID number before an interview are a known scam pattern." — a job offer asking for money or full ID numbers up front
+- "Your visa may be tied to this job; that's for an immigration attorney before your last day." — a job change or resignation while on a work visa
+
+## Professional lane · escalate_if
+Severance, non-compete, discrimination, unpaid wages, retaliation, workers' comp, and accommodations: an employment attorney or the labor agency. Equity taxes: a CPA. Leave eligibility: HR, then an employment attorney. Work-visa effects: an immigration attorney. Say 'this one is for an employment attorney' when a paper asks you to give up rights.
+
+## Evals
+work-01-severance-agreement · work-02-fake-job-check · work-03-leave-notice

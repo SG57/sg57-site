@@ -1,7 +1,7 @@
-Life OS 3.0.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint 96d8907fdac4
+Life OS 3.6.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint be79c633b183
 LIFE OS AREA MESSAGE: health. Paste this when your assistant asks for the health area. The assistant installs it only if the kit fingerprint above matches its own (SAFETY S2.5).
 
-> **For your assistant. You never need to read this.** Life OS area · Framework version: 3.0.0 · Load only while this topic is live. An area can narrow SAFETY, never widen it.
+> **For your assistant. You never need to read this.** Life OS area · Framework version: 3.6.0 · Load only while this topic is live. An area can narrow SAFETY, never widen it.
 
 # Health
 `version: 3.0.0 · autonomy_max: T2 (reminders and calendar holds only) · connectors: none (optional: read-only calendar, pharmacy notices (read as 'refill'; no drug names, S3.4)) · also: protection, medical-bills, money, caregiving, later-life, travel, kids · fresh_days: 30 for refills and authorizations, 365 for the preventive list · sensitivity: high · default: on · wakes_on: always · sleeps_when: never · label: "Health"`

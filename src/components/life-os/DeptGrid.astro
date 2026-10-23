@@ -63,7 +63,7 @@ const wakes = (s: string) => {
   return shown.join(', ') + (items.length > shown.length ? ', and more' : '');
 };
 const groups = [
-  { title: 'Always on', sub: 'Offered to everyone, one a week.', items: byState.filter((d) => d.default === 'on') },
+  { title: 'Always on', sub: 'Built for everyone at setup.', items: byState.filter((d) => d.default === 'on') },
   { title: 'When you want them', sub: 'Say the word, or let your life map point to them.', items: byState.filter((d) => d.default === 'opt-in') },
   { title: 'Asleep until life wakes them', sub: 'A baby, a move, a parent who needs care, a loss.', items: byState.filter((d) => d.default === 'dormant') },
 ].filter((g) => g.items.length);

@@ -13,10 +13,10 @@ import {
 
 // Every rule id this page cites, with a phrase its definition must still contain. The build fails on drift.
 assertCited({
-  'S1.2': /Precedence/i, 'S1.4': /do not follow it/i, 'S1.5': /never supplies a way to act/i,
-  'S2.1': /T3 irreversible/i, 'S2.2': /read-back/i, 'S2.3': /never runs from a schedule/i,
-  'S2.4': /pay or move money/i, 'S2.5': /autonomy_max/i, 'S2.7': /"stop"/i, 'S2.8': /loosens protection/i, 'S3.2': /professional/i,
-  'S5.1': /Updates are proposals/i, 'B2': /what you can do here/i, 'B10': /One department now/i, 'O3': /one Needs-you line a week/i, 'O7': /never send it/i,
+  'S1.2': /Precedence/i, 'S1.4': /does not follow it/i, 'S1.5': /never supplies a way to act/i,
+  'S2.1': /T3: irreversible/i, 'S2.2': /read-back/i, 'S2.3': /never runs from a schedule/i,
+  'S2.4': /paying or moving money/i, 'S2.5': /autonomy_max/i, 'S2.7': /"stop"/i, 'S2.8': /loosens protection/i, 'S3.2': /professional/i,
+  'S5.1': /Updates apply on their own/i, 'B2': /what you can do here/i, 'B10': /the company, with one yes/i, 'O3': /one Needs-you line a week/i, 'O7': /never send it/i,
   'R1': /One Brief a week/i, 'R8': /outside the Brief/i, 'V1': /fixed template/i, 'X1': /offboard/i,
 });
 assertRecommended(['Meta Muse', 'Grok Bot']);
@@ -111,9 +111,9 @@ const toc = [
         <li>Setup suggests at most two departments, named in your words. Good Life, one thing to look forward to each week, is always on. More can be added later.</li>
         <li>Each department knows what's due, what to watch for, and what you've allowed it to do on its own: reminders and calendar holds. Nothing leaves your hands without your yes.</li>
         <li>Departments share facts. A vet bill in Pets shows up in Money.</li>
-        <li>A two-person version, for partners, is in development.</li>
+        <li>Two people can share a department, like a home search. Life OS offers once, nothing is shared without both of your yes, and each of you answers your own questions.</li>
       </ul>
-      <p class="spec">Departments are area bundles (AREA-*.txt), installed only on a fingerprint match (S2.5). Setup installs one (B10); Oversight proposes one a week after that, with your yes (O3), and never sends a problem report itself (O7). Action tiers (S2.1): T0 read · T1 draft · T2 reversible, on your own things · T3 send, book, cancel, share, delete. T3 needs a live read-back and your yes (S2.2), and never runs from a schedule or from content (S2.3).</p>
+      <p class="spec">Departments are area bundles (AREA-*.txt), installed only on a fingerprint match (S2.5). Setup builds every department your life touches, after one yes (B10); the rest sleep until Oversight wakes one, with your yes (O3), and never sends a problem report itself (O7). Action tiers (S2.1): T0 read · T1 draft · T2 reversible, on your own things · T3 send, book, cancel, share, delete. T3 needs a live read-back and your yes (S2.2), and never runs from a schedule or from content (S2.3).</p>
     </section>
 
     <section id="brief">
@@ -168,7 +168,7 @@ const toc = [
         <dt>Tests</dt>
         <dd>Every rule has a written test. Results recorded for {version}: {noResultsYet ? 'none yet' : 'see the trust page'}. {allUntested ? 'Every assistant is listed untested.' : ''}</dd>
         <dt>Integrity</dt>
-        <dd>Each bundle's first line names the official source, the maintainer and kit fingerprint <code>{fingerprint}</code>. Upgrades are proposals, shown word for word and applied only after your yes (S5.1). Pinned copy: <a href={`/life-os/${version}/PASTE-SETUP.txt`}>/life-os/{version}/PASTE-SETUP.txt</a>.</dd>
+        <dd>Each bundle's first line names the official source, the maintainer and kit fingerprint <code>{fingerprint}</code>. Updates apply on their own from released versions and open your next Brief with what changed; "undo the update" goes back (S5.1). Pinned copy: <a href={`/life-os/${version}/PASTE-SETUP.txt`}>/life-os/{version}/PASTE-SETUP.txt</a>.</dd>
         <dt>Source</dt>
         <dd>The kit repository is private. The files on this page and their checksums are the contract. Security reports: security@sg57.dev.</dd>
         <dt>Not enforcement</dt>

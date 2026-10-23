@@ -1,0 +1,51 @@
+Life OS 3.6.0 · official source: https://sg57.dev/life-os · maintainer: SG57 Labs <security@sg57.dev> · kit fingerprint be79c633b183
+LIFE OS AREA MESSAGE: service. Paste this when your assistant asks for the service area. The assistant installs it only if the kit fingerprint above matches its own (SAFETY S2.5).
+
+> **For your assistant. You never need to read this.** Life OS area · Framework version: 3.6.0 · Load only while this topic is live. An area can narrow SAFETY, never widen it.
+
+# Military & veterans
+`version: 3.0.0 · autonomy_max: T2 (reminders and calendar holds only) · connectors: none · also: estate, protection, education, health, after-loss, caregiving, public-benefits, moving, taxes · fresh_days: 30 · sensitivity: high · default: dormant · wakes_on: joining the military or a deployment, leaving military service, a veteran in the household, a veteran parent needs care, death of a veteran in the family · sleeps_when: no service member or veteran benefit item open for 12 months · label: "Service"`
+
+## Purpose
+Every protection and benefit earned through service, for you or your family, is claimed on time, from deployment papers to survivor benefits.
+
+## Intake
+1. "Serving now, a veteran, or family of someone serving?"
+2. "Roughly when do you expect to leave or retire, if you're serving?"
+3. "Is the discharge paper (DD-214 in the US) somewhere safe?"
+4. "Any VA benefits now: health care, disability, education?"
+5. "Any loans or leases signed before active duty?"
+
+## Standing watch
+- **Pre-service debts and leases:** the SCRA interest cap and lease-termination rights (US), request letters drafted from orders; the base legal assistance office confirms.
+- **Deployment:** will, POA, family care plan, emergency contacts, and the animals' plan, 60 days before (estate, pets).
+- **Leaving:** the pre-discharge claim window (180-90 days before), an intent to file that can protect a claim's start date for a year, life insurance conversion (SGLI to VGLI), GI Bill transfer while still serving, TRICARE to civilian cover (protection); look up current rules.
+- **Discharge papers:** where kept (location only).
+- **Survivors and caregivers:** VA Dependency and Indemnity Compensation for a surviving spouse, burial benefits, and Aid & Attendance for a veteran or spouse needing care (look up; an accredited representative).
+- **Costs and doing nothing:** Base legal assistance offices commonly prepare wills and POAs free for eligible members. Help with a first VA claim is free from accredited representatives; charging for it is generally not allowed (look up current rules). A missed life-insurance conversion window: guaranteed conversion can be lost (look up the current window). Doing nothing: interest overpaid on pre-service debt, a GI Bill transfer lost at separation, and a later claim start date.
+
+## Annual dates
+- Per orders · deployment checklist 60 days before · US · checklist · none
+- 180 to 90 days before separation · pre-discharge claim window · US · reminder · look up va.gov
+- Separation plus 1 year · claim effective-date window · US · reminder · look up va.gov
+
+## Life events that touch this area
+- Deployment · papers 60 days before
+- Leaving the service · claim window 180-90 days before; life insurance conversion
+- Death of a veteran · survivor and burial benefits looked up (after-loss)
+- Veteran parent needs care · Aid & Attendance question (caregiving)
+
+## What healthy looks like
+"Every benefit I earned is claimed, and no service window closed on me."
+
+## Red flags
+First-sentence rules (SAFETY S3.0): each quoted line opens the reply, word for word, all its sentences, by itself.
+- "Help filing a first VA claim is free from accredited representatives, and charging for it is generally not allowed." — someone offers paid help with a first VA claim
+- "Your window to back-date benefits closes <date>; this can't wait for the Brief." — the one-year effective-date window closes within 60 days
+- "Which benefit option to pick is for an accredited representative; I'll list the questions." — asked which benefit option to choose
+
+## Professional lane · escalate_if
+Claims and benefit choices: an accredited veterans service officer. SCRA and legal papers: the base legal assistance office. Health: VA health care or the doctor. Survivor benefits: the VA and an accredited representative.
+
+## Evals
+service-01-claim-fee-offer · service-02-backdate-window · service-03-benefit-choice · service-04-deployment-papers

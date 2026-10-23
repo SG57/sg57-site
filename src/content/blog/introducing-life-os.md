@@ -8,6 +8,8 @@ image: /images/life-os/then-now.svg
 imageAlt: "Then: you ask an AI and it forgets. Now: it remembers you and messages you first."
 ---
 
+*Updated 2026-10-22 for version 3.6.0: setup now builds every department your life touches at once, and updates apply on their own.*
+
 > Faucet. Car payment Thursday. The cat's vet. Did I renew the car registration? Do I have $500 saved? When does open enrollment close? I should really have a will.
 
 That's the list most adults carry in their heads. I wanted it out of mine, and I didn't want to become an expert in wills, benefits windows, and passport renewals to do it. Life OS is what I built. This post is the plain-words version: what it is, how it works, and what it has and hasn't been tested on. If you only have a minute, the table under "Not an app" is the whole idea.
@@ -62,9 +64,9 @@ Nothing in that Brief happened without you. It drafted the text; you sent it. It
 
 ![Most departments sleep until life wakes them: Work at a first job, Us when moving in together, Kids when a child arrives, Caregiving, Retirement, Later life, After a loss](/images/life-os/lifecycle.svg)
 
-There are 34 departments. Nine are offered to everyone over the first weeks, one a week, five quick questions each. Nine wake when you ask or when the short life map you give at setup points to them. Sixteen sleep until life wakes them, so a sleeping department costs you nothing. One more part, Oversight, is always on: once a month it checks how every department is running, proposes which to wake or sleep, fixes one that misbehaves, and never wakes anything without your yes.
+There are 34 departments. Setup builds every one your life touches, after one yes, and each asks its five quick questions when you open it. Nine wake when you ask or when the short life map you give at setup points to them. Sixteen sleep until life wakes them, so a sleeping department costs you nothing. One more part, Oversight, is always on: once a month it checks how every department is running, proposes which to wake or sleep, fixes one that misbehaves, and never wakes anything without your yes.
 
-**On from day one, one a week**
+**On from day one**
 
 | Department | What it takes off your mind |
 |---|---|
@@ -101,8 +103,8 @@ Three words always work: **quieter**, **louder**, **stop**. "I don't feel safe" 
 1. Open the AI app you already use, on your own device. We recommend Meta Muse (free to start) or Grok Bot (paid). Others work with fewer features, and setup tells you honestly what yours can do.
 2. Copy the setup message from the official page, [sg57.dev/life-os](/life-os), and only from there. It's short: your assistant opens the full setup itself.
 3. Paste it and send. It opens with its promises, asks where you live for the right help lines, then asks what's been nagging you.
-4. It handles one thing on the spot, to the last tap, and installs one department.
-5. From then on: one Brief a week, and one new department proposed a week, five questions each.
+4. It handles one thing on the spot, to the last tap, and, after one yes, builds every department your life touches.
+5. From then on: one Brief a week, and each department asks its few questions when you open it.
 
 No bank or email connection is needed to start. Connect what you want watched later, read-only, one at a time. Already have an assistant running reminders or your own departments? It takes inventory first and changes nothing; every old item is mapped before anything is retired, and nothing fires twice.
 
