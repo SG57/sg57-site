@@ -7,11 +7,12 @@ export const repoRoot = resolve(fileURLToPath(new URL('../..', import.meta.url))
 
 /** --dist <dir> --src <dir> --all ; defaults resolve against the repo root. */
 export function parseArgs(argv = process.argv.slice(2)) {
-  const opts = { dist: join(repoRoot, 'dist'), src: join(repoRoot, 'src'), all: false, update: false, rest: [] };
+  const opts = { dist: join(repoRoot, 'dist'), src: join(repoRoot, 'src'), allow: join(repoRoot, 'scripts', 'gates', 'focus-allow.json'), all: false, update: false, rest: [] };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === '--dist') opts.dist = resolve(argv[++i]);
     else if (a === '--src') opts.src = resolve(argv[++i]);
+    else if (a === '--allow') opts.allow = resolve(argv[++i]);
     else if (a === '--all') opts.all = true;
     else if (a === '--update-baseline') opts.update = true;
     else opts.rest.push(a);
@@ -29,6 +30,43 @@ export const isMain = (metaUrl) => !!process.argv[1] && pathToFileURL(resolve(pr
 export const platformGuide = (id, note = '') => `platform-currency guide: ${id} (repo rules still win${note ? `; ${note}` : ''})`;
 
 export const posix = (p) => p.split(sep).join('/');
+
+// Built from its char code: a literal backslash can be mangled by tools that rewrite escapes when editing source.
+const BACKSLASH = String.fromCharCode(92);
+/**
+ * Normalise BOTH separators. `posix` only splits on the running OS's separator, so a Windows-style path in text
+ * produced elsewhere (a fixture, CI output from another OS) is left untouched on Linux.
+ */
+export const slashes = (p) => p.split(BACKSLASH).join('/');
+
+/**
+ * Blank out `//` and block comments of JS/TS (keeping offsets and newlines) so a pattern match cannot be satisfied or
+ * triggered by commented-out code. Strings and template literals are skipped over; a ' or " string ends at a newline
+ * so an apostrophe in prose cannot swallow the rest of the file. Lexical, not a parser.
+ */
+export function maskJsComments(text) {
+  let out = '';
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    const n = text[i + 1];
+    if (c === '/' && n === '/') {
+      let j = i;
+      while (j < text.length && text[j] !== '\n') { out += ' '; j++; }
+      i = j - 1;
+    } else if (c === '/' && n === '*') {
+      const end = text.indexOf('*/', i + 2);
+      const stop = end < 0 ? text.length : end + 2;
+      for (let j = i; j < stop; j++) out += text[j] === '\n' ? '\n' : ' ';
+      i = stop - 1;
+    } else if (c === '"' || c === "'" || c === '`') {
+      let j = i + 1;
+      while (j < text.length && text[j] !== c && (c === '`' || text[j] !== '\n')) j += text[j] === BACKSLASH ? 2 : 1;
+      out += text.slice(i, j + 1);
+      i = j;
+    } else out += c;
+  }
+  return out;
+}
 export const rel = (p) => posix(relative(process.cwd(), p));
 
 export function walk(dir, accept = () => true, skipDirs = new Set(['node_modules', '.git'])) {

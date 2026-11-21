@@ -192,6 +192,20 @@ describe('gate:check ratchet', () => {
     assert.equal(p.reported, 1);
     assert.equal(compare(p.counts, { "src/a.astro | ts(2339) | Property 'x' does not exist.": 1 }).added.length, 0);
   });
+  it('fingerprints the same file for Windows and POSIX separators, on whichever OS runs the test', () => {
+    const bs = String.fromCharCode(92);
+    const line = (file) => `${file}:4:1 - error ts(2339): Property 'x' does not exist.\n\nResult (1 files):\n- 1 errors\n`;
+    const want = "src/a.astro | ts(2339) | Property 'x' does not exist.";
+    for (const file of [
+      `src${bs}a.astro`,
+      'src/a.astro',
+      `C:${bs}repo${bs}site${bs}src${bs}a.astro`,
+      '/home/runner/work/site/site/src/a.astro',
+    ]) {
+      assert.deepEqual([...parseCheckOutput(line(file)).counts.keys()], [want], `separator style: ${file}`);
+    }
+    assert.deepEqual([...parseCheckOutput(line(`D:${bs}x${bs}src/pages${bs}b.astro`)).counts.keys()], ["src/pages/b.astro | ts(2339) | Property 'x' does not exist."]);
+  });
   it('passes at baseline and when errors shrink', () => {
     assert.equal(runCheckGate({ rawOutput: sample(2), baselineOverride: base }).failed, false);
     assert.equal(runCheckGate({ rawOutput: sample(1), baselineOverride: base }).failed, false);

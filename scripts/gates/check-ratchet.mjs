@@ -6,7 +6,7 @@
 import { spawnSync } from 'node:child_process';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { Report, parseArgs, finish, isMain, repoRoot, posix, rel } from './lib.mjs';
+import { Report, parseArgs, finish, isMain, repoRoot, slashes, rel } from './lib.mjs';
 
 const BASELINE = new URL('./check-baseline.json', import.meta.url);
 // eslint-disable-next-line no-control-regex
@@ -21,7 +21,7 @@ export function parseCheckOutput(raw) {
     const m = LINE.exec(line);
     if (!m || m[4] !== 'error') continue;
     errors++;
-    const file = posix(m[1]).replace(/^.*?\/?(src\/)/, '$1');
+    const file = slashes(m[1]).replace(/^.*?\/?(src\/)/, '$1');
     const key = `${file} | ${m[5]} | ${m[6].trim()}`;
     counts.set(key, (counts.get(key) ?? 0) + 1);
   }
