@@ -1,0 +1,11 @@
+---
+import { ClientRouter } from 'astro:transitions';
+---
+<head><ClientRouter /></head>
+<slot />
+<script type="application/ld+json">{"@context":"https://schema.org"}</script>
+<script is:inline>window.dataLayer = [];</script>
+<script>
+  // gate:page-load-ok only toggles a class on the persisted <html> element
+  document.documentElement.classList.add('js');
+</script>

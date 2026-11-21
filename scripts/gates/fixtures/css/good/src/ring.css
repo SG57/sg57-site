@@ -1,0 +1,9 @@
+/* transparent outline survives forced-colors; the shadow is the visible ring */
+.btn:focus-visible { outline: 2px solid transparent; outline-offset: 2px; box-shadow: 0 0 0 2px #5bc0be; }
+/* outline removed, but an explicit forced-colors replacement for the same selector exists */
+.card:focus-visible { outline: none; box-shadow: 0 0 0 2px #5bc0be; }
+@media (forced-colors: active) { .card:focus-visible { outline: 2px solid CanvasText; } }
+/* outline:none is fine on a non-focus-visible selector */
+.x:hover { outline: none; }
+/* a real outline is fine */
+.link:focus-visible { outline: 2px solid #5bc0be; }

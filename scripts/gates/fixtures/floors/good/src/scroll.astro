@@ -1,0 +1,12 @@
+---
+---
+<button id="up">up</button>
+<script>
+  function smoothTo(el: Element) {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { el.scrollIntoView(); return; }
+    el.scrollIntoView({ behavior: 'smooth' });
+  }
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.addEventListener('astro:page-load', () => window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }));
+  void smoothTo;
+</script>

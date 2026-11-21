@@ -6,7 +6,15 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "node scripts/gates/check-ratchet.mjs",
+    "check:raw": "astro check",
+    "gate:html": "node scripts/gates/html.mjs",
+    "gate:css": "node scripts/gates/css.mjs",
+    "gate:scripts": "node scripts/gates/page-load.mjs",
+    "gate:floors": "node scripts/gates/floors.mjs",
+    "gates": "npm run build && node scripts/gates/run-all.mjs",
+    "test:gates": "node --test scripts/gates/selftest.mjs scripts/gates/focus-outline.test.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.16",
