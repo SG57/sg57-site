@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, mkdirSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { discoverRoutes, applyBaseline, fingerprint, parseArgv } from './spine.mjs';
+import { discoverRoutes, applyBaseline, fingerprint, parseArgv, outlineInvisible, probeLayout } from './spine.mjs';
 
 function fixtureDist() {
   const dist = mkdtempSync(join(tmpdir(), 'spine-dist-'));
@@ -67,4 +67,40 @@ test('fingerprint ignores the Astro scoped-style hash, which changes whenever a 
   const b = { rule: 'axe', route: '/x/', detail: 'link-in-text-block .crumbs > a[href$="life-os"][data-astro-cid-zz9=""]' };
   assert.equal(fingerprint(a), fingerprint(b));
   assert.notEqual(fingerprint(a), fingerprint({ ...a, detail: 'link-in-text-block .crumbs > a[href$="other"]' }));
+});
+
+// Both of these were written without their backslashes once (/s+/ splits on the letter s, /rgba(s*d+...)/ never
+// matches), which silently disabled the checks. Each test names that bug.
+test('outlineInvisible: a fully transparent computed outline colour is invisible (the regex needs its escapes)', () => {
+  const visible = { style: 'solid', width: 2, color: 'rgb(91, 192, 190)', bg: 'rgb(10, 12, 16)' };
+  assert.equal(outlineInvisible(visible), false);
+  assert.equal(outlineInvisible({ ...visible, color: 'rgba(0, 0, 0, 0)' }), true);
+  assert.equal(outlineInvisible({ ...visible, color: 'rgba(91,192,190,0)' }), true);
+  assert.equal(outlineInvisible({ ...visible, color: 'rgba(91, 192, 190, 0.5)' }), false);
+  assert.equal(outlineInvisible({ ...visible, style: 'none' }), true);
+  assert.equal(outlineInvisible({ ...visible, width: 0 }), true);
+  assert.equal(outlineInvisible({ ...visible, color: visible.bg }), true);
+});
+
+test('probeLayout names an element by its first class, not by splitting on the letter s', () => {
+  const el = {
+    tagName: 'DIV', className: 'sidebar wide', parentElement: null,
+    closest: () => null,
+    getBoundingClientRect: () => ({ width: 100, height: 10, left: 0, right: 900 }),
+  };
+  const saved = { document: globalThis.document, getComputedStyle: globalThis.getComputedStyle };
+  globalThis.document = {
+    documentElement: { clientWidth: 400, scrollWidth: 900 },
+    body: { querySelectorAll: () => [el] },
+    querySelectorAll: () => [{}],
+  };
+  globalThis.getComputedStyle = () => ({ position: 'static', display: 'block', visibility: 'visible', overflowX: 'visible' });
+  try {
+    const l = probeLayout();
+    assert.equal(l.offenderCount, 1);
+    assert.equal(l.offenders[0].sel, 'div.sidebar');
+  } finally {
+    globalThis.document = saved.document;
+    globalThis.getComputedStyle = saved.getComputedStyle;
+  }
 });

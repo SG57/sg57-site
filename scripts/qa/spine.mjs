@@ -115,6 +115,10 @@ export function applyBaseline(hard, baseline) {
   return { fresh, tolerated, stale };
 }
 
+/** A focus outline that paints nothing: style none, zero width, the background colour, or a fully transparent colour. */
+const TRANSPARENT_COLOR = /rgba\(\s*\d+,\s*\d+,\s*\d+,\s*0\s*\)/;
+export const outlineInvisible = (f) => f.style === 'none' || !(f.width > 0) || f.color === f.bg || TRANSPARENT_COLOR.test(f.color);
+
 // ---------------------------------------------------------------------------------------------------------------
 // preview server
 
@@ -217,10 +221,10 @@ const settle = (page) => page.evaluate(() => {
  * lists real elements whose box leaves the viewport and that no ancestor scroller or clip contains. aria-hidden
  * subtrees are decorative layers that bleed on purpose and are skipped.
  */
-const probeLayout = () => {
+export const probeLayout = () => {
   const de = document.documentElement;
   const cw = de.clientWidth;
-  const name = (el) => `${el.tagName.toLowerCase()}${typeof el.className === 'string' && el.className.trim() ? '.' + el.className.trim().split(/s+/)[0] : ''}`;
+  const name = (el) => `${el.tagName.toLowerCase()}${typeof el.className === 'string' && el.className.trim() ? '.' + el.className.trim().split(/\s+/)[0] : ''}`;
   const contained = (el) => {
     for (let p = el.parentElement; p && p !== document.body && p !== de; p = p.parentElement) {
       if (/hidden|clip|auto|scroll/.test(getComputedStyle(p).overflowX)) return true;
@@ -397,7 +401,7 @@ async function checkEmulation({ browser, origin, route, report }) {
       if (!f) break; // focus left the document
       if (f.skip) continue;
       if (f.tag === 'A' && f.inHeader) headerLinks++;
-      const invisible = f.style === 'none' || !(f.width > 0) || f.color === f.bg || /rgba(s*d+,s*d+,s*d+,s*0s*)/.test(f.color);
+      const invisible = outlineInvisible(f);
       if (invisible) add('forced-colors-focus', 'forced', `focused ${f.sel} "${f.text}" has no visible outline under forced-colors (outline ${f.style} ${f.width}px ${f.color}, background ${f.bg})`, 'Never set outline:none on :focus-visible. Use outline:2px solid transparent (it renders in a system colour under forced-colors) and draw the visible ring with box-shadow.', f.sel);
     }
     if (!headerLinks) add('forced-colors-focus', 'forced', 'no header link was reachable by Tab, so the nav focus ring could not be checked', 'The header navigation must be keyboard reachable on every page.', 'no-header-link');
