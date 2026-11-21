@@ -107,6 +107,15 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="preload" href="/fonts/rajdhani-v17-latin-600.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/rajdhani-v17-latin-700.woff2" as="font" type="font/woff2" crossorigin />
 
+    <!-- Wallpaper: the fixed background layer on every page. Preloaded so the request starts with the HTML
+         (about 200ms) instead of after the stylesheet is parsed (about 1000ms on a throttled link).
+         Deliberately NOT fetchpriority="high": Chrome never counts this image as the LCP element (about
+         0.05 bits per pixel, under its threshold), and at high priority it competes with the render-blocking
+         CSS and the fonts and delays first paint. One rendition on purpose: with background-size: cover a
+         portrait phone is height-bound (3x DPR needs ~2700px tall), so a smaller width-based variant would
+         visibly soften. The URL must match the .site-wallpaper rule byte for byte. -->
+    <link rel="preload" as="image" href="/images/hero-bg-2x.webp" type="image/webp" />
+
     <!-- Client-side routing with View Transitions -->
     <ClientRouter />
     <slot name="head" />
@@ -228,7 +237,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     </script>
 
     <script>
-      import { scrollBehavior } from '../lib/scroll';
+      // SL-10 (amended): smooth only when motion is allowed. Same logic as src/lib/scroll.ts; it is not imported
+      // here because Base runs on every page, and an import would turn this inlined script into two extra
+      // requests (script plus shared chunk) on every page load.
+      const scrollBehavior = (): ScrollBehavior => (matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth');
 
       // window/document outlive a client-side navigation (only the body is swapped), so listeners bound
       // there use an AbortController that is aborted before every swap instead of piling up per page.
