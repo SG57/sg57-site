@@ -1,0 +1,5 @@
+{
+  ".akw-heading": "ApiKeyWizard step heading (h2 tabindex=-1): focus is moved to it by the wizard script on each step change so screen readers announce the new step; it is never a Tab stop, so no keyboard ring is wanted",
+  "body.ls-ready iframe[src*=\"lemonsqueezy.com\"]": "clide/buy: the LemonSqueezy checkout iframe; the outline of the frame element would sit around third-party content that draws its own focus rings inside the frame; the frame is not a control of ours",
+  "iframe[src*=\"lemonsqueezy.com\"]": "text-easy: the LemonSqueezy checkout iframe; same reason as the clide/buy entry (third-party content draws its own focus rings inside the frame)"
+}

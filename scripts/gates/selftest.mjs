@@ -17,7 +17,9 @@ const here = fileURLToPath(new URL('.', import.meta.url));
 const fx = (...p) => join(here, 'fixtures', ...p);
 
 function gate(file, args) {
-  const r = spawnSync(process.execPath, [join(here, file), ...args], { encoding: 'utf8' });
+  // gate:css reads the repo's reviewed allow list by default; a fixture run must not see (or go stale against) it
+  const withAllow = file === 'css.mjs' && !args.includes('--allow') ? [...args, '--allow', fx('css', 'no-allow.json')] : args;
+  const r = spawnSync(process.execPath, [join(here, file), ...withAllow], { encoding: 'utf8' });
   return { code: r.status, out: `${r.stdout}${r.stderr}` };
 }
 
@@ -87,6 +89,38 @@ describe('gate:css', () => {
   it('fails on an empty src', () => {
     const dir = mutated(fx('html', 'good'), []);
     assert.equal(gate('css.mjs', ['--src', dir]).code, 1);
+  });
+  describe('reviewed allow list', () => {
+    const withRemoval = () => {
+      const dir = mutated(fx('css', 'good'), []);
+      writeFileSync(join(dir, 'src', 'heading.css'), '.wizard-heading { outline: none; }\n');
+      return dir;
+    };
+    const allowFile = (entries) => {
+      const dir = mutated(fx('css', 'good'), []);
+      const p = join(dir, 'allow.json');
+      writeFileSync(p, JSON.stringify(entries));
+      return p;
+    };
+    it('an unlisted outline removal on a plain selector fails', () => {
+      const r = gate('css.mjs', ['--src', join(withRemoval(), 'src')]);
+      assert.equal(r.code, 1, r.out);
+      assert.match(r.out, /outline removed on "\.wizard-heading"/);
+    });
+    it('the same removal passes when the selector carries a reviewed entry', () => {
+      const r = gate('css.mjs', ['--src', join(withRemoval(), 'src'), '--allow', allowFile({ '.wizard-heading': 'takes programmatic focus only' })]);
+      assert.equal(r.code, 0, r.out);
+    });
+    it('a stale entry (no removal matches it any more) fails', () => {
+      const r = gate('css.mjs', ['--src', join(withRemoval(), 'src'), '--allow', allowFile({ '.wizard-heading': 'ok', '.gone': 'stale' })]);
+      assert.equal(r.code, 1, r.out);
+      assert.match(r.out, /FAIL focus-allow-stale/);
+      assert.match(r.out, /\.gone/);
+    });
+    it('the repo allow list has no stale entry against the real source (the shipped gate is green)', () => {
+      const r = gate('css.mjs', ['--src', join(here, '..', '..', 'src'), '--allow', join(here, 'focus-allow.json')]);
+      assert.equal(r.code, 0, r.out);
+    });
   });
 });
 
