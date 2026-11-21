@@ -29,8 +29,9 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          # stylelint 18 and html-validate 11 need Node ^22.22.2 or ^24.15; the same major builds and tests.
-          node-version: 24
+          # stylelint 18 and html-validate 11 need Node ^22.22.2 or ^24.15. Both jobs use the same major (22, the
+          # latest 22.x), so the artifact that deploys is built by the toolchain the gates ran on.
+          node-version: 22
 
       - name: Install dependencies
         run: npm ci
@@ -54,7 +55,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
