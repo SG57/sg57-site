@@ -1,5 +1,7 @@
-@font-face{font-family:F;src:url(/fonts/f-300.woff2) format("woff2");font-weight:300;font-display:swap}
 @font-face{font-family:F;src:url(/fonts/f-400.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:F;src:url(/fonts/f-500.woff2) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:F;src:url(/fonts/f-600.woff2) format("woff2");font-weight:600;font-display:swap}
 @font-face{font-family:F;src:url(/fonts/f-700.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"F Fallback";src:local("Arial");size-adjust:91%}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 .track{scroll-behavior:auto}

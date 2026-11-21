@@ -88,8 +88,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
 
-    <!-- Theme color for mobile browser chrome -->
-    <meta name="theme-color" content="#0f0f1a" />
+    <!-- Theme color for mobile browser chrome: the --sg57-void token (gate:floors keeps them equal) -->
+    <meta name="theme-color" content="#0a0c10" />
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/site.webmanifest" />
@@ -100,8 +100,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     ))}
 
-    <!-- Preload fonts (critical weights: 400 body, 600 headings/buttons, 700 display) -->
+    <!-- Preload fonts: the weights painted above the fold on every page (400 body, 500 labels,
+         600 headings/buttons, 700 display; SL-8). 300 is only the desktop nav subtitle: not preloaded. -->
     <link rel="preload" href="/fonts/rajdhani-v17-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/rajdhani-v17-latin-500.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/rajdhani-v17-latin-600.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/rajdhani-v17-latin-700.woff2" as="font" type="font/woff2" crossorigin />
 

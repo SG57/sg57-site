@@ -131,7 +131,13 @@ describe('gate:floors', () => {
     'img-alt': [[H, 'alt="A thing > another" ', '']],
     'img-size': [[H, ' width="10" height="10"', '']],
     'font-display': [[C, 'font-weight:400;font-display:swap', 'font-weight:400']],
-    'font-preload-weights': [[H, '<link rel="preload" href="/fonts/f-300.woff2" as="font" type="font/woff2" crossorigin>', '']],
+    'font-preload-weights': [[H, '<link rel="preload" href="/fonts/f-500.woff2" as="font" type="font/woff2" crossorigin>', '']],
+    'font-preload-weights ': [[H, '<link rel="preload" href="/fonts/f-700.woff2" as="font" type="font/woff2" crossorigin>', '<link rel="preload" href="/fonts/f-700.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/fonts/f-300.woff2" as="font" type="font/woff2" crossorigin>']],
+    'font-display ': [[C, '@font-face{font-family:"F Fallback";src:local("Arial");size-adjust:91%}', '@font-face{font-family:"F Fallback";src:url(/fonts/fb.woff2) format("woff2");size-adjust:91%}']],
+    'theme-color': [[H, '<meta name="theme-color" content="#0a0c10">', '<meta name="theme-color" content="#0f0f1a">']],
+    'theme-color ': [[H, '<meta name="theme-color" content="#0a0c10">', '']],
+    'manifest-color': [['out/site.webmanifest', '"background_color":"#0a0c10"', '"background_color":"#0f0f1a"']],
+    'manifest-color ': [['out/site.webmanifest', '"theme_color":"#0a0c10"', '"theme_color":"#ffffff"']],
     'scroll-behavior-smooth': [[C, '@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}', 'html{scroll-behavior:smooth}']],
     'scroll-behavior-smooth ': [[C, '(prefers-reduced-motion:no-preference)', '(prefers-reduced-motion:reduce)']],
     'js-smooth-literal': [['src/scroll.astro', "reduce ? 'auto' : 'smooth'", "'smooth'"]],
@@ -149,6 +155,16 @@ describe('gate:floors', () => {
       assert.match(r.out, new RegExp(`FAIL ${rule} `), r.out);
     });
   }
+  it('a local()-only fallback face needs no font-display (nothing to fetch), a url() face still does', () => {
+    assert.equal(gate('floors.mjs', args(good)).code, 0); // the good fixture carries a local()-only face without font-display
+  });
+  it('fails when the --sg57-void token cannot be read (a gate that checks nothing must not pass)', () => {
+    const dir = mutated(good, []);
+    rmSync(join(dir, 'src', 'styles', 'global.css'));
+    const r = gate('floors.mjs', args(dir));
+    assert.equal(r.code, 1, r.out);
+    assert.match(r.out, /FAIL theme-token /);
+  });
   it('a redirect stub is only exempt from the meta tags, not from img rules', () => {
     const dir = mutated(good, [['out/old/index.html', '<title>Redirecting</title>', '<title>Redirecting</title><img src="/a.webp">']]);
     const r = gate('floors.mjs', args(dir));

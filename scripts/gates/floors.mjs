@@ -6,9 +6,11 @@
 //   SL-7  every page: <title>, <meta description>, <link rel=canonical>; Open Graph and Twitter Card tags; sitemap
 //         generated; every <img> has an alt attribute (alt="" for decorative).
 //   SL-8  images: WebP/AVIF (SVG is vector and allowed), explicit width/height or aspect-ratio, loading="lazy";
-//         fonts: font-display: swap, preload the critical weights (SL8_PRELOAD_WEIGHTS); no framework islands.
-//   SL-10 all animation respects prefers-reduced-motion. AMENDMENT (approved by the owner, text edit lands with the
-//         session that fixes the defects): programmatic and CSS smooth scrolling is allowed ONLY when the user has not
+//         fonts: font-display: swap on every face that loads a file, preload the critical weights
+//         (SL8_PRELOAD_WEIGHTS); no framework islands.
+//   SL-11 dark only: theme-color and the manifest colours equal the --sg57-void token (Federal Law 3).
+//   SL-10 all animation respects prefers-reduced-motion. AMENDMENT (approved by the owner, in CONSTITUTION.md
+//         Amendments 2026-11-20): programmatic and CSS smooth scrolling is allowed ONLY when the user has not
 //         asked for reduced motion. Federal Law 9 already forbids motion under prefers-reduced-motion: reduce, and
 //         Federal supremacy beats the SL-10 sentence that mandates unconditional smooth scroll.
 //
@@ -23,7 +25,7 @@ import { existsSync } from 'node:fs';
 import { join, basename } from 'node:path';
 
 /** SL-8 names these weights. Single source: change here when the law is amended. */
-export const SL8_PRELOAD_WEIGHTS = [300, 400, 700];
+export const SL8_PRELOAD_WEIGHTS = [400, 500, 600, 700];
 
 const TAG = (name) => new RegExp(`<${name}\\b(?:[^>"']|"[^"]*"|'[^']*')*>`, 'gi');
 const ATTR = /([^\s"'<>/=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'>]+)))?/g;
@@ -38,6 +40,7 @@ const tags = (html, name) => [...html.matchAll(TAG(name))].map((m) => ({ raw: m[
 
 const LAW7 = 'SL-7 (SEO requirements)';
 const LAW8 = 'SL-8 (performance budgets)';
+const LAWTHEME = 'SL-11 (dark theme) + Federal Law 3 (zero magic values)';
 const LAW10 = 'SL-10 (animation constraints, amended: smooth only when motion is allowed) + Federal Law 9';
 
 function checkPage(file, html, report) {
@@ -107,6 +110,7 @@ export function runFloorsGate({ dist, src }) {
 
   const faces = fontFaces(cssTexts);
   for (const f of faces) {
+    if (!/url\(/i.test(f.src)) continue; // local()-only metric fallback: nothing is fetched, nothing to swap
     if (!/^swap$/i.test(f.display ?? '')) {
       report.error({ file: rel(f.file), rule: 'font-display', law: LAW8, what: `@font-face ${f.family} ${f.weight ?? ''} lacks font-display: swap`, fix: 'Add `font-display: swap;` to the @font-face rule.', detail: `${f.family} ${f.weight}` });
     }
@@ -132,6 +136,31 @@ export function runFloorsGate({ dist, src }) {
         fix: `Preload exactly the SL-8 weights: add the missing weights and drop the extra ones in Base.astro <head> (<link rel="preload" as="font" type="font/woff2" crossorigin>), or amend SL-8 and SL8_PRELOAD_WEIGHTS in scripts/gates/floors.mjs together.`,
         detail: `missing [${missing.join(', ')}] extra [${extra.join(', ')}]`,
       });
+    }
+  }
+
+  // ---- browser-chrome colour: theme-color and the manifest must be the --sg57-void token ----
+  const tokenFile = join(src, 'styles', 'global.css');
+  const voidToken = existsSync(tokenFile) ? /--sg57-void\s*:\s*(#[0-9a-f]{3,8})\b/i.exec(read(tokenFile))?.[1]?.toLowerCase() : undefined;
+  if (!voidToken) {
+    report.error({ file: posix(rel(tokenFile)), rule: 'theme-token', law: LAWTHEME, what: '--sg57-void is not defined as a hex colour in src/styles/global.css, so theme-color cannot be checked', fix: 'Keep `--sg57-void: #rrggbb;` in :root of src/styles/global.css; the canvas and the browser-chrome colours derive from it.' });
+  } else {
+    for (const { file, html } of htmls) {
+      const metas = tags(html, 'meta');
+      if (metas.some((m) => (m.a['http-equiv'] ?? '').toLowerCase() === 'refresh')) continue;
+      const have = metas.find((m) => (m.a.name ?? '').toLowerCase() === 'theme-color')?.a.content?.trim().toLowerCase();
+      if (have !== voidToken) {
+        report.error({ file: rel(file), key: String(have), rule: 'theme-color', law: LAWTHEME, what: `<meta name="theme-color"> is ${have ?? 'missing'} but the --sg57-void token is ${voidToken}`, fix: `Set <meta name="theme-color" content="${voidToken}"> in the Base layout head.`, detail: String(have) });
+      }
+    }
+    const manifestFile = join(dist, 'site.webmanifest');
+    if (existsSync(manifestFile)) {
+      const manifest = JSON.parse(read(manifestFile));
+      for (const k of ['theme_color', 'background_color']) {
+        if (String(manifest[k] ?? '').toLowerCase() !== voidToken) {
+          report.error({ file: rel(manifestFile), rule: 'manifest-color', law: LAWTHEME, what: `site.webmanifest ${k} is ${manifest[k] ?? 'missing'} but the --sg57-void token is ${voidToken}`, fix: `Set ${k} to ${voidToken} in public/site.webmanifest.`, detail: k });
+        }
+      }
     }
   }
 

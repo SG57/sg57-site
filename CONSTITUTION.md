@@ -77,7 +77,7 @@ Glass surfaces on this site use the DNA `--sg57-glass-*` tokens:
 
 - Target: sub-1s FCP (First Contentful Paint) for static pages
 - All images: WebP/AVIF format, lazy loading (`loading="lazy"`), explicit `width`/`height` or `aspect-ratio`
-- Font loading: `font-display: swap`, preload critical weights (300, 400, 700)
+- Font loading: `font-display: swap`; preload the weights painted above the fold on every page (400, 500, 600, 700; 300 is only the desktop nav subtitle). The self-hosted Rajdhani has a metric-matched `Rajdhani Fallback` face in `global.css` so the swap does not shift layout. Amended 2026-11-20, see Amendments
 - No JavaScript frameworks in production bundle (Astro islands only where needed)
 
 ### SL-9: Mobile-First Breakpoints
@@ -102,6 +102,8 @@ Glass surfaces on this site use the DNA `--sg57-glass-*` tokens:
 - The site uses dark theme exclusively — no light mode, no theme toggle
 - All design tokens in `:root` target dark backgrounds
 - No `[data-theme]` switching mechanism exists
+- `:root { color-scheme: dark }` and `<meta name="color-scheme" content="dark">` are set; `html` paints `var(--sg57-void)` so the canvas is never white
+- `<meta name="theme-color">` and the manifest `theme_color`/`background_color` equal `--sg57-void` (enforced by gate:floors)
 
 ### SL-12: Form Handling
 
@@ -118,3 +120,10 @@ Glass surfaces on this site use the DNA `--sg57-glass-*` tokens:
 - **Why:** Federal Law 9 ("`prefers-reduced-motion: reduce` disables all animation") and the first bullet of SL-10 already required reduced motion to be honoured, and smooth scrolling is animation. An unconditional mandate relaxed a Federal law, which State law may not do (Federal Supremacy, Additivity Only). This amendment restores conformance; it is not a divergence.
 - **Approved by:** Cord Rehn (product owner), 2026-11-20.
 - **Enforced by:** `scripts/gates/floors.mjs` (rules `scroll-behavior-smooth`, `js-smooth-literal`).
+
+### 2026-11-20 — SL-8: preloaded font weights match the weights the site paints
+
+- **Was:** "preload critical weights (300, 400, 700)".
+- **Now:** preload 400, 500, 600 and 700. Measured in Chrome over all 37 pages at 375px and 1440px: 400, 500 and 700 are painted above the fold on every page, 600 on 66 of 74 page views; 300 appears only in the desktop nav subtitle and is not preloaded.
+- **Why:** the old list preloaded 400/600/700 in practice (a mismatch with the text) and left 500 to load late. The text now matches the code, and `SL8_PRELOAD_WEIGHTS` in `scripts/gates/floors.mjs` is the single constant that enforces it.
+- **Approved by:** Cord Rehn (product owner), 2026-11-20.
