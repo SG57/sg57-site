@@ -40,6 +40,7 @@ const FOCUS_STOPS = 40;
 
 const BASELINE = new URL('./baseline.json', import.meta.url);
 const QA_OUT = join(repoRoot, 'qa-out');
+const DIST = join(repoRoot, 'dist'); // astro preview serves this directory
 
 const LAW = {
   layout: 'Responsive layout (SL-9 breakpoints): nothing may scroll sideways',
@@ -57,7 +58,7 @@ const LAW = {
 // pure helpers (exported for the self-test)
 
 export function parseArgv(argv) {
-  const o = { all: false, only: [], screens: true, update: false, concurrency: 4, dist: join(repoRoot, 'dist') };
+  const o = { all: false, only: [], screens: true, update: false, concurrency: 4 };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === '--all') o.all = true;
@@ -66,7 +67,6 @@ export function parseArgv(argv) {
     else if (a === '--list') o.list = true;
     else if (a === '--update-baseline') o.update = true;
     else if (a === '--concurrency') o.concurrency = Math.max(1, Number(argv[++i]) || 4);
-    else if (a === '--dist') o.dist = join(process.cwd(), argv[++i]);
     else throw new Error(`unknown argument: ${a}`);
   }
   return o;
@@ -93,7 +93,9 @@ export function discoverRoutes(dist, { all = false, only = [] } = {}) {
 }
 
 /** A baseline fingerprint is stable across viewports and across run order. */
-export const fingerprint = (f) => `${f.rule} | ${f.route} | ${f.detail ?? ''}`;
+// Astro's scoped-style hash ([data-astro-cid-xxxx]) changes whenever a component's CSS does, so it is not identity.
+const ASTRO_CID = /\[data-astro-cid-[a-z0-9]+(?:="[^"]*")?\]/g;
+export const fingerprint = (f) => `${f.rule} | ${f.route} | ${(f.detail ?? '').replace(ASTRO_CID, '')}`;
 
 export function loadBaseline() {
   return new Set(existsSync(BASELINE) ? JSON.parse(readFileSync(BASELINE, 'utf8')).findings ?? [] : []);
@@ -388,7 +390,6 @@ async function checkEmulation({ browser, origin, route, report }) {
     const s = await page.evaluate(probeScheme);
     if (!s.forced) return add('emulation-inert', 'forced', 'forced-colors emulation did not apply, so the focus check proves nothing', 'Browser or Playwright regression: investigate before trusting this gate.', 'forced-colors');
     await page.evaluate(() => { scrollTo({ top: 0, behavior: 'instant' }); document.activeElement?.blur?.(); });
-    const checked = new Set();
     let headerLinks = 0;
     for (let i = 0; i < FOCUS_STOPS; i++) {
       await page.keyboard.press('Tab');
@@ -396,8 +397,6 @@ async function checkEmulation({ browser, origin, route, report }) {
       if (!f) break; // focus left the document
       if (f.skip) continue;
       if (f.tag === 'A' && f.inHeader) headerLinks++;
-      if (checked.has(f.sel)) continue;
-      checked.add(f.sel);
       const invisible = f.style === 'none' || !(f.width > 0) || f.color === f.bg || /rgba(s*d+,s*d+,s*d+,s*0s*)/.test(f.color);
       if (invisible) add('forced-colors-focus', 'forced', `focused ${f.sel} "${f.text}" has no visible outline under forced-colors (outline ${f.style} ${f.width}px ${f.color}, background ${f.bg})`, 'Never set outline:none on :focus-visible. Use outline:2px solid transparent (it renders in a system colour under forced-colors) and draw the visible ring with box-shadow.', f.sel);
     }
@@ -437,11 +436,11 @@ async function pool(items, size, fn) {
 
 export async function main(argv = process.argv.slice(2)) {
   const opts = parseArgv(argv);
-  if (!existsSync(join(opts.dist, 'index.html'))) {
-    console.error(`[gate:qa] FAIL no built site at ${opts.dist}. Run \`npm run qa\` (builds first) or \`npm run build\`.`);
+  if (!existsSync(join(DIST, 'index.html'))) {
+    console.error(`[gate:qa] FAIL no built site at ${DIST}. Run \`npm run qa\` (builds first) or \`npm run build\`.`);
     return 1;
   }
-  const routes = discoverRoutes(opts.dist, opts);
+  const routes = discoverRoutes(DIST, opts);
   if (!routes.length) { console.error('[gate:qa] FAIL no routes matched.'); return 1; }
   if (opts.screens) { rmSync(QA_OUT, { recursive: true, force: true }); mkdirSync(QA_OUT, { recursive: true }); }
 

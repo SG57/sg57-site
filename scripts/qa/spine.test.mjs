@@ -61,3 +61,10 @@ test('arguments: unknown flags are an error, not silently ignored', () => {
   assert.throws(() => parseArgv(['--al']), /unknown argument/);
   assert.deepEqual(parseArgv(['--all', '--only', 'a', '--only', 'b']).only, ['a', 'b']);
 });
+
+test('fingerprint ignores the Astro scoped-style hash, which changes whenever a component CSS changes', () => {
+  const a = { rule: 'axe', route: '/x/', detail: 'link-in-text-block .crumbs > a[href$="life-os"][data-astro-cid-abc123=""]' };
+  const b = { rule: 'axe', route: '/x/', detail: 'link-in-text-block .crumbs > a[href$="life-os"][data-astro-cid-zz9=""]' };
+  assert.equal(fingerprint(a), fingerprint(b));
+  assert.notEqual(fingerprint(a), fingerprint({ ...a, detail: 'link-in-text-block .crumbs > a[href$="other"]' }));
+});
