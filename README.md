@@ -30,7 +30,7 @@ Node `^22.22.2` or `^24.15` (the lint tooling needs it).
 |---|---|
 | `gate:css` | Stylelint: a `:focus-visible` rule may not remove the outline without a forced-colors-safe replacement. |
 | `gate:scripts` | Every bundled `<script>` rebinds on `astro:page-load` (ClientRouter). |
-| `gate:html` | html-validate: one `<main>`, valid ids, named landmarks, WCAG-tagged rules. |
+| `gate:html` | html-validate: one `<main>`, valid ids, no empty headings, named links, image alt, table header scope, no focusable content under `aria-hidden`. |
 | `gate:floors` | SL-7, SL-8, SL-10, SL-11 from the built site: SEO tags, image alt and size, font preloads, smooth scroll only when motion is allowed, `theme-color`. |
 | `gate:check` | `astro check` as a ratchet against `scripts/gates/check-baseline.json`; it may only shrink. |
 
