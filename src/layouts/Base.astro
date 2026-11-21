@@ -225,7 +225,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     </script>
 
     <script>
+      // window/document outlive a client-side navigation (only the body is swapped), so listeners bound
+      // there use an AbortController that is aborted before every swap instead of piling up per page.
+      let ac: AbortController | undefined;
+      document.addEventListener('astro:before-swap', () => ac?.abort());
       document.addEventListener('astro:page-load', () => {
+        ac?.abort();
+        ac = new AbortController();
+        const { signal } = ac;
         try {
           const fab = document.getElementById('fab-top');
           if (!fab) return;
@@ -247,7 +254,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
               requestAnimationFrame(update);
               ticking = true;
             }
-          }, { passive: true });
+          }, { passive: true, signal });
 
           fab.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });

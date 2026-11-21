@@ -423,8 +423,9 @@
 
   retakeBtn.addEventListener('click', resetWizard);
 
-  document.addEventListener('keydown', e => {
-    if (!akw.contains(e.target)) return;
+  // Bound on the wizard itself (not document): keydown bubbles, and a document listener would outlive
+  // the page across client-side navigations.
+  akw.addEventListener('keydown', e => {
     if (e.key === 'Enter' && !animating) {
       e.preventDefault();
       if (doneEl.classList.contains('hidden') === false) return;

@@ -421,32 +421,45 @@ import Base from '../../layouts/Base.astro';
 </Base>
 
 <script>
-  (async () => {
-    try {
-      const res = await fetch('https://api.github.com/repos/SG57/clide-releases/releases/latest');
-      if (!res.ok) return;
-      const release = await res.json();
-      const assets = release.assets || [];
-      const installer = assets.find(a => /Setup.*\.exe$/i.test(a.name));
-      const portable = assets.find(a => /portable.*\.exe$/i.test(a.name));
-      const version = release.tag_name;
+  // Bundled scripts run once per document, so the DOM work lives in an astro:page-load handler (it runs for
+  // the initial load and for every client-side navigation back to this page). The GitHub call itself is made
+  // once per full page load and shared (the unauthenticated API limit is 60 requests an hour per IP).
+  interface ReleaseAsset { name: string; browser_download_url: string }
+  interface Release { tag_name: string; assets?: ReleaseAsset[] }
+  let release: Promise<Release | null> | undefined;
+  const loadRelease = () =>
+    (release ??= fetch('https://api.github.com/repos/SG57/clide-releases/releases/latest')
+      .then((res) => (res.ok ? (res.json() as Promise<Release>) : null))
+      .catch(() => null)); // network error: buttons still link to the releases page
 
-      document.querySelectorAll('[data-download="installer"]').forEach(el => {
-        if (installer) el.href = installer.browser_download_url;
-        const badge = el.querySelector('[data-version]');
-        if (badge) badge.textContent = version;
-      });
+  document.addEventListener('astro:page-load', async () => {
+    const latest = await loadRelease();
+    if (!latest) { release = undefined; return; } // let the next page load try again
+    const assets = latest.assets ?? [];
+    const installer = assets.find((a) => /Setup.*\.exe$/i.test(a.name));
+    const portable = assets.find((a) => /portable.*\.exe$/i.test(a.name));
 
-      document.querySelectorAll('[data-download="portable"]').forEach(el => {
-        if (portable) el.href = portable.browser_download_url;
-      });
-    } catch { /* network error — buttons still link to releases page */ }
-  })();
+    document.querySelectorAll<HTMLAnchorElement>('[data-download="installer"]').forEach((el) => {
+      if (installer) el.href = installer.browser_download_url;
+      const badge = el.querySelector('[data-version]');
+      if (badge) badge.textContent = latest.tag_name;
+    });
+
+    document.querySelectorAll<HTMLAnchorElement>('[data-download="portable"]').forEach((el) => {
+      if (portable) el.href = portable.browser_download_url;
+    });
+  });
 </script>
 
 <script>
-  /* --- Screenshot Gallery --- */
-  (() => {
+  /* --- Screenshot Gallery ---
+     Bound on every astro:page-load; window listeners are aborted before each swap so they cannot pile up. */
+  let ac: AbortController | undefined;
+  document.addEventListener('astro:before-swap', () => ac?.abort());
+  document.addEventListener('astro:page-load', () => {
+    ac?.abort();
+    ac = new AbortController();
+    const { signal } = ac;
     const track = document.getElementById('gallery-track');
     const dots = document.querySelectorAll('.gallery-dot');
     const prev = document.getElementById('gallery-prev');
@@ -516,7 +529,7 @@ import Base from '../../layouts/Base.astro';
       if (!isDragging) return;
       const dx = e.pageX - startX;
       track.scrollLeft = scrollStart - dx;
-    });
+    }, { signal });
 
     window.addEventListener('mouseup', () => {
       if (!isDragging) return;
@@ -527,13 +540,13 @@ import Base from '../../layouts/Base.astro';
       requestAnimationFrame(() => {
         track.style.scrollSnapType = 'x mandatory';
       });
-    });
+    }, { signal });
 
     // Prevent image drag from hijacking the gesture
     track.querySelectorAll('img').forEach(img => {
       img.addEventListener('dragstart', (e) => e.preventDefault());
     });
-  })();
+  });
 </script>
 
 <style>

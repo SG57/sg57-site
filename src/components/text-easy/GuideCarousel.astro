@@ -319,7 +319,14 @@ const slides: Slide[] = [
 </style>
 
 <script>
+  // window outlives a client-side navigation: the drag listeners are aborted before every swap.
+  let ac: AbortController | undefined;
+  document.addEventListener('astro:before-swap', () => ac?.abort());
+
   function initCarousel() {
+    ac?.abort();
+    ac = new AbortController();
+    const { signal } = ac;
     const carousel = document.querySelector('.guide-carousel');
     if (!carousel) return;
 
@@ -431,7 +438,7 @@ const slides: Slide[] = [
     window.addEventListener('mousemove', (e: MouseEvent) => {
       if (!isDragging) return;
       track.scrollLeft = scrollStart - (e.pageX - startX);
-    });
+    }, { signal });
 
     window.addEventListener('mouseup', () => {
       if (!isDragging) return;
@@ -440,14 +447,13 @@ const slides: Slide[] = [
       requestAnimationFrame(() => {
         track.style.scrollSnapType = 'x mandatory';
       });
-    });
+    }, { signal });
 
     track.querySelectorAll('img').forEach(img => {
       img.addEventListener('dragstart', (e) => e.preventDefault());
     });
   }
 
-  // Run on load and on Astro view transitions
-  initCarousel();
-  document.addEventListener('astro:after-swap', initCarousel);
+  // Runs on the initial load and after every client-side navigation
+  document.addEventListener('astro:page-load', initCarousel);
 </script>
