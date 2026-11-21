@@ -1,5 +1,19 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { Picture } from 'astro:assets';
+import whatsNewDialog from '../../assets/clide/screenshots/whats-new-dialog.webp';
+import heroWorkspace1 from '../../assets/clide/screenshots/hero-full-workspace-1.webp';
+import heroWorkspace2 from '../../assets/clide/screenshots/hero-full-workspace-2.webp';
+import terminalSession from '../../assets/clide/screenshots/terminal-session.webp';
+import explorerTree from '../../assets/clide/screenshots/explorer-tree.webp';
+import powerLaunch from '../../assets/clide/screenshots/power-launch.webp';
+import settingsPanel from '../../assets/clide/screenshots/settings.webp';
+
+// A slide is min(90vw, 900px) wide (92vw on phones); AVIF first, WebP fallback, 1x to 2x renditions of it.
+const slideSizes = '(min-width: 1000px) 900px, 92vw';
+const slideWidths = [640, 960, 1440, 1800];
+const slideFormats: ('avif' | 'webp')[] = ['avif'];
+const slideFallback = 'webp'; // Picture's default <img> fallback for a webp source is PNG (about 1 MB each)
 ---
 
 <Base
@@ -107,31 +121,31 @@ import Base from '../../layouts/Base.astro';
 
       <div class="gallery-track" id="gallery-track">
         <figure class="gallery-slide">
-          <img src="/clide/screenshots/whats-new-dialog.webp" alt="Clide What's New dialog showing latest features on launch" width="1280" height="800" loading="eager" decoding="async" />
+          <Picture src={whatsNewDialog} alt="Clide What's New dialog showing latest features on launch" formats={slideFormats} fallbackFormat={slideFallback} widths={[640, 960, 1280]} sizes={slideSizes} loading="eager" decoding="async" />
           <figcaption class="gallery-caption">Clide — Mission Control for your AI terminal sessions</figcaption>
         </figure>
         <figure class="gallery-slide">
-          <img src="/clide/screenshots/hero-full-workspace-1.webp" alt="Clide workspace with multiple AI sessions and sidekick processes" width="1920" height="1080" loading="lazy" decoding="async" />
+          <Picture src={heroWorkspace1} alt="Clide workspace with multiple AI sessions and sidekick processes" formats={slideFormats} fallbackFormat={slideFallback} widths={slideWidths} sizes={slideSizes} loading="lazy" decoding="async" />
           <figcaption class="gallery-caption">Full workspace — sessions, sidekicks, and notes in one cockpit</figcaption>
         </figure>
         <figure class="gallery-slide">
-          <img src="/clide/screenshots/hero-full-workspace-2.webp" alt="Clide workspace showing terminal output and structured notes" width="1920" height="1080" loading="lazy" decoding="async" />
+          <Picture src={heroWorkspace2} alt="Clide workspace showing terminal output and structured notes" formats={slideFormats} fallbackFormat={slideFallback} widths={slideWidths} sizes={slideSizes} loading="lazy" decoding="async" />
           <figcaption class="gallery-caption">Multi-session workflow with structured notes and live terminals</figcaption>
         </figure>
         <figure class="gallery-slide">
-          <img src="/clide/screenshots/terminal-session.webp" alt="Clide terminal session with AI CLI output" width="1920" height="1080" loading="lazy" decoding="async" />
+          <Picture src={terminalSession} alt="Clide terminal session with AI CLI output" formats={slideFormats} fallbackFormat={slideFallback} widths={slideWidths} sizes={slideSizes} loading="lazy" decoding="async" />
           <figcaption class="gallery-caption">Terminal session — rich output from Claude, Copilot, or any CLI</figcaption>
         </figure>
         <figure class="gallery-slide">
-          <img src="/clide/screenshots/explorer-tree.webp" alt="Clide session explorer tree with color-coded sessions" width="1920" height="1080" loading="lazy" decoding="async" />
+          <Picture src={explorerTree} alt="Clide session explorer tree with color-coded sessions" formats={slideFormats} fallbackFormat={slideFallback} widths={slideWidths} sizes={slideSizes} loading="lazy" decoding="async" />
           <figcaption class="gallery-caption">Session explorer — color-coded, NATO-named, instantly recognizable</figcaption>
         </figure>
         <figure class="gallery-slide">
-          <img src="/clide/screenshots/power-launch.webp" alt="Clide Power Launch dialog for batch session creation" width="1920" height="1080" loading="lazy" decoding="async" />
+          <Picture src={powerLaunch} alt="Clide Power Launch dialog for batch session creation" formats={slideFormats} fallbackFormat={slideFallback} widths={slideWidths} sizes={slideSizes} loading="lazy" decoding="async" />
           <figcaption class="gallery-caption">Power Launch — spin up a full project stack in one shot</figcaption>
         </figure>
         <figure class="gallery-slide">
-          <img src="/clide/screenshots/settings.webp" alt="Clide settings panel with appearance and terminal options" width="1920" height="1080" loading="lazy" decoding="async" />
+          <Picture src={settingsPanel} alt="Clide settings panel with appearance and terminal options" formats={slideFormats} fallbackFormat={slideFallback} widths={slideWidths} sizes={slideSizes} loading="lazy" decoding="async" />
           <figcaption class="gallery-caption">Settings — CRT effects, themes, fonts, and deep terminal config</figcaption>
         </figure>
       </div>

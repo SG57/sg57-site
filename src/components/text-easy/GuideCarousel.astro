@@ -1,11 +1,18 @@
 ---
+import { Picture } from 'astro:assets';
+import guideIntents from '../../assets/text-easy/screenshots/guide-intents.webp';
+import guideReplies from '../../assets/text-easy/screenshots/guide-replies.webp';
+import guideRefinements from '../../assets/text-easy/screenshots/guide-refinements.webp';
+import guideCompose from '../../assets/text-easy/screenshots/guide-compose.webp';
+import guideQsPanel from '../../assets/text-easy/screenshots/guide-qs-panel.webp';
+
 /**
  * GuideCarousel — Swipeable screenshot showcase in phone frames.
  * CSS scroll-snap for native touch swipe; JS for arrow/keyboard/dot nav.
  */
 
 interface Slide {
-  src: string;
+  src: ImageMetadata;
   alt: string;
   title: string;
   desc: string;
@@ -13,31 +20,31 @@ interface Slide {
 
 const slides: Slide[] = [
   {
-    src: '/text-easy/screenshots/guide-intents.webp',
+    src: guideIntents,
     alt: 'Intent picker showing 3 inferred intents from an incoming message',
     title: 'Pick Your Intent',
     desc: 'AI reads the message and infers 3 likely response intents. You recognize — you don\'t compose.',
   },
   {
-    src: '/text-easy/screenshots/guide-replies.webp',
+    src: guideReplies,
     alt: 'Reply picker showing 3 generated reply options',
     title: 'Choose a Reply',
     desc: '3 reply options written in your voice. Tap one to copy, paste it back. Done.',
   },
   {
-    src: '/text-easy/screenshots/guide-refinements.webp',
+    src: guideRefinements,
     alt: 'Refinement panel with tone and style controls',
     title: 'Refine Your Reply',
     desc: 'Adjust tone, length, and style with one tap. Create your own custom refinements.',
   },
   {
-    src: '/text-easy/screenshots/guide-compose.webp',
+    src: guideCompose,
     alt: 'Compose mode for writing messages from scratch',
     title: 'Compose from Scratch',
     desc: 'No incoming message? Write anything — birthday wishes, emails, awkward asks.',
   },
   {
-    src: '/text-easy/screenshots/guide-qs-panel.webp',
+    src: guideQsPanel,
     alt: 'Quick Settings panel with Text Easy tile',
     title: 'Quick Settings Tile',
     desc: 'Trigger from anywhere with one swipe and one tap. Works in every app.',
@@ -62,11 +69,13 @@ const slides: Slide[] = [
     {slides.map((slide, i) => (
       <div class="carousel-slide" role="group" aria-roledescription="slide" aria-label={`${i + 1} of ${slides.length}: ${slide.title}`}>
         <div class="phone-frame">
-          <img
+          <Picture
             src={slide.src}
             alt={slide.alt}
-            width="1080"
-            height="2160"
+            formats={['avif']}
+            fallbackFormat="webp"
+            widths={[340, 680, 1020]}
+            sizes="(min-width: 1024px) 340px, (min-width: 640px) 320px, 260px"
             loading={i === 0 ? 'eager' : 'lazy'}
             decoding="async"
           />

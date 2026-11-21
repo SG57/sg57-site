@@ -1,5 +1,7 @@
 ---
 import BeforeAfterSlider from '../services/BeforeAfterSlider.astro';
+import { Image } from 'astro:assets';
+import danielleAvatar from '../../assets/team/danielle.jpg';
 ---
 
 <section class="proof-section" aria-labelledby="proof-heading">
@@ -119,12 +121,13 @@ import BeforeAfterSlider from '../services/BeforeAfterSlider.astro';
             SG57 Labs enough &mdash; hands-down a phenomenal experience.
           </p>
           <footer class="proof-attribution">
-            <img
-              src="/team/danielle.jpg"
+            <Image
+              src={danielleAvatar}
               alt="Danielle, Founder of Staples & Statements"
               class="attr-avatar"
-              width="48"
-              height="48"
+              width={96}
+              height={96}
+              format="webp"
               loading="lazy"
             />
             <div class="attr-info">

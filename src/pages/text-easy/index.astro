@@ -1,6 +1,20 @@
 ---
 import Base from '../../layouts/Base.astro';
 import GuideCarousel from '../../components/text-easy/GuideCarousel.astro';
+import { getImage } from 'astro:assets';
+import featureGraphic from '../../assets/text-easy/feature-graphic.webp';
+
+// The text-easy feature graphic is 7680x5120 (892 KB). It only ever paints as a cover background, so it is
+// rendered at the size it is shown (AVIF, WebP behind it) instead of shipping the original.
+const featureBg = async (width: number) => {
+  const [avif, webp] = await Promise.all([
+    getImage({ src: featureGraphic, width, format: 'avif' }),
+    getImage({ src: featureGraphic, width, format: 'webp' }),
+  ]);
+  return `background-image: url('${webp.src}'); background-image: image-set(url('${avif.src}') type('image/avif'), url('${webp.src}') type('image/webp'));`;
+};
+const heroBg = await featureBg(2560);
+const cardBg = await featureBg(1280);
 ---
 
 <Base
@@ -23,10 +37,10 @@ import GuideCarousel from '../../components/text-easy/GuideCarousel.astro';
 >
   <!-- Hero — cinematic banner -->
   <section class="hero">
-    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-bg" aria-hidden="true" style={heroBg}></div>
     <!-- Mobile/portrait: product card replaces fullscreen hero bg -->
     <div class="mobile-hero-card" aria-hidden="true">
-      <div class="mobile-hero-card-bg"></div>
+      <div class="mobile-hero-card-bg" style={cardBg}></div>
       <div class="mobile-hero-card-scrim"></div>
     </div>
     <div class="hero-atmosphere" aria-hidden="true">
@@ -455,7 +469,7 @@ import GuideCarousel from '../../components/text-easy/GuideCarousel.astro';
   .hero-bg {
     position: absolute;
     inset: -3%;
-    background-image: url('/text-easy/feature-graphic.webp');
+    /* background-image comes from the element's style attribute (optimized renditions, see frontmatter) */
     background-size: cover;
     background-position: center;
     pointer-events: none;
@@ -1554,7 +1568,7 @@ import GuideCarousel from '../../components/text-easy/GuideCarousel.astro';
   .mobile-hero-card-bg {
     position: absolute;
     inset: 0;
-    background-image: url('/text-easy/feature-graphic.webp');
+    /* background-image comes from the element's style attribute (optimized renditions, see frontmatter) */
     background-size: cover;
     background-position: center;
   }
