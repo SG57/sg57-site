@@ -3,6 +3,8 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -10,12 +12,15 @@ permissions:
   pages: write
   id-token: write
 
+# One deployment at a time and never cancel one mid-flight; pull request runs only supersede each other.
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.ref) || 'pages' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build:
+    # Pull requests are only checked (quality job); nothing is published from them.
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,7 +29,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          # stylelint 18 and html-validate 11 need Node ^22.22.2 or ^24.15; the same major builds and tests.
+          node-version: 24
 
       - name: Install dependencies
         run: npm ci
@@ -37,8 +43,47 @@ jobs:
         with:
           path: dist
 
+  # Static gates (scripts/gates) then the rendered QA spine (scripts/qa) against `astro preview`. Deploy waits for it.
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Gate self-tests
+        run: npm run test:gates
+
+      - name: Static gates (builds the site first)
+        run: npm run gates
+
+      - name: Install Chromium for Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Rendered QA spine (every route, 3 viewports, axe, emulations)
+        run: npm run qa:run -- --all
+
+      - name: Keep QA screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-out
+          path: qa-out
+          retention-days: 7
+          if-no-files-found: ignore
+
   deploy:
-    needs: build
+    if: github.event_name != 'pull_request'
+    needs: [build, quality]
     runs-on: ubuntu-latest
     environment:
       name: github-pages
