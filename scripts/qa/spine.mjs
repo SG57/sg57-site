@@ -306,6 +306,15 @@ const probeMotion = () => {
   return { smooth, running };
 };
 
+const SKIP_LINK_WAIT_MS = 5000;
+/** Runs in the page. True when the focused skip link has slid into view, or when something else holds focus (nothing to wait for). */
+const skipLinkSettled = () => {
+  const el = document.activeElement;
+  if (!el || !el.matches('.skip-link')) return true;
+  const r = el.getBoundingClientRect();
+  return r.width >= 8 && r.height >= 8 && r.top >= -1 && r.left >= -1;
+};
+
 const probeFocus = () => {
   const el = document.activeElement;
   if (!el || el === document.body) return null;
@@ -351,7 +360,10 @@ async function checkPage({ browser, origin, route, viewport, screens, report }) 
     // Skip link: the first Tab stop, visible when focused, and the next Tab stop is inside <main>.
     await page.evaluate(() => { scrollTo({ top: 0, behavior: 'instant' }); document.activeElement?.blur?.(); });
     await page.keyboard.press('Tab');
-    await page.waitForTimeout(400); // .skip-link slides in over 0.2s
+    // .skip-link slides in over a 0.2s transition: poll until it is on screen (or the focus is somewhere else, which the
+    // checks below report) instead of sleeping a fixed time, which flaked under CPU load. A timeout is not an error here:
+    // the box check below reports a link that never arrives.
+    await page.waitForFunction(skipLinkSettled, null, { timeout: SKIP_LINK_WAIT_MS }).catch(() => {});
     const first = await page.evaluate(probeFocus);
     if (!first?.skip) add('skip-link', 'skip', `the first Tab stop is ${first ? first.sel : 'nothing'}, not the skip link`, 'Keep <a class="skip-link" href="#main-content"> as the first focusable element of <body>.', 'first-tab-stop');
     else {
