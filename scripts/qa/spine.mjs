@@ -189,6 +189,8 @@ async function newPage(browser, origin, viewport, extra = {}) {
 async function load(page, origin, route) {
   await page.goto(origin + route, { waitUntil: 'load' });
   await page.evaluate(() => document.fonts.ready);
+  // bundled page scripts (mode switches, galleries) finish their first run after the load event on a loaded machine
+  await page.waitForLoadState('networkidle', { timeout: 5000 }).catch(() => {});
   await page.evaluate(async () => {
     const step = Math.max(200, Math.floor(innerHeight * 0.8));
     for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
@@ -307,6 +309,10 @@ const probeMotion = () => {
 };
 
 const SKIP_LINK_WAIT_MS = 5000;
+const MOTION_WAIT_MS = 5000;
+/** Runs in the page. True when no animation or transition with a real duration is running (same filter as probeMotion). */
+const motionSettled = () => !document.getAnimations().some((a) => a.playState === 'running' && (a.effect?.getComputedTiming().duration ?? 0) > 0 && a.effect.target);
+
 /** Runs in the page. True when the focused skip link has slid into view, or when something else holds focus (nothing to wait for). */
 const skipLinkSettled = () => {
   const el = document.activeElement;
@@ -423,7 +429,10 @@ async function checkEmulation({ browser, origin, route, report }) {
   await run({ reducedMotion: 'reduce' }, async (page) => {
     const s = await page.evaluate(probeScheme);
     if (!s.reduced) return add('emulation-inert', 'motion', 'reduced-motion emulation did not apply, so the motion check proves nothing', 'Browser or Playwright regression: investigate before trusting this gate.', 'reduced-motion');
-    await page.waitForTimeout(500);
+    // A reduced-motion override (a near-zero duration) only reads as finished once the page has produced a frame, which a
+    // loaded machine delays: poll for "nothing running" instead of sleeping. An animation that really never stops times
+    // out here and is reported by the probe below.
+    await page.waitForFunction(motionSettled, null, { timeout: MOTION_WAIT_MS }).catch(() => {});
     const m = await page.evaluate(probeMotion);
     for (const sel of [...new Set(m.smooth)]) add('reduced-motion-scroll', 'motion', `${sel} has scroll-behavior: smooth under prefers-reduced-motion: reduce`, 'Wrap smooth scrolling in @media (prefers-reduced-motion: no-preference) and take JS scroll behaviour from src/lib/scroll.ts.', sel);
     for (const a of [...new Set(m.running)]) add('reduced-motion-animation', 'motion', `an animation is still running under prefers-reduced-motion: reduce: ${a}`, 'Disable the animation inside @media (prefers-reduced-motion: reduce), or move it into @media (prefers-reduced-motion: no-preference).', a);
