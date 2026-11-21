@@ -19,13 +19,16 @@
 //                      styles under emulated prefers-reduced-motion: reduce.
 // TODO(browser-spine): SL-8 sub-1s FCP and the real preload-versus-use of font weights need a browser trace.
 // TODO(browser-spine): SL-7 JSON-LD "when applicable" is a judgement call, not statically decidable.
-import { Report, parseArgs, walk, read, rel, posix, lineOf, finish, isMain, platformGuide } from './lib.mjs';
+import { Report, parseArgs, walk, read, rel, posix, lineOf, finish, isMain, platformGuide, maskJsComments } from './lib.mjs';
 import { scanDeclarations, inNoPreference, styleBlocks } from './css-scan.mjs';
 import { existsSync } from 'node:fs';
 import { join, basename } from 'node:path';
 
 /** SL-8 names these weights. Single source: change here when the law is amended. */
 export const SL8_PRELOAD_WEIGHTS = [400, 600, 700];
+
+/** scroll-behavior values that can never animate (inherit is safe: the ancestor that sets smooth is checked itself). */
+const SAFE_SCROLL_BEHAVIOR = new Set(['auto', 'initial', 'unset', 'revert', 'revert-layer', 'inherit']);
 
 const TAG = (name) => new RegExp(`<${name}\\b(?:[^>"']|"[^"]*"|'[^']*')*>`, 'gi');
 const ATTR = /([^\s"'<>/=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'>]+)))?/g;
@@ -164,43 +167,83 @@ export function runFloorsGate({ dist, src }) {
     }
   }
 
+  // Outside a media query that guarantees no-preference only a literal that cannot animate is acceptable: `smooth`,
+  // a var()/env() or anything else we cannot prove static fails, so a custom property cannot smuggle smooth in.
   const smoothHits = [];
+  const unsafe = (d) => d.prop === 'scroll-behavior' && !SAFE_SCROLL_BEHAVIOR.has(d.value.replace(/!\s*important/i, '').trim().toLowerCase());
   for (const { file, css } of cssTexts) {
     for (const d of scanDeclarations(css)) {
-      if (d.prop === 'scroll-behavior' && /^smooth\b/i.test(d.value) && !inNoPreference(d.stack)) {
-        smoothHits.push({ file, selector: d.stack[d.stack.length - 1] });
-      }
+      if (unsafe(d) && !inNoPreference(d.stack)) smoothHits.push({ file, selector: d.stack[d.stack.length - 1], value: d.value });
     }
   }
   for (const { file, html } of htmls) {
-    for (const m of html.matchAll(/style\s*=\s*"[^"]*scroll-behavior\s*:\s*smooth/gi)) smoothHits.push({ file, selector: 'style attribute', index: m.index });
+    for (const m of html.matchAll(/\sstyle\s*=\s*(?:"([^"]*)"|'([^']*)')/gi)) {
+      for (const d of scanDeclarations(`x{${m[1] ?? m[2]}}`)) {
+        if (unsafe(d)) smoothHits.push({ file, selector: 'style attribute', value: d.value });
+      }
+    }
   }
   const srcHint = smoothSources(src);
   if (smoothHits.length && srcHint) report.note(`unwrapped scroll-behavior: smooth in source: ${srcHint}`);
   for (const h of smoothHits) {
     report.error({
       file: rel(h.file), rule: 'scroll-behavior-smooth', law: LAW10,
-      what: `\`scroll-behavior: smooth\` on "${h.selector}" applies to users who asked for reduced motion`,
-      fix: 'Wrap it: `@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }` (same for component scroll containers). Do not rely on a later `reduce` override; motion is opt-in.',
+      what: `\`scroll-behavior: ${h.value}\` on "${h.selector}" is smooth, or cannot be proven not to be, for users who asked for reduced motion`,
+      fix: 'Wrap it: `@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }` (same for component scroll containers; the query list must be only no-preference, no `not`, `or` or reduce member). Outside that media query use a literal `auto`, never a var(). Do not rely on a later `reduce` override; motion is opt-in.',
       detail: `selector ${h.selector}`,
     });
   }
 
-  // ---- JS floor: no literal smooth behaviour outside a helper that consults matchMedia(reduce) ----
+  // ---- JS floor (a lexical heuristic, not a data-flow proof): the string literal 'smooth' may appear in src JS/TS and
+  // in .astro frontmatter and <script> bodies only inside a block that consults matchMedia(reduce), or as the else
+  // branch of `? 'auto' :` right after such a check. Any other occurrence (a variable, a quoted key, a helper return)
+  // fails, as does writing scroll-behavior through a style string or `.scrollBehavior =`. Concatenation
+  // ('smo' + 'oth') and values built at run time are NOT detected; the rendered spine is the backstop. ----
   const jsFiles = walk(src, (p) => /\.(astro|ts|js|mjs|mts|tsx|jsx)$/.test(p));
   for (const file of jsFiles) {
     const text = read(file);
-    for (const m of text.matchAll(/(?:behavior\s*:|scrollBehavior\s*=)\s*(["'`])smooth\1/g)) {
-      if (insideReduceHelper(text, m.index)) continue;
+    const code = jsRegions(file, text);
+    const at = (index) => ({ file: posix(rel(file)), line: lineOf(text, index), detail: text.split('\n')[lineOf(text, index) - 1].trim().slice(0, 100) });
+    for (const m of code.matchAll(/(["'`])smooth\1/g)) {
+      if (insideReduceHelper(code, m.index) || reduceTernary(code, m.index)) continue;
       report.error({
-        file: posix(rel(file)), line: lineOf(text, m.index), rule: 'js-smooth-literal', law: LAW10,
-        what: `programmatic scroll uses the literal behavior: 'smooth' with no reduced-motion check`,
-        fix: "Compute the behaviour: `const behavior = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'` (or a small helper that does) and pass `{ behavior }`.",
-        detail: text.split('\n')[lineOf(text, m.index) - 1].trim().slice(0, 100),
+        ...at(m.index), rule: 'js-smooth-literal', law: LAW10,
+        what: `the literal 'smooth' is used outside a reduced-motion check (programmatic scroll, a variable, a quoted key, or a helper that does not consult matchMedia)`,
+        fix: "Compute the behaviour: `const behavior = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'` (or import scrollBehavior() from src/lib/scroll.ts) and pass `{ behavior }`.",
+      });
+    }
+    for (const m of code.matchAll(/(["'`])[^"'`\n]*scroll-behavior[^"'`\n]*\1|\.scrollBehavior\s*=(?!=)/g)) {
+      // Writing a value that can never animate (or clearing it) is fine: setProperty('scroll-behavior', 'auto'), .scrollBehavior = ''
+      const rest = code.slice(m.index + m[0].length, m.index + m[0].length + 60);
+      const safeValue = `(["'\`])(?:${[...SAFE_SCROLL_BEHAVIOR].join('|')})?\\1`;
+      if (m[0].startsWith('.') ? new RegExp(`^\\s*${safeValue}`).test(rest) : new RegExp(`^\\s*,\\s*${safeValue}\\s*\\)`).test(rest)) continue;
+      report.error({
+        ...at(m.index), rule: 'js-scroll-behavior-set', law: LAW10,
+        what: 'scroll-behavior is written from script (style string, setProperty or .scrollBehavior =); the floors gate cannot prove the value respects reduced motion',
+        fix: 'Do not set scroll-behavior from JS. Put it in CSS inside @media (prefers-reduced-motion: no-preference) and pass `{ behavior }` from scrollBehavior() in src/lib/scroll.ts to scrollTo/scrollIntoView.',
       });
     }
   }
   return report;
+}
+
+/** Same-length view of the JS a file can run, with comments blanked: the whole file for scripts, frontmatter + <script> bodies for .astro. */
+function jsRegions(file, text) {
+  if (!file.endsWith('.astro')) return maskJsComments(text);
+  const keep = [];
+  const front = /^---\r?\n[\s\S]*?\r?\n---/.exec(text);
+  if (front) keep.push([0, front[0].length]);
+  for (const m of text.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/gi)) keep.push([m.index + m[0].indexOf(m[1]), m.index + m[0].indexOf(m[1]) + m[1].length]);
+  let out = text.replace(/[^\n]/g, ' ');
+  for (const [a, b] of keep) out = out.slice(0, a) + text.slice(a, b) + out.slice(b);
+  return maskJsComments(out);
+}
+
+/** `x ? 'auto' : 'smooth'` right after a matchMedia(prefers-reduced-motion) check in the same statement or the lines before it. */
+function reduceTernary(code, index) {
+  if (!/\?\s*(["'`])auto\1\s*:\s*$/.test(code.slice(Math.max(0, index - 40), index))) return false;
+  const before = code.slice(Math.max(0, index - 300), index);
+  return /matchMedia\s*\(/.test(before) && /prefers-reduced-motion/.test(before);
 }
 
 /** src locations of unwrapped smooth scrolling, to point an agent at the file to edit. */

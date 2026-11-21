@@ -6,7 +6,7 @@
 //   // gate:page-load-ok <reason>
 import { existsSync, statSync } from 'node:fs';
 import { dirname, resolve, join, extname } from 'node:path';
-import { Report, parseArgs, walk, read, rel, lineOf, posix, finish, isMain } from './lib.mjs';
+import { Report, parseArgs, walk, read, rel, lineOf, posix, finish, isMain, maskJsComments } from './lib.mjs';
 
 const LAW = 'SL-1 (scripts that depend on the DOM must listen to astro:page-load)';
 const HANDLER = /addEventListener\(\s*["'`]astro:(page-load|after-swap)["'`]/;
@@ -47,7 +47,8 @@ function resolveModule(from, spec) {
 }
 
 /** Does this code, or any relatively imported module reachable from it, register a page-load/after-swap handler? */
-function hasHandler(code, fromFile, seen) {
+function hasHandler(source, fromFile, seen) {
+  const code = maskJsComments(source); // a listener that only appears in a comment is not a listener
   if (HANDLER.test(code)) return true;
   const specs = [...code.matchAll(/(?:from\s*|import\s*\(?\s*|import\s+)["'](\.{1,2}\/[^"']+)["']/g)].map((m) => m[1]);
   for (const spec of specs) {
@@ -77,7 +78,15 @@ export function runPageLoadGate({ src }) {
       scripts++;
       let code = s.code;
       let from = file;
-      if (s.src) { const t = resolveModule(file, s.src); if (!t) continue; code = read(t); from = t; }
+      if (s.src) {
+        const t = resolveModule(file, s.src);
+        if (!t) {
+          report.error({ file: posix(rel(file)), line: lineOf(text, s.index), rule: 'bundled-script-unresolved', law: LAW, what: `the bundled <script src="${s.src}"> does not resolve to a file, so the gate cannot tell whether it rebinds on navigation`, fix: 'Fix the path (extension-less relative imports resolve to .ts/.js/.mjs/.mts/.cjs or an index file); a script the gate cannot read is never a pass.', detail: s.src });
+          continue;
+        }
+        code = read(t);
+        from = t;
+      }
       if (ALLOW.test(code)) continue;
       if (hasHandler(code, from, new Set([from]))) continue;
       report.error({

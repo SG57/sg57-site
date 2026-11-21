@@ -34,8 +34,46 @@ export function* scanDeclarations(css) {
   if (d) yield d;
 }
 
-/** True when any enclosing prelude is `@media (prefers-reduced-motion: no-preference)` (possibly combined with `and`). */
-export const inNoPreference = (stack) => stack.some((p) => /^@media\b/i.test(p) && /prefers-reduced-motion\s*:\s*no-preference/i.test(p));
+/** Top-level (outside parentheses) pieces of a media query: words and whole (...) groups. */
+function mediaTokens(query) {
+  const out = [];
+  let depth = 0;
+  let cur = '';
+  for (const ch of query) {
+    if (ch === '(') depth++;
+    else if (ch === ')') depth = Math.max(0, depth - 1);
+    if (/\s/.test(ch) && depth === 0) { if (cur) out.push(cur); cur = ''; } else cur += ch;
+  }
+  if (cur) out.push(cur);
+  return out;
+}
+
+const NO_PREFERENCE = /^\(\s*prefers-reduced-motion\s*:\s*no-preference\s*\)$/;
+
+/**
+ * Does this media query list GUARANTEE prefers-reduced-motion: no-preference? Every comma-separated query is a
+ * separate way in, so EACH must contain the plain no-preference feature joined by `and`; a query that uses `not` or
+ * `or` at the top level, or that only mentions the feature inside a nested group, proves nothing.
+ */
+export function mediaGuaranteesNoPreference(list) {
+  const queries = [];
+  let depth = 0;
+  let cur = '';
+  for (const ch of list.toLowerCase()) {
+    if (ch === '(') depth++;
+    else if (ch === ')') depth = Math.max(0, depth - 1);
+    if (ch === ',' && depth === 0) { queries.push(cur); cur = ''; } else cur += ch;
+  }
+  queries.push(cur);
+  return queries.every((q) => {
+    const t = mediaTokens(q.trim());
+    if (t.some((x) => x === 'not' || x === 'or')) return false;
+    return t.some((x) => NO_PREFERENCE.test(x));
+  });
+}
+
+/** True when any enclosing prelude is an @media whose every query guarantees `prefers-reduced-motion: no-preference`. */
+export const inNoPreference = (stack) => stack.some((p) => /^@media\b/i.test(p) && mediaGuaranteesNoPreference(p.replace(/^@media\b/i, '')));
 
 /** Extract inline <style> block bodies from an HTML document. */
 export const styleBlocks = (html) => [...html.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/gi)].map((m) => m[1]);

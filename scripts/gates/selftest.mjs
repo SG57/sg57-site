@@ -137,6 +137,28 @@ describe('gate:scripts (page-load)', () => {
     assert.match(r.out, /direct\.astro/);
     assert.match(r.out, /domready\.astro/);
   });
+  const LISTENER = "document.addEventListener('astro:page-load', init);";
+  for (const [name, to] of Object.entries({
+    'a line comment': `// ${LISTENER}`,
+    'a block comment': `/* ${LISTENER} */`,
+  })) {
+    it(`a listener that only appears in ${name} does not satisfy the gate`, () => {
+      const dir = mutated(fx('scripts', 'good'), [['src/pages/direct.astro', LISTENER, to]]);
+      const r = gate('page-load.mjs', ['--src', join(dir, 'src')]);
+      assert.equal(r.code, 1, r.out);
+      assert.match(r.out, /direct\.astro/);
+    });
+  }
+  it('a listener preceded by a string containing // still counts (the comment masker respects strings)', () => {
+    const dir = mutated(fx('scripts', 'good'), [['src/pages/direct.astro', LISTENER, `const u = 'https://example.test/x'; ${LISTENER}`]]);
+    assert.equal(gate('page-load.mjs', ['--src', join(dir, 'src')]).code, 0);
+  });
+  it('a bundled script whose src cannot be resolved fails instead of being skipped', () => {
+    const dir = mutated(fx('scripts', 'good'), [['src/pages/direct.astro', '<script>\n', '<script src="./missing-file.ts"></script>\n<script>\n']]);
+    const r = gate('page-load.mjs', ['--src', join(dir, 'src')]);
+    assert.equal(r.code, 1, r.out);
+    assert.match(r.out, /FAIL bundled-script-unresolved/);
+  });
   it('a relative import without a handler does not satisfy the gate', () => {
     const dir = mutated(fx('scripts', 'good'), [['src/lib/setup.ts', "'astro:after-swap'", "'click'"]]);
     const r = gate('page-load.mjs', ['--src', join(dir, 'src')]);
@@ -178,6 +200,14 @@ describe('gate:floors', () => {
     'js-smooth-literal ': [['src/scroll.astro', "if (matchMedia('(prefers-reduced-motion: reduce)').matches) { el.scrollIntoView(); return; }", '']],
     'js-smooth-literal  ': [['src/scroll.astro', "reduce ? 'auto' : 'smooth'", "'auto'); document.documentElement.style.scrollBehavior = 'smooth'; (0"]],
     'seo-sitemap': [['out/sitemap-index.xml', '<sitemapindex/>', '<x/>']],
+    // media-query list bypasses: no-preference merely MENTIONED is not a guarantee
+    'scroll-behavior-smooth  ': [[C, '@media (prefers-reduced-motion:no-preference){', '@media (prefers-reduced-motion:reduce),(prefers-reduced-motion:no-preference){']],
+    'scroll-behavior-smooth   ': [[C, '@media (prefers-reduced-motion:no-preference){', '@media not all and (prefers-reduced-motion:no-preference){']],
+    'scroll-behavior-smooth    ': [[C, '@media (prefers-reduced-motion:no-preference){', '@media (prefers-reduced-motion:no-preference) or (min-width:1px){']],
+    // a value the gate cannot prove static
+    'scroll-behavior-smooth     ': [[C, '.track{scroll-behavior:auto}', '.track{scroll-behavior:var(--sb)}']],
+    'scroll-behavior-smooth      ': [[C, '.track{scroll-behavior:auto}', '.track{scroll-behavior:SMOOTH}']],
+    'scroll-behavior-smooth       ': [[H, '<main>', '<main style="scroll-behavior:var(--x)">']],
   };
   for (const [name, edits] of Object.entries(cases)) {
     const rule = name.trim();
@@ -189,6 +219,48 @@ describe('gate:floors', () => {
       assert.match(r.out, new RegExp(`FAIL ${rule} `), r.out);
     });
   }
+  describe('smooth-scroll heuristics (lexical, documented in AGENTS.md)', () => {
+    const withJs = (name, js) => {
+      const dir = mutated(good, []);
+      writeFileSync(join(dir, 'src', name), js);
+      return gate('floors.mjs', args(dir));
+    };
+    const css = (from, to) => gate('floors.mjs', args(mutated(good, [[C, from, to]])));
+    const bad = {
+      'a variable holding the literal': ["const b = 'smooth'; el.scrollTo({ behavior: b });", /FAIL js-smooth-literal/],
+      'a quoted key': ["el.scrollTo({ 'behavior': 'smooth' });", /FAIL js-smooth-literal/],
+      'a helper that returns it with no media check': ["export const sb = () => 'smooth';", /FAIL js-smooth-literal/],
+      'a ternary on an unrelated condition': ["const b = fast ? 'auto' : 'smooth';", /FAIL js-smooth-literal/],
+      'style.setProperty with smooth': ["el.style.setProperty('scroll-behavior', 'smooth');", /FAIL js-smooth-literal/],
+      'style.setProperty with a variable': ["el.style.setProperty('scroll-behavior', v);", /FAIL js-scroll-behavior-set/],
+      'style.scrollBehavior assigned a variable': ['el.style.scrollBehavior = v;', /FAIL js-scroll-behavior-set/],
+      'a cssText string': ["el.style.cssText = 'scroll-behavior: ' + v;", /FAIL js-scroll-behavior-set/],
+    };
+    for (const [name, [js, want]] of Object.entries(bad)) {
+      it(`js fails: ${name}`, () => {
+        const r = withJs('x.ts', js);
+        assert.equal(r.code, 1, r.out);
+        assert.match(r.out, want);
+      });
+    }
+    const ok = {
+      'the matchMedia ternary': "const b = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';",
+      'smooth in a comment': "// behavior: 'smooth' is forbidden here\n/* 'smooth' */ export const a = 1;",
+      'clearing or resetting scroll-behavior': "el.style.scrollBehavior = ''; el.style.setProperty('scroll-behavior', 'auto');",
+    };
+    for (const [name, js] of Object.entries(ok)) it(`js accepts: ${name}`, () => assert.equal(withJs('x.ts', js).code, 0));
+    it('an .astro file is read only in its frontmatter and <script> bodies, so prose cannot trip it', () => {
+      assert.equal(withJs('prose.astro', "---\n---\n<p>Use 'smooth' scrolling wisely</p>").code, 0);
+      assert.equal(withJs('script.astro', "<script>const b = 'smooth';</script>").code, 1);
+    });
+    it('css accepts a no-preference query joined with and, any case, minified', () => {
+      assert.equal(css('@media (prefers-reduced-motion:no-preference)', '@MEDIA screen and (PREFERS-REDUCED-MOTION:no-preference) and (min-width:1px)').code, 0);
+      assert.equal(css('@media (prefers-reduced-motion:no-preference)', '@media(prefers-reduced-motion:no-preference)').code, 0);
+    });
+    it('css accepts scroll-behavior: auto, inherit and initial outside a media query', () => {
+      for (const v of ['auto', 'inherit', 'initial', 'unset']) assert.equal(css('.track{scroll-behavior:auto}', `.track{scroll-behavior:${v}}`).code, 0, v);
+    });
+  });
   it('a local()-only fallback face needs no font-display (nothing to fetch), a url() face still does', () => {
     assert.equal(gate('floors.mjs', args(good)).code, 0); // the good fixture carries a local()-only face without font-display
   });
