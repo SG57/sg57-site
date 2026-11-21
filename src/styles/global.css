@@ -44,6 +44,9 @@
    §5 DESIGN TOKENS (dark default, all apps)
    ============================================ */
 :root {
+  /* SL-11: dark only. Native controls, scrollbars and the canvas render dark. */
+  color-scheme: dark;
+
   /* --- Background Layers --- */
   --sg57-void: #0a0c10;
   --sg57-surface: #12151a;
@@ -217,6 +220,9 @@
 
 html {
   font-size: 16px;
+  /* canvas colour under the fixed wallpaper layers: no white flash while the image loads, and
+     overscroll or a page shorter than the viewport shows void instead of white */
+  background: var(--sg57-void);
   scroll-behavior: smooth;
   scroll-padding-top: 4.5rem; /* sticky nav is 3.5rem; anchor jumps land below it */
   -webkit-font-smoothing: antialiased;
