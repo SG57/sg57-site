@@ -152,6 +152,7 @@ function isActive(href: string): boolean {
   .nav-logo {
     display: flex;
     align-items: center;
+    min-height: 44px; /* SL-9 touch target; the 3.5rem bar centres it, so nothing moves */
     gap: 0.6rem;
     color: var(--sg57-text);
     text-decoration: none;
@@ -212,6 +213,9 @@ function isActive(href: string): boolean {
     text-decoration: none;
     transition: color 0.2s ease;
     transform: translateY(1px);
+    /* SL-9: the 28.8px text box grows to a 44.8px touch target; the negative margin cancels it, so layout is unchanged */
+    padding-block: 0.5rem;
+    margin-block: -0.5rem;
   }
 
   .nav-links a:hover {
@@ -226,7 +230,7 @@ function isActive(href: string): boolean {
   .nav-links a.is-active::after {
     content: '';
     position: absolute;
-    bottom: -4px;
+    bottom: calc(0.5rem - 4px); /* 4px under the text, as before the padded touch target */
     left: 0;
     right: 0;
     height: 2px;
