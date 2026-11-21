@@ -8,7 +8,7 @@ The law of this repo is [CONSTITUTION.md](CONSTITUTION.md). It operates under th
 
 ## Commands
 
-Node `^22.22.2` or `^24.15` (the lint tooling needs it).
+Node `^22.22.2`, `^24.15.0` or `>=26` (the lint tooling needs it; `engines` in package.json is the same range).
 
 | Command | What it does |
 |---|---|
