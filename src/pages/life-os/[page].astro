@@ -76,7 +76,9 @@ const version = readFileSync(new URL('../../../public/life-os/VERSION', import.m
     border-radius: var(--sg57-radius-md);
     color: var(--sg57-text-dim);
   }
-  .prose :global(table) { width: 100%; border-collapse: collapse; margin: 1rem 0; display: block; overflow-x: auto; }
+  /* rehype-scroll-tables wraps each table in .table-scroll: the wrapper is the focusable scroller */
+  .prose :global(.table-scroll) { overflow-x: auto; margin: 1rem 0; }
+  .prose :global(table) { width: 100%; border-collapse: collapse; margin: 0; display: block; }
   .prose :global(th), .prose :global(td) { text-align: left; vertical-align: top; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--sg57-border-subtle); line-height: 1.5; }
   .prose :global(th) { font-family: var(--sg57-font-display); letter-spacing: 0.05em; color: var(--sg57-text-dim); }
   .prose :global(pre) {

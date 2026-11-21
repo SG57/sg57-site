@@ -368,11 +368,21 @@ const blogSchema = {
   }
 
   /* ── Tables ── */
+  /* rehype-scroll-tables wraps each table; a wide one scrolls here instead of being clipped on phones */
+  .blog-post__content :global(.table-scroll) {
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+  }
+
   .blog-post__content :global(table) {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 1.5rem;
     font-size: 1rem;
+  }
+
+  .blog-post__content :global(.table-scroll > table) {
+    margin-bottom: 0;
   }
 
   .blog-post__content :global(th) {
