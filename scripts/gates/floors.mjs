@@ -55,7 +55,7 @@ function checkPage(file, html, report) {
     for (const p of ['og:title', 'og:description', 'og:image']) {
       if (!meta('property', p)) miss(`seo-${p.replace(':', '-')}`, `missing <meta property="${p}">`, `Render <meta property="${p}" content=...> in the Base layout head (absolute URL for og:image).`);
     }
-    if (!meta('name', 'twitter:card')) miss('seo-twitter-card', 'missing <meta name="twitter:card">', 'Render <meta name="twitter:card" content="summary_large_image"> plus twitter:title/description/image in the Base layout head.');
+    if (!meta('name', 'twitter:card') && !meta('property', 'twitter:card')) miss('seo-twitter-card', 'missing <meta name="twitter:card">', 'Render <meta name="twitter:card" content="summary_large_image"> plus twitter:title/description/image in the Base layout head.');
   }
   for (const img of tags(html, 'img')) {
     const where = { file: f, line: lineOf(html, img.index) };
@@ -161,7 +161,7 @@ export function runFloorsGate({ dist, src }) {
   const jsFiles = walk(src, (p) => /\.(astro|ts|js|mjs|mts|tsx|jsx)$/.test(p));
   for (const file of jsFiles) {
     const text = read(file);
-    for (const m of text.matchAll(/behavior\s*:\s*(["'`])smooth\1/g)) {
+    for (const m of text.matchAll(/(?:behavior\s*:|scrollBehavior\s*=)\s*(["'`])smooth\1/g)) {
       if (insideReduceHelper(text, m.index)) continue;
       report.error({
         file: posix(rel(file)), line: lineOf(text, m.index), rule: 'js-smooth-literal', law: LAW10,

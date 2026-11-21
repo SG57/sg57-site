@@ -19,7 +19,7 @@ export async function runCssGate({ src }) {
     report.error({ file: rel(src), rule: 'no-input', law: 'gate integrity', what: `no .css/.astro files under ${rel(src)}`, fix: 'Point --src at the site src directory.' });
     return report;
   }
-  const res = await stylelint.lint({ files, config: stylelintConfig });
+  const res = await stylelint.lint({ files, config: stylelintConfig, ignoreDisables: true });
   report.note(`${files.length} files linted`);
   for (const r of res.results) {
     for (const w of r.warnings) {

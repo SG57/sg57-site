@@ -77,6 +77,13 @@ describe('gate:css', () => {
     assert.equal(r.code, 1, r.out);
     assert.match(r.out, /FAIL focus-visible-outline x3/);
   });
+  it('cannot be silenced with a stylelint-disable comment', () => {
+    const dir = mutated(fx('css', 'bad'), [['src/ring.css', '.btn:focus-visible', '/* stylelint-disable */\n.btn:focus-visible']]);
+    rmSync(join(dir, 'src', 'Widget.astro')); // leave only the silenced rule so the assertion cannot pass on other hits
+    const r = gate('css.mjs', ['--src', join(dir, 'src')]);
+    assert.equal(r.code, 1, r.out);
+    assert.match(r.out, /FAIL focus-visible-outline/);
+  });
   it('fails on an empty src', () => {
     const dir = mutated(fx('html', 'good'), []);
     assert.equal(gate('css.mjs', ['--src', dir]).code, 1);
@@ -129,6 +136,7 @@ describe('gate:floors', () => {
     'scroll-behavior-smooth ': [[C, '(prefers-reduced-motion:no-preference)', '(prefers-reduced-motion:reduce)']],
     'js-smooth-literal': [['src/scroll.astro', "reduce ? 'auto' : 'smooth'", "'smooth'"]],
     'js-smooth-literal ': [['src/scroll.astro', "if (matchMedia('(prefers-reduced-motion: reduce)').matches) { el.scrollIntoView(); return; }", '']],
+    'js-smooth-literal  ': [['src/scroll.astro', "reduce ? 'auto' : 'smooth'", "'auto'); document.documentElement.style.scrollBehavior = 'smooth'; (0"]],
     'seo-sitemap': [['dist/sitemap-index.xml', '<sitemapindex/>', '<x/>']],
   };
   for (const [name, edits] of Object.entries(cases)) {
