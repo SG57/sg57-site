@@ -113,13 +113,13 @@ describe('gate:scripts (page-load)', () => {
 
 describe('gate:floors', () => {
   const good = fx('floors', 'good');
-  const args = (dir) => ['--dist', join(dir, 'dist'), '--src', join(dir, 'src')];
+  const args = (dir) => ['--dist', join(dir, 'out'), '--src', join(dir, 'src')];
   it('passes a compliant site (redirect stub exempt, > inside alt parsed correctly)', () => {
     const r = gate('floors.mjs', args(good));
     assert.equal(r.code, 0, r.out);
   });
-  const H = 'dist/index.html';
-  const C = 'dist/_astro/a.css';
+  const H = 'out/index.html';
+  const C = 'out/_astro/a.css';
   const cases = {
     'seo-title': [[H, '<title>Home</title>', '<title></title>']],
     'seo-description': [[H, '<meta name="description" content="d">', '']],
@@ -137,28 +137,28 @@ describe('gate:floors', () => {
     'js-smooth-literal': [['src/scroll.astro', "reduce ? 'auto' : 'smooth'", "'smooth'"]],
     'js-smooth-literal ': [['src/scroll.astro', "if (matchMedia('(prefers-reduced-motion: reduce)').matches) { el.scrollIntoView(); return; }", '']],
     'js-smooth-literal  ': [['src/scroll.astro', "reduce ? 'auto' : 'smooth'", "'auto'); document.documentElement.style.scrollBehavior = 'smooth'; (0"]],
-    'seo-sitemap': [['dist/sitemap-index.xml', '<sitemapindex/>', '<x/>']],
+    'seo-sitemap': [['out/sitemap-index.xml', '<sitemapindex/>', '<x/>']],
   };
   for (const [name, edits] of Object.entries(cases)) {
     const rule = name.trim();
     it(`fails on ${name.trim()}${name.endsWith(' ') ? ' (variant)' : ''}`, () => {
       const dir = mutated(good, edits);
-      if (rule === 'seo-sitemap') rmSync(join(dir, 'dist', 'sitemap-index.xml'));
+      if (rule === 'seo-sitemap') rmSync(join(dir, 'out', 'sitemap-index.xml'));
       const r = gate('floors.mjs', args(dir));
       assert.equal(r.code, 1, r.out);
       assert.match(r.out, new RegExp(`FAIL ${rule} `), r.out);
     });
   }
   it('a redirect stub is only exempt from the meta tags, not from img rules', () => {
-    const dir = mutated(good, [['dist/old/index.html', '<title>Redirecting</title>', '<title>Redirecting</title><img src="/a.webp">']]);
+    const dir = mutated(good, [['out/old/index.html', '<title>Redirecting</title>', '<title>Redirecting</title><img src="/a.webp">']]);
     const r = gate('floors.mjs', args(dir));
     assert.equal(r.code, 1);
     assert.match(r.out, /FAIL img-alt/);
   });
   it('fails on empty dist', () => {
     const dir = mutated(good, []);
-    rmSync(join(dir, 'dist', 'index.html'));
-    rmSync(join(dir, 'dist', 'old', 'index.html'));
+    rmSync(join(dir, 'out', 'index.html'));
+    rmSync(join(dir, 'out', 'old', 'index.html'));
     assert.match(gate('floors.mjs', args(dir)).out, /no-input/);
   });
 });
