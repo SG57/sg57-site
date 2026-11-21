@@ -74,6 +74,7 @@ function outlineState(rule) {
   let zero = false;
   let transparent = false;
   let removalDecl = null;
+  let important = false;
   rule.each((n) => {
     if (n.type !== 'decl') return;
     const prop = n.prop.toLowerCase();
@@ -84,9 +85,10 @@ function outlineState(rule) {
     else if (prop === 'outline-width') zero = isZeroLength(v) || varNone(v);
     else transparent = v === 'transparent';
     if (style === 'none' || zero) removalDecl = n;
+    if (n.important || /!\s*important/i.test(n.value)) important = true;
   });
   const removed = style === 'none' || zero;
-  return { removed, safe: style === 'visible' && !zero, transparent, removalDecl: removed ? removalDecl : null };
+  return { removed, safe: style === 'visible' && !zero, transparent, important, removalDecl: removed ? removalDecl : null };
 }
 
 const inForcedColors = (node) => {
@@ -99,10 +101,14 @@ const topLevel = (rule) => !rule.parent || rule.parent.type === 'root' || rule.p
 const offsetOf = (node) => node.source?.start?.offset ?? 0;
 const NOT_FV = /:not\(\s*:focus-visible\s*\)/g;
 
-/** Selector forms a replacement may be written for: the selector itself, its base, and its :focus / :focus-visible forms. */
+/**
+ * Selector forms that can override a removal on `sel` in the cascade. A pseudo-class adds specificity, so a rule for the
+ * bare base cannot beat a removal written on its :focus / :focus-visible form; only equal-or-higher forms count.
+ */
 function forms(sel) {
+  const focusForm = /:focus(?:-visible)?$/.test(sel);
   const base = sel.replace(/:focus(?:-visible)?$/, '');
-  return [sel, base, `${base}:focus`, `${base}:focus-visible`];
+  return focusForm ? [sel, `${base}:focus`, `${base}:focus-visible`] : [sel, `${sel}:focus`, `${sel}:focus-visible`];
 }
 
 const rule = (primary, secondary = {}) => (root, result) => {
@@ -110,12 +116,14 @@ const rule = (primary, secondary = {}) => (root, result) => {
   const allow = Object.fromEntries(Object.entries(secondary.allow ?? {}).map(([k, v]) => [norm(k), v]));
   const forced = new Map(); // selector -> latest offset of a visible-outline rule in @media (forced-colors: active)
   const ring = new Map(); // selector -> latest offset of a top-level visible-outline rule
-  const bump = (m, s, at) => m.set(s, Math.max(m.get(s) ?? -1, at));
+  // every replacement candidate per selector: where it sits and whether it is !important
+  const bump = (m, s, entry) => m.set(s, [...(m.get(s) ?? []), entry]);
   root.walkRules((r) => {
-    if (!outlineState(r).safe) return;
-    const at = offsetOf(r);
-    if (inForcedColors(r)) r.selectors.forEach((s) => bump(forced, norm(s), at));
-    else if (topLevel(r)) r.selectors.forEach((s) => bump(ring, norm(s), at));
+    const st = outlineState(r);
+    if (!st.safe) return;
+    const entry = { at: offsetOf(r), important: st.important };
+    if (inForcedColors(r)) r.selectors.forEach((s) => bump(forced, norm(s), entry));
+    else if (topLevel(r)) r.selectors.forEach((s) => bump(ring, norm(s), entry));
   });
 
   root.walkRules((r) => {
@@ -123,7 +131,8 @@ const rule = (primary, secondary = {}) => (root, result) => {
     const st = outlineState(r);
     if (!st.removed) return;
     const at = offsetOf(r);
-    const later = (m, s) => forms(s).some((f) => (m.get(f) ?? -1) > at);
+    // a replacement must come later in the file and, against an !important removal, be !important too
+    const later = (m, s) => forms(s).some((f) => (m.get(f) ?? []).some((e) => e.at > at && (e.important || !st.important)));
     const failing = [];
     for (const raw of r.selectors) {
       const s = norm(raw);
