@@ -435,11 +435,15 @@ const slideFallback = 'webp'; // Picture's default <img> fallback for a webp sou
 </Base>
 
 <script>
-  // Bundled scripts run once per document, so the DOM work lives in an astro:page-load handler (it runs for
-  // the initial load and for every client-side navigation back to this page). The GitHub call itself is made
-  // once per full page load and shared (the unauthenticated API limit is 60 requests an hour per IP).
+  // Bundled scripts run once per document, so the DOM work lives in an astro:page-load handler. Once this page has
+  // been visited the handler stays registered and fires on EVERY page, so it returns at once unless the page has
+  // download buttons. The GitHub call is made at most once per document (the unauthenticated API limit is 60 requests
+  // an hour per IP) and a failed lookup is remembered for the session, so navigating around never retries it.
   interface ReleaseAsset { name: string; browser_download_url: string }
   interface Release { tag_name: string; assets?: ReleaseAsset[] }
+  const FAILED_KEY = 'clide-release-lookup-failed';
+  const lookupFailed = () => { try { return sessionStorage.getItem(FAILED_KEY) === '1'; } catch { return false; } };
+  const rememberFailure = () => { try { sessionStorage.setItem(FAILED_KEY, '1'); } catch { /* storage blocked: the cached promise still stops retries in this document */ } };
   let release: Promise<Release | null> | undefined;
   const loadRelease = () =>
     (release ??= fetch('https://api.github.com/repos/SG57/clide-releases/releases/latest')
@@ -447,8 +451,9 @@ const slideFallback = 'webp'; // Picture's default <img> fallback for a webp sou
       .catch(() => null)); // network error: buttons still link to the releases page
 
   document.addEventListener('astro:page-load', async () => {
+    if (!document.querySelector('[data-download]') || lookupFailed()) return;
     const latest = await loadRelease();
-    if (!latest) { release = undefined; return; } // let the next page load try again
+    if (!latest) { rememberFailure(); return; } // the buttons keep linking to the releases page
     const assets = latest.assets ?? [];
     const installer = assets.find((a) => /Setup.*\.exe$/i.test(a.name));
     const portable = assets.find((a) => /portable.*\.exe$/i.test(a.name));
