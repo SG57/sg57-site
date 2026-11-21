@@ -97,6 +97,16 @@ export function discoverRoutes(dist, { all = false, only = [] } = {}) {
 const ASTRO_CID = /\[data-astro-cid-[a-z0-9]+(?:="[^"]*")?\]/g;
 export const fingerprint = (f) => `${f.rule} | ${f.route} | ${(f.detail ?? '').replace(ASTRO_CID, '')}`;
 
+/**
+ * One detail string per distinct node an axe violation reports, sorted. A finding is a node, not a rule, so the
+ * baseline cannot be defeated by (or flake on) which node axe lists first or how many it lists: a run may report any
+ * subset of the baselined nodes, and a node that is not baselined fails even when its rule and route are.
+ */
+export const axeDetails = (v) => {
+  const targets = [...new Set((v.nodes ?? []).map((n) => (n.target ?? []).join(' ')))].sort();
+  return (targets.length ? targets : ['']).map((t) => `${v.id} ${t}`.trim());
+};
+
 export function loadBaseline() {
   return new Set(existsSync(BASELINE) ? JSON.parse(readFileSync(BASELINE, 'utf8')).findings ?? [] : []);
 }
@@ -354,9 +364,7 @@ async function checkPage({ browser, origin, route, viewport, screens, report }) 
     const axe = await new AxeBuilder({ page }).withTags(AXE_TAGS).analyze();
     for (const v of axe.violations) {
       const hard = v.impact === 'serious' || v.impact === 'critical';
-      const target = v.nodes[0]?.target?.join(' ') ?? '';
-      const detail = `${v.id} ${target}`.slice(0, 160);
-      if (hard) add('axe', 'axe', `axe ${v.id} (${v.impact}): ${v.help} - ${v.nodes.length} node(s)`, `${v.helpUrl} - fix the markup/CSS the selector points at.`, detail);
+      if (hard) for (const detail of axeDetails(v)) add('axe', 'axe', `axe ${v.id} (${v.impact}): ${v.help}`, `${v.helpUrl} - fix the markup/CSS the selector points at.`, detail);
       else report.warning({ file: at, rule: `axe-${v.impact}`, law: LAW.axe, message: `${v.id}: ${v.help} (${v.nodes.length})`, key: `axe|${v.id}|${route}` });
     }
 
