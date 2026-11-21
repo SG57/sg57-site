@@ -57,7 +57,7 @@ const blogListSchema = {
           <h1 class="ml-heading">Mission Log</h1>
           <p class="ml-heading-sub">Engineering notes, case studies &amp; deep dives from SG57 Labs</p>
           <div class="ml-stats" aria-label="Blog statistics">
-            <span class="ml-stat"><span class="ml-stat-val" id="js-visible-count">{totalPosts}</span> <span class="ml-stat-label">posts</span></span>
+            <span class="ml-stat" aria-live="polite" aria-atomic="true"><span class="ml-stat-val" id="js-visible-count">{totalPosts}</span> <span class="ml-stat-label">posts</span></span>
             <span class="ml-stat-sep" aria-hidden="true">·</span>
             <span class="ml-stat"><span class="ml-stat-label">Latest:</span> <span class="ml-stat-val">{lastUpdated}</span></span>
           </div>
@@ -91,7 +91,7 @@ const blogListSchema = {
       ))}
     </div>
 
-    <main class="ml-feed container" aria-live="polite">
+    <div class="ml-feed container">
       <ul class="ml-list" id="ml-list">
         {posts.map((post, idx) => {
           const txNum = (totalPosts - idx).toString().padStart(3, '0');
@@ -136,7 +136,7 @@ const blogListSchema = {
         <span class="ml-page-info" id="ml-page-info" aria-live="polite"></span>
         <button class="ml-page-btn" id="ml-next" aria-label="Next page">Next &rarr;</button>
       </nav>
-    </main>
+    </div>
 
   </div>
 </Base>
@@ -255,6 +255,7 @@ const blogListSchema = {
   .mission-log {
     position: relative;
     min-height: 100vh;
+    min-height: 100svh; /* visible viewport with the mobile toolbar showing */
     overflow: hidden;
   }
 
