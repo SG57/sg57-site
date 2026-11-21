@@ -330,9 +330,14 @@ a[class*="btn"] {
   user-select: none;
 }
 
-/* --- Focus --- */
+/* --- Focus ---
+   The box-shadow ring is the visible indicator. Windows High Contrast / forced-colors
+   strips box-shadow, so a transparent outline stays in place: forced-colors repaints it
+   in a system colour, normal mode paints nothing. Never set outline:none here
+   (Federal Law 35a, WCAG 2.4.7). */
 :focus-visible {
-  outline: none;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   box-shadow: var(--sg57-focus-ring);
   border-radius: var(--sg57-radius-sm);
 }

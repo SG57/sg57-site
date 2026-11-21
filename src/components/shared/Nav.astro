@@ -357,7 +357,8 @@ function isActive(href: string): boolean {
 
   .mobile-menu a:focus-visible {
     box-shadow: inset var(--sg57-focus-ring);
-    outline: none;
+    outline: 2px solid transparent;
+    outline-offset: -2px; /* the ring is inset, so keep the forced-colors outline inside the menu too */
   }
 
   /* -- Responsive -- */

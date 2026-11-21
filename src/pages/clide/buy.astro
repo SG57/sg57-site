@@ -569,7 +569,7 @@ const LEMONSQUEEZY_CHECKOUT_URL = `https://sg57.lemonsqueezy.com/checkout/buy/${
     transition: color 0.2s ease, background 0.2s ease, transform 0.2s ease;
   }
   .buy-back:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     box-shadow: var(--sg57-focus-ring);
     background: rgba(255, 255, 255, 0.04);
   }
@@ -987,7 +987,7 @@ const LEMONSQUEEZY_CHECKOUT_URL = `https://sg57.lemonsqueezy.com/checkout/buy/${
   }
   .buy-cta:active:not(:disabled) { transform: scale(0.98) translateY(0); }
   .buy-cta:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     box-shadow: var(--sg57-focus-ring), 0 0 40px var(--sg57-accent-glow);
   }
   .buy-cta:disabled, .buy-cta.is-sending {
@@ -1212,7 +1212,7 @@ const LEMONSQUEEZY_CHECKOUT_URL = `https://sg57.lemonsqueezy.com/checkout/buy/${
   }
   .sell-card:hover::after { opacity: 0.5; }
   .sell-card:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     box-shadow: var(--sg57-focus-ring), 0 0 30px var(--card-accent-glow, var(--sg57-accent-glow));
   }
 
