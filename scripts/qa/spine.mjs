@@ -195,20 +195,32 @@ async function newPage(browser, origin, viewport, extra = {}) {
   return { context, page, problems };
 }
 
-/** Load a route and make every lazily revealed section visible, as a reader scrolling the page would. */
+/** Load a route and make every lazily revealed section visible, as a reader scrolling the page would. Resolves to how many scroll-reveal blocks stayed hidden. */
 async function load(page, origin, route) {
   await page.goto(origin + route, { waitUntil: 'load' });
   await page.evaluate(() => document.fonts.ready);
   // bundled page scripts (mode switches, galleries) finish their first run after the load event on a loaded machine
   await page.waitForLoadState('networkidle', { timeout: 5000 }).catch(() => {});
-  await page.evaluate(async () => {
+  return page.evaluate(async () => {
+    // An IntersectionObserver only samples on a rendered frame. On a loaded machine the instant jumps below outrun the
+    // frames, a scroll-reveal block (opacity 0 until it gets class "in") is never sampled, and axe skips everything in
+    // it, so the set of nodes it reports changes from run to run. Wait for a frame at every stop, then walk any block
+    // that is still hidden into view, a bounded number of times.
+    const frames = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
     const step = Math.max(200, Math.floor(innerHeight * 0.8));
     for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
       scrollTo({ top: y, behavior: 'instant' });
+      await frames();
       await new Promise((r) => setTimeout(r, 60));
+    }
+    const hidden = () => [...document.querySelectorAll('[data-reveal]:not(.in)')];
+    for (let pass = 0; pass < 10 && hidden().length; pass++) {
+      for (const el of hidden()) { el.scrollIntoView({ block: 'center', behavior: 'instant' }); await frames(); }
+      await new Promise((r) => setTimeout(r, 100));
     }
     scrollTo({ top: 0, behavior: 'instant' });
     await new Promise((r) => setTimeout(r, 700));
+    return hidden().length;
   });
 }
 
@@ -354,7 +366,8 @@ async function checkPage({ browser, origin, route, viewport, screens, report }) 
   const add = (rule, lawKey, what, fix, detail, extra = {}) =>
     report.error({ file: at, route, rule, law: LAW[lawKey], what, fix, detail, key: `${rule}|${route}|${detail}`, ...extra });
   try {
-    await load(page, origin, route);
+    const hidden = await load(page, origin, route);
+    if (hidden) report.warning({ file: at, rule: 'reveal-incomplete', law: LAW.axe, message: `${hidden} scroll-reveal block(s) never became visible, so axe did not see their content`, key: `reveal|${route}` });
 
     const l = await page.evaluate(probeLayout);
     if (l.overflow > 0 || l.offenderCount > 0) add('overflow-x', 'layout', `content leaves the ${l.cw}px viewport (document scrolls sideways by ${Math.max(0, l.overflow)}px; ${l.offenderCount} uncontained element(s): ${l.offenders.map((o) => `${o.sel} ${o.left}..${o.right}`).join(', ')})`, 'Find the element wider than the viewport (listed in the detail) and constrain it: max-width:100%, min-width:0 on flex/grid children, overflow-wrap:anywhere on long strings, or clip decorative layers with overflow:clip on their wrapper. Never hide the symptom with overflow-x:hidden on body.', l.offenders[0]?.sel ?? 'document-scroll');

@@ -47,7 +47,6 @@ Findings that existed before the spine are listed in `scripts/qa/baseline.json`.
 removed with `node scripts/qa/spine.mjs --all --update-baseline`. The file only ever shrinks.
 An axe finding is one node (`rule | route | selector`, Astro scoped-style hashes stripped), so which node axe lists first, or how many
 it lists, cannot change the result: a run may report any subset of the baselined nodes, and a node that is not in the file fails.
-Regenerate the baseline on an idle machine, so a node that is flaky is not missed.
 
 Browser: locally the spine uses the bundled Chromium, then falls back to installed Chrome or Edge
 (`QA_BROWSER_CHANNEL=chrome|msedge` forces one). CI installs it with `npx playwright install --with-deps chromium`.
