@@ -95,7 +95,7 @@ Glass surfaces on this site use the DNA `--sg57-glass-*` tokens:
 - Edge sliver breathing: 8s cycle, ease-in-out
 - Entry animations: Use DNA `slide-up` (0.8-1s) with staggered delays
 - Easing: `var(--sg57-ease-snap)` for entries, `var(--sg57-ease-out)` for interactions
-- **All programmatic scrolling MUST be smooth** — `scroll-behavior: smooth` on `html`, and any JS `scrollTo`/`scrollIntoView` must use `behavior: 'smooth'`. No snapping to positions. No instant jumps.
+- **Programmatic scrolling is smooth when motion is allowed** — `scroll-behavior: smooth` on `html` and on scroll containers applies only inside `@media (prefers-reduced-motion: no-preference)`. Every JS `scrollTo`/`scrollIntoView` takes its `behavior` from `src/lib/scroll.ts` (`scrollBehavior()`), which returns `'auto'` under `prefers-reduced-motion: reduce`. A literal `behavior: 'smooth'` is a defect. Enforced by `npm run gates` (gate:floors). Amended 2026-11-20, see Amendments.
 
 ### SL-11: Dark Theme Only
 
@@ -108,3 +108,13 @@ Glass surfaces on this site use the DNA `--sg57-glass-*` tokens:
 - Forms submit via AJAX (fetch) to Formspree — no page redirects
 - Success/error states shown inline with animations
 - Form inputs: 40px min height, 8px radius, surface background, focus ring
+
+## Amendments
+
+### 2026-11-20 — SL-10: smooth scrolling is conditional on the motion preference
+
+- **Was:** "All programmatic scrolling MUST be smooth ... No instant jumps." (unconditional)
+- **Now:** smooth only when `prefers-reduced-motion: no-preference`; instant under `reduce`.
+- **Why:** Federal Law 9 ("`prefers-reduced-motion: reduce` disables all animation") and the first bullet of SL-10 already required reduced motion to be honoured, and smooth scrolling is animation. An unconditional mandate relaxed a Federal law, which State law may not do (Federal Supremacy, Additivity Only). This amendment restores conformance; it is not a divergence.
+- **Approved by:** Cord Rehn (product owner), 2026-11-20.
+- **Enforced by:** `scripts/gates/floors.mjs` (rules `scroll-behavior-smooth`, `js-smooth-literal`).

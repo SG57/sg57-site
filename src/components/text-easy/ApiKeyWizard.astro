@@ -97,6 +97,8 @@
 </div><!-- /akw-wrapper -->
 
 <script>
+  import { scrollBehavior } from '../../lib/scroll';
+
   // ── SVG ICONS (inline, no external deps) ────────────────────────────────────
 
   const ICONS = {
@@ -235,7 +237,7 @@
   }
 
   function scrollToWizard() {
-    akw.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    akw.scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
   }
 
   function renderStep(idx) {

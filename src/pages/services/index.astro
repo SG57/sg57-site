@@ -370,6 +370,8 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
 </Base>
 
 <script>
+  import { scrollBehavior } from '../../lib/scroll';
+
   document.addEventListener('astro:page-load', () => {
     try {
     const form         = document.getElementById('sg57-intake-form');
@@ -504,7 +506,7 @@ import ProofOfWork from '../../components/shared/ProofOfWork.astro';
         successEl.style.opacity    = '1';
         successEl.style.transform  = 'translateY(0) scale(1)';
 
-        successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        successEl.scrollIntoView({ behavior: scrollBehavior(), block: 'center' });
         successEl.focus({ preventScroll: true });
       }
 

@@ -223,7 +223,6 @@ html {
   /* canvas colour under the fixed wallpaper layers: no white flash while the image loads, and
      overscroll or a page shorter than the viewport shows void instead of white */
   background: var(--sg57-void);
-  scroll-behavior: smooth;
   scroll-padding-top: 4.5rem; /* sticky nav is 3.5rem; anchor jumps land below it */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -231,6 +230,13 @@ html {
      body to viewport, so this must be on html to prevent lateral scrollbars
      caused by bloom::before (inset:-40% -50%) and sway animation bleed */
   overflow-x: clip;
+}
+
+/* SL-10 (amended 2026-11-20): smooth scrolling is opt-in via the motion preference */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {

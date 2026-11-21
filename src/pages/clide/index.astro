@@ -452,6 +452,8 @@ import Base from '../../layouts/Base.astro';
 </script>
 
 <script>
+  import { scrollBehavior } from '../../lib/scroll';
+
   /* --- Screenshot Gallery ---
      Bound on every astro:page-load; window listeners are aborted before each swap so they cannot pile up. */
   let ac: AbortController | undefined;
@@ -472,7 +474,7 @@ import Base from '../../layouts/Base.astro';
 
     function goTo(i: number) {
       current = ((i % total) + total) % total;
-      slides[current].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      slides[current].scrollIntoView({ behavior: scrollBehavior(), block: 'nearest', inline: 'center' });
       dots.forEach((d, idx) => {
         d.classList.toggle('active', idx === current);
         d.setAttribute('aria-selected', String(idx === current));
@@ -1307,7 +1309,6 @@ import Base from '../../layouts/Base.astro';
     gap: 1.5rem;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none; /* Firefox */
     padding: 1rem 0 1.5rem;
@@ -1326,6 +1327,11 @@ import Base from '../../layouts/Base.astro';
     scroll-snap-type: none;
     cursor: grabbing;
     user-select: none;
+  }
+
+  /* SL-10 (amended): smooth only when motion is allowed */
+  @media (prefers-reduced-motion: no-preference) {
+    .gallery-track { scroll-behavior: smooth; }
   }
 
   .gallery-track::-webkit-scrollbar {

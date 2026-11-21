@@ -226,6 +226,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     </script>
 
     <script>
+      import { scrollBehavior } from '../lib/scroll';
+
       // window/document outlive a client-side navigation (only the body is swapped), so listeners bound
       // there use an AbortController that is aborted before every swap instead of piling up per page.
       let ac: AbortController | undefined;
@@ -258,7 +260,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           }, { passive: true, signal });
 
           fab.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: 0, behavior: scrollBehavior() });
           });
 
           update();

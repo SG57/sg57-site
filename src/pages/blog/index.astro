@@ -149,6 +149,10 @@ const blogListSchema = {
   var currentPage = 1;
   var searchTimer = null;
 
+  // SL-10 (amended): smooth only when motion is allowed. Same logic as src/lib/scroll.ts, which an
+  // is:inline script cannot import.
+  function scrollBehavior() { return matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'; }
+
   var list = document.getElementById('ml-list');
   var emptyEl = document.getElementById('ml-empty');
   var pagination = document.getElementById('ml-pagination');
@@ -238,8 +242,8 @@ const blogListSchema = {
     currentPage = 1; render();
   });
 
-  prevBtn.addEventListener('click', function() { currentPage--; render(); window.scrollTo({top:0,behavior:'smooth'}); });
-  nextBtn.addEventListener('click', function() { currentPage++; render(); window.scrollTo({top:0,behavior:'smooth'}); });
+  prevBtn.addEventListener('click', function() { currentPage--; render(); window.scrollTo({top:0,behavior:scrollBehavior()}); });
+  nextBtn.addEventListener('click', function() { currentPage++; render(); window.scrollTo({top:0,behavior:scrollBehavior()}); });
 
   resetBtn.addEventListener('click', function() {
     searchInput.value = ''; searchQuery = ''; clearBtn.hidden = true;
