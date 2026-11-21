@@ -121,7 +121,7 @@ const slideFallback = 'webp'; // Picture's default <img> fallback for a webp sou
 
       <div class="gallery-track" id="gallery-track">
         <figure class="gallery-slide">
-          <Picture src={whatsNewDialog} alt="Clide What's New dialog showing latest features on launch" formats={slideFormats} fallbackFormat={slideFallback} widths={[640, 960, 1280]} sizes={slideSizes} loading="eager" decoding="async" />
+          <Picture src={whatsNewDialog} alt="Clide What's New dialog showing latest features on launch" formats={slideFormats} fallbackFormat={slideFallback} widths={[640, 960, 1280]} sizes={slideSizes} loading="eager" fetchpriority="high" decoding="async" />
           <figcaption class="gallery-caption">Clide — Mission Control for your AI terminal sessions</figcaption>
         </figure>
         <figure class="gallery-slide">

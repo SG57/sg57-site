@@ -262,6 +262,20 @@ describe('gate:floors', () => {
       for (const v of ['auto', 'inherit', 'initial', 'unset']) assert.equal(css('.track{scroll-behavior:auto}', `.track{scroll-behavior:${v}}`).code, 0, v);
     });
   });
+  describe('image priority (warnings, not failures)', () => {
+    const img = (tail) => gate('floors.mjs', args(mutated(good, [[H, ' loading="lazy"', tail]])));
+    it('loading="lazy" together with fetchpriority="high" is a contradiction and is reported', () => {
+      const r = img(' loading="lazy" fetchpriority="high"');
+      assert.equal(r.code, 0, r.out);
+      assert.match(r.out, /warn img-lazy-priority/);
+    });
+    it('an eager LCP image with fetchpriority="high" is clean, and an eager image without it is warned', () => {
+      const ok = img(' loading="eager" fetchpriority="high"');
+      assert.equal(ok.code, 0, ok.out);
+      assert.doesNotMatch(ok.out, /warn img-lazy/);
+      assert.match(img(' loading="eager"').out, /warn img-lazy /);
+    });
+  });
   it('a local()-only fallback face needs no font-display (nothing to fetch), a url() face still does', () => {
     assert.equal(gate('floors.mjs', args(good)).code, 0); // the good fixture carries a local()-only face without font-display
   });

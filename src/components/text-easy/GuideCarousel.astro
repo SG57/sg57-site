@@ -77,6 +77,7 @@ const slides: Slide[] = [
             widths={[340, 680, 1020]}
             sizes="(min-width: 1024px) 340px, (min-width: 640px) 320px, 260px"
             loading={i === 0 ? 'eager' : 'lazy'}
+            fetchpriority={i === 0 ? 'high' : undefined}
             decoding="async"
           />
         </div>

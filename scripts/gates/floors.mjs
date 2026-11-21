@@ -72,8 +72,10 @@ function checkPage(file, html, report) {
     const sized = ('width' in img.a && 'height' in img.a) || /aspect-ratio\s*:/i.test(img.a.style ?? '');
     if (!sized) report.error({ ...where, key: src, rule: 'img-size', law: LAW8, what: 'an <img> has no explicit width and height (or inline aspect-ratio); the image causes layout shift (CLS)', fix: 'Use Astro <Image>/<Picture> from astro:assets, or set intrinsic width="W" height="H" attributes (CSS may still scale it with width:100%; height:auto).', detail: name });
     if (src && !src.startsWith('data:') && !/\.(webp|avif|svg)$/i.test(src.split('?')[0])) report.warning({ ...where, key: src, rule: 'img-format', law: LAW8, message: `${name}: raster image is not WebP/AVIF (SL-8). Convert content images with Astro <Image format="webp">; small alpha logos or favicons may need an explicit SL-8 exemption` });
-    const lazy = (img.a.loading ?? '').toLowerCase() === 'lazy' || (img.a.fetchpriority ?? '').toLowerCase() === 'high';
-    if (!lazy) report.warning({ ...where, key: src, rule: 'img-lazy', law: LAW8, message: `${name}: neither loading="lazy" nor fetchpriority="high". SL-8 (amended 2026-11-21): below-the-fold images are lazy; the above-the-fold (LCP) image is eager with fetchpriority="high" and explicit dimensions, never lazy. ${platformGuide('optimize-image-priority')}` });
+    const isLazy = (img.a.loading ?? '').toLowerCase() === 'lazy';
+    const isHigh = (img.a.fetchpriority ?? '').toLowerCase() === 'high';
+    if (isLazy && isHigh) report.warning({ ...where, key: src, rule: 'img-lazy-priority', law: LAW8, message: `${name}: loading="lazy" together with fetchpriority="high" contradicts itself. A lazy image is not requested until layout reaches it, so it cannot be the high-priority LCP image. Make the LCP image loading="eager" fetchpriority="high", or drop fetchpriority from a below-the-fold image. ${platformGuide('optimize-image-priority')}` });
+    if (!isLazy && !isHigh) report.warning({ ...where, key: src, rule: 'img-lazy', law: LAW8, message: `${name}: neither loading="lazy" nor fetchpriority="high". SL-8 (amended 2026-11-21): below-the-fold images are lazy; the above-the-fold (LCP) image is eager with fetchpriority="high" and explicit dimensions, never lazy. ${platformGuide('optimize-image-priority')}` });
   }
   if (/<astro-island\b/i.test(html)) report.warning({ file: f, rule: 'framework-island', law: LAW8, message: 'hydrated framework island present; SL-8 allows islands only where needed' });
   return { metas, links };

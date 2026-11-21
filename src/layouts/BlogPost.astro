@@ -66,7 +66,7 @@ const blogSchema = {
 
     {image && (
       <div class="blog-post__hero-img">
-        <img src={image} alt={imageAlt ?? title} width="1200" height="675" loading="eager" />
+        <img src={image} alt={imageAlt ?? title} width="1200" height="675" loading="eager" fetchpriority="high" />
       </div>
     )}
 
