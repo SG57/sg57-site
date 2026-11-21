@@ -1,43 +1,71 @@
-# Astro Starter Kit: Minimal
+# sg57.dev
 
-```sh
-npm create astro@latest -- --template minimal
-```
+The public site for SG57 Labs: Clide, Siftr, Text Easy, Life OS, services and the blog.
+Astro 6, static output, no UI framework in the bundle, deployed to GitHub Pages at <https://sg57.dev>.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+The law of this repo is [CONSTITUTION.md](CONSTITUTION.md). It operates under the federal constitution in
+`../sg57-electron-app-dna/CONSTITUTION.md`; federal laws win. Read it before changing anything visible.
 
-## 🚀 Project Structure
+## Commands
 
-Inside of your Astro project, you'll see the following folders and files:
+Node `^22.22.2` or `^24.15` (the lint tooling needs it).
+
+| Command | What it does |
+|---|---|
+| `npm ci` | Install exactly what the lockfile says. |
+| `npm run dev` | Dev server on `localhost:4321`. |
+| `npm run build` | Build to `dist/`. |
+| `npm run preview` | Serve `dist/` the way the QA spine does. |
+| `npm run gates` | Build, then the static gates (below). |
+| `npm run qa` | Build, then the rendered QA spine (below). |
+| `npm run qa:run` | The spine without building. `-- --all` for every route, `-- --only clide/` for one. |
+| `npm run gates:all` | `gates` then `qa:run`. This must pass before UI work is called done. |
+| `npm run test:gates` | Unit tests for the gates and the spine. |
+
+## Gates
+
+`npm run gates` fails (exit 1) on a hard finding and prints what is wrong, the native fix, and the law.
+
+| Gate | Enforces |
+|---|---|
+| `gate:css` | Stylelint: a `:focus-visible` rule may not remove the outline without a forced-colors-safe replacement. |
+| `gate:scripts` | Every bundled `<script>` rebinds on `astro:page-load` (ClientRouter). |
+| `gate:html` | html-validate: one `<main>`, valid ids, named landmarks, WCAG-tagged rules. |
+| `gate:floors` | SL-7, SL-8, SL-10, SL-11 from the built site: SEO tags, image alt and size, font preloads, smooth scroll only when motion is allowed, `theme-color`. |
+| `gate:check` | `astro check` as a ratchet against `scripts/gates/check-baseline.json`; it may only shrink. |
+
+## QA spine
+
+`scripts/qa/spine.mjs` serves `dist/` with `astro preview` and drives a real browser (Playwright) over every route at
+375, 820 and 1440 px: no sideways overflow, no console errors, exactly one `<main>`, axe-core (WCAG 2.0/2.1/2.2 A and AA,
+serious and critical fail), the skip link, and 44 px touch targets (SL-9). On six pages it also emulates
+`forced-colors`, `prefers-reduced-motion: reduce` and both OS colour schemes. Screenshots go to `qa-out/` (gitignored).
+
+axe automates only a minority of WCAG 2.2 AA. A green run is not a claim of 2.2 conformance.
+
+Findings that existed before the spine are listed in `scripts/qa/baseline.json`. A new finding fails; a fixed one should be
+removed with `node scripts/qa/spine.mjs --all --update-baseline`. The file only ever shrinks.
+
+Browser: locally the spine uses the bundled Chromium, then falls back to installed Chrome or Edge
+(`QA_BROWSER_CHANNEL=chrome|msedge` forces one). CI installs it with `npx playwright install --with-deps chromium`.
+On Windows Git Bash write `--only clide/`, not `--only /clide/` (the shell rewrites a leading slash).
+
+## Deployment
+
+`.github/workflows/deploy.yml`. A pull request runs the `quality` job (gate self-tests, gates, spine). A push to `main`
+builds, runs `quality`, and deploys only when both pass. Dependabot (`.github/dependabot.yml`) proposes weekly,
+grouped, cooldown-delayed updates, and each one goes through the same job.
+
+## Layout
 
 ```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+src/pages        routes (one folder per product)
+src/components   shared, life-os, services, text-easy
+src/layouts      Base (shell, skip link, the one <main>), BlogPost
+src/styles       global.css (tokens, focus, motion)
+src/lib          scroll.ts, rehype plugins, life-os kit
+src/content      blog posts (markdown)
+scripts/gates    static gates      scripts/qa   rendered spine
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+AI agents: see [AGENTS.md](AGENTS.md).
