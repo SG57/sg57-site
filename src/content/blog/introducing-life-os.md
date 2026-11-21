@@ -32,7 +32,7 @@ AI chat used to answer and forget. The newest assistants remember you, can check
 
 ## The whole stack
 
-![The whole stack: you, your departments, Life OS, an AI bot, an AI agent, an AI model](/images/life-os/stack.svg)
+<img src="/images/life-os/stack.svg" alt="The whole stack: you, your departments, Life OS, an AI bot, an AI agent, an AI model" width="1200" height="675" loading="lazy" decoding="async">
 
 | Layer | What it is | Who brings it |
 |---|---|---|
@@ -47,7 +47,7 @@ That is why Life OS costs nothing. It is the one layer nobody ships, and it is t
 
 ## Your life as a company
 
-![You are the CEO. Your assistant is chief of staff. Below them, the departments.](/images/life-os/company.svg)
+<img src="/images/life-os/company.svg" alt="You are the CEO. Your assistant is chief of staff. Below them, the departments." width="920" height="420" loading="lazy" decoding="async">
 
 Companies solved this long ago. They have departments. Someone notices, someone plans, someone does, and the CEO reads a one-page summary. Life OS gives your life the same shape. You are the CEO. Your assistant is the chief of staff. Every recurring chore of adult life is a department with goals, deadlines, a watch list, and a plan. Departments share what they know: a vet bill shows up in Pets and in Money; a job change touches Work, Insurance, Taxes, and Retirement in the right order.
 
@@ -62,7 +62,7 @@ Nothing in that Brief happened without you. It drafted the text; you sent it. It
 
 ## A department for every part of adult life
 
-![Most departments sleep until life wakes them: Work at a first job, Us when moving in together, Kids when a child arrives, Caregiving, Retirement, Later life, After a loss](/images/life-os/lifecycle.svg)
+<img src="/images/life-os/lifecycle.svg" alt="Most departments sleep until life wakes them: Work at a first job, Us when moving in together, Kids when a child arrives, Caregiving, Retirement, Later life, After a loss" width="1200" height="675" loading="lazy" decoding="async">
 
 There are 34 departments. Setup builds every one your life touches, after one yes, and each asks its five quick questions when you open it. Nine wake when you ask or when the short life map you give at setup points to them. Sixteen sleep until life wakes them, so a sleeping department costs you nothing. One more part, Oversight, is always on: once a month it checks how every department is running, proposes which to wake or sleep, fixes one that misbehaves, and never wakes anything without your yes.
 
