@@ -1,0 +1,2 @@
+# Gate fixtures are byte-exact test inputs; mutation anchors in selftest.mjs assume LF.
+scripts/gates/fixtures/** text eol=lf

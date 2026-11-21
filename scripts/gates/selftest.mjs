@@ -30,7 +30,8 @@ function mutated(fixtureDir, edits) {
   cpSync(fixtureDir, dir, { recursive: true });
   for (const [file, from, to] of edits) {
     const p = join(dir, file);
-    const before = readFileSync(p, 'utf8');
+    // fixtures are CRLF in a Windows working tree (autocrlf); the anchors are written with LF
+    const before = readFileSync(p, 'utf8').replaceAll(String.fromCharCode(13, 10), '\n');
     assert.ok(before.includes(from), `mutation anchor not found in ${file}: ${from}`);
     writeFileSync(p, before.replace(from, to));
   }
