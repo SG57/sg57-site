@@ -40,6 +40,18 @@ Commands and layout: [README.md](README.md).
 - No unpinned CDN imports or remote scripts: self-host or exact-pin with integrity. Not enforced; review.
 - Components in variable-width containers use `@container`, not viewport media queries (SL-9). Review.
 
+## Platform guidance
+
+Before writing or changing browser HTML, CSS or client JS, invoke `/platform-currency` (if it is not installed, say so in
+the hand-off) and end the verification statement with its `Platform guides:` line. It supplies patterns; this repo's
+constitution, laws and gates always win ("Repo rule X overrides guide Y"). Overrides for this site: dark only, so
+`color-scheme: dark` per SL-11, never the guides' `light dark` (the skill's own text says `only dark`; SL-11 is the law and
+changing it is an amendment); `ClientRouter` keeps one document, so bind on `astro:page-load`, never `DOMContentLoaded`;
+no cross-document view transitions (the router and `view-transition-name` do the work; no `@view-transition` rule exists);
+full-height sections are `min-height: 100vh` then `100svh` (SL-3). SL-8 mandates lazy images and writes no LCP
+exception, while the pack guide `optimize-image-priority` says never to lazy-load the LCP image and the `img-lazy` warning
+tolerates `fetchpriority="high"`: do not settle that yourself, ask the owner (an amendment).
+
 ## Rules of the repo
 
 - Surgical changes: touch what the task needs. No drive-by renames, reformatting or tidying.
