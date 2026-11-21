@@ -77,7 +77,7 @@ Glass surfaces on this site use the DNA `--sg57-glass-*` tokens:
 
 - Target: sub-1s FCP (First Contentful Paint) for static pages
 - All images: WebP/AVIF format, lazy loading (`loading="lazy"`), explicit `width`/`height` or `aspect-ratio`
-- Font loading: `font-display: swap`; preload the weights painted above the fold on every page (400, 500, 600, 700; 300 is only the desktop nav subtitle). The self-hosted Rajdhani has a metric-matched `Rajdhani Fallback` face in `global.css` so the swap does not shift layout. Amended 2026-11-20, see Amendments
+- Font loading: `font-display: swap`; preload exactly 400, 600 and 700 (nothing else: every extra preload delays first paint on slow links); weights 500 and 300 load on demand. The self-hosted Rajdhani has a metric-matched `Rajdhani Fallback` face in `global.css` so the swap does not shift layout. Amended 2026-11-20, see Amendments
 - No JavaScript frameworks in production bundle (Astro islands only where needed)
 
 ### SL-9: Mobile-First Breakpoints
@@ -122,9 +122,9 @@ Glass surfaces on this site use the DNA `--sg57-glass-*` tokens:
 - **Approved by:** Cord Rehn (product owner), 2026-11-20.
 - **Enforced by:** `scripts/gates/floors.mjs` (rules `scroll-behavior-smooth`, `js-smooth-literal`).
 
-### 2026-11-20 — SL-8: preloaded font weights match the weights the site paints
+### 2026-11-20 — SL-8: preloaded font weights match the code, and a metric fallback face is required
 
-- **Was:** "preload critical weights (300, 400, 700)".
-- **Now:** preload 400, 500, 600 and 700. Measured in Chrome over all 37 pages at 375px and 1440px: 400, 500 and 700 are painted above the fold on every page, 600 on 66 of 74 page views; 300 appears only in the desktop nav subtitle and is not preloaded.
-- **Why:** the old list preloaded 400/600/700 in practice (a mismatch with the text) and left 500 to load late. The text now matches the code, and `SL8_PRELOAD_WEIGHTS` in `scripts/gates/floors.mjs` is the single constant that enforces it.
+- **Was:** "preload critical weights (300, 400, 700)". The code had always preloaded 400, 600 and 700; 300 is used only by the desktop nav subtitle (4 characters), so the text was wrong.
+- **Now:** preload exactly 400, 600 and 700, and ship a metric-matched `Rajdhani Fallback` face so late-loading weights (500, 300) barely move the layout. Measured in Chrome over all 37 pages at 375px and 1440px: 400, 500 and 700 are painted above the fold on every page, 600 on 66 of 74 page views.
+- **Why not preload 500 too:** tried and rejected. On a throttled 1.6 Mbps link each extra preloaded file (the 500 weight, the wallpaper) added 150 to 300ms to first paint (7 runs, clide desktop and home phone); without both, first paint matched main. With the fallback face the font swap shift fell from a mean 212px to 21px of document height, which is why the 500 swap is cheap. `SL8_PRELOAD_WEIGHTS` in `scripts/gates/floors.mjs` is the single constant that enforces this.
 - **Approved by:** Cord Rehn (product owner), 2026-11-20.

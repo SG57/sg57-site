@@ -100,21 +100,15 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     ))}
 
-    <!-- Preload fonts: the weights painted above the fold on every page (400 body, 500 labels,
-         600 headings/buttons, 700 display; SL-8). 300 is only the desktop nav subtitle: not preloaded. -->
+    <!-- Preload fonts (SL-8): 400 body, 600 headings/buttons, 700 display. Weights 500 and 300 load on demand;
+         the metric-matched Rajdhani Fallback face keeps that swap small. More preloads were measured and
+         rejected: each extra preloaded file (the 500 weight, the wallpaper image) added 150 to 300ms to
+         first paint on a 1.6 Mbps link (7 runs, clide desktop and home phone), because it shares bandwidth
+         with the render-blocking CSS. The wallpaper is not preloaded either: it lands earlier when it is,
+         but first paint is the metric this site budgets (SL-8), and Chrome never reported the wallpaper as LCP. -->
     <link rel="preload" href="/fonts/rajdhani-v17-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/rajdhani-v17-latin-500.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/rajdhani-v17-latin-600.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/rajdhani-v17-latin-700.woff2" as="font" type="font/woff2" crossorigin />
-
-    <!-- Wallpaper: the fixed background layer on every page. Preloaded so the request starts with the HTML
-         (about 200ms) instead of after the stylesheet is parsed (about 1000ms on a throttled link).
-         Deliberately NOT fetchpriority="high": Chrome never counts this image as the LCP element (about
-         0.05 bits per pixel, under its threshold), and at high priority it competes with the render-blocking
-         CSS and the fonts and delays first paint. One rendition on purpose: with background-size: cover a
-         portrait phone is height-bound (3x DPR needs ~2700px tall), so a smaller width-based variant would
-         visibly soften. The URL must match the .site-wallpaper rule byte for byte. -->
-    <link rel="preload" as="image" href="/images/hero-bg-2x.webp" type="image/webp" />
 
     <!-- Client-side routing with View Transitions -->
     <ClientRouter />

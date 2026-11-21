@@ -131,7 +131,7 @@ describe('gate:floors', () => {
     'img-alt': [[H, 'alt="A thing > another" ', '']],
     'img-size': [[H, ' width="10" height="10"', '']],
     'font-display': [[C, 'font-weight:400;font-display:swap', 'font-weight:400']],
-    'font-preload-weights': [[H, '<link rel="preload" href="/fonts/f-500.woff2" as="font" type="font/woff2" crossorigin>', '']],
+    'font-preload-weights': [[H, '<link rel="preload" href="/fonts/f-600.woff2" as="font" type="font/woff2" crossorigin>', '']],
     'font-preload-weights ': [[H, '<link rel="preload" href="/fonts/f-700.woff2" as="font" type="font/woff2" crossorigin>', '<link rel="preload" href="/fonts/f-700.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/fonts/f-300.woff2" as="font" type="font/woff2" crossorigin>']],
     'font-display ': [[C, '@font-face{font-family:"F Fallback";src:local("Arial");size-adjust:91%}', '@font-face{font-family:"F Fallback";src:url(/fonts/fb.woff2) format("woff2");size-adjust:91%}']],
     'theme-color': [[H, '<meta name="theme-color" content="#0a0c10">', '<meta name="theme-color" content="#0f0f1a">']],

@@ -25,7 +25,7 @@ import { existsSync } from 'node:fs';
 import { join, basename } from 'node:path';
 
 /** SL-8 names these weights. Single source: change here when the law is amended. */
-export const SL8_PRELOAD_WEIGHTS = [400, 500, 600, 700];
+export const SL8_PRELOAD_WEIGHTS = [400, 600, 700];
 
 const TAG = (name) => new RegExp(`<${name}\\b(?:[^>"']|"[^"]*"|'[^']*')*>`, 'gi');
 const ATTR = /([^\s"'<>/=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'>]+)))?/g;
