@@ -86,6 +86,7 @@ Glass surfaces on this site use the DNA `--sg57-glass-*` tokens:
 - `720px`: Stack feature grids, product page responsive adjustments
 - `900px`: Stack service cards, pricing grids
 - Touch targets: 44px minimum on all interactive elements
+- New components that live in variable-width containers (cards, panels, grids that reflow with their parent) respond to their container with `@container` queries (`container-type: inline-size`), not to the viewport. Container queries are Baseline widely available (2025-08-14). The existing viewport breakpoints above stay as they are and are not rewritten.
 
 ### SL-10: Animation Constraints
 
