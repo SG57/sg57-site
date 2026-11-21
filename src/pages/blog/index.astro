@@ -201,7 +201,8 @@ const blogListSchema = {
 
     allItems.forEach(function(item) { item.hidden = pageItems.indexOf(item) === -1; });
     emptyEl.hidden = visible.length > 0;
-    countEl.textContent = String(visible.length);
+    // only write when it changed: the count is a live region and must not announce on first render
+    if (countEl.textContent !== String(visible.length)) countEl.textContent = String(visible.length);
     if (totalPages > 1) {
       pagination.hidden = false;
       pageInfo.textContent = 'Page ' + currentPage + ' of ' + totalPages;
