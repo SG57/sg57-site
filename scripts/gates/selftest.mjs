@@ -254,6 +254,44 @@ describe('gate:floors', () => {
       assert.equal(withJs('prose.astro', "---\n---\n<p>Use 'smooth' scrolling wisely</p>").code, 0);
       assert.equal(withJs('script.astro', "<script>const b = 'smooth';</script>").code, 1);
     });
+    describe('wider scan surface (round two): other source types, shipped js/svg, inline attributes', () => {
+      const withFile = (where, name, text) => {
+        const dir = mutated(good, []);
+        writeFileSync(join(dir, where, name), text);
+        return gate('floors.mjs', args(dir));
+      };
+      const fails = {
+        'a .cjs file': ['src', 'x.cjs', "el.scrollTo({ behavior: 'smooth' });", /FAIL js-smooth-literal/],
+        'a .vue script': ['src', 'x.vue', "<template><p/></template><script>const b = 'smooth';</script>", /FAIL js-smooth-literal/],
+        'a .svelte script': ['src', 'x.svelte', "<script>const b = 'smooth';</script><p/>", /FAIL js-smooth-literal/],
+        'an .mdx script': ['src', 'x.mdx', "# t\n\n<script>const b = 'smooth';</script>", /FAIL js-smooth-literal/],
+        'a shipped dist .js': ['out/_astro', 'x.js', 'el.scrollTo({behavior:"smooth"})', /FAIL js-smooth-literal/],
+        'a script inside a dist .svg': ['out', 'x.svg', '<svg xmlns="http://www.w3.org/2000/svg"><script>el.scrollTo({behavior:"smooth"})</script></svg>', /FAIL js-smooth-literal/],
+        'an inline onclick (double quotes)': ['src', 'e.astro', "---\n---\n<button onclick=\"el.scrollTo({ behavior: 'smooth' })\">go</button>", /FAIL js-smooth-literal/],
+        'an inline onclick (single quotes)': ['src', 'e.astro', "---\n---\n<button onclick='el.scrollTo({ behavior: \"smooth\" })'>go</button>", /FAIL js-smooth-literal/],
+        'an inline onfocus writing scroll-behavior': ['src', 'e.astro', '---\n---\n<a href="#x" onfocus="document.body.style.scrollBehavior = v">x</a>', /FAIL js-scroll-behavior-set/],
+        'a quoted style attribute in an .astro template': ['src', 's.astro', '---\n---\n<div style="scroll-behavior: smooth">x</div>', /FAIL scroll-behavior-smooth/],
+        'an unquoted style attribute in an .astro template': ['src', 's.astro', '---\n---\n<div style=scroll-behavior:smooth>x</div>', /FAIL scroll-behavior-smooth/],
+        'a style attribute with a var() in a .vue template': ['src', 's.vue', '<template><div style="scroll-behavior: var(--x)">x</div></template>', /FAIL scroll-behavior-smooth/],
+        'an unquoted style attribute in built html': ['out', 'u.html', '<!doctype html><title>u</title><main style=scroll-behavior:smooth></main>', /FAIL scroll-behavior-smooth/],
+        'a style attribute in a dist .svg': ['out', 'x.svg', '<svg xmlns="http://www.w3.org/2000/svg"><g style="scroll-behavior:smooth"/></svg>', /FAIL scroll-behavior-smooth/],
+        'a <style> block in a dist .svg': ['out', 'x.svg', '<svg xmlns="http://www.w3.org/2000/svg"><style>svg{scroll-behavior:smooth}</style></svg>', /FAIL scroll-behavior-smooth/],
+      };
+      for (const [name, [where, file, text, want]] of Object.entries(fails)) {
+        it(`fails: ${name}`, () => {
+          const r = withFile(where, file, text);
+          assert.equal(r.code, 1, r.out);
+          assert.match(r.out, want);
+        });
+      }
+      const passes = {
+        'a dist .js that checks matchMedia': ['out/_astro', 'x.js', 'el.scrollTo({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})'],
+        'an inline onclick that computes the behaviour': ['src', 'e.astro', "---\n---\n<button onclick=\"el.scrollTo({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })\">go</button>"],
+        'a style expression in an .astro template (script, not an attribute string)': ['src', 'e.astro', '---\nconst s = "auto";\n---\n<div style={`scroll-behavior:${s}`}>x</div>'],
+        'a style attribute that cannot animate': ['src', 's.astro', '---\n---\n<div style="scroll-behavior: auto">x</div>'],
+      };
+      for (const [name, [where, file, text]] of Object.entries(passes)) it(`accepts: ${name}`, () => assert.equal(withFile(where, file, text).code, 0, name));
+    });
     it('css accepts a no-preference query joined with and, any case, minified', () => {
       assert.equal(css('@media (prefers-reduced-motion:no-preference)', '@MEDIA screen and (PREFERS-REDUCED-MOTION:no-preference) and (min-width:1px)').code, 0);
       assert.equal(css('@media (prefers-reduced-motion:no-preference)', '@media(prefers-reduced-motion:no-preference)').code, 0);

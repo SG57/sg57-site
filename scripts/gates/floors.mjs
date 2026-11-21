@@ -179,9 +179,17 @@ export function runFloorsGate({ dist, src }) {
       if (unsafe(d) && !inNoPreference(d.stack)) smoothHits.push({ file, selector: d.stack[d.stack.length - 1], value: d.value });
     }
   }
-  for (const { file, html } of htmls) {
-    for (const m of html.matchAll(/\sstyle\s*=\s*(?:"([^"]*)"|'([^']*)')/gi)) {
-      for (const d of scanDeclarations(`x{${m[1] ?? m[2]}}`)) {
+  // built svg: <style> blocks like a stylesheet, style attributes like html (quoted or unquoted)
+  const svgs = walk(dist, (p) => p.endsWith('.svg')).map((file) => ({ file, html: read(file) }));
+  for (const { file, html } of svgs) {
+    for (const css of styleBlocks(html)) {
+      for (const d of scanDeclarations(css)) if (unsafe(d) && !inNoPreference(d.stack)) smoothHits.push({ file, selector: d.stack[d.stack.length - 1], value: d.value });
+    }
+  }
+  const srcTemplates = walk(src, (p) => /\.(astro|vue|svelte|mdx)$/.test(p)).map((file) => ({ file, html: read(file) }));
+  for (const { file, html } of [...htmls, ...svgs, ...srcTemplates]) {
+    for (const { value } of attrValues(html, 'style')) {
+      for (const d of scanDeclarations(`x{${value}}`)) {
         if (unsafe(d)) smoothHits.push({ file, selector: 'style attribute', value: d.value });
       }
     }
@@ -197,12 +205,16 @@ export function runFloorsGate({ dist, src }) {
     });
   }
 
-  // ---- JS floor (a lexical heuristic, not a data-flow proof): the string literal 'smooth' may appear in src JS/TS and
-  // in .astro frontmatter and <script> bodies only inside a block that consults matchMedia(reduce), or as the else
+  // ---- JS floor (a lexical heuristic, not a data-flow proof): the string literal 'smooth' may appear in src JS/TS (.cjs too),
+  // in the built dist .js, and in <script> bodies, inline on* attributes and .astro frontmatter of .astro/.vue/.svelte/.mdx/.svg
+  // files, only inside a block that consults matchMedia(reduce), or as the else
   // branch of `? 'auto' :` right after such a check. Any other occurrence (a variable, a quoted key, a helper return)
   // fails, as does writing scroll-behavior through a style string or `.scrollBehavior =`. Concatenation
   // ('smo' + 'oth') and values built at run time are NOT detected; the rendered spine is the backstop. ----
-  const jsFiles = walk(src, (p) => /\.(astro|ts|js|mjs|mts|tsx|jsx)$/.test(p));
+  const jsFiles = [
+    ...walk(src, (p) => /\.(astro|ts|js|mjs|cjs|mts|tsx|jsx|vue|svelte|mdx)$/.test(p)),
+    ...walk(dist, (p) => /\.(js|svg)$/.test(p)), // what actually ships: bundled scripts and inline svg scripts
+  ];
   for (const file of jsFiles) {
     const text = read(file);
     const code = jsRegions(file, text);
@@ -230,12 +242,31 @@ export function runFloorsGate({ dist, src }) {
   return report;
 }
 
-/** Same-length view of the JS a file can run, with comments blanked: the whole file for scripts, frontmatter + <script> bodies for .astro. */
+/**
+ * Values of the attributes whose name matches `names` (a regex source): quoted or unquoted, with the offset of the value.
+ * A `{expression}` value (Astro/JSX) is skipped: it is script, not an attribute string.
+ */
+function attrValues(text, names) {
+  const re = new RegExp(String.raw`\s(?:${names})\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'>{][^\s"'>]*))`, 'gi');
+  return [...text.matchAll(re)].map((m) => {
+    const value = m[1] ?? m[2] ?? m[3] ?? '';
+    return { value, index: m.index + m[0].length - value.length - (m[3] === undefined ? 1 : 0) };
+  });
+}
+
+/** Files whose JS lives in <script> bodies and inline event attributes rather than in the whole file. */
+const MARKUP_FILE = /\.(astro|vue|svelte|mdx|svg)$/;
+
+/**
+ * Same-length view of the JS a file can run, with comments blanked: the whole file for scripts; for markup files
+ * (.astro, .vue, .svelte, .mdx, .svg) the <script> bodies and inline on* attributes, plus the frontmatter of .astro.
+ */
 function jsRegions(file, text) {
-  if (!file.endsWith('.astro')) return maskJsComments(text);
+  if (!MARKUP_FILE.test(file)) return maskJsComments(text);
   const keep = [];
-  const front = /^---\r?\n[\s\S]*?\r?\n---/.exec(text);
+  const front = file.endsWith('.astro') ? /^---\r?\n[\s\S]*?\r?\n---/.exec(text) : null;
   if (front) keep.push([0, front[0].length]);
+  for (const { value, index } of attrValues(text, 'on[a-z]+')) keep.push([index, index + value.length]); // onclick="..."
   for (const m of text.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/gi)) keep.push([m.index + m[0].indexOf(m[1]), m.index + m[0].indexOf(m[1]) + m[1].length]);
   let out = text.replace(/[^\n]/g, ' ');
   for (const [a, b] of keep) out = out.slice(0, a) + text.slice(a, b) + out.slice(b);
