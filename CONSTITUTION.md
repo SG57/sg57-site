@@ -128,3 +128,11 @@ Glass surfaces on this site use the DNA `--sg57-glass-*` tokens:
 - **Now:** preload exactly 400, 600 and 700, and ship a metric-matched `Rajdhani Fallback` face so late-loading weights (500, 300) barely move the layout. Measured in Chrome over all 37 pages at 375px and 1440px: 400, 500 and 700 are painted above the fold on every page, 600 on 66 of 74 page views.
 - **Why not preload 500 too:** tried and rejected. On a throttled 1.6 Mbps link each extra preloaded file (the 500 weight, the wallpaper) added 150 to 300ms to first paint (7 runs, clide desktop and home phone); without both, first paint matched main. With the fallback face the font swap shift fell from a mean 212px to 21px of document height, which is why the 500 swap is cheap. `SL8_PRELOAD_WEIGHTS` in `scripts/gates/floors.mjs` is the single constant that enforces this.
 - **Approved by:** Cord Rehn (product owner), 2026-11-20.
+
+### 2026-11-20 — SL-9: the 44px touch-target floor is enforced in a browser; inline text links are exempt
+
+- **Was:** "Touch targets: 44px minimum on all interactive elements", checked by nothing. Every page shipped a header whose links and logo were 28.8px and 32px tall.
+- **Now:** unchanged for every interactive element (links, buttons, inputs, summaries, tab stops), measured as computed layout at 375, 820 and 1440px. Exempt, each for a stated reason: the skip link (clipped until focused, sized in its focused state); an inline text link inside running text (the WCAG 2.5.8 inline exception: its target is the line box, and padding it to 44px would break the paragraph; a link that is the whole paragraph, or a row or list of bare links, is not exempt); a control whose associated label is at least 44x44; a visually hidden native input driven by a larger styled label. Federal Law 17 (B) already sets the 44px floor for icon-only and text buttons; this adds no relaxation of it.
+- **Why:** an unenforced floor decays. Measured on the built site, the header was the largest single violation (about 230 of 350 findings) and is now fixed; the rest are recorded in `scripts/qa/baseline.json` and may only shrink.
+- **Approved by:** Cord Rehn (product owner), 2026-11-20 (standing approval for recommended amendments).
+- **Enforced by:** `scripts/qa/spine.mjs` (rule `target-size`), run by `npm run gates:all` and the `quality` CI job.
