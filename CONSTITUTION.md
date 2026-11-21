@@ -76,7 +76,7 @@ Glass surfaces on this site use the DNA `--sg57-glass-*` tokens:
 ### SL-8: Performance Budgets
 
 - Target: sub-1s FCP (First Contentful Paint) for static pages
-- All images: WebP/AVIF format, lazy loading (`loading="lazy"`), explicit `width`/`height` or `aspect-ratio`
+- All images: WebP/AVIF format (SVG is vector and allowed), explicit `width`/`height` or `aspect-ratio`. Below the fold: lazy loading (`loading="lazy"`). The above-the-fold (LCP) image is never lazy: `loading="eager"` with `fetchpriority="high"` and explicit dimensions. Amended 2026-11-21, see Amendments
 - Font loading: `font-display: swap`; preload exactly 400, 600 and 700 (nothing else: every extra preload delays first paint on slow links); weights 500 and 300 load on demand. The self-hosted Rajdhani has a metric-matched `Rajdhani Fallback` face in `global.css` so the swap does not shift layout. Amended 2026-11-20, see Amendments
 - No JavaScript frameworks in production bundle (Astro islands only where needed)
 
@@ -119,8 +119,8 @@ Glass surfaces on this site use the DNA `--sg57-glass-*` tokens:
 - **Was:** "All programmatic scrolling MUST be smooth ... No instant jumps." (unconditional)
 - **Now:** smooth only when `prefers-reduced-motion: no-preference`; instant under `reduce`.
 - **Why:** Federal Law 9 ("`prefers-reduced-motion: reduce` disables all animation") and the first bullet of SL-10 already required reduced motion to be honoured, and smooth scrolling is animation. An unconditional mandate relaxed a Federal law, which State law may not do (Federal Supremacy, Additivity Only). This amendment restores conformance; it is not a divergence.
-- **Approved by:** Cord Rehn (product owner), 2026-11-20.
-- **Enforced by:** `scripts/gates/floors.mjs` (rules `scroll-behavior-smooth`, `js-smooth-literal`).
+- **Approved by:** Cord Rehn (product owner), 2026-11-20. Source: his chat line of that date, "for SL-10 smooth scroll amendment yes of course, any and all amendments you recommend i approve."
+- **Enforced by:** `scripts/gates/floors.mjs` (rules `scroll-behavior-smooth`, `js-smooth-literal`, `js-scroll-behavior-set`; lexical heuristics, the rendered spine is the backstop).
 
 ### 2026-11-20 — SL-8: preloaded font weights match the code, and a metric fallback face is required
 
@@ -134,5 +134,13 @@ Glass surfaces on this site use the DNA `--sg57-glass-*` tokens:
 - **Was:** "Touch targets: 44px minimum on all interactive elements", checked by nothing. Every page shipped a header whose links and logo were 28.8px and 32px tall.
 - **Now:** unchanged for every interactive element (links, buttons, inputs, summaries, tab stops), measured as computed layout at 375, 820 and 1440px. Exempt, each for a stated reason: the skip link (clipped until focused, sized in its focused state); an inline text link inside running text (the WCAG 2.5.8 inline exception: its target is the line box, and padding it to 44px would break the paragraph; a link that is the whole paragraph, or a row or list of bare links, is not exempt); a control whose associated label is at least 44x44; a visually hidden native input driven by a larger styled label. Federal Law 17 (B) already sets the 44px floor for icon-only and text buttons; this adds no relaxation of it.
 - **Why:** an unenforced floor decays. Measured on the built site, the header was the largest single violation (most of the 328 target-size findings on the first full run) and is now fixed; the rest are recorded in `scripts/qa/baseline.json` and may only shrink.
-- **Approved by:** Cord Rehn (product owner), 2026-11-20 (standing approval for recommended amendments).
+- **Approved by:** Cord Rehn (product owner), 2026-11-20. Source: his chat line of that date, "for SL-10 smooth scroll amendment yes of course, any and all amendments you recommend i approve."
 - **Enforced by:** `scripts/qa/spine.mjs` (rule `target-size`), run by `npm run gates:all` and the `quality` CI job.
+
+### 2026-11-21 — SL-8: the LCP image is eager with fetchpriority high; images below the fold stay lazy
+
+- **Was:** "All images: WebP/AVIF format, lazy loading (`loading="lazy"`), explicit `width`/`height` or `aspect-ratio`", with no exception for the image that paints first. The shipped hero image is eager, so the law and the site disagreed, and the platform-currency guide `optimize-image-priority` says never to lazy-load the LCP image.
+- **Now:** below-the-fold images are lazy; the above-the-fold (LCP) image is `loading="eager"` (never lazy) with `fetchpriority="high"` and explicit `width`/`height`. WebP/AVIF and explicit dimensions apply to every image as before.
+- **Why:** a lazy image is not requested until layout has placed it, so a lazy LCP image delays the largest paint; the sub-1s FCP target in this law is not served by it. Lazy loading stays right for everything the reader has to scroll to.
+- **Approved by:** Cord Rehn (product owner), 2026-11-20. Source: his chat line of that date, "for SL-10 smooth scroll amendment yes of course, any and all amendments you recommend i approve."
+- **Enforced by:** `scripts/gates/floors.mjs` (`img-size` fails an image without dimensions; `img-lazy` is a warning that accepts `loading="lazy"` or `fetchpriority="high"` and names the amended law). Whether an image is really above the fold needs layout and stays review.

@@ -5,7 +5,8 @@
 // Encoded from the text of CONSTITUTION.md (not from memory):
 //   SL-7  every page: <title>, <meta description>, <link rel=canonical>; Open Graph and Twitter Card tags; sitemap
 //         generated; every <img> has an alt attribute (alt="" for decorative).
-//   SL-8  images: WebP/AVIF (SVG is vector and allowed), explicit width/height or aspect-ratio, loading="lazy";
+//   SL-8  images: WebP/AVIF (SVG is vector and allowed), explicit width/height or aspect-ratio; lazy below
+//         the fold, the LCP image eager with fetchpriority="high" (amended 2026-11-21);
 //         fonts: font-display: swap on every face that loads a file, preload the critical weights
 //         (SL8_PRELOAD_WEIGHTS); no framework islands.
 //   SL-11 dark only: theme-color and the manifest colours equal the --sg57-void token (Federal Law 3).
@@ -72,7 +73,7 @@ function checkPage(file, html, report) {
     if (!sized) report.error({ ...where, key: src, rule: 'img-size', law: LAW8, what: 'an <img> has no explicit width and height (or inline aspect-ratio); the image causes layout shift (CLS)', fix: 'Use Astro <Image>/<Picture> from astro:assets, or set intrinsic width="W" height="H" attributes (CSS may still scale it with width:100%; height:auto).', detail: name });
     if (src && !src.startsWith('data:') && !/\.(webp|avif|svg)$/i.test(src.split('?')[0])) report.warning({ ...where, key: src, rule: 'img-format', law: LAW8, message: `${name}: raster image is not WebP/AVIF (SL-8). Convert content images with Astro <Image format="webp">; small alpha logos or favicons may need an explicit SL-8 exemption` });
     const lazy = (img.a.loading ?? '').toLowerCase() === 'lazy' || (img.a.fetchpriority ?? '').toLowerCase() === 'high';
-    if (!lazy) report.warning({ ...where, key: src, rule: 'img-lazy', law: LAW8, message: `${name}: no loading="lazy" (or fetchpriority="high" for the LCP image); SL-8 mandates lazy loading for below-the-fold images. ${platformGuide('optimize-image-priority')}` });
+    if (!lazy) report.warning({ ...where, key: src, rule: 'img-lazy', law: LAW8, message: `${name}: neither loading="lazy" nor fetchpriority="high". SL-8 (amended 2026-11-21): below-the-fold images are lazy; the above-the-fold (LCP) image is eager with fetchpriority="high" and explicit dimensions, never lazy. ${platformGuide('optimize-image-priority')}` });
   }
   if (/<astro-island\b/i.test(html)) report.warning({ file: f, rule: 'framework-island', law: LAW8, message: 'hydrated framework island present; SL-8 allows islands only where needed' });
   return { metas, links };
