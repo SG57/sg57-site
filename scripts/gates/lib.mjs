@@ -22,6 +22,12 @@ export function parseArgs(argv = process.argv.slice(2)) {
 /** True when the module is the process entry point (works for Windows drive paths). */
 export const isMain = (metaUrl) => !!process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === metaUrl;
 
+/**
+ * Pointer from a gate message to a guide in the platform-currency pack. Cite an id only where that guide really covers
+ * the rule (read the guide first); the repo's own rules always win over a guide.
+ */
+export const platformGuide = (id, note = '') => `platform-currency guide: ${id} (repo rules still win${note ? `; ${note}` : ''})`;
+
 export const posix = (p) => p.split(sep).join('/');
 export const rel = (p) => posix(relative(process.cwd(), p));
 

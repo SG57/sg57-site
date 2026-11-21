@@ -1,7 +1,7 @@
 // gate:html - html-validate over the built site. Hard rules in html-validate.config.mjs fail the gate.
 import { HtmlValidate } from 'html-validate/node';
 import { config, HARD_RULES } from './html-validate.config.mjs';
-import { Report, parseArgs, walk, rel, posix, finish, isMain } from './lib.mjs';
+import { Report, parseArgs, walk, rel, posix, finish, isMain, platformGuide } from './lib.mjs';
 
 export async function runHtmlGate({ dist }) {
   const report = new Report('html');
@@ -18,7 +18,7 @@ export async function runHtmlGate({ dist }) {
       for (const m of res.messages) {
         const hard = HARD_RULES[m.ruleId];
         const finding = { file: rel(file), line: m.line, rule: m.ruleId ?? 'parse-error', message: m.message, detail: m.message };
-        if (hard) report.error({ ...finding, law: hard.law, fix: hard.fix });
+        if (hard) report.error({ ...finding, law: hard.law, fix: hard.guide ? `${hard.fix} ${platformGuide(hard.guide)}` : hard.fix });
         else report.warning(finding);
       }
     }

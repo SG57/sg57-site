@@ -83,7 +83,7 @@ export function runPageLoadGate({ src }) {
       report.error({
         file: posix(rel(file)), line: lineOf(text, s.index), rule: 'bundled-script-without-page-load', law: LAW,
         what: 'a bundled <script> runs once per full page load; with ClientRouter it never re-runs after a client-side navigation, so its listeners are missing on every page reached by a link click',
-        fix: "Wrap the setup in a function and call it from document.addEventListener('astro:page-load', init) (it also fires on the first load). If the script only touches persisted chrome, add a comment `// gate:page-load-ok <reason>` inside it. Never use DOMContentLoaded.",
+        fix: "Wrap the setup in a function and call it from document.addEventListener('astro:page-load', init) (it also fires on the first load). If the script only touches persisted chrome, add a comment `// gate:page-load-ok <reason>` inside it. Never use DOMContentLoaded (platform-currency pack guides that show DOMContentLoaded do not apply here: the repo rule wins).",
         detail: 'no astro:page-load or astro:after-swap listener in this script or its relative imports',
       });
     }

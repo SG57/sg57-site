@@ -19,7 +19,7 @@
 //                      styles under emulated prefers-reduced-motion: reduce.
 // TODO(browser-spine): SL-8 sub-1s FCP and the real preload-versus-use of font weights need a browser trace.
 // TODO(browser-spine): SL-7 JSON-LD "when applicable" is a judgement call, not statically decidable.
-import { Report, parseArgs, walk, read, rel, posix, lineOf, finish, isMain } from './lib.mjs';
+import { Report, parseArgs, walk, read, rel, posix, lineOf, finish, isMain, platformGuide } from './lib.mjs';
 import { scanDeclarations, inNoPreference, styleBlocks } from './css-scan.mjs';
 import { existsSync } from 'node:fs';
 import { join, basename } from 'node:path';
@@ -64,12 +64,12 @@ function checkPage(file, html, report) {
     const where = { file: f, line: lineOf(html, img.index) };
     const src = img.a.src ?? '';
     const name = src.split('?')[0].split('/').pop() || '(inline)';
-    if (!('alt' in img.a)) report.error({ ...where, rule: 'img-alt', law: LAW7, what: 'an <img> has no alt attribute', fix: 'Add alt="meaningful description", or alt="" when the image is purely decorative.', detail: name });
+    if (!('alt' in img.a)) report.error({ ...where, rule: 'img-alt', law: LAW7, what: 'an <img> has no alt attribute', fix: `Add alt="meaningful description", or alt="" when the image is purely decorative. ${platformGuide('accessibility')}`, detail: name });
     const sized = ('width' in img.a && 'height' in img.a) || /aspect-ratio\s*:/i.test(img.a.style ?? '');
     if (!sized) report.error({ ...where, key: src, rule: 'img-size', law: LAW8, what: 'an <img> has no explicit width and height (or inline aspect-ratio); the image causes layout shift (CLS)', fix: 'Use Astro <Image>/<Picture> from astro:assets, or set intrinsic width="W" height="H" attributes (CSS may still scale it with width:100%; height:auto).', detail: name });
     if (src && !src.startsWith('data:') && !/\.(webp|avif|svg)$/i.test(src.split('?')[0])) report.warning({ ...where, key: src, rule: 'img-format', law: LAW8, message: `${name}: raster image is not WebP/AVIF (SL-8). Convert content images with Astro <Image format="webp">; small alpha logos or favicons may need an explicit SL-8 exemption` });
     const lazy = (img.a.loading ?? '').toLowerCase() === 'lazy' || (img.a.fetchpriority ?? '').toLowerCase() === 'high';
-    if (!lazy) report.warning({ ...where, key: src, rule: 'img-lazy', law: LAW8, message: `${name}: no loading="lazy" (or fetchpriority="high" for the LCP image); SL-8 mandates lazy loading for below-the-fold images` });
+    if (!lazy) report.warning({ ...where, key: src, rule: 'img-lazy', law: LAW8, message: `${name}: no loading="lazy" (or fetchpriority="high" for the LCP image); SL-8 mandates lazy loading for below-the-fold images. ${platformGuide('optimize-image-priority')}` });
   }
   if (/<astro-island\b/i.test(html)) report.warning({ file: f, rule: 'framework-island', law: LAW8, message: 'hydrated framework island present; SL-8 allows islands only where needed' });
   return { metas, links };

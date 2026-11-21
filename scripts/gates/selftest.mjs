@@ -5,7 +5,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { cpSync, mkdtempSync, readFileSync, writeFileSync, rmSync } from 'node:fs';
+import { cpSync, mkdtempSync, readFileSync, readdirSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -230,5 +230,77 @@ describe('scanner units', () => {
     const bad = "const r = matchMedia('(prefers-reduced-motion: reduce)'); function g(){ el.scrollTo({behavior:'smooth'}); }";
     assert.equal(insideReduceHelper(ok, ok.indexOf('behavior')), true);
     assert.equal(insideReduceHelper(bad, bad.indexOf('behavior')), false);
+  });
+});
+
+// Platform-currency pointers. A gate message may point at a guide of the platform-currency pack, never replace the
+// repo's own rule: every case below still names the rule id, and the pointer is asserted verbatim so a message edit
+// cannot drop it unnoticed. PACK_GUIDE_IDS was read from gen/guides.json of the pack at version 1.0.1 (2026-11-21);
+// the list catches a typo or an invented id in a message, it does not prove the pack still carries the guide.
+const PACK_GUIDE_IDS = new Set(['accessibility', 'optimize-image-priority']);
+const pointer = (id) => `platform-currency guide: ${id} (repo rules still win)`;
+
+describe('platform-currency pointers', () => {
+  it('every guide id cited by a gate is a verified pack id', () => {
+    const cited = [];
+    for (const f of readdirSync(here).filter((n) => /\.mjs$/.test(n) && !/selftest|\.test\./.test(n))) {
+      const text = readFileSync(join(here, f), 'utf8');
+      for (const m of text.matchAll(/platformGuide\(\s*'([^']+)'/g)) cited.push([f, m[1]]);
+      for (const m of text.matchAll(/\bguide:\s*'([^']+)'/g)) cited.push([f, m[1]]);
+    }
+    assert.ok(cited.length >= 8, `expected the gates to cite guides, found ${cited.length}`);
+    for (const [f, id] of cited) assert.ok(PACK_GUIDE_IDS.has(id), `${f} cites an unverified guide id: ${id}`);
+  });
+
+  const html = fx('html', 'good');
+  const htmlCases = {
+    'no-multiple-main': ['<h1>Heading</h1>', '<h1>Heading</h1><main>nested</main>'],
+    'hidden-focusable': ['<span>decor</span>', '<a href="/q">focusable</a>'],
+    'wcag/h30': ['<span class="sr-only">Read more</span>', ''],
+    'wcag/h37': ['alt="" width', 'width'],
+    'wcag/h63': ['<p>Text</p>', '<table><thead><tr><th>A</th><td>B</td></tr></thead><tbody><tr><td>1</td><td>2</td></tr></tbody></table>'],
+    'wcag/h71': ['<p>Text</p>', '<fieldset><input type="checkbox" aria-label="x"></fieldset>'],
+  };
+  for (const [rule, [from, to]] of Object.entries(htmlCases)) {
+    it(`gate:html ${rule} points at the accessibility guide`, () => {
+      const r = gate('html.mjs', ['--dist', mutated(html, [['index.html', from, to]])]);
+      assert.equal(r.code, 1, r.out);
+      assert.match(r.out, new RegExp(`FAIL ${rule.replace('/', '\/')}`));
+      assert.ok(r.out.includes(pointer('accessibility')), r.out);
+    });
+  }
+  it('gate:html leaves a rule with no matching guide without a pointer (valid-id)', () => {
+    const r = gate('html.mjs', ['--dist', mutated(html, [['index.html', 'id="intro"', 'id="1-intro"']])]);
+    assert.equal(r.code, 1, r.out);
+    assert.match(r.out, /FAIL valid-id/);
+    assert.ok(!r.out.includes('platform-currency guide'), r.out);
+  });
+
+  it('gate:css focus-visible-outline points at the accessibility guide', () => {
+    const r = gate('css.mjs', ['--src', fx('css', 'bad', 'src')]);
+    assert.equal(r.code, 1, r.out);
+    assert.match(r.out, /FAIL focus-visible-outline/);
+    assert.ok(r.out.includes(pointer('accessibility')), r.out);
+  });
+
+  const floors = fx('floors', 'good');
+  const fargs = (dir) => ['--dist', join(dir, 'out'), '--src', join(dir, 'src')];
+  it('gate:floors img-alt points at the accessibility guide', () => {
+    const r = gate('floors.mjs', fargs(mutated(floors, [['out/index.html', 'alt="A thing > another" ', '']])));
+    assert.equal(r.code, 1, r.out);
+    assert.match(r.out, /FAIL img-alt /);
+    assert.ok(r.out.includes(pointer('accessibility')), r.out);
+  });
+  it('gate:floors img-lazy (a warning) points at the image priority guide and does not fail the gate', () => {
+    const r = gate('floors.mjs', fargs(mutated(floors, [['out/index.html', ' loading="lazy"', '']])));
+    assert.equal(r.code, 0, r.out);
+    assert.match(r.out, /warn img-lazy/);
+    assert.ok(r.out.includes(pointer('optimize-image-priority')), r.out);
+  });
+  it('gate:scripts keeps the DOMContentLoaded rule and says pack guides do not override it', () => {
+    const r = gate('page-load.mjs', ['--src', fx('scripts', 'bad', 'src')]);
+    assert.equal(r.code, 1, r.out);
+    assert.match(r.out, /FAIL bundled-script-without-page-load x2/);
+    assert.match(r.out, /pack guides that show DOMContentLoaded do not apply here: the repo rule wins/);
   });
 });
