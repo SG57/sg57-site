@@ -9,15 +9,19 @@
 //      pointer focus ring is dropped, the keyboard ring is untouched);
 //   2. the same stylesheet LATER, at top level, gives the same selector, or its :focus / :focus-visible form, a
 //      visible-style outline (a transparent colour counts: it is painted in a system colour in forced-colors mode);
-//   3. a LATER same-selector rule inside @media (forced-colors: active) sets a visible-style outline;
+//   3. a LATER same-selector rule inside @media (forced-colors: active) sets a visible-style outline. The at-rule must
+//      be exactly that query (optionally prefixed `screen and`): a `not`, an `or`, a comma list, an extra condition or an
+//      enclosing at-rule of any other kind disqualifies the ring, because the block then does not apply in the mode;
 //   4. the selector is listed in the plugin option `allow` ({ "<selector>": "<why it is safe>" }), reserved for
 //      elements that never take keyboard focus or whose ring comes from elsewhere. The runner (css.mjs) fails when an
 //      entry no longer matches a removal, so the list cannot rot.
 //
 // Scope, stated honestly: this is lexical. It reads the declarations in the stylesheet text; it cannot see an outline
-// set through a custom property resolved elsewhere, from JS, or from a cascade across files. Rules whose only state
-// pseudo-class is :hover or :active are not inspected. The rendered forced-colors check in scripts/qa/spine.mjs is the
-// backstop that proves a ring is actually painted.
+// set through a custom property resolved elsewhere, from JS, or from a cascade across files. Every rule that removes an
+// outline is judged, wherever it sits (including inside forced-colors blocks and :hover/:active rules). Known limits,
+// not chased: `all: unset`, escaped property names, `outline-style: inherit`, `calc(0px)` / `min(0px, ...)` widths,
+// var() chains, and rings inside @layer. The rendered forced-colors check in scripts/qa/spine.mjs is the backstop that
+// proves a ring is actually painted.
 import stylelint from 'stylelint';
 
 export const ruleName = 'sg57/focus-visible-outline-replacement';
@@ -91,13 +95,41 @@ function outlineState(rule) {
   return { removed, safe: style === 'visible' && !zero, transparent, important, removalDecl: removed ? removalDecl : null };
 }
 
-const inForcedColors = (node) => {
-  for (let p = node.parent; p; p = p.parent) {
-    if (p.type === 'atrule' && /forced-colors\s*:\s*active/i.test(p.params)) return true;
+/** Top-level whitespace-separated words and whole (...) groups of an at-rule prelude, lower-cased. */
+function preludeTokens(params) {
+  const out = [];
+  let depth = 0;
+  let cur = '';
+  for (const c of params.toLowerCase()) {
+    if (c === '(') depth++;
+    else if (c === ')') depth = Math.max(0, depth - 1);
+    if (/\s/.test(c) && depth === 0) { if (cur) out.push(cur); cur = ''; } else cur += c;
   }
-  return false;
+  if (cur) out.push(cur);
+  return out;
+}
+const FORCED_FEATURE = /^\(\s*forced-colors\s*:\s*active\s*\)$/;
+/**
+ * Is this at-rule exactly `@media (forced-colors: active)` (optionally prefixed `screen and`)? Anything else (a `not`,
+ * an `or`, a comma list, an extra condition) is not a guarantee that the block applies in forced-colors mode, so a ring
+ * inside it proves nothing.
+ */
+const exactForcedColors = (atrule) => {
+  if (atrule.name.toLowerCase() !== 'media') return false;
+  const t = preludeTokens(atrule.params);
+  if (t.length === 3 && t[0] === 'screen' && t[1] === 'and') return FORCED_FEATURE.test(t[2]);
+  return t.length === 1 && FORCED_FEATURE.test(t[0]);
 };
-const topLevel = (rule) => !rule.parent || rule.parent.type === 'root' || rule.parent.type === 'document';
+/** 'top' (no enclosing at-rule), 'forced' (every enclosing at-rule is exactly forced-colors: active), else 'other'. */
+const context = (node) => {
+  let seen = false;
+  for (let p = node.parent; p; p = p.parent) {
+    if (p.type !== 'atrule') continue;
+    if (!exactForcedColors(p)) return 'other';
+    seen = true;
+  }
+  return seen ? 'forced' : 'top';
+};
 const offsetOf = (node) => node.source?.start?.offset ?? 0;
 const NOT_FV = /:not\(\s*:focus-visible\s*\)/g;
 
@@ -122,12 +154,13 @@ const rule = (primary, secondary = {}) => (root, result) => {
     const st = outlineState(r);
     if (!st.safe) return;
     const entry = { at: offsetOf(r), important: st.important };
-    if (inForcedColors(r)) r.selectors.forEach((s) => bump(forced, norm(s), entry));
-    else if (topLevel(r)) r.selectors.forEach((s) => bump(ring, norm(s), entry));
+    const where = context(r);
+    if (where === 'forced') r.selectors.forEach((s) => bump(forced, norm(s), entry));
+    else if (where === 'top') r.selectors.forEach((s) => bump(ring, norm(s), entry));
   });
 
+  // a removal is judged wherever it sits, including inside @media (forced-colors: active), the mode this rule protects
   root.walkRules((r) => {
-    if (inForcedColors(r)) return;
     const st = outlineState(r);
     if (!st.removed) return;
     const at = offsetOf(r);
@@ -136,7 +169,6 @@ const rule = (primary, secondary = {}) => (root, result) => {
     const failing = [];
     for (const raw of r.selectors) {
       const s = norm(raw);
-      if (/:(?:hover|active)\b/.test(s) && !/:focus/.test(s)) continue;
       if (/:not\(\s*:focus-visible\s*\)$/.test(s) && !s.replace(NOT_FV, '').includes(':focus-visible')) continue;
       if (Object.hasOwn(allow, s)) { secondary.onAllowUsed?.(s); continue; }
       if (later(forced, s) || later(ring, s)) continue;
