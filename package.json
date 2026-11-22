@@ -23,9 +23,9 @@
     "test:gates": "node --test scripts/gates/selftest.mjs scripts/gates/focus-outline.test.mjs scripts/qa/spine.test.mjs"
   },
   "dependencies": {
-    "@astrojs/rss": "^4.0.16",
-    "@astrojs/sitemap": "^3.7.1",
-    "astro": "^6.0.5"
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.6",
+    "astro": "^7.4.7"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.12",
